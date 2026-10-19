@@ -515,6 +515,92 @@
   <data name="Admin_Msg_PhotoRemoved" xml:space="preserve"><value>Լուսանկարը ջնջվեց։</value></data>
   <data name="Admin_Val_Sku" xml:space="preserve"><value>Օգտագործեք միայն տառեր, թվեր և . _ - նշանները։</value></data>
   <data name="Admin_Nav_Admins" xml:space="preserve"><value>Ադմիններ</value></data>
+  <data name="Admin_Prod_Export" xml:space="preserve"><value>Արտահանել CSV</value></data>
+  <data name="Admin_Prod_Import" xml:space="preserve"><value>Ներմուծել CSV</value></data>
+  <data name="Admin_Bulk_Title" xml:space="preserve"><value>Փոխել շատ ապրանքներ միանգամից</value></data>
+  <data name="Admin_Bulk_Hint" xml:space="preserve"><value>Նշեք ապրանքները ցանկում, ընտրեք փոփոխությունը և նախ դիտեք նախադիտումը։ Մինչև չհաստատեք, ոչինչ չի պահպանվում։</value></data>
+  <data name="Admin_Bulk_Scope_Selected" xml:space="preserve"><value>Նշված ապրանքները</value></data>
+  <data name="Admin_Bulk_Scope_Filter" xml:space="preserve"><value>Ֆիլտրին համապատասխան բոլոր {0} ապրանքները (ոչ միայն այս էջը)</value></data>
+  <data name="Admin_Bulk_Action" xml:space="preserve"><value>Փոփոխություն</value></data>
+  <data name="Admin_Bulk_Value" xml:space="preserve"><value>Արժեք</value></data>
+  <data name="Admin_Bulk_Target" xml:space="preserve"><value>Կատեգորիա (տեղափոխելու համար)</value></data>
+  <data name="Admin_Bulk_Preview" xml:space="preserve"><value>Նախադիտում</value></data>
+  <data name="Admin_Bulk_SelectAll" xml:space="preserve"><value>Ընտրել էջի բոլոր ապրանքները</value></data>
+  <data name="Admin_BulkAction_SetDiscount" xml:space="preserve"><value>Սահմանել զեղչ (%)</value></data>
+  <data name="Admin_BulkAction_ChangePricePercent" xml:space="preserve"><value>Փոխել գինը (%)</value></data>
+  <data name="Admin_BulkAction_SetPrice" xml:space="preserve"><value>Սահմանել գին (֏)</value></data>
+  <data name="Admin_BulkAction_SetStock" xml:space="preserve"><value>Սահմանել մնացորդը</value></data>
+  <data name="Admin_BulkAction_Archive" xml:space="preserve"><value>Թաքցնել (արխիվ)</value></data>
+  <data name="Admin_BulkAction_Restore" xml:space="preserve"><value>Կրկին ցուցադրել</value></data>
+  <data name="Admin_BulkAction_MoveCategory" xml:space="preserve"><value>Տեղափոխել կատեգորիա</value></data>
+  <data name="Admin_Bulk_ValueHint" xml:space="preserve"><value>Արժեք՝ զեղչ 0-100; տոկոս, օրինակ՝ 10 կամ -5; գին դրամով; մնացորդ թվով։ Թաքցնելու, ցուցադրելու և տեղափոխելու համար պետք չէ։</value></data>
+  <data name="Admin_Bulk_NoneSelected" xml:space="preserve"><value>Նախ նշեք առնվազն մեկ ապրանք։</value></data>
+  <data name="Admin_Bulk_TooMany" xml:space="preserve"><value>Միանգամից ոչ ավելի, քան {0} ապրանք։ Նեղացրեք ֆիլտրը։</value></data>
+  <data name="Admin_Bulk_BadValue" xml:space="preserve"><value>Մուտքագրեք այս փոփոխության համար թույլատրելի արժեք։</value></data>
+  <data name="Admin_Bulk_NoCategory" xml:space="preserve"><value>Ընտրեք կատեգորիան, որտեղ տեղափոխել։</value></data>
+  <data name="Admin_Bulk_PreviewTitle" xml:space="preserve"><value>Ստուգեք փոփոխությունները</value></data>
+  <data name="Admin_Bulk_PreviewHint" xml:space="preserve"><value>Դեռ ոչինչ չի պահպանվել։ Կփոխվեն {0} ապրանք. արդեն նույնն են՝ {1}։</value></data>
+  <data name="Admin_Bulk_Col_Change" xml:space="preserve"><value>Փոփոխություն</value></data>
+  <data name="Admin_Bulk_Same" xml:space="preserve"><value>առանց փոփոխության</value></data>
+  <data name="Admin_Bulk_Apply" xml:space="preserve"><value>Կիրառել {0} ապրանքի վրա</value></data>
+  <data name="Admin_Bulk_Cancel" xml:space="preserve"><value>Չեղարկել</value></data>
+  <data name="Admin_Bulk_NothingChanges" xml:space="preserve"><value>Ոչինչ չի փոխվի։</value></data>
+  <data name="Admin_Bulk_Problem_PriceLow" xml:space="preserve"><value>Գինը կլիներ 1 ֏-ից ցածր</value></data>
+  <data name="Admin_Bulk_Problem_PriceHigh" xml:space="preserve"><value>Գինը կլիներ չափազանց բարձր</value></data>
+  <data name="Admin_Bulk_HasProblems" xml:space="preserve"><value>Որոշ ապրանքների հետ խնդիր կա, ուստի ոչինչ չի կարելի կիրառել։ Փոխեք արժեքը։</value></data>
+  <data name="Admin_Bulk_Applied" xml:space="preserve"><value>Փոխվեց {0} ապրանք (արդեն նույնն էին՝ {1})։</value></data>
+  <data name="Admin_Bulk_Conflict" xml:space="preserve"><value>Ապրանքը փոխվեց, մինչ դուք աշխատում էիք (պատվեր կամ այլ ադմին)։ Ոչինչ չի պահպանվել․ ստուգեք ապրանքները և փորձեք կրկին։</value></data>
+  <data name="Admin_Dup_Title" xml:space="preserve"><value>Կրկնօրինակել ապրանքը</value></data>
+  <data name="Admin_Dup_Hint" xml:space="preserve"><value>Ստեղծում է պատճեն՝ նույն անուններով, նկարագրություններով, բրենդով, կատեգորիայով, գնով, զեղչով, տարիքային խմբերով և նկարներով։ Պատճենի մնացորդը 0 է, և այն թաքնված է (արխիվում), մինչև չստուգեք։</value></data>
+  <data name="Admin_Dup_Sku" xml:space="preserve"><value>Նոր արտիկուլ</value></data>
+  <data name="Admin_Dup_Button" xml:space="preserve"><value>Ստեղծել պատճեն</value></data>
+  <data name="Admin_Dup_Done" xml:space="preserve"><value>Պատճենը ստեղծվեց (թաքնված, մնացորդ 0)։ Պատճենվել է նկարներ՝ {0}-ից {1}-ը։ Ստուգեք, սահմանեք մնացորդը և ցուցադրեք։</value></data>
+  <data name="Admin_Dup_BadSku" xml:space="preserve"><value>Մուտքագրեք նոր արտիկուլ (մինչև 50 նիշ)։</value></data>
+  <data name="Admin_Dup_TakenSku" xml:space="preserve"><value>Այս արտիկուլն արդեն օգտագործվում է այլ ապրանքի համար։</value></data>
+  <data name="Admin_Imp_Title" xml:space="preserve"><value>Ապրանքների ներմուծում CSV-ից</value></data>
+  <data name="Admin_Imp_Rules" xml:space="preserve"><value>Ինչպես է աշխատում</value></data>
+  <data name="Admin_Imp_Rule_Sku" xml:space="preserve"><value>Բանալին արտիկուլն է․ հայտնի արտիկուլով տողը թարմացնում է ապրանքը, նոր արտիկուլով տողը՝ ստեղծում նորը։</value></data>
+  <data name="Admin_Imp_Rule_Empty" xml:space="preserve"><value>Դատարկ վանդակը թողնում է ապրանքի ներկայիս արժեքը։ Սյունը կարելի է բաց թողնել․ այդ դեպքում այն չի փոխվում։</value></data>
+  <data name="Admin_Imp_Rule_New" xml:space="preserve"><value>Նոր ապրանքի համար պետք են Brand, CategoryId, Price և NameHy։ Այն մնում է թաքնված (արխիվում), եթե ֆայլում չի նշված Archived = no։</value></data>
+  <data name="Admin_Imp_Rule_Columns" xml:space="preserve"><value>Archived և NewArrival՝ yes կամ no։ AgeGroupIds՝ թվեր ; նշանով (օրինակ՝ 1;3)։ Գինը դրամով, կոտորակը՝ կետով։</value></data>
+  <data name="Admin_Imp_Rule_Limits" xml:space="preserve"><value>Ոչ ավելի, քան {0} տող և 2 ՄԲ։ Վանդակների միջև կարելի է օգտագործել ստորակետ, կետ-ստորակետ կամ tab։</value></data>
+  <data name="Admin_Imp_Rule_AllOrNothing" xml:space="preserve"><value>Ֆայլը նախ ստուգվում է․ մինչև որևէ տողում խնդիր կա, ոչինչ չի պահպանվում։</value></data>
+  <data name="Admin_Imp_Rule_NoPhotos" xml:space="preserve"><value>Նկարները չեն ներմուծվում․ ավելացրեք դրանք ապրանքի էջում (կամ կրկնօրինակեք նկարներով ապրանք)։</value></data>
+  <data name="Admin_Imp_Template" xml:space="preserve"><value>Ներբեռնել կաղապարը</value></data>
+  <data name="Admin_Imp_Upload" xml:space="preserve"><value>Վերբեռնել ֆայլ</value></data>
+  <data name="Admin_Imp_File" xml:space="preserve"><value>CSV ֆայլ</value></data>
+  <data name="Admin_Imp_Check" xml:space="preserve"><value>Ստուգել ֆայլը</value></data>
+  <data name="Admin_Imp_Numbers" xml:space="preserve"><value>Ֆայլում օգտագործվող համարներ</value></data>
+  <data name="Admin_Imp_PreviewTitle" xml:space="preserve"><value>Ստուգեք ներմուծումը</value></data>
+  <data name="Admin_Imp_Summary" xml:space="preserve"><value>Ստեղծել՝ {0}, թարմացնել՝ {1}, առանց փոփոխության՝ {2}։</value></data>
+  <data name="Admin_Imp_Ok" xml:space="preserve"><value>Խնդիրներ չեն գտնվել։ Մինչև «Կիրառել» չսեղմեք, ոչինչ չի պահպանվում։</value></data>
+  <data name="Admin_Imp_Errors" xml:space="preserve"><value>{0} տողում խնդիր կա։ Ոչինչ չի կարելի կիրառել․ ուղղեք ֆայլը և կրկին ստուգեք։</value></data>
+  <data name="Admin_Imp_Apply" xml:space="preserve"><value>Կիրառել ներմուծումը</value></data>
+  <data name="Admin_Imp_Done" xml:space="preserve"><value>Ներմուծումը կատարվեց՝ ստեղծվել է {0}, թարմացվել՝ {1}, առանց փոփոխության՝ {2}։</value></data>
+  <data name="Admin_Imp_Invalid" xml:space="preserve"><value>Ֆայլում խնդիրներ կան, ուստի ոչինչ չի պահպանվել։ Կրկին ստուգեք։</value></data>
+  <data name="Admin_Imp_Conflict" xml:space="preserve"><value>Ապրանքը փոխվեց ներմուծման ընթացքում։ Ոչինչ չի պահպանվել․ կրկին ստուգեք ֆայլը։</value></data>
+  <data name="Admin_Imp_Row" xml:space="preserve"><value>Տող</value></data>
+  <data name="Admin_Imp_Action_Create" xml:space="preserve"><value>Ստեղծել</value></data>
+  <data name="Admin_Imp_Action_Update" xml:space="preserve"><value>Թարմացնել</value></data>
+  <data name="Admin_Imp_Action_Unchanged" xml:space="preserve"><value>Առանց փոփոխության</value></data>
+  <data name="Admin_Imp_Action_Error" xml:space="preserve"><value>Խնդիր</value></data>
+  <data name="Admin_Imp_P_NoFile" xml:space="preserve"><value>Ընտրեք CSV ֆայլ։</value></data>
+  <data name="Admin_Imp_P_TooBig" xml:space="preserve"><value>Ֆայլը չափազանց մեծ է (մինչև 2 ՄԲ)։</value></data>
+  <data name="Admin_Imp_P_Empty" xml:space="preserve"><value>Ֆայլը դատարկ է (պետք է վերնագրի տող և առնվազն մեկ ապրանքի տող)։</value></data>
+  <data name="Admin_Imp_P_NoSku" xml:space="preserve"><value>Վերնագրում պետք է Sku սյուն։</value></data>
+  <data name="Admin_Imp_P_UnknownColumn" xml:space="preserve"><value>Անհայտ սյուն՝ {0}։</value></data>
+  <data name="Admin_Imp_P_DuplicateColumn" xml:space="preserve"><value>{0} սյունը երկու անգամ է նշված։</value></data>
+  <data name="Admin_Imp_P_TooMany" xml:space="preserve"><value>Ավելի քան {0} ապրանքի տող։</value></data>
+  <data name="Admin_Imp_R_NoSku" xml:space="preserve"><value>Արտիկուլը (Sku) դատարկ է։</value></data>
+  <data name="Admin_Imp_R_Duplicate" xml:space="preserve"><value>{0} արտիկուլը կրկնվում է (առաջին անգամ՝ {1}-րդ տողում)։</value></data>
+  <data name="Admin_Imp_R_Required" xml:space="preserve"><value>Նոր ապրանքի համար {0}-ը պարտադիր է։</value></data>
+  <data name="Admin_Imp_R_Invalid" xml:space="preserve"><value>{0}՝ «{1}» թույլատրելի արժեք չէ։</value></data>
+  <data name="Admin_Imp_R_Range" xml:space="preserve"><value>{0}-ը պետք է լինի {1}-ից {2}։</value></data>
+  <data name="Admin_Imp_R_Bool" xml:space="preserve"><value>{0}՝ «{1}» - օգտագործեք yes կամ no։</value></data>
+  <data name="Admin_Imp_R_NotFound" xml:space="preserve"><value>{0}՝ {1}-ը գոյություն չունի։</value></data>
+  <data name="Admin_Imp_R_TooLong" xml:space="preserve"><value>{0}-ը չափազանց երկար է (առավելագույնը {1} նիշ)։</value></data>
+  <data name="Admin_Imp_R_DescNeedsName" xml:space="preserve"><value>{0}՝ նկարագրությունը պահանջում է անուն այդ լեզվով։</value></data>
+  <data name="Admin_Imp_R_ExtraCells" xml:space="preserve"><value>Տողում ավելի շատ վանդակ կա, քան վերնագրում։</value></data>
   <data name="Admin_NewPhoneOrder" xml:space="preserve"><value>Նոր հեռախոսային պատվեր</value></data>
   <data name="Admin_PrintSlips" xml:space="preserve"><value>Տպել թերթիկները</value></data>
   <data name="Admin_PrintSlip" xml:space="preserve"><value>Տպել փաթեթավորման թերթիկը</value></data>

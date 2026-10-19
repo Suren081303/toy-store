@@ -164,6 +164,65 @@ public partial class ImageStore : IImageStore
         }
     }
 
+    public async Task<StoredImage?> CopyAsync(StoredImage source, string folder)
+    {
+        if (!SafeFolder().IsMatch(folder))
+        {
+            throw new ArgumentException("The folder name may contain only lower-case letters, digits, '-', '_' and '/'.", nameof(folder));
+        }
+
+        // A placeholder picture is one file for all products that use it: nothing to copy.
+        if (!source.Path.StartsWith("/uploads/", StringComparison.Ordinal))
+        {
+            return source;
+        }
+
+        var full = ResolveInsideUploads(source.Path);
+        if (full is null || !File.Exists(full))
+        {
+            return null;
+        }
+
+        var directory = Path.Combine(_uploadsRoot, folder.Replace('/', Path.DirectorySeparatorChar));
+        Directory.CreateDirectory(directory);
+
+        var name = Guid.NewGuid().ToString("N");
+        var webFolder = "/uploads/" + folder;
+        var newPath = $"{webFolder}/{name}{Path.GetExtension(full)}";
+        await CopyFileAsync(full, Path.Combine(directory, name + Path.GetExtension(full)));
+
+        string? newThumb = null;
+        var thumbFull = source.ThumbPath is null ? null : ResolveInsideUploads(source.ThumbPath);
+        if (thumbFull is not null && File.Exists(thumbFull))
+        {
+            newThumb = $"{webFolder}/{name}_t{Path.GetExtension(thumbFull)}";
+            await CopyFileAsync(thumbFull, Path.Combine(directory, name + "_t" + Path.GetExtension(thumbFull)));
+        }
+
+        return new StoredImage(newPath, newThumb);
+    }
+
+    // The file on disk behind a web path /uploads/..., or null when the path would leave the uploads folder.
+    private string? ResolveInsideUploads(string webPath)
+    {
+        if (!webPath.StartsWith("/uploads/", StringComparison.Ordinal))
+        {
+            return null;
+        }
+
+        var relative = webPath["/uploads/".Length..].Replace('/', Path.DirectorySeparatorChar);
+        var full = Path.GetFullPath(Path.Combine(_uploadsRoot, relative));
+
+        return full.StartsWith(_uploadsRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) ? full : null;
+    }
+
+    private static async Task CopyFileAsync(string from, string to)
+    {
+        await using var source = File.OpenRead(from);
+        await using var target = File.Create(to);
+        await source.CopyToAsync(target);
+    }
+
     // Saves a copy of the picture scaled down to fit in a square of the given size (a smaller picture is not enlarged).
     private static async Task SaveJpegAsync(Image image, int maxSize, string file)
     {

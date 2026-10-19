@@ -217,3 +217,13 @@ a.admin-card:hover { border-color: var(--purple); }
 .po-customer p { margin: 0; }
 .po-unfinished { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-bottom: 14px; }
 .po-unfinished p { margin: 0; }
+
+/* Catalog tools: the bulk-change bar, the tick boxes, the import pages */
+.admin-bulk { margin-bottom: 14px; }
+.admin-bulk .admin-h2 { margin-bottom: 4px; }
+.admin-bulk__scope { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 8px 0; }
+.admin-bulk__row { display: flex; flex-wrap: wrap; align-items: end; gap: 8px 14px; }
+.atable__check { width: 36px; }
+.admin-rules { margin: 0 0 12px; padding-left: 20px; font-size: 14px; }
+.admin-rules li { margin-bottom: 4px; }
+.admin-csv { width: 100%; font-size: 12px; }

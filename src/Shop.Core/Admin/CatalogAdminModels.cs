@@ -35,6 +35,11 @@ public interface IImageStore
 
     // Deletes the files of an uploaded photo. Paths outside the uploads folder (the placeholder pictures) are never touched.
     void Delete(params string?[] paths);
+
+    // A copy of an uploaded photo (and its small version) under new random names in another folder, so the copy stays when the
+    // original is deleted. A placeholder picture (not in the uploads folder) is shared, not copied: the same paths come back.
+    // Null when the photo's file is missing.
+    Task<StoredImage?> CopyAsync(StoredImage source, string folder);
 }
 
 // ---- Categories and age groups ----

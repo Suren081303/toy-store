@@ -515,6 +515,92 @@
   <data name="Admin_Msg_PhotoRemoved" xml:space="preserve"><value>Фото удалено.</value></data>
   <data name="Admin_Val_Sku" xml:space="preserve"><value>Только буквы, цифры и знаки . _ -</value></data>
   <data name="Admin_Nav_Admins" xml:space="preserve"><value>Администраторы</value></data>
+  <data name="Admin_Prod_Export" xml:space="preserve"><value>Экспорт CSV</value></data>
+  <data name="Admin_Prod_Import" xml:space="preserve"><value>Импорт CSV</value></data>
+  <data name="Admin_Bulk_Title" xml:space="preserve"><value>Изменить сразу много товаров</value></data>
+  <data name="Admin_Bulk_Hint" xml:space="preserve"><value>Отметьте товары в списке, выберите изменение и сначала посмотрите предпросмотр. Пока вы не подтвердите, ничего не сохраняется.</value></data>
+  <data name="Admin_Bulk_Scope_Selected" xml:space="preserve"><value>Отмеченные товары</value></data>
+  <data name="Admin_Bulk_Scope_Filter" xml:space="preserve"><value>Все товары по фильтру: {0} (не только эта страница)</value></data>
+  <data name="Admin_Bulk_Action" xml:space="preserve"><value>Изменение</value></data>
+  <data name="Admin_Bulk_Value" xml:space="preserve"><value>Значение</value></data>
+  <data name="Admin_Bulk_Target" xml:space="preserve"><value>Категория (для переноса)</value></data>
+  <data name="Admin_Bulk_Preview" xml:space="preserve"><value>Предпросмотр</value></data>
+  <data name="Admin_Bulk_SelectAll" xml:space="preserve"><value>Выбрать все товары на странице</value></data>
+  <data name="Admin_BulkAction_SetDiscount" xml:space="preserve"><value>Задать скидку (%)</value></data>
+  <data name="Admin_BulkAction_ChangePricePercent" xml:space="preserve"><value>Изменить цену на (%)</value></data>
+  <data name="Admin_BulkAction_SetPrice" xml:space="preserve"><value>Задать цену (֏)</value></data>
+  <data name="Admin_BulkAction_SetStock" xml:space="preserve"><value>Задать остаток</value></data>
+  <data name="Admin_BulkAction_Archive" xml:space="preserve"><value>Скрыть (в архив)</value></data>
+  <data name="Admin_BulkAction_Restore" xml:space="preserve"><value>Показать снова</value></data>
+  <data name="Admin_BulkAction_MoveCategory" xml:space="preserve"><value>Перенести в категорию</value></data>
+  <data name="Admin_Bulk_ValueHint" xml:space="preserve"><value>Значение: скидка 0-100; процент, например 10 или -5; цена в драмах; остаток числом. Для скрытия, показа и переноса не нужно.</value></data>
+  <data name="Admin_Bulk_NoneSelected" xml:space="preserve"><value>Сначала отметьте хотя бы один товар.</value></data>
+  <data name="Admin_Bulk_TooMany" xml:space="preserve"><value>Не более {0} товаров за раз. Сузьте фильтр.</value></data>
+  <data name="Admin_Bulk_BadValue" xml:space="preserve"><value>Введите допустимое значение для этого изменения.</value></data>
+  <data name="Admin_Bulk_NoCategory" xml:space="preserve"><value>Выберите категорию для переноса.</value></data>
+  <data name="Admin_Bulk_PreviewTitle" xml:space="preserve"><value>Проверьте изменения</value></data>
+  <data name="Admin_Bulk_PreviewHint" xml:space="preserve"><value>Пока ничего не сохранено. Изменятся товары: {0}; уже в таком виде: {1}.</value></data>
+  <data name="Admin_Bulk_Col_Change" xml:space="preserve"><value>Изменение</value></data>
+  <data name="Admin_Bulk_Same" xml:space="preserve"><value>без изменений</value></data>
+  <data name="Admin_Bulk_Apply" xml:space="preserve"><value>Применить к {0} товарам</value></data>
+  <data name="Admin_Bulk_Cancel" xml:space="preserve"><value>Отмена</value></data>
+  <data name="Admin_Bulk_NothingChanges" xml:space="preserve"><value>Ничего не изменится.</value></data>
+  <data name="Admin_Bulk_Problem_PriceLow" xml:space="preserve"><value>Цена стала бы ниже 1 ֏</value></data>
+  <data name="Admin_Bulk_Problem_PriceHigh" xml:space="preserve"><value>Цена стала бы слишком высокой</value></data>
+  <data name="Admin_Bulk_HasProblems" xml:space="preserve"><value>У некоторых товаров есть проблема, поэтому ничего применить нельзя. Измените значение.</value></data>
+  <data name="Admin_Bulk_Applied" xml:space="preserve"><value>Изменено товаров: {0} (уже в таком виде было: {1}).</value></data>
+  <data name="Admin_Bulk_Conflict" xml:space="preserve"><value>Товар изменился, пока вы работали (заказ или другой админ). Ничего не сохранено; проверьте товары и попробуйте снова.</value></data>
+  <data name="Admin_Dup_Title" xml:space="preserve"><value>Дублировать товар</value></data>
+  <data name="Admin_Dup_Hint" xml:space="preserve"><value>Создаёт копию с теми же названиями, описаниями, брендом, категорией, ценой, скидкой, возрастами и фото. У копии остаток 0, она скрыта (в архиве), пока вы её не проверите.</value></data>
+  <data name="Admin_Dup_Sku" xml:space="preserve"><value>Новый артикул</value></data>
+  <data name="Admin_Dup_Button" xml:space="preserve"><value>Сделать копию</value></data>
+  <data name="Admin_Dup_Done" xml:space="preserve"><value>Копия создана (скрыта, остаток 0). Скопировано фото: {0} из {1}. Проверьте, задайте остаток и покажите её.</value></data>
+  <data name="Admin_Dup_BadSku" xml:space="preserve"><value>Введите новый артикул (до 50 символов).</value></data>
+  <data name="Admin_Dup_TakenSku" xml:space="preserve"><value>Этот артикул уже используется другим товаром.</value></data>
+  <data name="Admin_Imp_Title" xml:space="preserve"><value>Импорт товаров из CSV</value></data>
+  <data name="Admin_Imp_Rules" xml:space="preserve"><value>Как это работает</value></data>
+  <data name="Admin_Imp_Rule_Sku" xml:space="preserve"><value>Ключ - артикул: строка с известным артикулом обновляет товар, строка с новым артикулом создаёт новый.</value></data>
+  <data name="Admin_Imp_Rule_Empty" xml:space="preserve"><value>Пустая ячейка оставляет то, что есть у товара. Столбец можно не указывать: тогда он не меняется.</value></data>
+  <data name="Admin_Imp_Rule_New" xml:space="preserve"><value>Новому товару нужны Brand, CategoryId, Price и NameHy. Он остаётся скрытым (в архиве), если в файле не указано Archived = no.</value></data>
+  <data name="Admin_Imp_Rule_Columns" xml:space="preserve"><value>Archived и NewArrival: yes или no. AgeGroupIds: числа через ; (например 1;3). Цена в драмах, дробная часть через точку.</value></data>
+  <data name="Admin_Imp_Rule_Limits" xml:space="preserve"><value>Не более {0} строк и 2 МБ. Между ячейками можно использовать запятую, точку с запятой или табуляцию.</value></data>
+  <data name="Admin_Imp_Rule_AllOrNothing" xml:space="preserve"><value>Файл сначала проверяется; пока в какой-либо строке есть проблема, ничего не сохраняется.</value></data>
+  <data name="Admin_Imp_Rule_NoPhotos" xml:space="preserve"><value>Фото не импортируются: добавьте их на странице товара (или дублируйте товар с фото).</value></data>
+  <data name="Admin_Imp_Template" xml:space="preserve"><value>Скачать шаблон</value></data>
+  <data name="Admin_Imp_Upload" xml:space="preserve"><value>Загрузить файл</value></data>
+  <data name="Admin_Imp_File" xml:space="preserve"><value>Файл CSV</value></data>
+  <data name="Admin_Imp_Check" xml:space="preserve"><value>Проверить файл</value></data>
+  <data name="Admin_Imp_Numbers" xml:space="preserve"><value>Номера для файла</value></data>
+  <data name="Admin_Imp_PreviewTitle" xml:space="preserve"><value>Проверьте импорт</value></data>
+  <data name="Admin_Imp_Summary" xml:space="preserve"><value>Создать: {0}, обновить: {1}, без изменений: {2}.</value></data>
+  <data name="Admin_Imp_Ok" xml:space="preserve"><value>Проблем не найдено. Пока вы не нажмёте «Применить», ничего не сохраняется.</value></data>
+  <data name="Admin_Imp_Errors" xml:space="preserve"><value>Строк с проблемами: {0}. Применить ничего нельзя: исправьте файл и проверьте снова.</value></data>
+  <data name="Admin_Imp_Apply" xml:space="preserve"><value>Применить импорт</value></data>
+  <data name="Admin_Imp_Done" xml:space="preserve"><value>Импорт выполнен: создано {0}, обновлено {1}, без изменений {2}.</value></data>
+  <data name="Admin_Imp_Invalid" xml:space="preserve"><value>В файле есть проблемы, поэтому ничего не сохранено. Проверьте его снова.</value></data>
+  <data name="Admin_Imp_Conflict" xml:space="preserve"><value>Товар изменился во время импорта. Ничего не сохранено; проверьте файл снова.</value></data>
+  <data name="Admin_Imp_Row" xml:space="preserve"><value>Строка</value></data>
+  <data name="Admin_Imp_Action_Create" xml:space="preserve"><value>Создать</value></data>
+  <data name="Admin_Imp_Action_Update" xml:space="preserve"><value>Обновить</value></data>
+  <data name="Admin_Imp_Action_Unchanged" xml:space="preserve"><value>Без изменений</value></data>
+  <data name="Admin_Imp_Action_Error" xml:space="preserve"><value>Проблема</value></data>
+  <data name="Admin_Imp_P_NoFile" xml:space="preserve"><value>Выберите файл CSV.</value></data>
+  <data name="Admin_Imp_P_TooBig" xml:space="preserve"><value>Файл слишком большой (до 2 МБ).</value></data>
+  <data name="Admin_Imp_P_Empty" xml:space="preserve"><value>Файл пуст (нужны строка заголовков и хотя бы одна строка товара).</value></data>
+  <data name="Admin_Imp_P_NoSku" xml:space="preserve"><value>В заголовке нужен столбец Sku.</value></data>
+  <data name="Admin_Imp_P_UnknownColumn" xml:space="preserve"><value>Неизвестный столбец: {0}.</value></data>
+  <data name="Admin_Imp_P_DuplicateColumn" xml:space="preserve"><value>Столбец {0} указан дважды.</value></data>
+  <data name="Admin_Imp_P_TooMany" xml:space="preserve"><value>Больше {0} строк товаров.</value></data>
+  <data name="Admin_Imp_R_NoSku" xml:space="preserve"><value>Артикул (Sku) пуст.</value></data>
+  <data name="Admin_Imp_R_Duplicate" xml:space="preserve"><value>Артикул {0} повторяется (впервые в строке {1}).</value></data>
+  <data name="Admin_Imp_R_Required" xml:space="preserve"><value>Для нового товара обязательно поле {0}.</value></data>
+  <data name="Admin_Imp_R_Invalid" xml:space="preserve"><value>{0}: «{1}» - недопустимое значение.</value></data>
+  <data name="Admin_Imp_R_Range" xml:space="preserve"><value>{0} должно быть от {1} до {2}.</value></data>
+  <data name="Admin_Imp_R_Bool" xml:space="preserve"><value>{0}: «{1}» - используйте yes или no.</value></data>
+  <data name="Admin_Imp_R_NotFound" xml:space="preserve"><value>{0}: {1} не существует.</value></data>
+  <data name="Admin_Imp_R_TooLong" xml:space="preserve"><value>{0} слишком длинное (не более {1} символов).</value></data>
+  <data name="Admin_Imp_R_DescNeedsName" xml:space="preserve"><value>{0}: описанию нужно название на этом языке.</value></data>
+  <data name="Admin_Imp_R_ExtraCells" xml:space="preserve"><value>В строке больше ячеек, чем в заголовке.</value></data>
   <data name="Admin_NewPhoneOrder" xml:space="preserve"><value>Новый заказ по телефону</value></data>
   <data name="Admin_PrintSlips" xml:space="preserve"><value>Печать накладных</value></data>
   <data name="Admin_PrintSlip" xml:space="preserve"><value>Печать накладной</value></data>

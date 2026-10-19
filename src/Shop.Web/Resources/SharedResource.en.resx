@@ -515,6 +515,92 @@
   <data name="Admin_Msg_PhotoRemoved" xml:space="preserve"><value>Photo deleted.</value></data>
   <data name="Admin_Val_Sku" xml:space="preserve"><value>Use letters, digits and . _ - only.</value></data>
   <data name="Admin_Nav_Admins" xml:space="preserve"><value>Admins</value></data>
+  <data name="Admin_Prod_Export" xml:space="preserve"><value>Export CSV</value></data>
+  <data name="Admin_Prod_Import" xml:space="preserve"><value>Import CSV</value></data>
+  <data name="Admin_Bulk_Title" xml:space="preserve"><value>Change many products</value></data>
+  <data name="Admin_Bulk_Hint" xml:space="preserve"><value>Tick products in the list, choose what to change, and look at a preview first. Nothing is saved until you confirm.</value></data>
+  <data name="Admin_Bulk_Scope_Selected" xml:space="preserve"><value>The ticked products</value></data>
+  <data name="Admin_Bulk_Scope_Filter" xml:space="preserve"><value>All {0} products that match the filter (not only this page)</value></data>
+  <data name="Admin_Bulk_Action" xml:space="preserve"><value>Change</value></data>
+  <data name="Admin_Bulk_Value" xml:space="preserve"><value>Value</value></data>
+  <data name="Admin_Bulk_Target" xml:space="preserve"><value>Category (for Move)</value></data>
+  <data name="Admin_Bulk_Preview" xml:space="preserve"><value>Preview changes</value></data>
+  <data name="Admin_Bulk_SelectAll" xml:space="preserve"><value>Select all products on this page</value></data>
+  <data name="Admin_BulkAction_SetDiscount" xml:space="preserve"><value>Set discount (%)</value></data>
+  <data name="Admin_BulkAction_ChangePricePercent" xml:space="preserve"><value>Change price by (%)</value></data>
+  <data name="Admin_BulkAction_SetPrice" xml:space="preserve"><value>Set price (֏)</value></data>
+  <data name="Admin_BulkAction_SetStock" xml:space="preserve"><value>Set stock</value></data>
+  <data name="Admin_BulkAction_Archive" xml:space="preserve"><value>Hide (archive)</value></data>
+  <data name="Admin_BulkAction_Restore" xml:space="preserve"><value>Show again</value></data>
+  <data name="Admin_BulkAction_MoveCategory" xml:space="preserve"><value>Move to category</value></data>
+  <data name="Admin_Bulk_ValueHint" xml:space="preserve"><value>Value: discount 0-100; percent for example 10 or -5; price in drams; stock as a number. It is not needed for hide, show and move.</value></data>
+  <data name="Admin_Bulk_NoneSelected" xml:space="preserve"><value>Tick at least one product first.</value></data>
+  <data name="Admin_Bulk_TooMany" xml:space="preserve"><value>At most {0} products at once. Narrow the filter.</value></data>
+  <data name="Admin_Bulk_BadValue" xml:space="preserve"><value>Enter a valid value for this change.</value></data>
+  <data name="Admin_Bulk_NoCategory" xml:space="preserve"><value>Choose the category to move to.</value></data>
+  <data name="Admin_Bulk_PreviewTitle" xml:space="preserve"><value>Check the changes</value></data>
+  <data name="Admin_Bulk_PreviewHint" xml:space="preserve"><value>Nothing is saved yet. {0} products will change; {1} are already like that.</value></data>
+  <data name="Admin_Bulk_Col_Change" xml:space="preserve"><value>Change</value></data>
+  <data name="Admin_Bulk_Same" xml:space="preserve"><value>no change</value></data>
+  <data name="Admin_Bulk_Apply" xml:space="preserve"><value>Apply to {0} products</value></data>
+  <data name="Admin_Bulk_Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="Admin_Bulk_NothingChanges" xml:space="preserve"><value>Nothing would change.</value></data>
+  <data name="Admin_Bulk_Problem_PriceLow" xml:space="preserve"><value>The price would be below 1 ֏</value></data>
+  <data name="Admin_Bulk_Problem_PriceHigh" xml:space="preserve"><value>The price would be too high</value></data>
+  <data name="Admin_Bulk_HasProblems" xml:space="preserve"><value>Some products have a problem, so nothing can be applied. Change the value.</value></data>
+  <data name="Admin_Bulk_Applied" xml:space="preserve"><value>{0} products changed ({1} were already like that).</value></data>
+  <data name="Admin_Bulk_Conflict" xml:space="preserve"><value>A product changed while you were working (an order or another admin). Nothing was saved; check the products and try again.</value></data>
+  <data name="Admin_Dup_Title" xml:space="preserve"><value>Duplicate this product</value></data>
+  <data name="Admin_Dup_Hint" xml:space="preserve"><value>Makes a copy with the same names, descriptions, brand, category, price, discount, age groups and photos. The copy has stock 0 and is hidden (archived) until you check it.</value></data>
+  <data name="Admin_Dup_Sku" xml:space="preserve"><value>New SKU</value></data>
+  <data name="Admin_Dup_Button" xml:space="preserve"><value>Make a copy</value></data>
+  <data name="Admin_Dup_Done" xml:space="preserve"><value>Copy created (hidden, stock 0). Photos copied: {0} of {1}. Check it, set the stock and show it.</value></data>
+  <data name="Admin_Dup_BadSku" xml:space="preserve"><value>Enter a new SKU (up to 50 characters).</value></data>
+  <data name="Admin_Dup_TakenSku" xml:space="preserve"><value>This SKU is already used by another product.</value></data>
+  <data name="Admin_Imp_Title" xml:space="preserve"><value>Import products from CSV</value></data>
+  <data name="Admin_Imp_Rules" xml:space="preserve"><value>How it works</value></data>
+  <data name="Admin_Imp_Rule_Sku" xml:space="preserve"><value>The SKU is the key: a row with a known SKU updates that product, a row with a new SKU makes a new product.</value></data>
+  <data name="Admin_Imp_Rule_Empty" xml:space="preserve"><value>An empty cell keeps what the product has now. A column may be left out: then it is not touched.</value></data>
+  <data name="Admin_Imp_Rule_New" xml:space="preserve"><value>A new product needs Brand, CategoryId, Price and NameHy. It stays hidden (archived) unless the file says Archived = no.</value></data>
+  <data name="Admin_Imp_Rule_Columns" xml:space="preserve"><value>Archived and NewArrival: yes or no. AgeGroupIds: numbers separated by ; (for example 1;3). Price in drams with a dot for fractions.</value></data>
+  <data name="Admin_Imp_Rule_Limits" xml:space="preserve"><value>At most {0} rows and 2 MB. A comma, semicolon or tab between cells works.</value></data>
+  <data name="Admin_Imp_Rule_AllOrNothing" xml:space="preserve"><value>The file is checked first and nothing is saved while any row has a problem.</value></data>
+  <data name="Admin_Imp_Rule_NoPhotos" xml:space="preserve"><value>Photos are not imported: add them on the product page (or duplicate a product that has photos).</value></data>
+  <data name="Admin_Imp_Template" xml:space="preserve"><value>Download the template</value></data>
+  <data name="Admin_Imp_Upload" xml:space="preserve"><value>Upload a file</value></data>
+  <data name="Admin_Imp_File" xml:space="preserve"><value>CSV file</value></data>
+  <data name="Admin_Imp_Check" xml:space="preserve"><value>Check the file</value></data>
+  <data name="Admin_Imp_Numbers" xml:space="preserve"><value>Numbers used in the file</value></data>
+  <data name="Admin_Imp_PreviewTitle" xml:space="preserve"><value>Check the import</value></data>
+  <data name="Admin_Imp_Summary" xml:space="preserve"><value>{0} to create, {1} to update, {2} unchanged.</value></data>
+  <data name="Admin_Imp_Ok" xml:space="preserve"><value>No problems found. Nothing is saved until you press Apply.</value></data>
+  <data name="Admin_Imp_Errors" xml:space="preserve"><value>{0} rows have problems. Nothing can be applied: fix the file and check it again.</value></data>
+  <data name="Admin_Imp_Apply" xml:space="preserve"><value>Apply the import</value></data>
+  <data name="Admin_Imp_Done" xml:space="preserve"><value>Import done: {0} created, {1} updated, {2} unchanged.</value></data>
+  <data name="Admin_Imp_Invalid" xml:space="preserve"><value>The file has problems, so nothing was saved. Check it again.</value></data>
+  <data name="Admin_Imp_Conflict" xml:space="preserve"><value>A product changed while the import ran. Nothing was saved; check the file again.</value></data>
+  <data name="Admin_Imp_Row" xml:space="preserve"><value>Row</value></data>
+  <data name="Admin_Imp_Action_Create" xml:space="preserve"><value>Create</value></data>
+  <data name="Admin_Imp_Action_Update" xml:space="preserve"><value>Update</value></data>
+  <data name="Admin_Imp_Action_Unchanged" xml:space="preserve"><value>No change</value></data>
+  <data name="Admin_Imp_Action_Error" xml:space="preserve"><value>Problem</value></data>
+  <data name="Admin_Imp_P_NoFile" xml:space="preserve"><value>Choose a CSV file.</value></data>
+  <data name="Admin_Imp_P_TooBig" xml:space="preserve"><value>The file is too big (up to 2 MB).</value></data>
+  <data name="Admin_Imp_P_Empty" xml:space="preserve"><value>The file is empty (it needs a header row and at least one product row).</value></data>
+  <data name="Admin_Imp_P_NoSku" xml:space="preserve"><value>The header needs a Sku column.</value></data>
+  <data name="Admin_Imp_P_UnknownColumn" xml:space="preserve"><value>Unknown column: {0}.</value></data>
+  <data name="Admin_Imp_P_DuplicateColumn" xml:space="preserve"><value>The column {0} appears twice.</value></data>
+  <data name="Admin_Imp_P_TooMany" xml:space="preserve"><value>More than {0} product rows.</value></data>
+  <data name="Admin_Imp_R_NoSku" xml:space="preserve"><value>The Sku is empty.</value></data>
+  <data name="Admin_Imp_R_Duplicate" xml:space="preserve"><value>The Sku {0} is repeated (first in row {1}).</value></data>
+  <data name="Admin_Imp_R_Required" xml:space="preserve"><value>{0} is required for a new product.</value></data>
+  <data name="Admin_Imp_R_Invalid" xml:space="preserve"><value>{0}: "{1}" is not a valid value.</value></data>
+  <data name="Admin_Imp_R_Range" xml:space="preserve"><value>{0} must be between {1} and {2}.</value></data>
+  <data name="Admin_Imp_R_Bool" xml:space="preserve"><value>{0}: "{1}" - use yes or no.</value></data>
+  <data name="Admin_Imp_R_NotFound" xml:space="preserve"><value>{0}: {1} does not exist.</value></data>
+  <data name="Admin_Imp_R_TooLong" xml:space="preserve"><value>{0} is too long (at most {1} characters).</value></data>
+  <data name="Admin_Imp_R_DescNeedsName" xml:space="preserve"><value>{0}: a description needs a name in that language.</value></data>
+  <data name="Admin_Imp_R_ExtraCells" xml:space="preserve"><value>The row has more cells than the header.</value></data>
   <data name="Admin_NewPhoneOrder" xml:space="preserve"><value>New phone order</value></data>
   <data name="Admin_PrintSlips" xml:space="preserve"><value>Print slips</value></data>
   <data name="Admin_PrintSlip" xml:space="preserve"><value>Print packing slip</value></data>

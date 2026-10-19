@@ -104,6 +104,9 @@ public class OrderFixture : IAsyncLifetime
         return (new AdminCategoryService(db, time), new AdminAgeGroupService(db, time), new AdminProductService(db, time));
     }
 
+    // The catalog tools (duplicate, bulk change, CSV export and import), on their own database connection.
+    public AdminProductToolsService CreateProductToolsService(DateTime? now = null) => new(CreateDbContext(), new FixedTimeProvider(now ?? Now));
+
     // The customer admin service (list, block, personal discount, messages), on its own database connection.
     public AdminCustomerService CreateCustomerService(DateTime? now = null) => new(CreateDbContext(), new FixedTimeProvider(now ?? Now));
 

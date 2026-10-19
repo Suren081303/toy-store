@@ -199,5 +199,21 @@
                 }
             }
         </section>
+
+        @if (!isNew)
+        {
+            <section class="panel">
+                <h2 class="admin-h2">@Localizer["Admin_Dup_Title"]</h2>
+                <p class="muted">@Localizer["Admin_Dup_Hint"]</p>
+                <form method="post" asp-action="Duplicate" class="form">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <div class="field">
+                        <label class="field__label" for="dup-sku">@Localizer["Admin_Dup_Sku"]</label>
+                        <input id="dup-sku" class="input" name="sku" maxlength="50" required autocomplete="off" />
+                    </div>
+                    <button type="submit" class="btn btn--ghost">@Localizer["Admin_Dup_Button"]</button>
+                </form>
+            </section>
+        }
     </div>
 </div>

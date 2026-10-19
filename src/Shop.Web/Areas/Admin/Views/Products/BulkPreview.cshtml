@@ -1,0 +1,83 @@
+﻿@using Shop.Core.Admin
+@model BulkPreviewViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Bulk_PreviewTitle"].Value;
+    var preview = Model.Preview;
+    var form = Model.Form;
+    string Show(string token) => token switch
+    {
+        "archived" => Localizer["Admin_Archived"].Value,
+        "shown" => Localizer["Admin_Shown"].Value,
+        _ => token
+    };
+}
+
+<p><a class="link" href="@(string.IsNullOrEmpty(form.Back) ? Url.Action("Index") : form.Back)">← @Localizer["Admin_Nav_Products"]</a></p>
+<h1 class="admin-title">@Localizer["Admin_Bulk_PreviewTitle"]</h1>
+<p class="admin-hint">
+    <strong>@Localizer["Admin_BulkAction_" + form.Action]</strong>@if (form.Action is BulkAction.SetDiscount or BulkAction.ChangePricePercent or BulkAction.SetPrice or BulkAction.SetStock)
+    {
+        <text>: @form.Value</text>
+    }
+    <br />@Localizer.GetString("Admin_Bulk_PreviewHint", preview.ChangedCount, preview.Rows.Count - preview.ChangedCount).Value
+</p>
+
+@if (preview.Rows.Any(r => r.Problem is not null))
+{
+    <p class="alert alert--error" role="alert">@Localizer["Admin_Bulk_HasProblems"]</p>
+}
+
+<table class="atable">
+    <thead>
+        <tr>
+            <th>@Localizer["Admin_Prod_Sku"]</th>
+            <th>@Localizer["Admin_Col_Name"]</th>
+            <th>@Localizer["Admin_Bulk_Col_Change"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in preview.Rows)
+        {
+            <tr>
+                <td data-label="@Localizer["Admin_Prod_Sku"].Value">@row.Sku</td>
+                <td data-label="@Localizer["Admin_Col_Name"].Value">@row.Name</td>
+                <td data-label="@Localizer["Admin_Bulk_Col_Change"].Value">
+                    @if (row.Problem is not null)
+                    {
+                        <span class="flag flag--alert">@Localizer[row.Problem]</span>
+                    }
+                    else if (!row.Changes)
+                    {
+                        <span class="muted">@Show(row.Before) · @Localizer["Admin_Bulk_Same"]</span>
+                    }
+                    else
+                    {
+                        <span>@Show(row.Before) → <strong>@Show(row.After)</strong></span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form method="post" asp-action="BulkApply" class="admin-action">
+    <input type="hidden" name="Back" value="@form.Back" />
+    <input type="hidden" name="Action" value="@form.Action" />
+    <input type="hidden" name="Value" value="@form.Value" />
+    <input type="hidden" name="TargetCategoryId" value="@form.TargetCategoryId" />
+    @foreach (var id in Model.Ids)
+    {
+        <input type="hidden" name="Ids" value="@id" />
+    }
+    <div class="admin-buttons">
+        @if (preview.IsValid && preview.ChangedCount > 0)
+        {
+            <button type="submit" class="btn btn--primary">@Localizer.GetString("Admin_Bulk_Apply", preview.ChangedCount).Value</button>
+        }
+        else if (preview.IsValid)
+        {
+            <p class="muted">@Localizer["Admin_Bulk_NothingChanges"]</p>
+        }
+        <a class="btn btn--ghost" href="@(string.IsNullOrEmpty(form.Back) ? Url.Action("Index") : form.Back)">@Localizer["Admin_Bulk_Cancel"]</a>
+    </div>
+</form>

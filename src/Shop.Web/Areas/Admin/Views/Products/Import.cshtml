@@ -1,0 +1,62 @@
+@using Shop.Core.Admin
+@model ImportPageViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Imp_Title"].Value;
+}
+
+<p><a class="link" asp-action="Index">← @Localizer["Admin_Nav_Products"]</a></p>
+<h1 class="admin-title">@Localizer["Admin_Imp_Title"]</h1>
+
+<div class="admin-grid">
+    <div class="admin-col">
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_Imp_Rules"]</h2>
+            <ul class="admin-rules">
+                <li>@Localizer["Admin_Imp_Rule_Sku"]</li>
+                <li>@Localizer["Admin_Imp_Rule_Empty"]</li>
+                <li>@Localizer["Admin_Imp_Rule_New"]</li>
+                <li>@Localizer["Admin_Imp_Rule_Columns"]</li>
+                <li>@Localizer.GetString("Admin_Imp_Rule_Limits", ProductCsv.MaxRows).Value</li>
+                <li>@Localizer["Admin_Imp_Rule_AllOrNothing"]</li>
+                <li>@Localizer["Admin_Imp_Rule_NoPhotos"]</li>
+            </ul>
+            <p><a class="btn btn--ghost" asp-action="ImportTemplate">@Localizer["Admin_Imp_Template"]</a></p>
+            <p class="muted">@string.Join(", ", ProductCsv.Columns)</p>
+        </section>
+
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_Imp_Upload"]</h2>
+            <form method="post" asp-action="ImportPreview" enctype="multipart/form-data" class="form">
+                <div class="field">
+                    <label class="field__label" for="csv-file">@Localizer["Admin_Imp_File"]</label>
+                    <input id="csv-file" class="input" type="file" name="file" accept=".csv,text/csv" required />
+                </div>
+                <button type="submit" class="btn btn--primary">@Localizer["Admin_Imp_Check"]</button>
+            </form>
+        </section>
+    </div>
+
+    <div class="admin-col">
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_Imp_Numbers"]</h2>
+            <h3 class="order__title">CategoryId</h3>
+            <table class="atable atable--plain">
+                <tbody>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <tr><td><strong>@category.Id</strong></td><td>@category.Name</td></tr>
+                    }
+                </tbody>
+            </table>
+            <h3 class="order__title">AgeGroupIds</h3>
+            <table class="atable atable--plain">
+                <tbody>
+                    @foreach (var group in Model.AgeGroups)
+                    {
+                        <tr><td><strong>@group.Id</strong></td><td>@group.Name</td></tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>

@@ -7,7 +7,13 @@
 
 <div class="admin-toolbar">
     <h1 class="admin-title">@Localizer["Admin_Nav_Products"]</h1>
-    <a class="btn btn--primary" asp-action="Edit">@Localizer["Admin_Add"]</a>
+    <div class="admin-buttons">
+        <a class="btn btn--ghost" asp-action="Import">@Localizer["Admin_Prod_Import"]</a>
+        <form method="post" asp-action="ExportCsv">
+            <button type="submit" class="btn btn--ghost">@Localizer["Admin_Prod_Export"]</button>
+        </form>
+        <a class="btn btn--primary" asp-action="Edit">@Localizer["Admin_Add"]</a>
+    </div>
 </div>
 
 <form method="get" class="admin-filter">
@@ -50,9 +56,57 @@
 }
 else
 {
+    @* Change many products: tick products below (their boxes belong to this form through the "form" attribute), pick a change, look at the preview. *@
+    <form id="bulk-form" method="post" asp-action="BulkPreview" class="panel admin-bulk">
+        <h2 class="admin-h2">@Localizer["Admin_Bulk_Title"]</h2>
+        <p class="admin-hint">@Localizer["Admin_Bulk_Hint"]</p>
+        <input type="hidden" name="Back" value="@back" />
+        <input type="hidden" name="Query" value="@filter.Query" />
+        <input type="hidden" name="CategoryId" value="@filter.CategoryId" />
+        <input type="hidden" name="Show" value="@filter.Show" />
+        <input type="hidden" name="LowStock" value="@filter.LowStock.ToString().ToLowerInvariant()" />
+
+        <div class="admin-bulk__scope">
+            <label class="check"><input type="radio" name="Scope" value="selected" checked /> <span>@Localizer["Admin_Bulk_Scope_Selected"]</span></label>
+            @if (Model.Result.TotalCount > Model.Result.Items.Count)
+            {
+                <label class="check"><input type="radio" name="Scope" value="filter" /> <span>@Localizer.GetString("Admin_Bulk_Scope_Filter", Model.Result.TotalCount).Value</span></label>
+            }
+        </div>
+
+        <div class="admin-bulk__row">
+            <div class="field">
+                <label class="field__label" for="bulk-action">@Localizer["Admin_Bulk_Action"]</label>
+                <select id="bulk-action" class="input" name="Action">
+                    @foreach (var action in Enum.GetValues<BulkAction>())
+                    {
+                        <option value="@action">@Localizer["Admin_BulkAction_" + action]</option>
+                    }
+                </select>
+            </div>
+            <div class="field">
+                <label class="field__label" for="bulk-value">@Localizer["Admin_Bulk_Value"]</label>
+                <input id="bulk-value" class="input input--small" type="number" name="Value" step="any" />
+            </div>
+            <div class="field">
+                <label class="field__label" for="bulk-target">@Localizer["Admin_Bulk_Target"]</label>
+                <select id="bulk-target" class="input" name="TargetCategoryId">
+                    <option value="">—</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn--primary">@Localizer["Admin_Bulk_Preview"]</button>
+        </div>
+        <p class="admin-hint">@Localizer["Admin_Bulk_ValueHint"]</p>
+    </form>
+
     <table class="atable">
         <thead>
             <tr>
+                <th class="atable__check"><input type="checkbox" data-select-all aria-label="@Localizer["Admin_Bulk_SelectAll"].Value" /></th>
                 <th></th>
                 <th>@Localizer["Admin_Col_Name"]</th>
                 <th>@Localizer["Admin_Prod_Sku"]</th>
@@ -66,6 +120,7 @@ else
             @foreach (var row in Model.Result.Items)
             {
                 <tr>
+                    <td class="atable__check" data-label=""><input type="checkbox" name="ids" value="@row.Id" form="bulk-form" aria-label="@row.Name" /></td>
                     <td class="atable__thumb">@if (!string.IsNullOrEmpty(row.ImagePath)) {<img src="@row.ImagePath" alt="" width="48" height="48" loading="lazy" />}</td>
                     <td data-label="@Localizer["Admin_Col_Name"].Value">
                         <a class="link" asp-action="Edit" asp-route-id="@row.Id"><strong>@row.Name</strong></a><br />

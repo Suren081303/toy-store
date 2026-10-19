@@ -1,0 +1,83 @@
+@using Shop.Core.Admin
+@model ImportPreviewViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Imp_PreviewTitle"].Value;
+    var preview = Model.Preview;
+    string Problem(ImportProblem p) => Localizer.GetString(p.Key, p.A ?? string.Empty, p.B ?? string.Empty, p.C ?? string.Empty).Value;
+}
+
+<p><a class="link" asp-action="Import">← @Localizer["Admin_Imp_Title"]</a></p>
+<h1 class="admin-title">@Localizer["Admin_Imp_PreviewTitle"]</h1>
+<p class="admin-hint">@Model.FileName</p>
+
+@foreach (var problem in preview.FileProblems)
+{
+    <p class="alert alert--error" role="alert">@Problem(problem)</p>
+}
+
+@if (preview.Rows.Count > 0)
+{
+    <p><strong>@Localizer.GetString("Admin_Imp_Summary", preview.Creates, preview.Updates, preview.Unchanged).Value</strong></p>
+}
+
+@if (preview.ErrorRows > 0)
+{
+    <p class="alert alert--error" role="alert">@Localizer.GetString("Admin_Imp_Errors", preview.ErrorRows).Value</p>
+}
+else if (preview.IsValid)
+{
+    <p class="alert alert--success" role="status">@Localizer["Admin_Imp_Ok"]</p>
+}
+
+@if (preview.Rows.Count > 0)
+{
+    <table class="atable">
+        <thead>
+            <tr>
+                <th>@Localizer["Admin_Imp_Row"]</th>
+                <th>@Localizer["Admin_Prod_Sku"]</th>
+                <th>@Localizer["Admin_Col_Status"]</th>
+                <th>@Localizer["Admin_Bulk_Col_Change"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in preview.Rows)
+            {
+                <tr>
+                    <td data-label="@Localizer["Admin_Imp_Row"].Value">@row.Row</td>
+                    <td data-label="@Localizer["Admin_Prod_Sku"].Value">@row.Sku</td>
+                    <td data-label="@Localizer["Admin_Col_Status"].Value">
+                        <span class="flag @(row.Action == ImportAction.Error ? "flag--alert" : row.Action == ImportAction.Unchanged ? "" : "flag--ok")">@Localizer["Admin_Imp_Action_" + row.Action]</span>
+                    </td>
+                    <td data-label="@Localizer["Admin_Bulk_Col_Change"].Value">
+                        @if (row.Problems.Count > 0)
+                        {
+                            <ul class="admin-rules">
+                                @foreach (var problem in row.Problems)
+                                {
+                                    <li>@Problem(problem)</li>
+                                }
+                            </ul>
+                        }
+                        else if (row.Action == ImportAction.Update)
+                        {
+                            <span>@string.Join("; ", row.Changes)</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="admin-buttons">
+    @if (preview.IsValid && preview.Creates + preview.Updates > 0)
+    {
+        <form method="post" asp-action="ImportApply">
+            @* The file is sent back as it is; the server checks it again before saving anything. *@
+            <textarea name="csv" hidden>@Model.Csv</textarea>
+            <button type="submit" class="btn btn--primary">@Localizer["Admin_Imp_Apply"]</button>
+        </form>
+    }
+    <a class="btn btn--ghost" asp-action="Import">@Localizer["Admin_Bulk_Cancel"]</a>
+</div>

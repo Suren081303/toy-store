@@ -15,6 +15,15 @@ internal static class AuditWriter
             ? string.Empty
             : await db.Users.Where(u => u.Id == userId).Select(u => u.Email).FirstOrDefaultAsync() ?? string.Empty;
 
+        Add(db, userId, email, at, action, entityType, entityId, details);
+    }
+
+    // The same, when the admin's email is already known (many lines in one change: one lookup, not one per line).
+    public static void Add(
+        ShopDbContext db, string? userId, string userEmail, DateTime at, string action, string entityType, string entityId, string? details = null)
+    {
+        var email = userEmail;
+
         db.AuditLogs.Add(new AuditLog
         {
             At = at,

@@ -9,6 +9,14 @@
         }
     });
 
+    // The "select all" box in the product list ticks or unticks every product box on the page.
+    document.addEventListener('change', function (event) {
+        var all = event.target.closest('[data-select-all]');
+        if (all) {
+            document.querySelectorAll('input[name="ids"]').forEach(function (box) { box.checked = all.checked; });
+        }
+    });
+
     // The bell: ask the server for the number of unread notifications every 120 seconds, but only while this page is visible
     // (a hidden tab does not need it, and it is refreshed at once when the admin comes back after a longer time).
     var bell = document.querySelector('[data-bell]');

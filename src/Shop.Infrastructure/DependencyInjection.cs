@@ -42,6 +42,7 @@ public static class DependencyInjection
         services.AddScoped<IAdminCategoryService, AdminCategoryService>();
         services.AddScoped<IAdminAgeGroupService, AdminAgeGroupService>();
         services.AddScoped<IAdminProductService, AdminProductService>();
+        services.AddScoped<IAdminProductToolsService, AdminProductToolsService>();
         services.AddScoped<IAdminAccountService, AdminAccountService>();
         services.AddScoped<IAdminCustomerService, AdminCustomerService>();
         services.AddScoped<IAdminAuditService, AdminAuditService>();
