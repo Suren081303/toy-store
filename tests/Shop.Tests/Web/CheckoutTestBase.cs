@@ -1,4 +1,6 @@
 using System.Net;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
 using Shop.Core.Orders;
 
@@ -11,7 +13,22 @@ public abstract class CheckoutTestBase : WebTestBase
     {
     }
 
-    protected Task<int> PlainProductAsync() => FindProductIdAsync(p => p.StockQuantity >= 5 && p.DiscountPercent == 0);
+    // A demo product with enough stock and no discount of its own. The demo stock is limited and many tests buy from it,
+    // so when no such product has enough left, the plain demo products are refilled.
+    protected async Task<int> PlainProductAsync()
+    {
+        using (var scope = Fixture.Factory.Services.CreateScope())
+        {
+            var db = scope.ServiceProvider.GetRequiredService<Shop.Infrastructure.Data.ShopDbContext>();
+
+            if (!await db.Products.AnyAsync(p => !p.IsArchived && p.Category.IsActive && p.DiscountPercent == 0 && p.StockQuantity >= 10))
+            {
+                await db.Products.Where(p => !p.IsArchived && p.DiscountPercent == 0).ExecuteUpdateAsync(s => s.SetProperty(p => p.StockQuantity, 40));
+            }
+        }
+
+        return await FindProductIdAsync(p => p.StockQuantity >= 5 && p.DiscountPercent == 0);
+    }
 
     protected static string FirstDeliveryDate() => ShopClock.Today(TimeProvider.System).AddDays(1).ToString("yyyy-MM-dd");
 

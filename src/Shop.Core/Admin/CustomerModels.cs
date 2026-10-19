@@ -80,8 +80,20 @@ public enum CustomerActionStatus
     EmailNotConfirmed
 }
 
+// A customer as the phone-order pages need them.
+public record PhoneOrderCustomer(
+    string Id,
+    string FullName,
+    string Email,
+    string Phone,
+    bool EmailConfirmed,
+    bool IsBlocked);
+
 public interface IAdminCustomerService
 {
+    // One customer by id, or null when there is no such account or it is an admin account.
+    Task<PhoneOrderCustomer?> FindAsync(string userId);
+
     // 25 per page.
     Task<PagedResult<AdminCustomerRow>> ListAsync(AdminCustomerFilter filter);
 

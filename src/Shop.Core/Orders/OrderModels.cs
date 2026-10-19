@@ -66,7 +66,10 @@ public enum PlaceOrderStatus
     // Somebody else took the stock first (Problems says which products and how many are left).
     OutOfStock,
 
-    InvalidDelivery
+    InvalidDelivery,
+
+    // An order made by an admin cannot be paid by card (there is no customer at the bank's page).
+    InvalidPayment
 }
 
 public record StockProblem(int ProductId, string Name, int Available);

@@ -1,0 +1,65 @@
+@model PhoneOrderStartViewModel
+@{
+    ViewData["Title"] = Localizer["PO_Title"].Value;
+}
+
+<p><a class="link" asp-controller="Orders" asp-action="Index">← @Localizer["Admin_Nav_Orders"]</a></p>
+<h1 class="admin-title">@Localizer["PO_Title"]</h1>
+<ol class="po-steps"><li class="is-active">@Localizer["PO_Step1"]</li><li>@Localizer["PO_Step2"]</li><li>@Localizer["PO_Step3"]</li></ol>
+
+@if (Model.StaffCartItems > 0)
+{
+    <div class="panel po-unfinished">
+        <p>@Localizer.GetString("PO_Unfinished", Model.StaffCartItems).Value</p>
+        <form method="post" asp-action="Clear">
+            <button type="submit" class="btn btn--ghost btn--small" data-confirm="@Localizer["PO_ConfirmClear"].Value">@Localizer["PO_Clear"]</button>
+        </form>
+    </div>
+}
+
+<section class="panel admin-narrow">
+    <h2 class="admin-h2">@Localizer["PO_SearchLabel"]</h2>
+    <form method="get" asp-action="Index" class="form">
+        <div class="field">
+            <input class="input" type="search" name="q" value="@Model.Query" aria-label="@Localizer["PO_SearchLabel"].Value" autocomplete="off" />
+        </div>
+        <button type="submit" class="btn btn--primary btn--small">@Localizer["Admin_Filter"]</button>
+    </form>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Query))
+    {
+        if (Model.Matches.Count == 0)
+        {
+            <p class="muted">@Localizer["PO_NoMatches"]</p>
+        }
+        else
+        {
+            <table class="atable atable--plain">
+                <tbody>
+                    @foreach (var customer in Model.Matches)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@customer.FullName</strong><br />
+                                <span class="muted">@customer.Email · @customer.Phone</span>
+                                @if (customer.IsBlocked)
+                                {
+                                    <span class="flag flag--alert">@Localizer["Admin_Cust_FlagBlocked"]</span>
+                                }
+                            </td>
+                            <td class="atable__actions">
+                                <a class="btn btn--primary btn--small" asp-action="Items" asp-route-customer="@customer.Id">@Localizer["PO_Select"]</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</section>
+
+<section class="panel admin-narrow">
+    <h2 class="admin-h2">@Localizer["PO_NoAccount"]</h2>
+    <p class="muted">@Localizer["PO_NoAccountHint"]</p>
+    <a class="btn btn--ghost" asp-action="Items" asp-route-customer="guest">@Localizer["PO_NoAccount"]</a>
+</section>

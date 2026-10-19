@@ -137,6 +137,18 @@ public class OrderEmails
                         BuildStatusHtml(culture, shopName, _l["Email_ReturnRefunded_Heading"].Value, order.Number,
                             [_l["Email_ReturnRefunded_Text", order.Number].Value], note, customerUrl, button, footnote));
 
+                case EmailKind.OrderUpdated:
+                {
+                    var address = $"{_l["Region_" + order.Region].Value}, {order.City}, {order.Street} {order.Building}" +
+                                  (string.IsNullOrWhiteSpace(order.Apartment) ? string.Empty : $", {_l["Label_Apartment"].Value} {order.Apartment}");
+                    var when = $"{order.DeliveryDate.ToString("dddd, d MMMM yyyy", new CultureInfo(culture))}, {order.DeliverySlot}";
+
+                    return (_l["Email_Updated_Subject", order.Number].Value,
+                        BuildStatusHtml(culture, shopName, _l["Email_Updated_Heading"].Value, order.Number,
+                            [_l["Email_Updated_Text", order.Number].Value, $"{_l["Order_DeliveryTitle"].Value}: {when}", address],
+                            null, customerUrl, button, footnote));
+                }
+
                 case EmailKind.ShopReturnRequested:
                 {
                     var returnUrl = $"{baseUrl}/{Cultures.Default}/Admin/Returns/Details/{item.ReturnId}";

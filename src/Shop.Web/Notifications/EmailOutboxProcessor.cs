@@ -52,6 +52,16 @@ public class EmailOutboxProcessor : IEmailOutboxProcessor
             {
                 email.Attempts++;
 
+                // An order made by phone may have no email address: its customer emails are not sent, and say so.
+                if (email.Kind != EmailKind.CustomerMessage && !EmailKinds.IsForShop(email.Kind)
+                    && string.IsNullOrWhiteSpace(await _db.Orders.Where(o => o.Number == email.OrderNumber).Select(o => o.Email).FirstOrDefaultAsync()))
+                {
+                    email.Status = OutboxStatus.Skipped;
+                    email.LastError = "The order has no email address.";
+                    await _db.SaveChangesAsync();
+                    continue;
+                }
+
                 try
                 {
                     var rendered = await _renderer.RenderAsync(email);

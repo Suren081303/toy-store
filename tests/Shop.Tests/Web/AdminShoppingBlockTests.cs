@@ -68,6 +68,7 @@ public class AdminShoppingBlockTests : CheckoutTestBase
         var admin = await AdminClientAsync();
         var adminId = await AdminIdAsync();
         var productId = (await PlainProductAsync()).ToString();
+        var itemsBefore = await InDbAsync(db => db.CartItems.CountAsync(i => i.Cart.UserId == adminId)); // the admin's staff cart (phone orders) may hold items
 
         var page = await PostFormAsync(admin, "/en/Account", "/en/Cart/Add", new Dictionary<string, string> { ["productId"] = productId, ["quantity"] = "1" });
         var script = await PostJsonAsync(admin, "/en/Cart/Add", new Dictionary<string, string> { ["productId"] = productId, ["quantity"] = "1" });
@@ -79,7 +80,7 @@ public class AdminShoppingBlockTests : CheckoutTestBase
         Assert.Contains("AdminCannotBuy", await BodyAsync(script)); // the script gets JSON, not a page
         Assert.Equal(HttpStatusCode.Forbidden, quantity.StatusCode);
         Assert.Equal(HttpStatusCode.Forbidden, remove.StatusCode);
-        Assert.False(await InDbAsync(db => db.Carts.AnyAsync(c => c.UserId == adminId)));
+        Assert.Equal(itemsBefore, await InDbAsync(db => db.CartItems.CountAsync(i => i.Cart.UserId == adminId)));
     }
 
     [Fact]
@@ -124,10 +125,11 @@ public class AdminShoppingBlockTests : CheckoutTestBase
         var client = NewClient();
         await AddToCartAsync(client, await PlainProductAsync()); // a guest cart
         var adminId = await AdminIdAsync();
+        var itemsBefore = await InDbAsync(db => db.CartItems.CountAsync(i => i.Cart.UserId == adminId));
 
         Assert.Equal(HttpStatusCode.Redirect, (await LoginAsync(client, ShopWebFactory.AdminEmail, ShopWebFactory.AdminPassword)).StatusCode);
 
-        Assert.False(await InDbAsync(db => db.Carts.AnyAsync(c => c.UserId == adminId)));
+        Assert.Equal(itemsBefore, await InDbAsync(db => db.CartItems.CountAsync(i => i.Cart.UserId == adminId))); // nothing moved in
     }
 
     [Fact]

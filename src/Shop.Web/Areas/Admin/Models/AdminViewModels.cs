@@ -12,6 +12,8 @@ public record AdminOrdersViewModel(AdminOrderFilter Filter, PagedResult<AdminOrd
 
 public record AdminCustomersViewModel(AdminCustomerFilter Filter, PagedResult<AdminCustomerRow> Result);
 
+public record SlipsViewModel(IReadOnlyList<PackingSlip> Slips, bool Truncated);
+
 public record AdminReturnsViewModel(ReturnStatus? Status, PagedResult<AdminReturnRow> Result);
 
 // CurrentAdminId: the signed-in admin (their own row has no "Remove" button).

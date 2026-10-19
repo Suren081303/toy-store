@@ -1,0 +1,158 @@
+@model PhoneOrderItemsViewModel
+@{
+    ViewData["Title"] = Localizer["PO_Title"].Value;
+    var cart = Model.Cart;
+    var hasLines = cart.Lines.Any(l => l.IsAvailable);
+}
+
+<p><a class="link" asp-action="Index">← @Localizer["PO_Step1"]</a></p>
+<h1 class="admin-title">@Localizer["PO_Title"]</h1>
+<ol class="po-steps"><li>@Localizer["PO_Step1"]</li><li class="is-active">@Localizer["PO_Step2"]</li><li>@Localizer["PO_Step3"]</li></ol>
+
+<div class="panel po-customer">
+    @if (Model.Account is { } account)
+    {
+        <p>
+            <strong>@Localizer.GetString("PO_ForCustomer", account.FullName).Value</strong><br />
+            <span class="muted">@account.Email · @account.Phone</span>
+            @if (account.IsBlocked)
+            {
+                <br /><span class="flag flag--alert">@Localizer["PO_BlockedWarning"]</span>
+            }
+        </p>
+    }
+    else
+    {
+        <p><strong>@Localizer.GetString("PO_ForCustomer", Localizer["PO_Guest"].Value).Value</strong></p>
+    }
+</div>
+
+<div class="admin-grid">
+    <div class="admin-col">
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["PO_ProductSearch"]</h2>
+            <form method="get" asp-action="Items" class="form">
+                <input type="hidden" name="customer" value="@Model.Customer" />
+                <div class="field">
+                    <input class="input" type="search" name="pq" value="@Model.ProductQuery" aria-label="@Localizer["PO_ProductSearch"].Value" autocomplete="off" />
+                </div>
+                <button type="submit" class="btn btn--primary btn--small">@Localizer["Admin_Filter"]</button>
+            </form>
+
+            @if (!string.IsNullOrWhiteSpace(Model.ProductQuery))
+            {
+                if (Model.Products.Count == 0)
+                {
+                    <p class="muted">@Localizer["PO_NoProducts"]</p>
+                }
+                else
+                {
+                    <table class="atable atable--plain">
+                        <tbody>
+                            @foreach (var product in Model.Products)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@product.Name</strong><br />
+                                        <span class="muted">@product.Sku · @product.Brand · @Money.Format(product.Price)@(product.DiscountPercent > 0 ? $" (-{product.DiscountPercent}%)" : "") · @Localizer.GetString("PO_Stock", product.Stock).Value</span>
+                                    </td>
+                                    <td class="atable__actions">
+                                        <form method="post" asp-action="AddItem" class="admin-stock">
+                                            <input type="hidden" name="customer" value="@Model.Customer" />
+                                            <input type="hidden" name="pq" value="@Model.ProductQuery" />
+                                            <input type="hidden" name="productId" value="@product.Id" />
+                                            <input class="input input--small" type="number" name="quantity" value="1" min="1" max="@product.MaxQuantity" aria-label="@Localizer["Cart_Quantity"].Value" />
+                                            <button type="submit" class="btn btn--primary btn--small">@Localizer["PO_Add"]</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            }
+        </section>
+    </div>
+
+    <div class="admin-col">
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["PO_Step2"]</h2>
+            @if (cart.Lines.Count == 0)
+            {
+                <p class="muted">@Localizer["PO_CartEmpty"]</p>
+            }
+            else
+            {
+                <table class="atable atable--plain">
+                    <tbody>
+                        @foreach (var line in cart.Lines)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@line.Name</strong><br />
+                                    <span class="muted">@line.Brand · @Money.Format(line.UnitPrice)@(line.CustomerDiscountApplied ? $" (-{cart.CustomerDiscountPercent}%)" : line.DiscountPercent > 0 ? $" (-{line.DiscountPercent}%)" : "")</span>
+                                    @if (!line.IsAvailable)
+                                    {
+                                        <br /><span class="flag flag--alert">@Localizer["Cart_NotAvailable"]</span>
+                                    }
+                                </td>
+                                <td class="atable__num">
+                                    <form method="post" asp-action="SetQuantity" class="admin-stock">
+                                        <input type="hidden" name="customer" value="@Model.Customer" />
+                                        <input type="hidden" name="pq" value="@Model.ProductQuery" />
+                                        <input type="hidden" name="productId" value="@line.ProductId" />
+                                        <input class="input input--small" type="number" name="quantity" value="@line.Quantity" min="0" max="@Math.Max(line.MaxQuantity, line.Quantity)" aria-label="@Localizer["Cart_Quantity"].Value" />
+                                        <button type="submit" class="btn btn--ghost btn--small">@Localizer["PO_Update"]</button>
+                                    </form>
+                                </td>
+                                <td class="atable__num"><strong>@Money.Format(line.LineTotal)</strong></td>
+                                <td class="atable__actions">
+                                    <form method="post" asp-action="RemoveItem">
+                                        <input type="hidden" name="customer" value="@Model.Customer" />
+                                        <input type="hidden" name="pq" value="@Model.ProductQuery" />
+                                        <input type="hidden" name="productId" value="@line.ProductId" />
+                                        <button type="submit" class="btn btn--danger btn--small">@Localizer["PO_Remove"]</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <dl class="summary order__totals">
+                    <div><dt>@Localizer["Cart_Subtotal"]</dt><dd>@Money.Format(cart.RegularTotal)</dd></div>
+                    @if (cart.Savings > 0)
+                    {
+                        <div class="summary__saving"><dt>@Localizer["Cart_Discounts"]</dt><dd>−@Money.Format(cart.Savings)</dd></div>
+                    }
+                    <div class="summary__total"><dt>@Localizer["PO_ItemsTotal"]</dt><dd>@Money.Format(cart.Total)</dd></div>
+                </dl>
+                @if (cart.CustomerDiscountItemCount > 0)
+                {
+                    <p class="summary__note">
+                        @if (cart.CustomerDiscountPersonal)
+                        {
+                            @Localizer.GetString("Cart_PersonalNote", cart.CustomerDiscountPercent).Value
+                        }
+                        else
+                        {
+                            @Localizer.GetString("Cart_CustomerNote", cart.CustomerDiscountPercent).Value<text> </text>@Localizer.GetString("Cart_OrdersLeft", cart.CustomerDiscountOrdersLeft).Value
+                        }
+                    </p>
+                }
+            }
+
+            <div class="admin-buttons">
+                @if (hasLines)
+                {
+                    <a class="btn btn--primary" asp-action="Details" asp-route-customer="@Model.Customer">@Localizer["PO_ToDetails"]</a>
+                }
+                @if (cart.Lines.Count > 0)
+                {
+                    <form method="post" asp-action="Clear">
+                        <button type="submit" class="btn btn--ghost" data-confirm="@Localizer["PO_ConfirmClear"].Value">@Localizer["PO_Clear"]</button>
+                    </form>
+                }
+            </div>
+        </section>
+    </div>
+</div>

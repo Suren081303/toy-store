@@ -177,16 +177,17 @@ public class AdminAnalyticsService : IAdminAnalyticsService
             {
                 o.Number, o.CreatedAt, o.Status, o.PaymentMethod, o.PaymentStatus, o.Region,
                 Items = o.Items.Sum(i => i.Quantity), o.Subtotal, o.Discount, o.DeliveryFee, o.Total,
-                Registered = o.UserId != null, o.CustomerDiscountApplied
+                Registered = o.UserId != null, o.CustomerDiscountApplied, Phone = o.CreatedByUserId != null
             })
             .ToListAsync();
 
         var file = CsvWriter.Build(
-            ["Number", "Placed", "Status", "Payment", "PaymentStatus", "Region", "Items", "Subtotal", "Discount", "DeliveryFee", "Total", "Customer", "CustomerDiscount"],
+            ["Number", "Placed", "Status", "Payment", "PaymentStatus", "Region", "Items", "Subtotal", "Discount", "DeliveryFee", "Total", "Customer", "CustomerDiscount", "Source"],
             orders.Select(o => (IReadOnlyList<object?>)new object?[]
             {
                 o.Number, ShopClock.ToShopTime(o.CreatedAt), o.Status.ToString(), o.PaymentMethod.ToString(), o.PaymentStatus.ToString(), o.Region,
-                o.Items, o.Subtotal, o.Discount, o.DeliveryFee, o.Total, o.Registered ? "Registered" : "Guest", o.CustomerDiscountApplied ? "yes" : "no"
+                o.Items, o.Subtotal, o.Discount, o.DeliveryFee, o.Total, o.Registered ? "Registered" : "Guest", o.CustomerDiscountApplied ? "yes" : "no",
+                o.Phone ? "Phone" : "Website"
             }));
 
         await AuditExportAsync("Export.Orders", period, orders.Count, adminUserId);

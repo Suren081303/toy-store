@@ -7,7 +7,13 @@
     var returnUrl = Context.Request.Path + Context.Request.QueryString; // the buttons in the table bring you back to this list
 }
 
-<h1 class="admin-title">@Localizer["Admin_Nav_Orders"]</h1>
+<div class="admin-toolbar">
+    <h1 class="admin-title">@Localizer["Admin_Nav_Orders"]</h1>
+    <div class="admin-buttons">
+        <a class="btn btn--ghost" href="@Url.Action("Slips")@Context.Request.QueryString" target="_blank" rel="noopener">@Localizer["Admin_PrintSlips"]</a>
+        <a class="btn btn--primary" asp-controller="PhoneOrders" asp-action="Index">@Localizer["Admin_NewPhoneOrder"]</a>
+    </div>
+</div>
 
 <form method="get" class="admin-filter">
     <div class="field admin-filter__wide">
@@ -74,7 +80,16 @@ else
             @foreach (var row in Model.Result.Items)
             {
                 <tr>
-                    <td data-label="@Localizer["Admin_Col_Order"].Value"><a class="link" asp-action="Details" asp-route-number="@row.Number"><strong>#@row.Number</strong></a></td>
+                    <td data-label="@Localizer["Admin_Col_Order"].Value"><a class="link" asp-action="Details" asp-route-number="@row.Number"><strong>#@row.Number</strong></a>
+                        @if (row.IsPhoneOrder)
+                        {
+                            <br /><span class="flag">@Localizer["Admin_Flag_Phone"]</span>
+                        }
+                        @if (row.NoteCount > 0)
+                        {
+                            <br /><span class="flag">@Localizer.GetString("Admin_Flag_Notes", row.NoteCount).Value</span>
+                        }
+                    </td>
                     <td data-label="@Localizer["Admin_Col_Date"].Value">@ShopClock.ToShopTime(row.CreatedAt).ToString("d MMM yyyy, HH:mm", CultureInfo.CurrentCulture)</td>
                     <td data-label="@Localizer["Admin_Col_Customer"].Value">@row.CustomerName<br /><span class="muted">@row.Phone</span></td>
                     <td data-label="@Localizer["Admin_Col_Status"].Value">

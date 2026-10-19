@@ -637,6 +637,10 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatedByUserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Culture")
                         .IsRequired()
                         .HasMaxLength(5)
@@ -847,6 +851,41 @@ namespace Shop.Infrastructure.Migrations
                         {
                             t.HasCheckConstraint("CK_OrderItems_Quantity", "[Quantity] >= 1");
                         });
+                });
+
+            modelBuilder.Entity("Shop.Core.Entities.OrderNote", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ByEmail")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("ByUserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderNotes");
                 });
 
             modelBuilder.Entity("Shop.Core.Entities.OutboxEmail", b =>
@@ -1350,6 +1389,17 @@ namespace Shop.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Shop.Core.Entities.OrderNote", b =>
+                {
+                    b.HasOne("Shop.Core.Entities.Order", "Order")
+                        .WithMany("Notes")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Shop.Core.Entities.Payment", b =>
                 {
                     b.HasOne("Shop.Core.Entities.Order", "Order")
@@ -1427,6 +1477,8 @@ namespace Shop.Infrastructure.Migrations
                     b.Navigation("Events");
 
                     b.Navigation("Items");
+
+                    b.Navigation("Notes");
 
                     b.Navigation("ReturnRequests");
                 });

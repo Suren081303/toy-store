@@ -1,0 +1,97 @@
+@using Shop.Core.Orders
+@model PhoneOrderForm
+@{
+    ViewData["Title"] = Localizer["PO_Title"].Value;
+    var cart = Model.Cart;
+}
+
+<p><a class="link" asp-action="Items" asp-route-customer="@Model.Customer">← @Localizer["PO_Step2"]</a></p>
+<h1 class="admin-title">@Localizer["PO_Title"]</h1>
+<ol class="po-steps"><li>@Localizer["PO_Step1"]</li><li>@Localizer["PO_Step2"]</li><li class="is-active">@Localizer["PO_Step3"]</li></ol>
+
+<div class="panel po-customer">
+    <p>
+        @if (Model.Account is { } account)
+        {
+            <strong>@Localizer.GetString("PO_ForCustomer", account.FullName).Value</strong><br />
+            <span class="muted">@account.Email · @account.Phone</span>
+            @if (account.IsBlocked)
+            {
+                <br /><span class="flag flag--alert">@Localizer["PO_BlockedWarning"]</span>
+            }
+        }
+        else
+        {
+            <strong>@Localizer.GetString("PO_ForCustomer", Localizer["PO_Guest"].Value).Value</strong>
+        }
+    </p>
+</div>
+
+<form method="post" asp-action="Place" class="form">
+    <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+    <input type="hidden" asp-for="CheckoutId" />
+    <input type="hidden" asp-for="Customer" />
+    <input type="hidden" asp-for="ExpectedTotal" />
+
+    <div class="admin-grid">
+        <div class="admin-col">
+            <section class="panel">
+                <h2 class="admin-h2">@Localizer["PO_Contact"]</h2>
+                <partial name="_ContactDelivery" model="Model" />
+                <p class="muted">@Localizer["PO_EmailHint"]</p>
+            </section>
+        </div>
+
+        <div class="admin-col">
+            <section class="panel">
+                <h2 class="admin-h2">@Localizer["PO_Step2"]</h2>
+                <table class="atable atable--plain">
+                    <tbody>
+                        @foreach (var line in cart.Lines.Where(l => l.IsAvailable))
+                        {
+                            <tr>
+                                <td>@line.Name<br /><span class="muted">@line.Brand</span></td>
+                                <td class="atable__num">@Money.Format(line.UnitPrice) × @line.Quantity</td>
+                                <td class="atable__num"><strong>@Money.Format(line.LineTotal)</strong></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <dl class="summary order__totals">
+                    <div><dt>@Localizer["Cart_Subtotal"]</dt><dd>@Money.Format(cart.RegularTotal)</dd></div>
+                    @if (cart.Savings > 0)
+                    {
+                        <div class="summary__saving"><dt>@Localizer["Cart_Discounts"]</dt><dd>−@Money.Format(cart.Savings)</dd></div>
+                    }
+                    <div><dt>@Localizer["Cart_Delivery"]</dt><dd>@(Model.DeliveryFee == 0 ? Localizer["Checkout_FreeDelivery"].Value : Money.Format(Model.DeliveryFee))</dd></div>
+                    <div class="summary__total"><dt>@Localizer["Cart_Total"]</dt><dd>@Money.Format(Model.Total)</dd></div>
+                </dl>
+            </section>
+
+            <section class="panel">
+                <h2 class="admin-h2">@Localizer["Admin_Col_Payment"]</h2>
+                <div class="field">
+                    <label class="check"><input type="radio" name="PaymentMethod" value="@PaymentMethod.CashOnDelivery" checked="@(Model.PaymentMethod == PaymentMethod.CashOnDelivery)" /> <span>@Localizer["Pay_CashOnDelivery"]</span></label>
+                    <label class="check"><input type="radio" name="PaymentMethod" value="@PaymentMethod.BankTransfer" checked="@(Model.PaymentMethod == PaymentMethod.BankTransfer)" /> <span>@Localizer["Pay_BankTransfer"]</span></label>
+                    <span asp-validation-for="PaymentMethod" class="field__error"></span>
+                </div>
+                <div class="field">
+                    <label class="field__label" for="Language">@Localizer["PO_Language"]</label>
+                    <select id="Language" name="Language" class="input">
+                        @foreach (var (code, label) in new[] { ("hy", "Հայերեն"), ("ru", "Русский"), ("en", "English") })
+                        {
+                            <option value="@code" selected="@(Model.Language == code)">@label</option>
+                        }
+                    </select>
+                </div>
+                <label class="check">
+                    <input asp-for="AcceptTerms" type="checkbox" />
+                    <span>@Localizer["PO_Terms"]</span>
+                </label>
+                <span asp-validation-for="AcceptTerms" class="field__error"></span>
+            </section>
+
+            <button type="submit" class="btn btn--primary btn--lg">@Localizer["PO_Place"] — @Money.Format(Model.Total)</button>
+        </div>
+    </div>
+</form>

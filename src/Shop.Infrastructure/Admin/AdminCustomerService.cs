@@ -41,7 +41,10 @@ public class AdminCustomerService : IAdminCustomerService
         var text = filter.Query?.Trim();
         if (!string.IsNullOrEmpty(text))
         {
-            users = users.Where(u => u.FullName.Contains(text) || u.Email!.Contains(text) || (u.PhoneNumber != null && u.PhoneNumber.Contains(text)));
+            // A phone is found however it is typed (091 123456, +374 91 123456, 91123456): see PhoneNumbers.SearchNeedle.
+            var needle = Shop.Core.Phones.PhoneNumbers.SearchNeedle(text);
+            users = users.Where(u => u.FullName.Contains(text) || u.Email!.Contains(text)
+                || (u.PhoneNumber != null && (u.PhoneNumber.Contains(text) || (needle != null && u.PhoneNumber.Contains(needle)))));
         }
 
         users = filter.Status switch
@@ -106,6 +109,15 @@ public class AdminCustomerService : IAdminCustomerService
             messages.TryGetValue(r.Id, out var list) ? list : [])).ToList();
 
         return new PagedResult<AdminCustomerRow>(items, page, PageSize, total);
+    }
+
+    public async Task<PhoneOrderCustomer?> FindAsync(string userId)
+    {
+        var (user, _) = await FindCustomerAsync(userId);
+
+        return user is null
+            ? null
+            : new PhoneOrderCustomer(user.Id, user.FullName, user.Email ?? string.Empty, user.PhoneNumber ?? string.Empty, user.EmailConfirmed, user.BlockedAt is not null);
     }
 
     public async Task<CustomerActionStatus> BlockAsync(string userId, string byAdminId)

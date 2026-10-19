@@ -1,0 +1,43 @@
+/* Packing slip: one A4 sheet per order, black on white, made to be printed. Not used anywhere else. */
+* { box-sizing: border-box; }
+body { margin: 0; padding: 16px; background: #eee; color: #111; font: 14px/1.4 Arial, Helvetica, sans-serif; }
+
+.slip-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; max-width: 800px; margin: 0 auto 12px; }
+.slip-bar__btn { padding: 8px 18px; border: 0; border-radius: 999px; background: #6544a3; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+.slip-bar__warn { color: #8f2438; font-weight: 700; }
+.slip-empty { max-width: 800px; margin: 0 auto; padding: 24px; background: #fff; text-align: center; }
+
+.slip { max-width: 800px; margin: 0 auto 16px; padding: 24px; background: #fff; border: 1px solid #ccc; }
+.slip__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding-bottom: 12px; border-bottom: 2px solid #111; }
+.slip__shop { margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #555; }
+.slip__number { margin: 2px 0; font-size: 26px; }
+.slip__muted { color: #555; font-size: 12px; margin: 0; }
+.slip__when { text-align: right; font-size: 18px; }
+.slip__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0; }
+.slip h2 { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #555; }
+.slip p { margin: 0; }
+.slip__comment { margin: 0 0 14px; padding: 8px 12px; border: 1px dashed #111; white-space: pre-line; }
+.slip__table { width: 100%; border-collapse: collapse; }
+.slip__table th, .slip__table td { padding: 6px 8px; border-bottom: 1px solid #ccc; text-align: left; vertical-align: top; }
+.slip__table th { border-bottom: 2px solid #111; font-size: 12px; text-transform: uppercase; }
+.slip__table .num { text-align: right; white-space: nowrap; }
+.slip__table tfoot td { border-bottom: 0; padding-top: 4px; padding-bottom: 4px; }
+.slip__table tfoot tr:first-child td { border-top: 2px solid #111; }
+.slip__grand td { font-size: 18px; font-weight: 700; }
+.slip__pay { margin-top: 12px; }
+.slip__collect { margin-top: 6px; padding: 8px 12px; border: 2px solid #111; font-size: 20px; font-weight: 700; }
+.slip__collect--none { border-style: dashed; font-size: 14px; font-weight: 400; }
+.slip__foot { margin-top: 24px; font-size: 13px; color: #333; }
+
+@media (max-width: 600px) {
+    .slip__head { flex-direction: column; }
+    .slip__when { text-align: left; }
+    .slip__cols { grid-template-columns: 1fr; }
+}
+
+@media print {
+    body { padding: 0; background: #fff; }
+    .no-print { display: none !important; }
+    .slip { max-width: none; margin: 0; padding: 0 0 8mm; border: 0; break-after: page; page-break-after: always; }
+    .slip:last-of-type { break-after: auto; page-break-after: auto; }
+}

@@ -12,6 +12,11 @@ public interface IOrderService
     // the order is saved with a snapshot of names/prices/address, and the cart is emptied.
     Task<PlaceOrderResult> PlaceAsync(Carts.CartOwner owner, CheckoutInput input, string culture);
 
+    // An admin places an order for a customer by phone, from the admin's staff cart (the cart owned by the admin's own account).
+    // customerUserId: the customer's account (their discount applies, the order shows in their "My orders"), or null for a
+    // customer without an account. The same checks as a website order; the email on the order may be empty; cash or bank transfer only.
+    Task<PlaceOrderResult> PlaceForAdminAsync(string adminUserId, string? customerUserId, CheckoutInput input, string culture);
+
     // The four ways to open an order. Whoever calls these has already decided that the visitor may see it.
     Task<OrderSummary?> FindForUserAsync(string userId, int number);
 

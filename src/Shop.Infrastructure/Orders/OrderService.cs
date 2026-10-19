@@ -32,8 +32,21 @@ public class OrderService : IOrderService
         _time = time;
     }
 
-    public async Task<PlaceOrderResult> PlaceAsync(CartOwner owner, CheckoutInput input, string culture)
+    public Task<PlaceOrderResult> PlaceAsync(CartOwner owner, CheckoutInput input, string culture) =>
+        PlaceCoreAsync(owner, owner.UserId, null, input, culture);
+
+    public Task<PlaceOrderResult> PlaceForAdminAsync(string adminUserId, string? customerUserId, CheckoutInput input, string culture) =>
+        PlaceCoreAsync(new CartOwner(adminUserId, null), customerUserId, adminUserId, input, culture);
+
+    // owner: whose cart is turned into the order. customerUserId: whose order it is (null = no account).
+    // adminUserId: set when an admin makes the order by phone (then the staff cart of that admin is used and priced for the customer).
+    private async Task<PlaceOrderResult> PlaceCoreAsync(CartOwner owner, string? customerUserId, string? adminUserId, CheckoutInput input, string culture)
     {
+        if (adminUserId is not null && input.PaymentMethod == PaymentMethod.Card)
+        {
+            return new PlaceOrderResult(PlaceOrderStatus.InvalidPayment);
+        }
+
         // Everything below happens in one transaction: if anything fails, nothing is saved (and no stock is taken).
         await using var transaction = await _db.Database.BeginTransactionAsync();
 
@@ -47,12 +60,14 @@ public class OrderService : IOrderService
 
         // Two orders of the same customer at the same moment are handled one after the other,
         // so the "first 5 orders" discount can never be given six times.
-        if (owner.UserId is not null)
+        if (customerUserId is not null)
         {
-            await LockAsync("customer:" + owner.UserId);
+            await LockAsync("customer:" + customerUserId);
         }
 
-        var cart = await _cart.GetAsync(owner, culture);
+        var cart = adminUserId is null
+            ? await _cart.GetAsync(owner, culture)
+            : await _cart.GetForCustomerAsync(owner, culture, customerUserId);
         if (cart.Lines.Count == 0)
         {
             return new PlaceOrderResult(PlaceOrderStatus.EmptyCart);
@@ -130,7 +145,8 @@ public class OrderService : IOrderService
         {
             AccessKey = Base64Url.EncodeToString(RandomNumberGenerator.GetBytes(16)),
             CheckoutId = input.CheckoutId,
-            UserId = owner.UserId,
+            UserId = customerUserId,
+            CreatedByUserId = adminUserId,
             CustomerName = input.CustomerName,
             Email = input.Email,
             Phone = input.Phone,
@@ -183,7 +199,13 @@ public class OrderService : IOrderService
 
         // The order number exists now. A cash or bank transfer order is ready to be prepared at once: the confirmation email,
         // the shop's notice and the bell are queued in this same transaction. A card order waits for the bank's "paid" answer.
-        if (input.PaymentMethod != PaymentMethod.Card)
+        if (adminUserId is not null)
+        {
+            // The admin made this order themself: no bell and no email to the shop. The customer's confirmation is queued
+            // (the email job skips it when the order has no email address).
+            NotificationWriter.Email(_db, EmailKind.OrderConfirmation, order.Number, now);
+        }
+        else if (input.PaymentMethod != PaymentMethod.Card)
         {
             NotificationWriter.NewOrder(_db, order.Number, order.Total, now);
         }

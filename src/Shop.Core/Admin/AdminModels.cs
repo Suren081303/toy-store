@@ -58,7 +58,9 @@ public record AdminOrderRow(
     string Phone,
     decimal Total,
     bool NeedsRefund,
-    bool OpenReturn);
+    bool OpenReturn,
+    int NoteCount = 0,
+    bool IsPhoneOrder = false);
 
 public record AdminEventRow(DateTime At, OrderStatus Status, string? Note, string? ByEmail);
 
@@ -72,7 +74,11 @@ public record AdminOrderDetail(
     IReadOnlyList<OrderStatus> NextStatuses,
     bool CanMarkTransferReceived,
     // The newest return request of the order, if any.
-    int? ReturnId);
+    int? ReturnId,
+    IReadOnlyList<AdminNoteRow>? Notes = null,
+    bool IsPhoneOrder = false,
+    string? CreatedByEmail = null,
+    OrderEditScope EditScope = OrderEditScope.None);
 
 public enum RefundDoneResult
 {
@@ -94,6 +100,18 @@ public interface IAdminOrderService
 
     // The money of a payment that could not be used was sent back by hand.
     Task<RefundDoneResult> MarkRefundDoneAsync(int paymentId, string adminUserId);
+
+    // Changes contact, address, delivery day/time and comment, as far as the order's status allows (see OrderEditRules).
+    // Written to the order's history and the audit log; a changed day, time or address queues an email to the customer.
+    Task<EditOrderStatus> UpdateAsync(int number, AdminOrderEdit edit, string adminUserId);
+
+    // An internal note (only admins see it).
+    Task<AddNoteStatus> AddNoteAsync(int number, string text, string adminUserId);
+
+    Task<PackingSlip?> GetSlipAsync(int number);
+
+    // The slips of the orders that match the filter, in delivery order (day, time, number); at most max.
+    Task<IReadOnlyList<PackingSlip>> GetSlipsAsync(AdminOrderFilter filter, int max);
 }
 
 // ---- Returns ----

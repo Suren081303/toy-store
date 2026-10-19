@@ -92,7 +92,7 @@ public class OrderFixture : IAsyncLifetime
             time);
         var orders = new OrderService(db, cart, new StoreSettingsService(db), time);
 
-        return (new AdminOrderService(db, orders, time), new AdminReturnService(db, orders, time), new AdminSettingsService(db, time));
+        return (new AdminOrderService(db, orders, new StoreSettingsService(db), time), new AdminReturnService(db, orders, time), new AdminSettingsService(db, time));
     }
 
     // The catalog admin services, on one database connection.

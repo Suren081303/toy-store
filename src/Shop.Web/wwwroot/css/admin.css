@@ -208,3 +208,12 @@ a.admin-card:hover { border-color: var(--purple); }
     .atable:not(.atable--plain) .customer-more > td { display: block; text-align: left; }
     .atable:not(.atable--plain) .customer-more > td::before { content: none; }
 }
+
+/* Phone order: the three steps and the customer strip */
+.po-steps { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; padding: 0; list-style: none; font-size: 14px; }
+.po-steps li { padding: 6px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--line); color: var(--muted); }
+.po-steps li.is-active { background: var(--purple); border-color: var(--purple); color: #fff; font-weight: 700; }
+.po-customer { margin-bottom: 14px; }
+.po-customer p { margin: 0; }
+.po-unfinished { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-bottom: 14px; }
+.po-unfinished p { margin: 0; }

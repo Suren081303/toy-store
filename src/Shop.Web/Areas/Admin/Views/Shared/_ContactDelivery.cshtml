@@ -1,0 +1,78 @@
+@* Contact, address, delivery day and time, comment. Used by "Edit order" and the last step of a phone order. *@
+@using System.Globalization
+@model OrderContactAndDeliveryForm
+<div class="admin-fields">
+    <div class="field">
+        <label asp-for="CustomerName" class="field__label"></label>
+        <input asp-for="CustomerName" class="input" autocomplete="off" required maxlength="100" />
+        <span asp-validation-for="CustomerName" class="field__error"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Phone" class="field__label"></label>
+        <input asp-for="Phone" class="input" type="tel" inputmode="tel" autocomplete="off" required maxlength="20" />
+        <span asp-validation-for="Phone" class="field__error"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Email" class="field__label"></label>
+        <input asp-for="Email" class="input" type="email" autocomplete="off" maxlength="256" />
+        <span asp-validation-for="Email" class="field__error"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Region" class="field__label"></label>
+        <select asp-for="Region" class="input" required>
+            <option value="">—</option>
+            @foreach (var code in Regions.Codes)
+            {
+                <option value="@code" selected="@(Model.Region == code)">@Localizer["Region_" + code]</option>
+            }
+        </select>
+        <span asp-validation-for="Region" class="field__error"></span>
+    </div>
+    <div class="field">
+        <label asp-for="City" class="field__label"></label>
+        <input asp-for="City" class="input" autocomplete="off" required maxlength="100" />
+        <span asp-validation-for="City" class="field__error"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Street" class="field__label"></label>
+        <input asp-for="Street" class="input" autocomplete="off" required maxlength="150" />
+        <span asp-validation-for="Street" class="field__error"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Building" class="field__label"></label>
+        <input asp-for="Building" class="input" autocomplete="off" required maxlength="30" />
+        <span asp-validation-for="Building" class="field__error"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Apartment" class="field__label"></label>
+        <input asp-for="Apartment" class="input" autocomplete="off" maxlength="30" />
+        <span asp-validation-for="Apartment" class="field__error"></span>
+    </div>
+    <div class="field">
+        <label asp-for="DeliveryDate" class="field__label"></label>
+        <select asp-for="DeliveryDate" class="input" required>
+            @foreach (var day in Model.Dates)
+            {
+                var value = day.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                <option value="@value" selected="@(Model.DeliveryDate == value)">@day.ToString("dddd, d MMMM yyyy", CultureInfo.CurrentCulture)</option>
+            }
+        </select>
+        <span asp-validation-for="DeliveryDate" class="field__error"></span>
+    </div>
+    <div class="field">
+        <label asp-for="DeliverySlotId" class="field__label"></label>
+        <select asp-for="DeliverySlotId" class="input" required>
+            <option value="">—</option>
+            @foreach (var slot in Model.Slots)
+            {
+                <option value="@slot.Id" selected="@(Model.DeliverySlotId == slot.Id)">@slot.Label</option>
+            }
+        </select>
+        <span asp-validation-for="DeliverySlotId" class="field__error"></span>
+    </div>
+</div>
+<div class="field">
+    <label asp-for="Comment" class="field__label"></label>
+    <textarea asp-for="Comment" class="input textarea" rows="2" maxlength="500"></textarea>
+    <span asp-validation-for="Comment" class="field__error"></span>
+</div>

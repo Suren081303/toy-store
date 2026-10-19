@@ -22,9 +22,14 @@ public class CartService : ICartService
         _time = time;
     }
 
-    public async Task<CartView> GetAsync(CartOwner owner, string culture)
+    public Task<CartView> GetAsync(CartOwner owner, string culture) => BuildViewAsync(owner, culture, owner.UserId);
+
+    public Task<CartView> GetForCustomerAsync(CartOwner owner, string culture, string? customerUserId) => BuildViewAsync(owner, culture, customerUserId);
+
+    // discountUserId: whose discount the prices use (the owner's own for a customer's cart).
+    private async Task<CartView> BuildViewAsync(CartOwner owner, string culture, string? discountUserId)
     {
-        var discount = await GetCustomerDiscountAsync(owner);
+        var discount = await GetCustomerDiscountAsync(discountUserId);
         var cart = await FindCartAsync(owner);
 
         if (cart is null || cart.Items.Count == 0)
@@ -298,15 +303,15 @@ public class CartService : ICartService
 
     // A signed-in customer gets the 10% price on their first 5 orders (cancelled orders do not count), unless an admin gave them
     // a personal discount that is still on: that one has no order limit and replaces the 10%.
-    private async Task<CustomerDiscount> GetCustomerDiscountAsync(CartOwner owner)
+    private async Task<CustomerDiscount> GetCustomerDiscountAsync(string? userId)
     {
-        if (owner.UserId is null)
+        if (userId is null)
         {
             return new CustomerDiscount(false, 0, ProductRules.CustomerDiscountPercent, false);
         }
 
         var personal = await _db.Users.AsNoTracking()
-            .Where(u => u.Id == owner.UserId)
+            .Where(u => u.Id == userId)
             .Select(u => new { u.PersonalDiscountPercent, u.PersonalDiscountUntil })
             .FirstOrDefaultAsync();
 
@@ -315,7 +320,7 @@ public class CartService : ICartService
             return new CustomerDiscount(true, 0, personal.PersonalDiscountPercent!.Value, true);
         }
 
-        var used = await _db.Orders.CountAsync(o => o.UserId == owner.UserId && o.Status != OrderStatus.Cancelled);
+        var used = await _db.Orders.CountAsync(o => o.UserId == userId && o.Status != OrderStatus.Cancelled);
         var left = CustomerDiscountRules.OrdersLeft(used);
 
         return new CustomerDiscount(left > 0, left, ProductRules.CustomerDiscountPercent, false);

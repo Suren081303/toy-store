@@ -78,11 +78,17 @@ public class Order
     // Set once when a cancelled order's stock was put back, so it is never put back twice.
     public bool StockReleased { get; set; }
 
+    // The admin who made this order for a customer by phone. Null: the customer ordered on the website.
+    public string? CreatedByUserId { get; set; }
+
     public ApplicationUser? User { get; set; }
 
     public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
 
     public ICollection<OrderEvent> Events { get; set; } = new List<OrderEvent>();
+
+    // Notes the shop keeps about the order. Only admins see them.
+    public ICollection<OrderNote> Notes { get; set; } = new List<OrderNote>();
 
     public ICollection<ReturnRequest> ReturnRequests { get; set; } = new List<ReturnRequest>();
 }

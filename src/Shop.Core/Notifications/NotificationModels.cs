@@ -28,6 +28,9 @@ public enum EmailKind
     ReturnReceived,
     ReturnRefunded,
 
+    // The delivery day, time or address of the order was changed by an admin.
+    OrderUpdated,
+
     // A message an admin wrote to a customer (see CustomerMessage).
     CustomerMessage,
 
@@ -43,6 +46,9 @@ public enum OutboxStatus
     Pending,
 
     Sent,
+
+    // Not sent on purpose: the order has no email address (an order made by phone without one).
+    Skipped,
 
     // Gave up after the last try. An admin can put it back with "Retry".
     Failed

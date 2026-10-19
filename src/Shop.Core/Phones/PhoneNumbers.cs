@@ -57,6 +57,41 @@ public static class PhoneNumbers
         return false;
     }
 
+    // The part of a typed phone number to look for inside stored numbers (stored as "+37491123456"), or null when the text is not
+    // a phone number to search for. "091 123456", "+374 91 123456", "0037491123456" and "91123456" all give "91123456";
+    // part of a number works too ("091 12" gives "9112"). At least 4 digits are needed.
+    public static string? SearchNeedle(string? input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            return null;
+        }
+
+        var text = input.Trim();
+        if (text.Any(c => !char.IsAsciiDigit(c) && !" -().+".Contains(c)))
+        {
+            return null;
+        }
+
+        var digits = new string(text.Where(char.IsAsciiDigit).ToArray());
+
+        if (digits.StartsWith("00"))
+        {
+            digits = digits[2..];
+        }
+        else if (!text.StartsWith('+') && digits.StartsWith('0'))
+        {
+            digits = digits[1..];
+        }
+
+        if (digits.StartsWith("374") && digits.Length > 3)
+        {
+            digits = digits[3..];
+        }
+
+        return digits.Length >= 4 ? digits : null;
+    }
+
     private static bool Accept(string candidate, out string normalized)
     {
         normalized = string.Empty;

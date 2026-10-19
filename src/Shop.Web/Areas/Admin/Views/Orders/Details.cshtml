@@ -12,7 +12,14 @@
 <div class="admin-head">
     <div>
         <h1 class="admin-title">@Localizer["Order_Number"] #@order.Number</h1>
-        <p class="muted">@Localizer["Order_Placed"] @When(order.CreatedAt)</p>
+        <p class="muted">
+            @Localizer["Order_Placed"] @When(order.CreatedAt)
+            @if (Model.IsPhoneOrder)
+            {
+                <text>· </text><span class="flag">@Localizer["Admin_Flag_Phone"]</span>
+                <span>@Localizer.GetString("Admin_CreatedBy", Model.CreatedByEmail ?? "-").Value</span>
+            }
+        </p>
     </div>
     <span class="status status--@order.Status.ToString().ToLowerInvariant()">@Localizer["Status_" + order.Status]</span>
 </div>
@@ -84,11 +91,49 @@
                 }
             </ul>
         </section>
+
+        <section class="panel" id="notes">
+            <h2 class="admin-h2">@Localizer["Admin_Notes_Title"]</h2>
+            <p class="muted">@Localizer["Admin_Notes_Hint"]</p>
+            @if (Model.Notes is { Count: > 0 })
+            {
+                <ul class="admin-history">
+                    @foreach (var note in Model.Notes)
+                    {
+                        <li>
+                            <span class="muted">@When(note.At)</span>
+                            <span class="muted">@note.ByEmail</span>
+                            <span class="admin-reason">@note.Text</span>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="muted">@Localizer["Admin_Notes_None"]</p>
+            }
+            <form method="post" asp-action="AddNote" class="form admin-action">
+                <input type="hidden" name="number" value="@order.Number" />
+                <div class="field">
+                    <label class="field__label" for="note-text">@Localizer["Admin_Notes_Label"]</label>
+                    <textarea id="note-text" name="text" class="input textarea" rows="2" maxlength="1000" required></textarea>
+                </div>
+                <button type="submit" class="btn btn--primary btn--small">@Localizer["Admin_Notes_Add"]</button>
+            </form>
+        </section>
     </div>
 
     <div class="admin-col">
         <section class="panel">
             <h2 class="admin-h2">@Localizer["Admin_Actions"]</h2>
+
+            <div class="admin-buttons">
+                @if (Model.EditScope != OrderEditScope.None)
+                {
+                    <a class="btn btn--ghost" asp-action="Edit" asp-route-number="@order.Number">@Localizer["Admin_EditOrder"]</a>
+                }
+                <a class="btn btn--ghost" asp-action="Slip" asp-route-number="@order.Number" target="_blank" rel="noopener">@Localizer["Admin_PrintSlip"]</a>
+            </div>
 
             @{
                 // Says what the order waits for, so a missing button is never a mystery.

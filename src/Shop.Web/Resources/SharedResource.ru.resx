@@ -515,6 +515,84 @@
   <data name="Admin_Msg_PhotoRemoved" xml:space="preserve"><value>Фото удалено.</value></data>
   <data name="Admin_Val_Sku" xml:space="preserve"><value>Только буквы, цифры и знаки . _ -</value></data>
   <data name="Admin_Nav_Admins" xml:space="preserve"><value>Администраторы</value></data>
+  <data name="Admin_NewPhoneOrder" xml:space="preserve"><value>Новый заказ по телефону</value></data>
+  <data name="Admin_PrintSlips" xml:space="preserve"><value>Печать накладных</value></data>
+  <data name="Admin_PrintSlip" xml:space="preserve"><value>Печать накладной</value></data>
+  <data name="Admin_Flag_Phone" xml:space="preserve"><value>Заказ по телефону</value></data>
+  <data name="Admin_Flag_Notes" xml:space="preserve"><value>Заметок: {0}</value></data>
+  <data name="Admin_CreatedBy" xml:space="preserve"><value>создал(а) {0}</value></data>
+  <data name="Admin_EditOrder" xml:space="preserve"><value>Редактировать заказ</value></data>
+  <data name="Admin_Edit_Hint" xml:space="preserve"><value>Товары и цены здесь не редактируются. Чтобы изменить товары, отмените заказ и создайте новый.</value></data>
+  <data name="Admin_Edit_CommentOnly" xml:space="preserve"><value>Заказ уже упакован, поэтому можно изменить только комментарий.</value></data>
+  <data name="Admin_Edit_EmailNote" xml:space="preserve"><value>Изменённый день, время или адрес доставки отправляется клиенту по email (если в заказе есть email).</value></data>
+  <data name="Admin_Edit_Saved" xml:space="preserve"><value>Заказ изменён.</value></data>
+  <data name="Admin_Edit_NoChange" xml:space="preserve"><value>Ничего не изменилось.</value></data>
+  <data name="Admin_Edit_NotEditable" xml:space="preserve"><value>Этот заказ больше нельзя редактировать.</value></data>
+  <data name="Admin_Edit_InvalidDelivery" xml:space="preserve"><value>Регион, день или время доставки указаны неверно.</value></data>
+  <data name="Admin_Edit_InvalidContact" xml:space="preserve"><value>Имя, телефон или email указаны неверно.</value></data>
+  <data name="Admin_Notes_Title" xml:space="preserve"><value>Внутренние заметки</value></data>
+  <data name="Admin_Notes_Hint" xml:space="preserve"><value>Это видят только админы. Клиент их не видит, в письма они не попадают. Заметку нельзя изменить или удалить.</value></data>
+  <data name="Admin_Notes_None" xml:space="preserve"><value>Заметок пока нет.</value></data>
+  <data name="Admin_Notes_Label" xml:space="preserve"><value>Новая заметка</value></data>
+  <data name="Admin_Notes_Add" xml:space="preserve"><value>Добавить заметку</value></data>
+  <data name="Admin_Notes_Added" xml:space="preserve"><value>Заметка добавлена.</value></data>
+  <data name="Admin_Notes_Invalid" xml:space="preserve"><value>Напишите заметку (до 1000 символов).</value></data>
+  <data name="Slip_Title" xml:space="preserve"><value>Накладная</value></data>
+  <data name="Slip_Print" xml:space="preserve"><value>Печать</value></data>
+  <data name="Slip_Delivery" xml:space="preserve"><value>Адрес доставки</value></data>
+  <data name="Slip_Contact" xml:space="preserve"><value>Клиент</value></data>
+  <data name="Slip_Comment" xml:space="preserve"><value>Комментарий клиента</value></data>
+  <data name="Slip_Sku" xml:space="preserve"><value>Артикул</value></data>
+  <data name="Slip_Item" xml:space="preserve"><value>Товар</value></data>
+  <data name="Slip_Qty" xml:space="preserve"><value>Кол-во</value></data>
+  <data name="Slip_Price" xml:space="preserve"><value>Цена</value></data>
+  <data name="Slip_Total" xml:space="preserve"><value>Сумма</value></data>
+  <data name="Slip_Payment" xml:space="preserve"><value>Оплата</value></data>
+  <data name="Slip_CollectCash" xml:space="preserve"><value>Получить наличными</value></data>
+  <data name="Slip_AlreadyPaid" xml:space="preserve"><value>Уже оплачено: получать ничего не нужно.</value></data>
+  <data name="Slip_NothingToCollect" xml:space="preserve"><value>Получать нечего (банковский перевод).</value></data>
+  <data name="Slip_Cancelled" xml:space="preserve"><value>Отменён: получать нечего.</value></data>
+  <data name="Slip_PackedBy" xml:space="preserve"><value>Упаковал(а)</value></data>
+  <data name="Slips_Count" xml:space="preserve"><value>Накладных: {0}</value></data>
+  <data name="Slips_Limit" xml:space="preserve"><value>Показаны только первые {0}. Сузьте фильтр, чтобы напечатать остальные.</value></data>
+  <data name="Slips_None" xml:space="preserve"><value>Нет заказов по этому фильтру.</value></data>
+  <data name="PO_Title" xml:space="preserve"><value>Новый заказ по телефону</value></data>
+  <data name="PO_Step1" xml:space="preserve"><value>1. Клиент</value></data>
+  <data name="PO_Step2" xml:space="preserve"><value>2. Товары</value></data>
+  <data name="PO_Step3" xml:space="preserve"><value>3. Доставка и оплата</value></data>
+  <data name="PO_SearchLabel" xml:space="preserve"><value>Найти зарегистрированного клиента (имя, email или телефон)</value></data>
+  <data name="PO_Select" xml:space="preserve"><value>Выбрать</value></data>
+  <data name="PO_NoMatches" xml:space="preserve"><value>Зарегистрированный клиент не найден.</value></data>
+  <data name="PO_NoAccount" xml:space="preserve"><value>Клиент без аккаунта</value></data>
+  <data name="PO_NoAccountHint" xml:space="preserve"><value>Для разового клиента: аккаунт не создаётся, скидка клиента не применяется.</value></data>
+  <data name="PO_ForCustomer" xml:space="preserve"><value>Заказ для: {0}</value></data>
+  <data name="PO_Guest" xml:space="preserve"><value>клиента без аккаунта</value></data>
+  <data name="PO_BlockedWarning" xml:space="preserve"><value>Заблокирован на сайте. Заказ всё равно можно оформить.</value></data>
+  <data name="PO_Unfinished" xml:space="preserve"><value>У вас есть незавершённый заказ по телефону: товаров {0}.</value></data>
+  <data name="PO_Clear" xml:space="preserve"><value>Очистить заказ</value></data>
+  <data name="PO_ConfirmClear" xml:space="preserve"><value>Убрать все товары из этого заказа?</value></data>
+  <data name="PO_ProductSearch" xml:space="preserve"><value>Найти товар (название, артикул или бренд)</value></data>
+  <data name="PO_NoProducts" xml:space="preserve"><value>Подходящих товаров в наличии нет.</value></data>
+  <data name="PO_Stock" xml:space="preserve"><value>в наличии: {0}</value></data>
+  <data name="PO_Add" xml:space="preserve"><value>Добавить</value></data>
+  <data name="PO_Update" xml:space="preserve"><value>Обновить</value></data>
+  <data name="PO_Remove" xml:space="preserve"><value>Убрать</value></data>
+  <data name="PO_CartEmpty" xml:space="preserve"><value>Товаров пока нет. Найдите товар и добавьте его.</value></data>
+  <data name="PO_ItemsTotal" xml:space="preserve"><value>Сумма товаров</value></data>
+  <data name="PO_ToDetails" xml:space="preserve"><value>Далее: доставка и оплата</value></data>
+  <data name="PO_Contact" xml:space="preserve"><value>Контакты и доставка</value></data>
+  <data name="PO_EmailHint" xml:space="preserve"><value>Email необязателен. Без email клиент не получит писем об этом заказе (накладную можно распечатать, клиенту можно позвонить).</value></data>
+  <data name="PO_Language" xml:space="preserve"><value>Язык писем клиенту</value></data>
+  <data name="PO_Terms" xml:space="preserve"><value>Клиент согласился с условиями использования (по телефону)</value></data>
+  <data name="PO_Place" xml:space="preserve"><value>Оформить заказ</value></data>
+  <data name="PO_Placed" xml:space="preserve"><value>Заказ по телефону №{0} оформлен.</value></data>
+  <data name="PO_EmptyCart" xml:space="preserve"><value>Сначала добавьте хотя бы один товар.</value></data>
+  <data name="PO_Unavailable" xml:space="preserve"><value>Некоторые товары больше недоступны. Проверьте товары ещё раз.</value></data>
+  <data name="Email_Updated_Subject" xml:space="preserve"><value>Заказ №{0}: изменены данные доставки</value></data>
+  <data name="Email_Updated_Heading" xml:space="preserve"><value>Данные доставки изменены</value></data>
+  <data name="Email_Updated_Text" xml:space="preserve"><value>Данные доставки вашего заказа №{0} изменены. Пожалуйста, проверьте их:</value></data>
+  <data name="EmailKind_OrderUpdated" xml:space="preserve"><value>Заказ изменён</value></data>
+  <data name="OutboxStatus_Skipped" xml:space="preserve"><value>Не отправлено (нет email)</value></data>
   <data name="Admin_Nav_Customers" xml:space="preserve"><value>Клиенты</value></data>
   <data name="Admin_Cust_Hint" xml:space="preserve"><value>Зарегистрированные аккаунты магазина (админы на странице «Админы»). «Заказы» и «Потрачено» считают подтверждённые заказы (заказан, упакован, доставлен) за вычетом возвращённых денег.</value></data>
   <data name="Admin_Cust_SearchLabel" xml:space="preserve"><value>Имя, email или телефон</value></data>

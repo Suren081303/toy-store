@@ -1,0 +1,136 @@
+@using System.Globalization
+@using Shop.Core.Orders
+@model SlipsViewModel
+@{
+    Layout = null;
+    var culture = CurrentCulture.Code;
+    string When(DateTime utc) => ShopClock.ToShopTime(utc).ToString("d MMM yyyy, HH:mm", CultureInfo.CurrentCulture);
+}
+<!DOCTYPE html>
+<html lang="@culture">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>@Localizer["Slip_Title"] - @Configuration["Shop:Name"]</title>
+    <link rel="stylesheet" href="~/css/slip.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="slip-bar no-print">
+        <button type="button" class="slip-bar__btn" data-print>@Localizer["Slip_Print"]</button>
+        <span>@Localizer.GetString("Slips_Count", Model.Slips.Count).Value</span>
+        @if (Model.Truncated)
+        {
+            <span class="slip-bar__warn">@Localizer.GetString("Slips_Limit", Model.Slips.Count).Value</span>
+        }
+    </div>
+
+    @if (Model.Slips.Count == 0)
+    {
+        <p class="slip-empty">@Localizer["Slips_None"]</p>
+    }
+
+    @foreach (var slip in Model.Slips)
+    {
+        <article class="slip">
+            <header class="slip__head">
+                <div>
+                    <p class="slip__shop">@Configuration["Shop:Name"] · @Localizer["Slip_Title"]</p>
+                    <h1 class="slip__number">@Localizer["Order_Number"] #@slip.Number</h1>
+                    <p class="slip__muted">@Localizer["Order_Placed"] @When(slip.CreatedAt)@(slip.IsPhoneOrder ? " · " + Localizer["Admin_Flag_Phone"].Value : "")</p>
+                </div>
+                <div class="slip__when">
+                    <strong>@slip.DeliveryDate.ToString("dddd, d MMMM yyyy", CultureInfo.CurrentCulture)</strong><br />
+                    @slip.DeliverySlot
+                </div>
+            </header>
+
+            <div class="slip__cols">
+                <section>
+                    <h2>@Localizer["Slip_Delivery"]</h2>
+                    <p>
+                        @Localizer["Region_" + slip.Region], @slip.City<br />
+                        @slip.Street @slip.Building@(string.IsNullOrWhiteSpace(slip.Apartment) ? "" : ", " + Localizer["Label_Apartment"].Value + " " + slip.Apartment)
+                    </p>
+                </section>
+                <section>
+                    <h2>@Localizer["Slip_Contact"]</h2>
+                    <p>
+                        @slip.CustomerName<br />
+                        <strong>@slip.Phone</strong>
+                        @if (!string.IsNullOrWhiteSpace(slip.Email))
+                        {
+                            <br />@slip.Email
+                        }
+                    </p>
+                </section>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(slip.Comment))
+            {
+                <section class="slip__comment">
+                    <h2>@Localizer["Slip_Comment"]</h2>
+                    <p>@slip.Comment</p>
+                </section>
+            }
+
+            <table class="slip__table">
+                <thead>
+                    <tr>
+                        <th>@Localizer["Slip_Sku"]</th>
+                        <th>@Localizer["Slip_Item"]</th>
+                        <th class="num">@Localizer["Slip_Qty"]</th>
+                        <th class="num">@Localizer["Slip_Price"]</th>
+                        <th class="num">@Localizer["Slip_Total"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var line in slip.Lines)
+                    {
+                        <tr>
+                            <td>@line.Sku</td>
+                            <td>@line.Name<br /><span class="slip__muted">@line.Brand</span></td>
+                            <td class="num"><strong>@line.Quantity</strong></td>
+                            <td class="num">@Money.Format(line.UnitPrice)</td>
+                            <td class="num">@Money.Format(line.LineTotal)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr><td colspan="4">@Localizer["Cart_Subtotal"]</td><td class="num">@Money.Format(slip.Subtotal)</td></tr>
+                    @if (slip.Discount > 0)
+                    {
+                        <tr><td colspan="4">@Localizer["Cart_Discounts"]</td><td class="num">−@Money.Format(slip.Discount)</td></tr>
+                    }
+                    <tr><td colspan="4">@Localizer["Cart_Delivery"]</td><td class="num">@(slip.DeliveryFee == 0 ? Localizer["Checkout_FreeDelivery"].Value : Money.Format(slip.DeliveryFee))</td></tr>
+                    <tr class="slip__grand"><td colspan="4">@Localizer["Cart_Total"]</td><td class="num">@Money.Format(slip.Total)</td></tr>
+                </tfoot>
+            </table>
+
+            <section class="slip__pay">
+                <p><strong>@Localizer["Slip_Payment"]:</strong> @Localizer["Pay_" + slip.PaymentMethod] · @Localizer["PayStatus_" + slip.PaymentStatus]</p>
+                @if (slip.AmountToCollect > 0)
+                {
+                    <p class="slip__collect">@Localizer["Slip_CollectCash"]: @Money.Format(slip.AmountToCollect)</p>
+                }
+                else if (slip.Status == OrderStatus.Cancelled)
+                {
+                    <p class="slip__collect slip__collect--none">@Localizer["Slip_Cancelled"]</p>
+                }
+                else if (slip.PaymentStatus == PaymentStatus.Paid)
+                {
+                    <p class="slip__collect slip__collect--none">@Localizer["Slip_AlreadyPaid"]</p>
+                }
+                else
+                {
+                    <p class="slip__collect slip__collect--none">@Localizer["Slip_NothingToCollect"]</p>
+                }
+            </section>
+
+            <footer class="slip__foot">@Localizer["Slip_PackedBy"]: ______________________</footer>
+        </article>
+    }
+
+    <script src="~/js/slip.js" asp-append-version="true"></script>
+</body>
+</html>

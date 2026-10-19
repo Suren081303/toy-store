@@ -1,0 +1,53 @@
+@using System.Globalization
+@model AdminOrderEditForm
+@{
+    var full = Model.Scope == OrderEditScope.Full;
+    ViewData["Title"] = Localizer["Admin_EditOrder"].Value + " #" + Model.Number;
+}
+
+<p><a class="link" asp-action="Details" asp-route-number="@Model.Number">← @Localizer["Order_Number"] #@Model.Number</a></p>
+<h1 class="admin-title">@ViewData["Title"]</h1>
+<p class="admin-hint">@Localizer["Admin_Edit_Hint"]</p>
+
+<form method="post" asp-action="Edit" class="form admin-narrow">
+    <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+    <input type="hidden" asp-for="Number" />
+
+    <section class="panel">
+        @if (full)
+        {
+            <partial name="_ContactDelivery" model="Model" />
+        }
+        else
+        {
+            @* A packed order: only the comment changes; the rest is shown and sent back unchanged. *@
+            <p class="muted">@Localizer["Admin_Edit_CommentOnly"]</p>
+            <input type="hidden" asp-for="CustomerName" />
+            <input type="hidden" asp-for="Phone" />
+            <input type="hidden" asp-for="Email" />
+            <input type="hidden" asp-for="Region" />
+            <input type="hidden" asp-for="City" />
+            <input type="hidden" asp-for="Street" />
+            <input type="hidden" asp-for="Building" />
+            <input type="hidden" asp-for="Apartment" />
+            <input type="hidden" asp-for="DeliveryDate" />
+            <input type="hidden" asp-for="DeliverySlotId" />
+            <p class="order__text">
+                @Model.CustomerName, @Model.Phone<br />
+                @Localizer["Region_" + Model.Region], @Model.City, @Model.Street @Model.Building@(string.IsNullOrWhiteSpace(Model.Apartment) ? "" : ", " + Localizer["Label_Apartment"].Value + " " + Model.Apartment)<br />
+                @Model.DeliveryDate, @Model.CurrentSlot
+            </p>
+            <div class="field">
+                <label asp-for="Comment" class="field__label"></label>
+                <textarea asp-for="Comment" class="input textarea" rows="3" maxlength="500"></textarea>
+                <span asp-validation-for="Comment" class="field__error"></span>
+            </div>
+        }
+    </section>
+
+    @if (full)
+    {
+        <p class="admin-hint">@Localizer["Admin_Edit_EmailNote"]</p>
+    }
+    <button type="submit" class="btn btn--primary">@Localizer["Admin_Save"]</button>
+</form>

@@ -39,6 +39,8 @@ public class ShopDbContext : IdentityDbContext<ApplicationUser>, IDataProtection
 
     public DbSet<OrderEvent> OrderEvents => Set<OrderEvent>();
 
+    public DbSet<OrderNote> OrderNotes => Set<OrderNote>();
+
     public DbSet<ReturnRequest> ReturnRequests => Set<ReturnRequest>();
 
     public DbSet<Payment> Payments => Set<Payment>();

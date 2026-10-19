@@ -515,6 +515,84 @@
   <data name="Admin_Msg_PhotoRemoved" xml:space="preserve"><value>Լուսանկարը ջնջվեց։</value></data>
   <data name="Admin_Val_Sku" xml:space="preserve"><value>Օգտագործեք միայն տառեր, թվեր և . _ - նշանները։</value></data>
   <data name="Admin_Nav_Admins" xml:space="preserve"><value>Ադմիններ</value></data>
+  <data name="Admin_NewPhoneOrder" xml:space="preserve"><value>Նոր հեռախոսային պատվեր</value></data>
+  <data name="Admin_PrintSlips" xml:space="preserve"><value>Տպել թերթիկները</value></data>
+  <data name="Admin_PrintSlip" xml:space="preserve"><value>Տպել փաթեթավորման թերթիկը</value></data>
+  <data name="Admin_Flag_Phone" xml:space="preserve"><value>Հեռախոսային պատվեր</value></data>
+  <data name="Admin_Flag_Notes" xml:space="preserve"><value>Նշումներ՝ {0}</value></data>
+  <data name="Admin_CreatedBy" xml:space="preserve"><value>ստեղծել է {0}-ը</value></data>
+  <data name="Admin_EditOrder" xml:space="preserve"><value>Խմբագրել պատվերը</value></data>
+  <data name="Admin_Edit_Hint" xml:space="preserve"><value>Ապրանքները և գները այստեղ չեն խմբագրվում։ Ապրանքները փոխելու համար չեղարկեք պատվերը և ստեղծեք նորը։</value></data>
+  <data name="Admin_Edit_CommentOnly" xml:space="preserve"><value>Պատվերն արդեն փաթեթավորված է, ուստի կարելի է փոխել միայն մեկնաբանությունը։</value></data>
+  <data name="Admin_Edit_EmailNote" xml:space="preserve"><value>Առաքման փոխված օրը, ժամը կամ հասցեն ուղարկվում է հաճախորդին էլ. փոստով (եթե պատվերում էլ. հասցե կա)։</value></data>
+  <data name="Admin_Edit_Saved" xml:space="preserve"><value>Պատվերը փոխվեց։</value></data>
+  <data name="Admin_Edit_NoChange" xml:space="preserve"><value>Ոչինչ չփոխվեց։</value></data>
+  <data name="Admin_Edit_NotEditable" xml:space="preserve"><value>Այս պատվերն այլևս չի կարելի խմբագրել։</value></data>
+  <data name="Admin_Edit_InvalidDelivery" xml:space="preserve"><value>Մարզը, առաքման օրը կամ ժամը սխալ են։</value></data>
+  <data name="Admin_Edit_InvalidContact" xml:space="preserve"><value>Անունը, հեռախոսը կամ էլ. հասցեն սխալ են։</value></data>
+  <data name="Admin_Notes_Title" xml:space="preserve"><value>Ներքին նշումներ</value></data>
+  <data name="Admin_Notes_Hint" xml:space="preserve"><value>Սա տեսնում են միայն ադմինները։ Հաճախորդին չեն ցուցադրվում և նամակներում չեն ուղարկվում։ Նշումը չի կարելի փոխել կամ ջնջել։</value></data>
+  <data name="Admin_Notes_None" xml:space="preserve"><value>Նշումներ դեռ չկան։</value></data>
+  <data name="Admin_Notes_Label" xml:space="preserve"><value>Նոր նշում</value></data>
+  <data name="Admin_Notes_Add" xml:space="preserve"><value>Ավելացնել նշում</value></data>
+  <data name="Admin_Notes_Added" xml:space="preserve"><value>Նշումն ավելացվեց։</value></data>
+  <data name="Admin_Notes_Invalid" xml:space="preserve"><value>Գրեք նշում (մինչև 1000 նիշ)։</value></data>
+  <data name="Slip_Title" xml:space="preserve"><value>Փաթեթավորման թերթիկ</value></data>
+  <data name="Slip_Print" xml:space="preserve"><value>Տպել</value></data>
+  <data name="Slip_Delivery" xml:space="preserve"><value>Առաքման հասցե</value></data>
+  <data name="Slip_Contact" xml:space="preserve"><value>Հաճախորդ</value></data>
+  <data name="Slip_Comment" xml:space="preserve"><value>Հաճախորդի մեկնաբանությունը</value></data>
+  <data name="Slip_Sku" xml:space="preserve"><value>Արտիկուլ</value></data>
+  <data name="Slip_Item" xml:space="preserve"><value>Ապրանք</value></data>
+  <data name="Slip_Qty" xml:space="preserve"><value>Քանակ</value></data>
+  <data name="Slip_Price" xml:space="preserve"><value>Գին</value></data>
+  <data name="Slip_Total" xml:space="preserve"><value>Գումար</value></data>
+  <data name="Slip_Payment" xml:space="preserve"><value>Վճարում</value></data>
+  <data name="Slip_CollectCash" xml:space="preserve"><value>Գանձել կանխիկ</value></data>
+  <data name="Slip_AlreadyPaid" xml:space="preserve"><value>Արդեն վճարված է՝ գանձելու բան չկա։</value></data>
+  <data name="Slip_NothingToCollect" xml:space="preserve"><value>Գանձելու բան չկա (բանկային փոխանցում)։</value></data>
+  <data name="Slip_Cancelled" xml:space="preserve"><value>Չեղարկված է՝ գանձելու բան չկա։</value></data>
+  <data name="Slip_PackedBy" xml:space="preserve"><value>Փաթեթավորեց</value></data>
+  <data name="Slips_Count" xml:space="preserve"><value>Թերթիկներ՝ {0}</value></data>
+  <data name="Slips_Limit" xml:space="preserve"><value>Ցուցադրված են միայն առաջին {0}-ը։ Նեղացրեք ֆիլտրը՝ մնացածը տպելու համար։</value></data>
+  <data name="Slips_None" xml:space="preserve"><value>Այս ֆիլտրին համապատասխան պատվեր չկա։</value></data>
+  <data name="PO_Title" xml:space="preserve"><value>Նոր հեռախոսային պատվեր</value></data>
+  <data name="PO_Step1" xml:space="preserve"><value>1. Հաճախորդ</value></data>
+  <data name="PO_Step2" xml:space="preserve"><value>2. Ապրանքներ</value></data>
+  <data name="PO_Step3" xml:space="preserve"><value>3. Առաքում և վճարում</value></data>
+  <data name="PO_SearchLabel" xml:space="preserve"><value>Գտնել գրանցված հաճախորդի (անուն, էլ. հասցե կամ հեռախոս)</value></data>
+  <data name="PO_Select" xml:space="preserve"><value>Ընտրել</value></data>
+  <data name="PO_NoMatches" xml:space="preserve"><value>Գրանցված հաճախորդ չի գտնվել։</value></data>
+  <data name="PO_NoAccount" xml:space="preserve"><value>Հաճախորդ առանց հաշվի</value></data>
+  <data name="PO_NoAccountHint" xml:space="preserve"><value>Մեկանգամյա հաճախորդի համար՝ հաշիվ չի ստեղծվում, հաճախորդի զեղչը չի կիրառվում։</value></data>
+  <data name="PO_ForCustomer" xml:space="preserve"><value>Պատվեր՝ {0}-ի համար</value></data>
+  <data name="PO_Guest" xml:space="preserve"><value>առանց հաշվի հաճախորդ</value></data>
+  <data name="PO_BlockedWarning" xml:space="preserve"><value>Կայքում արգելափակված է։ Պատվերը կարելի է ձևակերպել։</value></data>
+  <data name="PO_Unfinished" xml:space="preserve"><value>Դուք ունեք չավարտված հեռախոսային պատվեր՝ {0} ապրանք։</value></data>
+  <data name="PO_Clear" xml:space="preserve"><value>Մաքրել պատվերը</value></data>
+  <data name="PO_ConfirmClear" xml:space="preserve"><value>Հեռացնե՞լ այս պատվերի բոլոր ապրանքները։</value></data>
+  <data name="PO_ProductSearch" xml:space="preserve"><value>Գտնել ապրանք (անուն, արտիկուլ կամ բրենդ)</value></data>
+  <data name="PO_NoProducts" xml:space="preserve"><value>Առկա համապատասխան ապրանք չկա։</value></data>
+  <data name="PO_Stock" xml:space="preserve"><value>առկա է՝ {0}</value></data>
+  <data name="PO_Add" xml:space="preserve"><value>Ավելացնել</value></data>
+  <data name="PO_Update" xml:space="preserve"><value>Թարմացնել</value></data>
+  <data name="PO_Remove" xml:space="preserve"><value>Հեռացնել</value></data>
+  <data name="PO_CartEmpty" xml:space="preserve"><value>Ապրանքներ դեռ չկան։ Գտեք ապրանք և ավելացրեք։</value></data>
+  <data name="PO_ItemsTotal" xml:space="preserve"><value>Ապրանքների գումար</value></data>
+  <data name="PO_ToDetails" xml:space="preserve"><value>Շարունակել՝ առաքում և վճարում</value></data>
+  <data name="PO_Contact" xml:space="preserve"><value>Կոնտակտներ և առաքում</value></data>
+  <data name="PO_EmailHint" xml:space="preserve"><value>Էլ. հասցեն պարտադիր չէ։ Առանց էլ. հասցեի հաճախորդը այս պատվերի մասին նամակներ չի ստանա (թերթիկը կարելի է տպել, հաճախորդին՝ զանգահարել)։</value></data>
+  <data name="PO_Language" xml:space="preserve"><value>Հաճախորդի նամակների լեզուն</value></data>
+  <data name="PO_Terms" xml:space="preserve"><value>Հաճախորդը համաձայնել է օգտագործման պայմաններին (հեռախոսով)</value></data>
+  <data name="PO_Place" xml:space="preserve"><value>Ձևակերպել պատվերը</value></data>
+  <data name="PO_Placed" xml:space="preserve"><value>Հեռախոսային պատվեր №{0}-ը ձևակերպվեց։</value></data>
+  <data name="PO_EmptyCart" xml:space="preserve"><value>Նախ ավելացրեք առնվազն մեկ ապրանք։</value></data>
+  <data name="PO_Unavailable" xml:space="preserve"><value>Որոշ ապրանքներ այլևս հասանելի չեն։ Կրկին ստուգեք ապրանքները։</value></data>
+  <data name="Email_Updated_Subject" xml:space="preserve"><value>Պատվեր №{0}. առաքման տվյալները փոխվել են</value></data>
+  <data name="Email_Updated_Heading" xml:space="preserve"><value>Առաքման տվյալները փոխվել են</value></data>
+  <data name="Email_Updated_Text" xml:space="preserve"><value>Ձեր №{0} պատվերի առաքման տվյալները փոխվել են։ Խնդրում ենք ստուգել դրանք՝</value></data>
+  <data name="EmailKind_OrderUpdated" xml:space="preserve"><value>Պատվերը փոխվել է</value></data>
+  <data name="OutboxStatus_Skipped" xml:space="preserve"><value>Չի ուղարկվել (էլ. հասցե չկա)</value></data>
   <data name="Admin_Nav_Customers" xml:space="preserve"><value>Հաճախորդներ</value></data>
   <data name="Admin_Cust_Hint" xml:space="preserve"><value>Խանութի գրանցված հաշիվները (ադմինները «Ադմիններ» էջում են)։ «Պատվերներ» և «Ծախսված» հաշվում են հաստատված պատվերները (պատվիրված, փաթեթավորված, առաքված)՝ հանած վերադարձված գումարները։</value></data>
   <data name="Admin_Cust_SearchLabel" xml:space="preserve"><value>Անուն, էլ. հասցե կամ հեռախոս</value></data>
