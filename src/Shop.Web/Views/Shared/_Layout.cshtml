@@ -27,7 +27,10 @@
     var accountUrl = signedIn ? Url.Action("Index", "Account") : Url.Action("Login", "Account");
     var favoritesUrl = Url.Action("Index", "Favorites");
     var cartUrl = Url.Action("Index", "Cart");
-    var cartCount = await Cart.GetCountAsync(Context);
+    // An admin looks at the shop like a customer but does not buy: no cart, hearts or orders, and a link to the panel instead.
+    var isAdmin = User.IsAdmin();
+    var adminUrl = "/" + culture + "/Admin";
+    var cartCount = isAdmin ? 0 : await Cart.GetCountAsync(Context);
     var tabCart = controller == "Cart";
 }
 <!DOCTYPE html>
@@ -94,6 +97,16 @@
         </div>
     </div>
 
+    @if (isAdmin)
+    {
+        <div class="admin-banner">
+            <div class="container admin-banner__inner">
+                <span>@Localizer["AdminShop_Banner"]</span>
+                <a class="admin-banner__link" href="@adminUrl">@Localizer["Admin_Title"] →</a>
+            </div>
+        </div>
+    }
+
     <header class="site-header">
         <div class="container header__row">
             <a class="icon-btn header__menu" href="@categoriesUrl" data-open="menu-dialog" aria-label="@Localizer["Menu"].Value">
@@ -118,15 +131,25 @@
                     <svg class="icon" aria-hidden="true"><use href="#i-user" /></svg>
                     <span class="icon-btn__label">@(signedIn ? firstName : Localizer["SignIn"].Value)</span>
                 </a>
-                <a class="icon-btn" href="@favoritesUrl" aria-label="@Localizer["Favorites"].Value">
-                    <svg class="icon" aria-hidden="true"><use href="#i-heart" /></svg>
-                    <span class="icon-btn__label">@Localizer["Favorites"]</span>
-                </a>
-                <a class="icon-btn" href="@cartUrl" aria-label="@Localizer["Cart"].Value">
-                    <svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>
-                    <span class="icon-btn__badge" data-cart-count hidden="@(cartCount == 0)">@cartCount</span>
-                    <span class="icon-btn__label">@Localizer["Cart"]</span>
-                </a>
+                @if (isAdmin)
+                {
+                    <a class="icon-btn header__admin" href="@adminUrl" aria-label="@Localizer["Admin_Title"].Value">
+                        <svg class="icon" aria-hidden="true"><use href="#i-grid" /></svg>
+                        <span class="icon-btn__label">@Localizer["Admin_Title"]</span>
+                    </a>
+                }
+                else
+                {
+                    <a class="icon-btn" href="@favoritesUrl" aria-label="@Localizer["Favorites"].Value">
+                        <svg class="icon" aria-hidden="true"><use href="#i-heart" /></svg>
+                        <span class="icon-btn__label">@Localizer["Favorites"]</span>
+                    </a>
+                    <a class="icon-btn" href="@cartUrl" aria-label="@Localizer["Cart"].Value">
+                        <svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>
+                        <span class="icon-btn__badge" data-cart-count hidden="@(cartCount == 0)">@cartCount</span>
+                        <span class="icon-btn__label">@Localizer["Cart"]</span>
+                    </a>
+                }
             </div>
         </div>
         <nav class="category-nav" aria-label="@Localizer["Categories"].Value">
@@ -205,10 +228,19 @@
         <a class="bottom-nav__item" href="@productsUrl" data-open="search-dialog">
             <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg><span>@Localizer["Search"]</span>
         </a>
-        <a class="bottom-nav__item @(tabCart ? "is-active" : "")" href="@cartUrl" aria-current="@(tabCart ? "page" : null)">
-            <svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg><span>@Localizer["Cart"]</span>
-            <span class="icon-btn__badge" data-cart-count hidden="@(cartCount == 0)">@cartCount</span>
-        </a>
+        @if (isAdmin)
+        {
+            <a class="bottom-nav__item" href="@adminUrl">
+                <svg class="icon" aria-hidden="true"><use href="#i-grid" /></svg><span>@Localizer["Admin_Title"]</span>
+            </a>
+        }
+        else
+        {
+            <a class="bottom-nav__item @(tabCart ? "is-active" : "")" href="@cartUrl" aria-current="@(tabCart ? "page" : null)">
+                <svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg><span>@Localizer["Cart"]</span>
+                <span class="icon-btn__badge" data-cart-count hidden="@(cartCount == 0)">@cartCount</span>
+            </a>
+        }
     </nav>
 
     @await RenderSectionAsync("BuyBar", required: false)
@@ -239,10 +271,13 @@
                 {
                     <p class="drawer__greeting">@Localizer.GetString("Greeting", firstName).Value</p>
                     <a href="@accountUrl"><svg class="icon" aria-hidden="true"><use href="#i-user" /></svg>@Localizer["Nav_Account"]</a>
-                    <a asp-controller="Orders" asp-action="Index"><svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>@Localizer["Nav_Orders"]</a>
-                    @if (User.IsInRole("Admin"))
+                    @if (isAdmin)
                     {
-                        <a href="/@culture/Admin"><svg class="icon" aria-hidden="true"><use href="#i-grid" /></svg>@Localizer["Admin_Title"]</a>
+                        <a href="@adminUrl"><svg class="icon" aria-hidden="true"><use href="#i-grid" /></svg>@Localizer["Admin_Title"]</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Orders" asp-action="Index"><svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>@Localizer["Nav_Orders"]</a>
                     }
                 }
                 else
@@ -250,8 +285,11 @@
                     <a href="@accountUrl"><svg class="icon" aria-hidden="true"><use href="#i-user" /></svg>@Localizer["Nav_SignIn"]</a>
                     <a asp-controller="Account" asp-action="Register"><svg class="icon" aria-hidden="true"><use href="#i-gift" /></svg>@Localizer["Nav_Register"]</a>
                 }
-                <a href="@favoritesUrl"><svg class="icon" aria-hidden="true"><use href="#i-heart" /></svg>@Localizer["Favorites"]</a>
-                <a href="@cartUrl"><svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>@Localizer["Cart"]</a>
+                @if (!isAdmin)
+                {
+                    <a href="@favoritesUrl"><svg class="icon" aria-hidden="true"><use href="#i-heart" /></svg>@Localizer["Favorites"]</a>
+                    <a href="@cartUrl"><svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>@Localizer["Cart"]</a>
+                }
                 @if (signedIn)
                 {
                     <form method="post" asp-controller="Account" asp-action="Logout">

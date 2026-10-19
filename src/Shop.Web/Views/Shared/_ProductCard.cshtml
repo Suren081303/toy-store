@@ -14,7 +14,10 @@
             <span class="badge badge--sale">-@Model.DiscountPercent%</span>
         }
     </div>
-    <partial name="_FavoriteButton" model="Model.Id" />
+    @if (!User.IsAdmin())
+    {
+        <partial name="_FavoriteButton" model="Model.Id" />
+    }
     <div class="card__body">
         <h3 class="card__title">
             <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
@@ -27,7 +30,15 @@
                 <s>@Money.Format(Model.Price)</s>
             }
         </p>
-        @if (Model.InStock)
+        @if (User.IsAdmin())
+        {
+            @* An admin only looks: the stock line stays, the buying button does not. *@
+            if (!Model.InStock)
+            {
+                <p class="card__meta">@Localizer["OutOfStock"]</p>
+            }
+        }
+        else if (Model.InStock)
         {
             <form method="post" asp-controller="Cart" asp-action="Add" class="card__cta" data-cart-add>
                 <input type="hidden" name="productId" value="@Model.Id" />

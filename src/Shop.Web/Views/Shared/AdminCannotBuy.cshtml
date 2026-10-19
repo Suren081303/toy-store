@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = Localizer["AdminShop_CannotTitle"].Value;
+}
+
+<section class="container auth">
+    <div class="auth__card">
+        <h1 class="page-title">@Localizer["AdminShop_CannotTitle"]</h1>
+        <p class="auth__lead">@Localizer["AdminShop_CannotText"]</p>
+        <p>
+            <a class="btn btn--primary" href="/@CurrentCulture.Code/Admin">@Localizer["Admin_Title"]</a>
+            <a class="btn btn--ghost" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
+        </p>
+    </div>
+</section>

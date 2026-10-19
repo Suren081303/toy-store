@@ -2,7 +2,10 @@
 @model string
 <nav class="account-nav" aria-label="@Localizer["Nav_Account"].Value">
     <a class="chip @(Model == "Profile" ? "is-active" : "")" asp-controller="Account" asp-action="Index" aria-current="@(Model == "Profile" ? "page" : null)">@Localizer["Nav_Account"]</a>
-    <a class="chip @(Model == "Orders" ? "is-active" : "")" asp-controller="Orders" asp-action="Index" aria-current="@(Model == "Orders" ? "page" : null)">@Localizer["Nav_Orders"]</a>
-    <a class="chip @(Model == "Favorites" ? "is-active" : "")" asp-controller="Favorites" asp-action="Index" aria-current="@(Model == "Favorites" ? "page" : null)">@Localizer["Nav_Favorites"]</a>
+    @if (!User.IsAdmin())
+    {
+        <a class="chip @(Model == "Orders" ? "is-active" : "")" asp-controller="Orders" asp-action="Index" aria-current="@(Model == "Orders" ? "page" : null)">@Localizer["Nav_Orders"]</a>
+        <a class="chip @(Model == "Favorites" ? "is-active" : "")" asp-controller="Favorites" asp-action="Index" aria-current="@(Model == "Favorites" ? "page" : null)">@Localizer["Nav_Favorites"]</a>
+    }
     <a class="chip @(Model == "Password" ? "is-active" : "")" asp-controller="Account" asp-action="ChangePassword" aria-current="@(Model == "Password" ? "page" : null)">@Localizer["Nav_ChangePassword"]</a>
 </nav>

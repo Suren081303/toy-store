@@ -137,6 +137,9 @@
   <data name="Link_ResendConfirmation" xml:space="preserve"><value>Նորից ուղարկել հաստատման նամակը</value></data>
   <data name="Dev_VerifyButton" xml:space="preserve"><value>Հաստատել իմ հաշիվը</value></data>
   <data name="Dev_VerifyNote" xml:space="preserve"><value>Մշակման ռեժիմ. իրական նամակ չի ուղարկվում։ Սեղմեք կոճակը՝ այս հաշիվը հաստատելու համար։</value></data>
+  <data name="AdminShop_Banner" xml:space="preserve"><value>Դուք դիտում եք խանութը որպես ադմին։ Ադմինի հաշիվներով գնումները անջատված են։</value></data>
+  <data name="AdminShop_CannotTitle" xml:space="preserve"><value>Ադմինները չեն կարող գնումներ անել</value></data>
+  <data name="AdminShop_CannotText" xml:space="preserve"><value>Ադմինի հաշիվները կառավարում են խանութը, ուստի զամբյուղը, պատվերի ձևակերպումը, ընտրյալները և «Իմ պատվերները» նրանց համար հասանելի չեն։ Գնումներ անելու համար մուտք գործեք որպես գնորդ։</value></data>
   <data name="Link_ForgotPassword" xml:space="preserve"><value>Մոռացե՞լ եք գաղտնաբառը</value></data>
   <data name="Resend_Title" xml:space="preserve"><value>Հաստատման նամակ</value></data>
   <data name="Resend_Lead" xml:space="preserve"><value>Մուտքագրեք էլ. փոստը, և մենք նորից կուղարկենք հաստատման հղումը։</value></data>
@@ -513,27 +516,31 @@
   <data name="Admin_Val_Sku" xml:space="preserve"><value>Օգտագործեք միայն տառեր, թվեր և . _ - նշանները։</value></data>
   <data name="Admin_Nav_Admins" xml:space="preserve"><value>Ադմիններ</value></data>
   <data name="Admin_Nav_Audit" xml:space="preserve"><value>Փոփոխությունների մատյան</value></data>
-  <data name="Admin_Adm_Hint" xml:space="preserve"><value>Այստեղ նշվածները կարող են անել ամեն ինչ ադմին վահանակում։</value></data>
+  <data name="Admin_Adm_Hint" xml:space="preserve"><value>Ցանկի բոլոր անդամները կարող են անել ամեն ինչ ադմին վահանակում։ Ադմինները ստեղծվում են այստեղ և խանութի գնորդներ չեն։</value></data>
+  <data name="Admin_Adm_Phone" xml:space="preserve"><value>Հեռախոս</value></data>
+  <data name="Admin_Adm_New" xml:space="preserve"><value>Նոր ադմին</value></data>
+  <data name="Admin_Adm_EditTitle" xml:space="preserve"><value>Խմբագրել ադմինին</value></data>
+  <data name="Admin_Adm_Create" xml:space="preserve"><value>Ստեղծել ադմին</value></data>
+  <data name="Admin_Adm_Delete" xml:space="preserve"><value>Ջնջել</value></data>
+  <data name="Admin_Adm_ConfirmDelete" xml:space="preserve"><value>Ջնջե՞լ {0} ադմինի հաշիվը։ Սա հնարավոր չէ չեղարկել։</value></data>
+  <data name="Admin_Adm_ConfirmDeleteSelf" xml:space="preserve"><value>Ջնջե՞լ ՁԵՐ ադմինի հաշիվը՝ {0}։ Դուք դուրս կգաք համակարգից, սա հնարավոր չէ չեղարկել։</value></data>
+  <data name="Admin_Adm_Created" xml:space="preserve"><value>Ադմին {0}-ը ստեղծվեց։ Նա կարող է անմիջապես մուտք գործել։</value></data>
+  <data name="Admin_Adm_Updated" xml:space="preserve"><value>Փոփոխությունները պահպանվեցին։</value></data>
+  <data name="Admin_Adm_Deleted" xml:space="preserve"><value>Ադմինի հաշիվը ջնջվեց։</value></data>
+  <data name="Admin_Adm_EmailTaken" xml:space="preserve"><value>Այս էլ. հասցեն արդեն օգտագործվում է մեկ այլ հաշվի կողմից։</value></data>
+  <data name="Admin_Adm_ConfiguredEmail" xml:space="preserve"><value>Գլխավոր ադմինի էլ. հասցեն սահմանված է կայքի կարգավորումներում և այստեղ չի կարող փոխվել։</value></data>
+  <data name="Admin_Adm_ConfiguredEmailHint" xml:space="preserve"><value>Սահմանված է կայքի կարգավորումներում, այստեղ չի փոխվում։</value></data>
+  <data name="Admin_Adm_PasswordNew" xml:space="preserve"><value>Ադմինը մուտք է գործում այս էլ. հասցեով և գաղտնաբառով։ Էլ. փոստի հաստատում պետք չէ։</value></data>
+  <data name="Admin_Adm_PasswordKeep" xml:space="preserve"><value>Թողեք դատարկ՝ ընթացիկ գաղտնաբառը պահելու համար։ Նոր գաղտնաբառը մարդուն դուրս է բերում մյուս սարքերից։</value></data>
+  <data name="Admin_Adm_OwnPassword" xml:space="preserve"><value>Ձեր սեփական գաղտնաբառը փոխվում է հաշվի էջում</value></data>
   <data name="Admin_Adm_Email" xml:space="preserve"><value>Էլ. փոստ</value></data>
   <data name="Admin_Adm_Name" xml:space="preserve"><value>Անուն</value></data>
   <data name="Admin_Adm_Since" xml:space="preserve"><value>Գրանցվել է</value></data>
   <data name="Admin_Adm_You" xml:space="preserve"><value>Դուք</value></data>
   <data name="Admin_Adm_Main" xml:space="preserve"><value>Գլխավոր ադմին (նշված է կայքի կարգավորումներում)</value></data>
-  <data name="Admin_Adm_Remove" xml:space="preserve"><value>Հանել հասանելիությունը</value></data>
-  <data name="Admin_Adm_ConfirmRemove" xml:space="preserve"><value>Հանե՞լ {0}-ի ադմինի հասանելիությունը։</value></data>
-  <data name="Admin_Adm_MainHint" xml:space="preserve"><value>Գլխավոր ադմինը նշված է կայքի կարգավորումներում և այստեղ չի կարող հեռացվել։ Դուք չեք կարող հեռացնել ձեր սեփական հասանելիությունը․ դա կարող է անել մեկ այլ ադմին։</value></data>
-  <data name="Admin_Adm_AddTitle" xml:space="preserve"><value>Ավելացնել ադմին</value></data>
-  <data name="Admin_Adm_AddHint" xml:space="preserve"><value>Մուտքագրեք գոյություն ունեցող հաշվի էլ. փոստը (այն պետք է հաստատված լինի)։ Անձը պետք է դուրս գա և նորից մուտք գործի՝ ադմին վահանակը տեսնելու համար։</value></data>
-  <data name="Admin_Adm_Add" xml:space="preserve"><value>Դարձնել ադմին</value></data>
-  <data name="Admin_Adm_ConfirmAdd" xml:space="preserve"><value>Տա՞լ այս անձին ադմին վահանակի լրիվ հասանելիություն։</value></data>
-  <data name="Admin_Adm_Granted" xml:space="preserve"><value>{0}-ը այժմ ադմին է։ Վահանակը տեսնելու համար նա պետք է նորից մուտք գործի։</value></data>
-  <data name="Admin_Adm_AlreadyAdmin" xml:space="preserve"><value>Այս անձը արդեն ադմին է։</value></data>
-  <data name="Admin_Adm_NotConfirmed" xml:space="preserve"><value>Այս հաշվի էլ. փոստը դեռ հաստատված չէ։</value></data>
-  <data name="Admin_Adm_NotFound" xml:space="preserve"><value>Այս էլ. փոստով հաշիվ չկա։</value></data>
-  <data name="Admin_Adm_Revoked" xml:space="preserve"><value>Ադմինի հասանելիությունը հանվեց։</value></data>
-  <data name="Admin_Adm_Yourself" xml:space="preserve"><value>Դուք չեք կարող հեռացնել ձեր սեփական հասանելիությունը։ Խնդրեք մեկ այլ ադմինի։</value></data>
-  <data name="Admin_Adm_Configured" xml:space="preserve"><value>Գլխավոր ադմինը նշված է կայքի կարգավորումներում և այստեղ չի կարող հեռացվել։</value></data>
-  <data name="Admin_Adm_Last" xml:space="preserve"><value>Վերջին ադմինին հնարավոր չէ հեռացնել։</value></data>
+  <data name="Admin_Adm_MainHint" xml:space="preserve"><value>Գլխավոր ադմինը սահմանված է կայքի կարգավորումներում․ նրան կարելի է խմբագրել, բայց չի կարելի ջնջել, և էլ. հասցեն չի փոխվում։ Վերջին ադմինին հնարավոր չէ ջնջել։</value></data>
+  <data name="Admin_Adm_Configured" xml:space="preserve"><value>Գլխավոր ադմինը սահմանված է կայքի կարգավորումներում և այստեղ չի կարող ջնջվել։</value></data>
+  <data name="Admin_Adm_Last" xml:space="preserve"><value>Վերջին ադմինին հնարավոր չէ ջնջել։</value></data>
   <data name="Admin_Audit_Hint" xml:space="preserve"><value>Ով ինչ է փոխել ադմին վահանակում՝ նորերը վերևում։</value></data>
   <data name="Admin_Audit_Search" xml:space="preserve"><value>Ադմին, գործողություն, համար կամ մանրամասներ</value></data>
   <data name="Admin_Audit_Type" xml:space="preserve"><value>Տեսակ</value></data>

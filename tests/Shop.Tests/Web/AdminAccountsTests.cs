@@ -10,7 +10,7 @@ using Shop.Infrastructure.Data;
 
 namespace Shop.Tests.Web;
 
-// Admin accounts and the audit log, on the real Identity setup of the test site.
+// Admin accounts (create, edit, delete) and the audit log, on the real Identity setup of the test site.
 [Collection("Web")]
 public class AdminAccountsTests : CheckoutTestBase
 {
@@ -26,6 +26,7 @@ public class AdminAccountsTests : CheckoutTestBase
         return await action(scope.ServiceProvider);
     }
 
+    // An ordinary customer account (never an admin).
     private async Task<(string Id, string Email)> NewUserAsync(bool confirmed = true)
     {
         return await InScopeAsync(async services =>
@@ -41,19 +42,40 @@ public class AdminAccountsTests : CheckoutTestBase
     private Task<string> MainAdminIdAsync() => InScopeAsync(async services =>
         (await services.GetRequiredService<UserManager<ApplicationUser>>().FindByEmailAsync(ShopWebFactory.AdminEmail))!.Id);
 
-    private Task<GrantAdminResult> GrantAsync(string email, string byAdminId) =>
-        InScopeAsync(s => s.GetRequiredService<IAdminAccountService>().GrantAsync(email, byAdminId));
+    private static AdminAccountInput Input(string email, string password = Password, string name = "New Admin", string phone = "091 123456") =>
+        new() { FullName = name, Email = email, Phone = phone, Password = password };
 
-    private Task<RevokeAdminResult> RevokeAsync(string userId, string byAdminId) =>
-        InScopeAsync(s => s.GetRequiredService<IAdminAccountService>().RevokeAsync(userId, byAdminId));
+    private Task<AdminSaveResult> CreateAsync(AdminAccountInput input, string byAdminId) =>
+        InScopeAsync(s => s.GetRequiredService<IAdminAccountService>().CreateAsync(input, byAdminId));
+
+    private Task<AdminSaveResult> UpdateAsync(string userId, AdminAccountInput input, string byAdminId) =>
+        InScopeAsync(s => s.GetRequiredService<IAdminAccountService>().UpdateAsync(userId, input, byAdminId));
+
+    private Task<DeleteAdminResult> DeleteAsync(string userId, string byAdminId) =>
+        InScopeAsync(s => s.GetRequiredService<IAdminAccountService>().DeleteAsync(userId, byAdminId));
 
     private Task<bool> IsAdminAsync(string userId) =>
         InScopeAsync(s => s.GetRequiredService<IAdminAccountService>().IsAdminAsync(userId));
 
-    private async Task<HttpClient> SignedInClientAsync(string email)
+    private Task<ApplicationUser?> FindUserAsync(string id) =>
+        InScopeAsync(s => s.GetRequiredService<UserManager<ApplicationUser>>().FindByIdAsync(id));
+
+    private Task<ApplicationUser?> FindUserByEmailAsync(string email) =>
+        InScopeAsync(s => s.GetRequiredService<UserManager<ApplicationUser>>().FindByEmailAsync(email));
+
+    // A new admin account made the way the panel makes it.
+    private async Task<(string Id, string Email)> NewAdminAsync(string byAdminId)
+    {
+        var email = NewEmail();
+        var result = await CreateAsync(Input(email), byAdminId);
+        Assert.Equal(AdminSaveStatus.Saved, result.Status);
+        return (result.UserId!, email);
+    }
+
+    private async Task<HttpClient> SignedInClientAsync(string email, string password = Password)
     {
         var client = NewClient();
-        Assert.Equal(HttpStatusCode.Redirect, (await LoginAsync(client, email, Password)).StatusCode);
+        Assert.Equal(HttpStatusCode.Redirect, (await LoginAsync(client, email, password)).StatusCode);
         return client;
     }
 
@@ -64,98 +86,254 @@ public class AdminAccountsTests : CheckoutTestBase
         return client;
     }
 
-    // ---- Granting ----
+    // ---- Creating ----
 
     [Fact]
-    public async Task Grant_GivesAConfirmedAccountTheRole_ListsIt_AndIsAudited()
+    public async Task Create_MakesAConfirmedAccountWithOnlyTheAdminRole_ThatCanSignInAtOnce_AndIsAudited()
     {
         var main = await MainAdminIdAsync();
-        var (id, email) = await NewUserAsync();
-        Assert.False(await IsAdminAsync(id));
+        var email = NewEmail();
 
-        Assert.Equal(GrantAdminResult.Granted, await GrantAsync("  " + email.ToUpperInvariant() + " ", main)); // case and spaces do not matter
+        var result = await CreateAsync(Input("  " + email + " ", name: " Anna Admin ", phone: " 093 555111 "), main); // spaces do not matter
 
-        Assert.True(await IsAdminAsync(id));
-        var list = await InScopeAsync(s => s.GetRequiredService<IAdminAccountService>().ListAsync());
-        Assert.Contains(list, a => a.Id == id && !a.IsConfigured);
-        Assert.Contains(list, a => a.Email == ShopWebFactory.AdminEmail && a.IsConfigured);
+        Assert.Equal(AdminSaveStatus.Saved, result.Status);
+        var user = (await FindUserAsync(result.UserId!))!;
+        Assert.Equal(email, user.Email);
+        Assert.True(user.EmailConfirmed); // nobody has to open an email
+        Assert.Equal("Anna Admin", user.FullName);
+        Assert.Equal("093 555111", user.PhoneNumber);
 
         await InScopeAsync(async s =>
         {
-            var audit = await s.GetRequiredService<ShopDbContext>().AuditLogs.SingleAsync(a => a.Action == "Admin.Granted" && a.EntityId == id);
+            var users = s.GetRequiredService<UserManager<ApplicationUser>>();
+            Assert.True(await users.IsInRoleAsync(user, Roles.Admin));
+            Assert.False(await users.IsInRoleAsync(user, Roles.Customer)); // an admin account is not a customer account
+
+            var audit = await s.GetRequiredService<ShopDbContext>().AuditLogs.SingleAsync(a => a.Action == "Admin.Created" && a.EntityId == user.Id);
             Assert.Equal(main, audit.UserId);
             Assert.Equal(email, audit.Details);
             Assert.Equal(ShopWebFactory.AdminEmail, audit.UserEmail);
+
+            var list = await s.GetRequiredService<IAdminAccountService>().ListAsync();
+            Assert.Contains(list, a => a.Id == user.Id && !a.IsConfigured && a.Phone == "093 555111");
+            Assert.Contains(list, a => a.Email == ShopWebFactory.AdminEmail && a.IsConfigured);
             return 0;
         });
+
+        // Signs in straight away and the panel opens, no second sign-in needed.
+        var session = await SignedInClientAsync(email);
+        Assert.Equal(HttpStatusCode.OK, (await session.GetAsync("/en/Admin")).StatusCode);
+
+        await DeleteAsync(user.Id, main);
     }
 
     [Fact]
-    public async Task Grant_RefusesUnknownUnconfirmedAndExistingAdmins()
+    public async Task Create_RefusesATakenEmail_AndAWeakPassword_AndLeavesNothingBehind()
     {
         var main = await MainAdminIdAsync();
-        var (unconfirmedId, unconfirmed) = await NewUserAsync(confirmed: false);
+        var (customerId, customerEmail) = await NewUserAsync();
 
-        Assert.Equal(GrantAdminResult.NotFound, await GrantAsync("nobody-here@example.com", main));
-        Assert.Equal(GrantAdminResult.NotConfirmed, await GrantAsync(unconfirmed, main));
-        Assert.False(await IsAdminAsync(unconfirmedId));
-        Assert.Equal(GrantAdminResult.AlreadyAdmin, await GrantAsync(ShopWebFactory.AdminEmail, main));
+        // A customer's email, the main admin's email in capitals: both are taken.
+        Assert.Equal(AdminSaveStatus.EmailTaken, (await CreateAsync(Input(customerEmail), main)).Status);
+        Assert.Equal(AdminSaveStatus.EmailTaken, (await CreateAsync(Input(ShopWebFactory.AdminEmail.ToUpperInvariant()), main)).Status);
+        Assert.False(await IsAdminAsync(customerId)); // the customer was not turned into an admin
+
+        var shortPassword = NewEmail();
+        var noDigit = NewEmail();
+        var weak1 = await CreateAsync(Input(shortPassword, password: "short1"), main);
+        var weak2 = await CreateAsync(Input(noDigit, password: "onlyletters"), main);
+
+        Assert.Equal(AdminSaveStatus.WeakPassword, weak1.Status);
+        Assert.NotEmpty(weak1.Errors!);
+        Assert.Equal(AdminSaveStatus.WeakPassword, weak2.Status);
+        Assert.Null(await FindUserByEmailAsync(shortPassword));
+        Assert.Null(await FindUserByEmailAsync(noDigit));
     }
 
-    // ---- Revoking ----
+    // ---- Editing ----
 
     [Fact]
-    public async Task Revoke_TakesTheRoleAway_ChangesTheSecurityStamp_AndIsAudited()
+    public async Task Update_ChangesNameEmailAndPassword_SignsTheirOtherSessionsOut_AndNeverWritesThePasswordToTheAudit()
     {
         var main = await MainAdminIdAsync();
-        var (id, email) = await NewUserAsync();
-        await GrantAsync(email, main);
-        var stampBefore = await InScopeAsync(async s => (await s.GetRequiredService<UserManager<ApplicationUser>>().FindByIdAsync(id))!.SecurityStamp);
+        var (id, oldEmail) = await NewAdminAsync(main);
+        var stampBefore = (await FindUserAsync(id))!.SecurityStamp;
+        var newEmail = NewEmail();
 
-        Assert.Equal(RevokeAdminResult.Revoked, await RevokeAsync(id, main));
+        var result = await UpdateAsync(id, Input(newEmail, password: "New-Pass-456", name: "Renamed Admin", phone: "093 111222"), main);
 
-        Assert.False(await IsAdminAsync(id));
-        var stampAfter = await InScopeAsync(async s => (await s.GetRequiredService<UserManager<ApplicationUser>>().FindByIdAsync(id))!.SecurityStamp);
-        Assert.NotEqual(stampBefore, stampAfter);
+        Assert.Equal(AdminSaveStatus.Saved, result.Status);
+        var user = (await FindUserAsync(id))!;
+        Assert.Equal(newEmail, user.Email);
+        Assert.Equal(newEmail, user.UserName); // the sign-in name follows the email
+        Assert.Equal("Renamed Admin", user.FullName);
+        Assert.Equal("093 111222", user.PhoneNumber);
+        Assert.NotEqual(stampBefore, user.SecurityStamp);
+
+        // The new email and password work; the old email and password do not.
+        Assert.Equal(HttpStatusCode.Redirect, (await LoginAsync(NewClient(), newEmail, "New-Pass-456")).StatusCode);
+        Assert.Equal(HttpStatusCode.OK, (await LoginAsync(NewClient(), oldEmail, Password)).StatusCode);
+
         await InScopeAsync(async s =>
         {
-            Assert.True(await s.GetRequiredService<ShopDbContext>().AuditLogs.AnyAsync(a => a.Action == "Admin.Revoked" && a.EntityId == id && a.UserId == main));
+            var audit = await s.GetRequiredService<ShopDbContext>().AuditLogs.SingleAsync(a => a.Action == "Admin.Updated" && a.EntityId == id);
+            Assert.Equal(main, audit.UserId);
+            foreach (var word in new[] { "name", "phone", "email", "password" })
+            {
+                Assert.Contains(word, audit.Details);
+            }
+
+            Assert.DoesNotContain("New-Pass-456", audit.Details);
+            Assert.False(await s.GetRequiredService<ShopDbContext>().AuditLogs.AnyAsync(a => a.Details!.Contains("New-Pass-456") || a.Details!.Contains(Password)));
             return 0;
         });
 
-        // The person keeps their customer account.
-        Assert.Equal(RevokeAdminResult.NotAnAdmin, await RevokeAsync(id, main));
+        await DeleteAsync(id, main);
     }
 
     [Fact]
-    public async Task Revoke_RefusesYourself_TheConfiguredAdmin_AndUnknownAccounts()
+    public async Task Update_WithoutAPassword_KeepsThePassword_AndTheSessions()
     {
         var main = await MainAdminIdAsync();
-        var (otherId, otherEmail) = await NewUserAsync();
-        await GrantAsync(otherEmail, main);
+        var (id, email) = await NewAdminAsync(main);
+        var stampBefore = (await FindUserAsync(id))!.SecurityStamp;
 
-        Assert.Equal(RevokeAdminResult.Yourself, await RevokeAsync(otherId, otherId));
-        Assert.True(await IsAdminAsync(otherId));
+        var result = await UpdateAsync(id, Input(email, password: "", name: "Only The Name Changed"), main);
 
-        // The configured admin is given the role again at every start, so it cannot be removed here (not even by another admin).
-        Assert.Equal(RevokeAdminResult.ConfiguredAdmin, await RevokeAsync(main, otherId));
+        Assert.Equal(AdminSaveStatus.Saved, result.Status);
+        Assert.Equal("Only The Name Changed", (await FindUserAsync(id))!.FullName);
+        Assert.Equal(stampBefore, (await FindUserAsync(id))!.SecurityStamp);
+        Assert.Equal(HttpStatusCode.Redirect, (await LoginAsync(NewClient(), email, Password)).StatusCode);
+
+        // Saving the same values again changes nothing and writes no second audit line.
+        var lines = await InScopeAsync(s => s.GetRequiredService<ShopDbContext>().AuditLogs.CountAsync(a => a.Action == "Admin.Updated" && a.EntityId == id));
+        Assert.Equal(AdminSaveStatus.Saved, (await UpdateAsync(id, Input(email, password: "", name: "Only The Name Changed"), main)).Status);
+        Assert.Equal(lines, await InScopeAsync(s => s.GetRequiredService<ShopDbContext>().AuditLogs.CountAsync(a => a.Action == "Admin.Updated" && a.EntityId == id)));
+
+        await DeleteAsync(id, main);
+    }
+
+    [Fact]
+    public async Task Update_AnAdminEditingThemself_IsNotSignedOut()
+    {
+        var main = await MainAdminIdAsync();
+        var (id, email) = await NewAdminAsync(main);
+        var stampBefore = (await FindUserAsync(id))!.SecurityStamp;
+
+        var newEmail = NewEmail();
+        Assert.Equal(AdminSaveStatus.Saved, (await UpdateAsync(id, Input(newEmail, password: "", name: "Me Again"), id)).Status);
+
+        Assert.Equal(stampBefore, (await FindUserAsync(id))!.SecurityStamp);
+        Assert.Equal(HttpStatusCode.Redirect, (await LoginAsync(NewClient(), newEmail, Password)).StatusCode);
+
+        await DeleteAsync(id, main);
+    }
+
+    [Fact]
+    public async Task Update_Refuses_ATakenEmail_AWeakPassword_TheMainAdminsEmail_AndAccountsThatAreNotAdmins()
+    {
+        var main = await MainAdminIdAsync();
+        var (id, email) = await NewAdminAsync(main);
+        var (customerId, customerEmail) = await NewUserAsync();
+
+        Assert.Equal(AdminSaveStatus.EmailTaken, (await UpdateAsync(id, Input(customerEmail), main)).Status);
+
+        var weak = await UpdateAsync(id, Input(email, password: "short1"), main);
+        Assert.Equal(AdminSaveStatus.WeakPassword, weak.Status);
+        Assert.Equal(HttpStatusCode.Redirect, (await LoginAsync(NewClient(), email, Password)).StatusCode); // the old password still works
+
+        // The main admin: the email is the one in the site configuration (the site would create the account again).
+        var newMainEmail = NewEmail();
+        Assert.Equal(AdminSaveStatus.ConfiguredEmail, (await UpdateAsync(main, Input(newMainEmail), id)).Status);
+        Assert.Equal(ShopWebFactory.AdminEmail, (await FindUserAsync(main))!.Email);
+        Assert.Null(await FindUserByEmailAsync(newMainEmail));
+
+        Assert.Equal(AdminSaveStatus.NotFound, (await UpdateAsync("no-such-id", Input(NewEmail()), main)).Status);
+        Assert.Equal(AdminSaveStatus.NotAnAdmin, (await UpdateAsync(customerId, Input(customerEmail), main)).Status);
+
+        await DeleteAsync(id, main);
+    }
+
+    // ---- Deleting ----
+
+    [Fact]
+    public async Task Delete_RemovesTheAccount_KeepsTheirOrdersAndTheHistory_AndIsAudited()
+    {
+        var main = await MainAdminIdAsync();
+        var (id, email) = await NewAdminAsync(main);
+        await UpdateAsync(id, Input(email, password: "", name: "Will Be Deleted"), id); // a line in the audit log made by this admin
+
+        // An order that points to this account (made before it became an admin account, or by hand).
+        var guest = NewClient();
+        await AddToCartAsync(guest, await PlainProductAsync());
+        var (number, _) = ParseDone(await CheckoutAsync(guest, NewEmail()));
+        await InScopeAsync(async s =>
+        {
+            await s.GetRequiredService<ShopDbContext>().Orders.Where(o => o.Number == number).ExecuteUpdateAsync(u => u.SetProperty(o => o.UserId, id));
+            return 0;
+        });
+
+        Assert.Equal(DeleteAdminResult.Deleted, await DeleteAsync(id, main));
+
+        Assert.Null(await FindUserAsync(id));
+        Assert.False(await IsAdminAsync(id));
+        Assert.Equal(HttpStatusCode.OK, (await LoginAsync(NewClient(), email, Password)).StatusCode); // cannot sign in any more
+
+        await InScopeAsync(async s =>
+        {
+            var db = s.GetRequiredService<ShopDbContext>();
+            var order = await db.Orders.SingleAsync(o => o.Number == number);
+            Assert.Null(order.UserId);                  // the order stays, without the link to the deleted account
+            Assert.False(string.IsNullOrWhiteSpace(order.Email));
+
+            var deleted = await db.AuditLogs.SingleAsync(a => a.Action == "Admin.Deleted" && a.EntityId == id);
+            Assert.Equal(main, deleted.UserId);
+            Assert.Equal(email, deleted.Details);       // the history still says who it was
+
+            var earlier = await db.AuditLogs.SingleAsync(a => a.Action == "Admin.Updated" && a.EntityId == id);
+            Assert.Equal(email, earlier.UserEmail);     // their own earlier actions keep their email
+            return 0;
+        });
+    }
+
+    [Fact]
+    public async Task Delete_Refuses_TheMainAdmin_UnknownAccounts_AndAccountsThatAreNotAdmins()
+    {
+        var main = await MainAdminIdAsync();
+        var (otherId, _) = await NewAdminAsync(main);
+        var (customerId, _) = await NewUserAsync();
+
+        // The main admin is made again at every start, so it cannot be deleted here (not even by another admin).
+        Assert.Equal(DeleteAdminResult.ConfiguredAdmin, await DeleteAsync(main, otherId));
         Assert.True(await IsAdminAsync(main));
 
-        Assert.Equal(RevokeAdminResult.NotFound, await RevokeAsync("no-such-id", main));
+        Assert.Equal(DeleteAdminResult.NotFound, await DeleteAsync("no-such-id", main));
+        Assert.Equal(DeleteAdminResult.NotAnAdmin, await DeleteAsync(customerId, main));
+        Assert.NotNull(await FindUserAsync(customerId)); // a customer is never deleted here
 
-        await RevokeAsync(otherId, main);
+        await DeleteAsync(otherId, main);
     }
 
     [Fact]
-    public async Task Revoke_NeverRemovesTheLastAdmin_EvenWhenTwoAdminsRemoveEachOtherAtOnce()
+    public async Task Delete_AnAdminMayDeleteTheirOwnAccount_WhenAnotherAdminRemains()
     {
         var main = await MainAdminIdAsync();
-        var (idA, emailA) = await NewUserAsync();
-        var (idB, emailB) = await NewUserAsync();
-        await GrantAsync(emailA, main);
-        await GrantAsync(emailB, main);
+        var (id, _) = await NewAdminAsync(main);
 
-        // For this test only, every other admin (the configured one and any left by other tests) loses the role,
+        Assert.Equal(DeleteAdminResult.Deleted, await DeleteAsync(id, id));
+
+        Assert.Null(await FindUserAsync(id));
+        Assert.True(await IsAdminAsync(main));
+    }
+
+    [Fact]
+    public async Task Delete_NeverRemovesTheLastAdmin_EvenWhenTwoAdminsDeleteEachOtherAtOnce()
+    {
+        var main = await MainAdminIdAsync();
+        var (idA, _) = await NewAdminAsync(main);
+        var (idB, _) = await NewAdminAsync(main);
+
+        // For this test only, every other admin (the main one and any left by other tests) loses the role,
         // so that A and B really are the only two. They get it back at the end.
         var others = await InScopeAsync(async s =>
         {
@@ -172,12 +350,17 @@ public class AdminAccountsTests : CheckoutTestBase
         try
         {
             var results = await Task.WhenAll(
-                Task.Run(() => RevokeAsync(idB, idA)),   // A removes B
-                Task.Run(() => RevokeAsync(idA, idB)));  // B removes A
+                Task.Run(() => DeleteAsync(idB, idA)),   // A deletes B
+                Task.Run(() => DeleteAsync(idA, idB)));  // B deletes A
 
-            Assert.Equal(1, results.Count(r => r == RevokeAdminResult.Revoked));
-            Assert.Equal(1, results.Count(r => r == RevokeAdminResult.LastAdmin));
+            Assert.Equal(1, results.Count(r => r == DeleteAdminResult.Deleted));
+            Assert.Equal(1, results.Count(r => r == DeleteAdminResult.LastAdmin));
             Assert.Equal(1, new[] { await IsAdminAsync(idA), await IsAdminAsync(idB) }.Count(x => x)); // exactly one admin is left
+
+            // The one who is left cannot delete their own account either.
+            var survivor = await IsAdminAsync(idA) ? idA : idB;
+            Assert.Equal(DeleteAdminResult.LastAdmin, await DeleteAsync(survivor, survivor));
+            Assert.True(await IsAdminAsync(survivor));
         }
         finally
         {
@@ -201,17 +384,15 @@ public class AdminAccountsTests : CheckoutTestBase
     // ---- Immediate effect, with a live session ----
 
     [Fact]
-    public async Task ARemovedAdmin_IsStoppedAtOnce_EvenWithTheirOldSignInCookie()
+    public async Task ADeletedAdmin_IsStoppedAtOnce_EvenWithTheirOldSignInCookie()
     {
         var main = await MainAdminIdAsync();
-        var (id, email) = await NewUserAsync();
-        await GrantAsync(email, main);
+        var (id, email) = await NewAdminAsync(main);
 
-        // They sign in after being made admin: the cookie says "Admin" and the panel opens.
         var session = await SignedInClientAsync(email);
         Assert.Equal(HttpStatusCode.OK, (await session.GetAsync("/en/Admin")).StatusCode);
 
-        await RevokeAsync(id, main);
+        await DeleteAsync(id, main);
 
         // The same cookie, a moment later: refused.
         var response = await session.GetAsync("/en/Admin/Orders");
@@ -223,27 +404,11 @@ public class AdminAccountsTests : CheckoutTestBase
         Assert.Contains("/Account/AccessDenied", post.Headers.Location!.ToString());
     }
 
-    [Fact]
-    public async Task ANewAdmin_NeedsToSignInAgain_ToUseThePanel()
-    {
-        var main = await MainAdminIdAsync();
-        var (_, email) = await NewUserAsync();
-        var session = await SignedInClientAsync(email); // signed in as an ordinary customer
-
-        await GrantAsync(email, main);
-
-        // The old cookie has no "Admin" in it yet.
-        Assert.Contains("/Account/AccessDenied", (await session.GetAsync("/en/Admin")).Headers.Location!.ToString());
-
-        // A new sign-in has it.
-        var fresh = await SignedInClientAsync(email);
-        Assert.Equal(HttpStatusCode.OK, (await fresh.GetAsync("/en/Admin")).StatusCode);
-    }
-
-    // ---- The screen ----
+    // ---- The screens ----
 
     [Theory]
     [InlineData("/en/Admin/Admins")]
+    [InlineData("/en/Admin/Admins/Create")]
     [InlineData("/ru/Admin/Audit")]
     public async Task TheAdminsAndAuditPages_RefuseVisitorsAndCustomers(string url)
     {
@@ -255,19 +420,27 @@ public class AdminAccountsTests : CheckoutTestBase
     }
 
     [Fact]
-    public async Task ACustomer_CannotAddOrRemoveAdmins()
+    public async Task ACustomer_CannotCreateEditOrDeleteAdmins()
     {
         var main = await MainAdminIdAsync();
         var customer = NewClient();
         var customerEmail = await SignedInUserAsync(customer);
+        var newAdminEmail = NewEmail();
 
-        var add = await PostFormListAsync(customer, "/en/Orders/Lookup", "/en/Admin/Admins/Add", [F("email", customerEmail)]);
-        var remove = await PostFormListAsync(customer, "/en/Orders/Lookup", "/en/Admin/Admins/Remove", [F("id", main)]);
+        var create = await PostFormListAsync(customer, "/en/Account", "/en/Admin/Admins/Create", [F("FullName", "X"), F("Email", newAdminEmail), F("Phone", "091 123456"), F("Password", Password)]);
+        var edit = await PostFormListAsync(customer, "/en/Account", "/en/Admin/Admins/Edit", [F("Id", main), F("FullName", "Hacked"), F("Email", ShopWebFactory.AdminEmail), F("Phone", "091 123456"), F("Password", "Hacked-123")]);
+        var delete = await PostFormListAsync(customer, "/en/Account", "/en/Admin/Admins/Delete", [F("id", main)]);
 
-        Assert.Contains("/Account/AccessDenied", add.Headers.Location!.ToString());
-        Assert.Contains("/Account/AccessDenied", remove.Headers.Location!.ToString());
-        Assert.False(await IsAdminAsync(await InScopeAsync(async s => (await s.GetRequiredService<UserManager<ApplicationUser>>().FindByEmailAsync(customerEmail))!.Id)));
+        foreach (var response in new[] { create, edit, delete })
+        {
+            Assert.Contains("/Account/AccessDenied", response.Headers.Location!.ToString());
+        }
+
+        Assert.Null(await FindUserByEmailAsync(newAdminEmail));
+        Assert.False(await IsAdminAsync((await FindUserByEmailAsync(customerEmail))!.Id));
         Assert.True(await IsAdminAsync(main));
+        Assert.NotEqual("Hacked", (await FindUserAsync(main))!.FullName);
+        Assert.Equal(HttpStatusCode.Redirect, (await LoginAsync(NewClient(), ShopWebFactory.AdminEmail, ShopWebFactory.AdminPassword)).StatusCode); // the main admin's password is unchanged
     }
 
     [Theory]
@@ -277,76 +450,147 @@ public class AdminAccountsTests : CheckoutTestBase
     public async Task AdminsAndAuditPages_Open_AndHaveNoUntranslatedKeys(string culture)
     {
         var admin = await MainAdminClientAsync();
+        var main = await MainAdminIdAsync();
 
-        foreach (var path in new[] { "/Admins", "/Audit" })
+        foreach (var path in new[] { "/Admins", "/Admins/Create", $"/Admins/Edit/{main}", "/Audit" })
         {
             var response = await admin.GetAsync($"/{culture}/Admin{path}");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
             var html = await BodyAsync(response);
             var text = Regex.Replace(Regex.Replace(html, "<script[\\s\\S]*?</script>", " "), "<[^>]+>", " ");
-            Assert.Empty(Regex.Matches(text, @"\b(Admin|Val|Status|Pay|Checkout)_[A-Za-z_]+\b").Select(m => m.Value).Distinct());
+            Assert.Empty(Regex.Matches(text, @"\b(Admin|Val|Status|Pay|Checkout|Label)_[A-Za-z_]+\b").Select(m => m.Value).Distinct());
         }
     }
 
     [Fact]
-    public async Task AdminsPage_MarksYouAndTheMainAdmin_AndOffersRemoveOnlyForOthers()
+    public async Task AdminsPage_MarksYouAndTheMainAdmin_AndOffersEditForAll_AndDeleteForAllButTheMainAdmin()
     {
         var main = await MainAdminIdAsync();
-        var (otherId, otherEmail) = await NewUserAsync();
-        await GrantAsync(otherEmail, main);
+        var (otherId, otherEmail) = await NewAdminAsync(main);
         var admin = await MainAdminClientAsync();
 
         var html = await admin.GetStringAsync("/en/Admin/Admins");
 
         Assert.Contains(otherEmail, html);
-        Assert.Contains($"name=\"id\" value=\"{otherId}\"", html);          // can remove the other
-        Assert.DoesNotContain($"name=\"id\" value=\"{main}\"", html);         // not yourself, not the main admin
+        Assert.Contains($"href=\"/en/Admin/Admins/Edit/{otherId}\"", html);
+        Assert.Contains($"href=\"/en/Admin/Admins/Edit/{main}\"", html);
+        Assert.Contains($"name=\"id\" value=\"{otherId}\"", html);          // can delete the other
+        Assert.DoesNotContain($"name=\"id\" value=\"{main}\"", html);         // not the main admin
+        Assert.Contains("href=\"/en/Admin/Admins/Create\"", html);
 
-        await RevokeAsync(otherId, main);
+        // On another admin's own page their own row can be deleted by themself too.
+        var other = await SignedInClientAsync(otherEmail);
+        Assert.Contains($"name=\"id\" value=\"{otherId}\"", await other.GetStringAsync("/en/Admin/Admins"));
+
+        await DeleteAsync(otherId, main);
     }
 
     [Fact]
-    public async Task Admin_AddsAndRemovesAnAdmin_ThroughThePage_WithClearMessages()
+    public async Task Admin_CreatesEditsAndDeletesAnAdmin_ThroughThePages_WithClearMessages()
     {
         var admin = await MainAdminClientAsync();
-        var (id, email) = await NewUserAsync();
-        var (_, unconfirmed) = await NewUserAsync(confirmed: false);
-        const string page = "/en/Admin/Admins";
+        var main = await MainAdminIdAsync();
+        var (_, customerEmail) = await NewUserAsync();
+        const string list = "/en/Admin/Admins";
+        const string createPage = "/en/Admin/Admins/Create";
 
-        async Task<string> Bar() => WebUtility.HtmlDecode(await admin.GetStringAsync(page));
-        Task<HttpResponseMessage> Add(string value) => PostFormListAsync(admin, page, "/en/Admin/Admins/Add", [F("email", value)]);
+        async Task<string> Bar() => WebUtility.HtmlDecode(await admin.GetStringAsync(list));
+        Task<HttpResponseMessage> Create(string name, string email, string phone, string password) =>
+            PostFormListAsync(admin, createPage, createPage, [F("FullName", name), F("Email", email), F("Phone", phone), F("Password", password)]);
 
-        // Wrong input.
-        await Add("not-an-email");
-        Assert.Contains("Enter a valid email address.", await Bar());
-        await Add("nobody-at-all@example.com");
-        Assert.Contains("There is no account with this email.", await Bar());
-        await Add(unconfirmed);
-        Assert.Contains("This account's email is not confirmed yet.", await Bar());
-        await Add(ShopWebFactory.AdminEmail);
-        Assert.Contains("This person is already an admin.", await Bar());
+        // The form is there, with a password box that does not show what is typed.
+        var form = await admin.GetStringAsync(createPage);
+        Assert.Contains("type=\"password\"", form);
+        Assert.Contains("autocomplete=\"new-password\"", form);
+
+        // Wrong input shows the form again with the problem next to the field; nothing is created.
+        var email = NewEmail();
+        foreach (var (name, mail, phone, password, expected) in new[]
+        {
+            ("", email, "091 123456", Password, "is required."),
+            ("Anna", "not-an-email", "091 123456", Password, "Enter a valid email address."),
+            ("Anna", email, "12", Password, "Enter a valid phone number"),
+            ("Anna", email, "091 123456", "", "is required."),
+            ("Anna", customerEmail, "091 123456", Password, "Another account already uses this email."),
+            ("Anna", email, "091 123456", "short1", "8")
+        })
+        {
+            var response = await Create(name, mail, phone, password);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            var html = WebUtility.HtmlDecode(await BodyAsync(response));
+            Assert.Contains(expected, html);
+            Assert.Contains("field-validation-error", html);
+        }
+
+        Assert.Null(await FindUserByEmailAsync(email));
 
         // A good one.
-        Assert.Equal(HttpStatusCode.Redirect, (await Add(email)).StatusCode);
-        var granted = await Bar();
-        Assert.Contains($"{email} is now an admin.", granted);
-        Assert.Contains(email, granted);
+        Assert.Equal(HttpStatusCode.Redirect, (await Create("Anna Admin", email, "091 123456", Password)).StatusCode);
+        var created = await Bar();
+        Assert.Contains($"Admin {email} created. They can sign in now.", created);
+        Assert.Contains(email, created);
+        var id = (await FindUserByEmailAsync(email))!.Id;
         Assert.True(await IsAdminAsync(id));
 
-        // Remove: the button is there; a forged attempt on the main admin is refused.
+        // Editing: the page shows the saved values; empty password keeps the old one.
+        var editPage = $"/en/Admin/Admins/Edit/{id}";
+        var editHtml = await admin.GetStringAsync(editPage);
+        Assert.Contains("value=\"Anna Admin\"", editHtml);
+        Assert.Contains($"value=\"{email}\"", editHtml);
+
+        var save = await PostFormListAsync(admin, editPage, "/en/Admin/Admins/Edit",
+            [F("Id", id), F("FullName", "Anna Renamed"), F("Email", email), F("Phone", "093 222333"), F("Password", "")]);
+        Assert.Equal(HttpStatusCode.Redirect, save.StatusCode);
+        Assert.Contains("Changes saved.", await Bar());
+        Assert.Contains("Anna Renamed", await Bar());
+        Assert.Equal(HttpStatusCode.Redirect, (await LoginAsync(NewClient(), email, Password)).StatusCode);
+
+        // A taken email on edit stays on the form.
+        var taken = await PostFormListAsync(admin, editPage, "/en/Admin/Admins/Edit",
+            [F("Id", id), F("FullName", "Anna Renamed"), F("Email", customerEmail), F("Phone", "093 222333"), F("Password", "")]);
+        Assert.Equal(HttpStatusCode.OK, taken.StatusCode);
+        Assert.Contains("Another account already uses this email.", WebUtility.HtmlDecode(await BodyAsync(taken)));
+
+        // The main admin: the email box is read-only, and a forged email is refused with a clear message.
+        var mainEditPage = $"/en/Admin/Admins/Edit/{main}";
+        Assert.Matches("<input[^>]*readonly[^>]*value=\"" + Regex.Escape(ShopWebFactory.AdminEmail) + "\"|<input[^>]*value=\"" + Regex.Escape(ShopWebFactory.AdminEmail) + "\"[^>]*readonly", await admin.GetStringAsync(mainEditPage));
+        var ownPage = await admin.GetStringAsync(mainEditPage);
+        Assert.DoesNotContain("name=\"Password\"", ownPage);                      // your own password is changed on the account page
+        Assert.Contains("href=\"/en/Account/ChangePassword\"", ownPage);
+        Assert.Contains("name=\"Password\"", await admin.GetStringAsync(editPage)); // another admin's password can be set here
+        var forged = await PostFormListAsync(admin, mainEditPage, "/en/Admin/Admins/Edit",
+            [F("Id", main), F("FullName", "Administrator"), F("Email", NewEmail()), F("Phone", "091 123456"), F("Password", "")]);
+        Assert.Equal(HttpStatusCode.OK, forged.StatusCode);
+        Assert.Contains("cannot be changed here", WebUtility.HtmlDecode(await BodyAsync(forged)));
+        Assert.Equal(ShopWebFactory.AdminEmail, (await FindUserAsync(main))!.Email);
+
+        // Deleting: the main admin cannot be deleted even by a forged form; the new one can; an unknown id is not found.
+        await PostFormListAsync(admin, list, "/en/Admin/Admins/Delete", [F("id", main)]);
+        Assert.Contains("The main admin is set in the site configuration and cannot be deleted here.", await Bar());
+        Assert.True(await IsAdminAsync(main));
+
+        Assert.Equal(HttpStatusCode.Redirect, (await PostFormListAsync(admin, list, "/en/Admin/Admins/Delete", [F("id", id)])).StatusCode);
+        Assert.Contains("Admin account deleted.", await Bar());
+        Assert.Null(await FindUserAsync(id));
+
+        Assert.Equal(HttpStatusCode.NotFound, (await PostFormListAsync(admin, list, "/en/Admin/Admins/Delete", [F("id", "no-such-id")])).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await admin.GetAsync("/en/Admin/Admins/Edit/no-such-id")).StatusCode);
+    }
+
+    [Fact]
+    public async Task AnAdmin_DeletingTheirOwnAccount_ThroughThePage_IsSignedOutAtOnce()
+    {
         var main = await MainAdminIdAsync();
-        await PostFormListAsync(admin, page, "/en/Admin/Admins/Remove", [F("id", main)]);
-        Assert.Contains("The main admin is set in the site configuration and cannot be removed here.", await Bar());
-        await PostFormListAsync(admin, page, "/en/Admin/Admins/Remove", [F("id", main)]);
+        var (id, email) = await NewAdminAsync(main);
+        var session = await SignedInClientAsync(email);
 
-        await PostFormListAsync(admin, page, "/en/Admin/Admins/Remove", [F("id", id)]);
-        Assert.Contains("Admin access removed.", await Bar());
-        Assert.False(await IsAdminAsync(id));
+        var response = await PostFormListAsync(session, "/en/Admin/Admins", "/en/Admin/Admins/Delete", [F("id", id)]);
 
-        // Removing yourself through a forged form is refused too (the main admin is also "yourself" here).
-        await PostFormListAsync(admin, page, "/en/Admin/Admins/Remove", [F("id", "no-such-id")]);
-        Assert.Equal(HttpStatusCode.NotFound, (await PostFormListAsync(admin, page, "/en/Admin/Admins/Remove", [F("id", "no-such-id")])).StatusCode);
+        Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
+        Assert.Equal("/en", response.Headers.Location!.OriginalString);
+        Assert.Null(await FindUserAsync(id));
+        Assert.Contains("/Account/Login", (await session.GetAsync("/en/Admin")).Headers.Location!.ToString()); // not signed in any more
     }
 
     // ---- Audit log screen ----
@@ -417,8 +661,7 @@ public class AdminAccountsTests : CheckoutTestBase
     {
         var admin = await MainAdminClientAsync();
         var main = await MainAdminIdAsync();
-        var (_, email) = await NewUserAsync();
-        await GrantAsync(email, main); // writes an "Admin.Granted" line
+        var (newAdminId, email) = await NewAdminAsync(main); // writes an "Admin.Created" line
 
         // A settings save writes a "Settings.Saved" line.
         var settings = await admin.GetStringAsync("/en/Admin/Settings");
@@ -431,7 +674,7 @@ public class AdminAccountsTests : CheckoutTestBase
         });
 
         var html = await admin.GetStringAsync("/en/Admin/Audit");
-        Assert.Contains("Admin.Granted", html);
+        Assert.Contains("Admin.Created", html);
         Assert.Contains(email, html);
         Assert.Contains("Settings.Saved", html);
         Assert.Contains(ShopWebFactory.AdminEmail, html);
@@ -440,10 +683,10 @@ public class AdminAccountsTests : CheckoutTestBase
 
         // Filtering by kind.
         var onlyUsers = await admin.GetStringAsync("/en/Admin/Audit?EntityType=User");
-        Assert.Contains("Admin.Granted", onlyUsers);
+        Assert.Contains("Admin.Created", onlyUsers);
         Assert.DoesNotContain("Settings.Saved", onlyUsers);
 
-        await RevokeAsync((await InScopeAsync(async s => (await s.GetRequiredService<UserManager<ApplicationUser>>().FindByEmailAsync(email))!.Id)), main);
+        await DeleteAsync(newAdminId, main);
     }
 
     [Fact]

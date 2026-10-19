@@ -160,7 +160,13 @@ public class AccountController : Controller
         }
 
         await _signIn.SignInAsync(user, isPersistent: model.RememberMe);
-        await MoveGuestDataIntoAccountAsync(user);
+
+        // An admin does not shop, so a cart or favorites made before signing in are not moved into the admin account.
+        if (!await _users.IsInRoleAsync(user, Roles.Admin))
+        {
+            await MoveGuestDataIntoAccountAsync(user);
+        }
+
         return RedirectToLocal(model.ReturnUrl);
     }
 

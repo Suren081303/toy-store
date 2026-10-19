@@ -137,6 +137,9 @@
   <data name="Link_ResendConfirmation" xml:space="preserve"><value>Send the confirmation email again</value></data>
   <data name="Dev_VerifyButton" xml:space="preserve"><value>Verify my account</value></data>
   <data name="Dev_VerifyNote" xml:space="preserve"><value>Development mode: no real email is sent. Press the button to confirm this account.</value></data>
+  <data name="AdminShop_Banner" xml:space="preserve"><value>You are viewing the shop as an admin. Buying is turned off for admin accounts.</value></data>
+  <data name="AdminShop_CannotTitle" xml:space="preserve"><value>Admins cannot buy</value></data>
+  <data name="AdminShop_CannotText" xml:space="preserve"><value>Admin accounts manage the shop, so the cart, checkout, favorites and My orders are not available for them. To shop, use a customer account.</value></data>
   <data name="Link_ForgotPassword" xml:space="preserve"><value>Forgot your password?</value></data>
   <data name="Resend_Title" xml:space="preserve"><value>Confirmation email</value></data>
   <data name="Resend_Lead" xml:space="preserve"><value>Enter your email and we will send the confirmation link again.</value></data>
@@ -513,27 +516,31 @@
   <data name="Admin_Val_Sku" xml:space="preserve"><value>Use letters, digits and . _ - only.</value></data>
   <data name="Admin_Nav_Admins" xml:space="preserve"><value>Admins</value></data>
   <data name="Admin_Nav_Audit" xml:space="preserve"><value>Audit log</value></data>
-  <data name="Admin_Adm_Hint" xml:space="preserve"><value>Everyone listed here can do everything in the admin panel.</value></data>
+  <data name="Admin_Adm_Hint" xml:space="preserve"><value>Everyone listed here can do everything in the admin panel. Admin accounts are made here; they are not shop customers.</value></data>
+  <data name="Admin_Adm_Phone" xml:space="preserve"><value>Phone</value></data>
+  <data name="Admin_Adm_New" xml:space="preserve"><value>New admin</value></data>
+  <data name="Admin_Adm_EditTitle" xml:space="preserve"><value>Edit admin</value></data>
+  <data name="Admin_Adm_Create" xml:space="preserve"><value>Create admin</value></data>
+  <data name="Admin_Adm_Delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="Admin_Adm_ConfirmDelete" xml:space="preserve"><value>Delete the admin account {0}? This cannot be undone.</value></data>
+  <data name="Admin_Adm_ConfirmDeleteSelf" xml:space="preserve"><value>Delete YOUR OWN admin account {0}? You will be signed out and this cannot be undone.</value></data>
+  <data name="Admin_Adm_Created" xml:space="preserve"><value>Admin {0} created. They can sign in now.</value></data>
+  <data name="Admin_Adm_Updated" xml:space="preserve"><value>Changes saved.</value></data>
+  <data name="Admin_Adm_Deleted" xml:space="preserve"><value>Admin account deleted.</value></data>
+  <data name="Admin_Adm_EmailTaken" xml:space="preserve"><value>Another account already uses this email.</value></data>
+  <data name="Admin_Adm_ConfiguredEmail" xml:space="preserve"><value>The main admin's email is set in the site configuration and cannot be changed here.</value></data>
+  <data name="Admin_Adm_ConfiguredEmailHint" xml:space="preserve"><value>Set in the site configuration; cannot be changed here.</value></data>
+  <data name="Admin_Adm_PasswordNew" xml:space="preserve"><value>The admin signs in with this email and password. No email confirmation is needed.</value></data>
+  <data name="Admin_Adm_PasswordKeep" xml:space="preserve"><value>Leave empty to keep the current password. A new password signs the person out of their other devices.</value></data>
+  <data name="Admin_Adm_OwnPassword" xml:space="preserve"><value>Change your own password on the account page</value></data>
   <data name="Admin_Adm_Email" xml:space="preserve"><value>Email</value></data>
   <data name="Admin_Adm_Name" xml:space="preserve"><value>Name</value></data>
   <data name="Admin_Adm_Since" xml:space="preserve"><value>Registered</value></data>
   <data name="Admin_Adm_You" xml:space="preserve"><value>You</value></data>
   <data name="Admin_Adm_Main" xml:space="preserve"><value>Main admin (set in the site configuration)</value></data>
-  <data name="Admin_Adm_Remove" xml:space="preserve"><value>Remove access</value></data>
-  <data name="Admin_Adm_ConfirmRemove" xml:space="preserve"><value>Remove admin access for {0}?</value></data>
-  <data name="Admin_Adm_MainHint" xml:space="preserve"><value>The main admin is set in the site configuration and cannot be removed here. You cannot remove your own access; another admin can.</value></data>
-  <data name="Admin_Adm_AddTitle" xml:space="preserve"><value>Add an admin</value></data>
-  <data name="Admin_Adm_AddHint" xml:space="preserve"><value>Enter the email of an existing account (its email must be confirmed). The person must sign out and sign in again to see the admin panel.</value></data>
-  <data name="Admin_Adm_Add" xml:space="preserve"><value>Make admin</value></data>
-  <data name="Admin_Adm_ConfirmAdd" xml:space="preserve"><value>Give this person full access to the admin panel?</value></data>
-  <data name="Admin_Adm_Granted" xml:space="preserve"><value>{0} is now an admin. They must sign in again to see the panel.</value></data>
-  <data name="Admin_Adm_AlreadyAdmin" xml:space="preserve"><value>This person is already an admin.</value></data>
-  <data name="Admin_Adm_NotConfirmed" xml:space="preserve"><value>This account's email is not confirmed yet.</value></data>
-  <data name="Admin_Adm_NotFound" xml:space="preserve"><value>There is no account with this email.</value></data>
-  <data name="Admin_Adm_Revoked" xml:space="preserve"><value>Admin access removed.</value></data>
-  <data name="Admin_Adm_Yourself" xml:space="preserve"><value>You cannot remove your own access. Ask another admin.</value></data>
-  <data name="Admin_Adm_Configured" xml:space="preserve"><value>The main admin is set in the site configuration and cannot be removed here.</value></data>
-  <data name="Admin_Adm_Last" xml:space="preserve"><value>The last admin cannot be removed.</value></data>
+  <data name="Admin_Adm_MainHint" xml:space="preserve"><value>The main admin is set in the site configuration: it can be edited, but not deleted, and its email cannot change. The last admin cannot be deleted.</value></data>
+  <data name="Admin_Adm_Configured" xml:space="preserve"><value>The main admin is set in the site configuration and cannot be deleted here.</value></data>
+  <data name="Admin_Adm_Last" xml:space="preserve"><value>The last admin cannot be deleted.</value></data>
   <data name="Admin_Audit_Hint" xml:space="preserve"><value>Who changed what in the admin panel, newest first.</value></data>
   <data name="Admin_Audit_Search" xml:space="preserve"><value>Admin, action, number or details</value></data>
   <data name="Admin_Audit_Type" xml:space="preserve"><value>Kind</value></data>

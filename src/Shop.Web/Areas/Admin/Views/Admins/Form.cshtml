@@ -1,0 +1,57 @@
+@model AdminAccountForm
+@{
+    var isNew = Model.Id is null;
+    ViewData["Title"] = Localizer[isNew ? "Admin_Adm_New" : "Admin_Adm_EditTitle"].Value;
+}
+
+<p><a class="link" asp-action="Index">← @Localizer["Admin_Nav_Admins"]</a></p>
+<h1 class="admin-title">@ViewData["Title"]</h1>
+
+<form method="post" asp-action="@(isNew ? "Create" : "Edit")" class="form admin-narrow">
+    <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+    @if (!isNew)
+    {
+        <input type="hidden" asp-for="Id" />
+    }
+
+    <section class="panel">
+        <div class="field">
+            <label asp-for="FullName" class="field__label"></label>
+            <input asp-for="FullName" class="input" autocomplete="off" required maxlength="100" />
+            <span asp-validation-for="FullName" class="field__error"></span>
+        </div>
+
+        <div class="field">
+            <label asp-for="Email" class="field__label"></label>
+            <input asp-for="Email" class="input" type="email" autocomplete="off" required maxlength="256" readonly="@Model.IsConfigured" />
+            <span asp-validation-for="Email" class="field__error"></span>
+            @if (Model.IsConfigured)
+            {
+                <p class="field__hint">@Localizer["Admin_Adm_ConfiguredEmailHint"]</p>
+            }
+        </div>
+
+        <div class="field">
+            <label asp-for="Phone" class="field__label"></label>
+            <input asp-for="Phone" class="input" type="tel" autocomplete="off" inputmode="tel" required maxlength="20" />
+            <span asp-validation-for="Phone" class="field__error"></span>
+        </div>
+
+        @if (Model.IsYou)
+        {
+            @* Your own password is changed on the account page: it asks for the current one and keeps you signed in. *@
+            <p class="field__hint"><a class="link" asp-area="" asp-route="default" asp-route-culture="@CurrentCulture.Code" asp-route-controller="Account" asp-route-action="ChangePassword">@Localizer["Admin_Adm_OwnPassword"]</a></p>
+        }
+        else
+        {
+            <div class="field">
+                <label asp-for="Password" class="field__label"></label>
+                <input asp-for="Password" class="input" type="password" autocomplete="new-password" required="@isNew" maxlength="100" value="" />
+                <span asp-validation-for="Password" class="field__error"></span>
+                <p class="field__hint">@Localizer[isNew ? "Admin_Adm_PasswordNew" : "Admin_Adm_PasswordKeep"]</p>
+            </div>
+        }
+    </section>
+
+    <button type="submit" class="btn btn--primary">@Localizer[isNew ? "Admin_Adm_Create" : "Admin_Save"]</button>
+</form>

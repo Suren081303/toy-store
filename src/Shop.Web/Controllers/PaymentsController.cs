@@ -5,6 +5,7 @@ using Shop.Core.Orders;
 using Shop.Core.Payments;
 using Shop.Web.Models;
 using Shop.Web.Payments;
+using Shop.Web.Security;
 
 namespace Shop.Web.Controllers;
 
@@ -32,6 +33,7 @@ public class PaymentsController : Controller
 
     // "Pay now": starts a new payment attempt and sends the customer to the bank.
     [HttpPost]
+    [AdminCannotBuy]
     public async Task<IActionResult> Start(int number, string? key)
     {
         var order = await _access.ResolveAsync(User, number, key);

@@ -20,7 +20,7 @@ Built with .NET 10, ASP.NET Core MVC (Razor) and SQL Server.
 - Products (3 languages, photos, stock, discounts, archive), categories, age groups.
 - Notifications bell and an email queue with retries; settings (delivery fee, free-delivery limit, delivery days, return window, time slots, bank details).
 - Analytics: sales, orders, customers, products, with comparison to the previous period and CSV export.
-- Admin accounts and an audit log of every change.
+- Admin accounts (create, edit, delete in the panel) and an audit log of every change. An admin sees the shop like a customer but cannot buy: the cart, checkout, favorites and "My orders" are closed to admin accounts.
 
 **Under the hood**
 - Languages in the address (`/hy`, `/ru`, `/en`), all texts in `.resx` files.

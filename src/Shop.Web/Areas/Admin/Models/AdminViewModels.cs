@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Shop.Core.Admin;
 using Shop.Core.Notifications;
 using Shop.Core.Orders;
+using Shop.Web.Validation;
 
 namespace Shop.Web.Areas.Admin.Models;
 
@@ -13,6 +14,58 @@ public record AdminReturnsViewModel(ReturnStatus? Status, PagedResult<AdminRetur
 
 // CurrentAdminId: the signed-in admin (their own row has no "Remove" button).
 public record AdminAccountsViewModel(IReadOnlyList<AdminAccountRow> Admins, string CurrentAdminId);
+
+// The new-admin and edit-admin form. Password: required for a new admin; on edit, empty keeps the current one.
+// IsConfigured and IsYou are only for showing the page (they are not read from the form).
+public class AdminAccountForm
+{
+    public string? Id { get; set; }
+
+    [Display(Name = "Label_FullName")]
+    [Required(ErrorMessage = "Val_Required")]
+    [StringLength(100, ErrorMessage = "Val_MaxLength")]
+    public string FullName { get; set; } = string.Empty;
+
+    [Display(Name = "Label_Email")]
+    [Required(ErrorMessage = "Val_Required")]
+    [EmailAddress(ErrorMessage = "Val_Email")]
+    [StringLength(256, ErrorMessage = "Val_MaxLength")]
+    public string Email { get; set; } = string.Empty;
+
+    [Display(Name = "Label_Phone")]
+    [Required(ErrorMessage = "Val_Required")]
+    [ShopPhone(ErrorMessage = "Val_Phone")]
+    public string Phone { get; set; } = string.Empty;
+
+    [Display(Name = "Label_Password")]
+    [StringLength(100, ErrorMessage = "Val_MaxLength")]
+    [DataType(DataType.Password)]
+    public string? Password { get; set; }
+
+    [BindNever]
+    public bool IsConfigured { get; set; }
+
+    [BindNever]
+    public bool IsYou { get; set; }
+
+    public AdminAccountInput ToInput() => new()
+    {
+        FullName = FullName,
+        Email = Email,
+        Phone = Phone,
+        Password = Password
+    };
+
+    public static AdminAccountForm From(AdminAccountRow row, string currentAdminId) => new()
+    {
+        Id = row.Id,
+        FullName = row.FullName,
+        Email = row.Email,
+        Phone = row.Phone,
+        IsConfigured = row.IsConfigured,
+        IsYou = row.Id == currentAdminId
+    };
+}
 
 public record AdminNotificationsViewModel(bool UnreadOnly, PagedResult<NotificationRow> Result);
 

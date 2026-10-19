@@ -137,6 +137,9 @@
   <data name="Link_ResendConfirmation" xml:space="preserve"><value>Отправить письмо подтверждения ещё раз</value></data>
   <data name="Dev_VerifyButton" xml:space="preserve"><value>Подтвердить мой аккаунт</value></data>
   <data name="Dev_VerifyNote" xml:space="preserve"><value>Режим разработки: письма не отправляются. Нажмите кнопку, чтобы подтвердить этот аккаунт.</value></data>
+  <data name="AdminShop_Banner" xml:space="preserve"><value>Вы смотрите магазин как админ. Для аккаунтов админов покупки отключены.</value></data>
+  <data name="AdminShop_CannotTitle" xml:space="preserve"><value>Админы не могут покупать</value></data>
+  <data name="AdminShop_CannotText" xml:space="preserve"><value>Аккаунты админов управляют магазином, поэтому корзина, оформление заказа, избранное и «Мои заказы» им недоступны. Чтобы покупать, войдите как покупатель.</value></data>
   <data name="Link_ForgotPassword" xml:space="preserve"><value>Забыли пароль?</value></data>
   <data name="Resend_Title" xml:space="preserve"><value>Письмо подтверждения</value></data>
   <data name="Resend_Lead" xml:space="preserve"><value>Введите эл. почту, и мы отправим ссылку подтверждения ещё раз.</value></data>
@@ -513,27 +516,31 @@
   <data name="Admin_Val_Sku" xml:space="preserve"><value>Только буквы, цифры и знаки . _ -</value></data>
   <data name="Admin_Nav_Admins" xml:space="preserve"><value>Администраторы</value></data>
   <data name="Admin_Nav_Audit" xml:space="preserve"><value>Журнал изменений</value></data>
-  <data name="Admin_Adm_Hint" xml:space="preserve"><value>Все, кто указан здесь, могут делать в панели всё.</value></data>
+  <data name="Admin_Adm_Hint" xml:space="preserve"><value>Все из списка могут делать в панели всё. Админы создаются здесь, это не покупатели магазина.</value></data>
+  <data name="Admin_Adm_Phone" xml:space="preserve"><value>Телефон</value></data>
+  <data name="Admin_Adm_New" xml:space="preserve"><value>Новый админ</value></data>
+  <data name="Admin_Adm_EditTitle" xml:space="preserve"><value>Редактировать админа</value></data>
+  <data name="Admin_Adm_Create" xml:space="preserve"><value>Создать админа</value></data>
+  <data name="Admin_Adm_Delete" xml:space="preserve"><value>Удалить</value></data>
+  <data name="Admin_Adm_ConfirmDelete" xml:space="preserve"><value>Удалить аккаунт админа {0}? Это нельзя отменить.</value></data>
+  <data name="Admin_Adm_ConfirmDeleteSelf" xml:space="preserve"><value>Удалить ВАШ аккаунт админа {0}? Вы выйдете из системы, отменить это нельзя.</value></data>
+  <data name="Admin_Adm_Created" xml:space="preserve"><value>Админ {0} создан. Он может войти сразу.</value></data>
+  <data name="Admin_Adm_Updated" xml:space="preserve"><value>Изменения сохранены.</value></data>
+  <data name="Admin_Adm_Deleted" xml:space="preserve"><value>Аккаунт админа удалён.</value></data>
+  <data name="Admin_Adm_EmailTaken" xml:space="preserve"><value>Этот email уже используется другим аккаунтом.</value></data>
+  <data name="Admin_Adm_ConfiguredEmail" xml:space="preserve"><value>Email главного админа задан в настройках сайта, здесь его изменить нельзя.</value></data>
+  <data name="Admin_Adm_ConfiguredEmailHint" xml:space="preserve"><value>Задан в настройках сайта, здесь не меняется.</value></data>
+  <data name="Admin_Adm_PasswordNew" xml:space="preserve"><value>Админ входит с этим email и паролем. Подтверждать почту не нужно.</value></data>
+  <data name="Admin_Adm_PasswordKeep" xml:space="preserve"><value>Оставьте пустым, чтобы не менять пароль. Новый пароль завершает сеансы человека на других устройствах.</value></data>
+  <data name="Admin_Adm_OwnPassword" xml:space="preserve"><value>Свой пароль меняется на странице аккаунта</value></data>
   <data name="Admin_Adm_Email" xml:space="preserve"><value>Эл. почта</value></data>
   <data name="Admin_Adm_Name" xml:space="preserve"><value>Имя</value></data>
   <data name="Admin_Adm_Since" xml:space="preserve"><value>Зарегистрирован</value></data>
   <data name="Admin_Adm_You" xml:space="preserve"><value>Вы</value></data>
   <data name="Admin_Adm_Main" xml:space="preserve"><value>Главный администратор (задан в настройках сайта)</value></data>
-  <data name="Admin_Adm_Remove" xml:space="preserve"><value>Убрать доступ</value></data>
-  <data name="Admin_Adm_ConfirmRemove" xml:space="preserve"><value>Убрать доступ администратора у {0}?</value></data>
-  <data name="Admin_Adm_MainHint" xml:space="preserve"><value>Главный администратор задан в настройках сайта и не может быть удалён здесь. Свой доступ убрать нельзя: это может сделать другой администратор.</value></data>
-  <data name="Admin_Adm_AddTitle" xml:space="preserve"><value>Добавить администратора</value></data>
-  <data name="Admin_Adm_AddHint" xml:space="preserve"><value>Введите почту существующего аккаунта (почта должна быть подтверждена). Чтобы увидеть панель, человеку нужно выйти и войти снова.</value></data>
-  <data name="Admin_Adm_Add" xml:space="preserve"><value>Сделать администратором</value></data>
-  <data name="Admin_Adm_ConfirmAdd" xml:space="preserve"><value>Дать этому человеку полный доступ к панели администратора?</value></data>
-  <data name="Admin_Adm_Granted" xml:space="preserve"><value>{0} теперь администратор. Чтобы увидеть панель, нужно войти снова.</value></data>
-  <data name="Admin_Adm_AlreadyAdmin" xml:space="preserve"><value>Этот человек уже администратор.</value></data>
-  <data name="Admin_Adm_NotConfirmed" xml:space="preserve"><value>Почта этого аккаунта ещё не подтверждена.</value></data>
-  <data name="Admin_Adm_NotFound" xml:space="preserve"><value>Аккаунта с такой почтой нет.</value></data>
-  <data name="Admin_Adm_Revoked" xml:space="preserve"><value>Доступ администратора убран.</value></data>
-  <data name="Admin_Adm_Yourself" xml:space="preserve"><value>Нельзя убрать свой собственный доступ. Попросите другого администратора.</value></data>
-  <data name="Admin_Adm_Configured" xml:space="preserve"><value>Главный администратор задан в настройках сайта и не может быть удалён здесь.</value></data>
-  <data name="Admin_Adm_Last" xml:space="preserve"><value>Последнего администратора удалить нельзя.</value></data>
+  <data name="Admin_Adm_MainHint" xml:space="preserve"><value>Главный админ задан в настройках сайта: его можно редактировать, но нельзя удалить, и email не меняется. Последнего админа удалить нельзя.</value></data>
+  <data name="Admin_Adm_Configured" xml:space="preserve"><value>Главный админ задан в настройках сайта, здесь его удалить нельзя.</value></data>
+  <data name="Admin_Adm_Last" xml:space="preserve"><value>Последнего админа удалить нельзя.</value></data>
   <data name="Admin_Audit_Hint" xml:space="preserve"><value>Кто что изменил в панели администратора, сначала новые.</value></data>
   <data name="Admin_Audit_Search" xml:space="preserve"><value>Администратор, действие, номер или подробности</value></data>
   <data name="Admin_Audit_Type" xml:space="preserve"><value>Вид</value></data>

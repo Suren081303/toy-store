@@ -9,9 +9,11 @@ using Shop.Core.Payments;
 using Shop.Core.Phones;
 using Shop.Web.Models;
 using Shop.Web.Payments;
+using Shop.Web.Security;
 
 namespace Shop.Web.Controllers;
 
+[AdminCannotBuy]
 public class CheckoutController : Controller
 {
     private readonly ICartService _cart;

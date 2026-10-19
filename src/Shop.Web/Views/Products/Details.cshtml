@@ -4,7 +4,7 @@
 @inject IOptions<CartOptions> CartOptions
 @{
     ViewData["Title"] = Model.Name;
-    ViewData["BuyBar"] = true;
+    ViewData["BuyBar"] = !User.IsAdmin();
 
     var images = Model.Images.Count > 0 ? Model.Images : new[] { "/images/placeholders/generic-a.svg" };
     var maxQuantity = Math.Min(Model.StockQuantity, CartOptions.Value.MaxQuantityPerProduct);
@@ -98,7 +98,10 @@
             </div>
             <div class="pdp__titlebar">
                 <h1 class="pdp__title">@Model.Name</h1>
-                <partial name="_FavoriteButton" model="Model.Id" />
+                @if (!User.IsAdmin())
+                {
+                    <partial name="_FavoriteButton" model="Model.Id" />
+                }
             </div>
             <p class="pdp__price">
                 <strong>@Money.Format(Model.FinalPrice)</strong>
@@ -115,7 +118,11 @@
                 }
             </p>
 
-            @if (Model.InStock)
+            @if (User.IsAdmin())
+            {
+                @* An admin only looks at the page: no quantity and no buy button. *@
+            }
+            else if (Model.InStock)
             {
                 <form id="add-to-cart-form" method="post" asp-controller="Cart" asp-action="Add" class="pdp__buy" data-cart-add>
                     <input type="hidden" name="productId" value="@Model.Id" />
@@ -153,6 +160,8 @@
 </div>
 
 @section BuyBar {
+  @if (!User.IsAdmin())
+  {
     <div class="buybar">
         <p class="buybar__price">
             <strong>@Money.Format(Model.FinalPrice)</strong>
@@ -173,4 +182,5 @@
             <button class="btn btn--soldout" type="button" disabled>@Localizer["OutOfStock"]</button>
         }
     </div>
+  }
 }

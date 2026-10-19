@@ -2,11 +2,13 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Core.Catalog;
 using Shop.Core.Favorites;
+using Shop.Web.Security;
 
 namespace Shop.Web.Controllers;
 
 // Works for everyone: signed-in customers keep favorites in the database, guests in a cookie.
 // When a guest signs in, the cookie list moves into the account (see AccountController.Login).
+[AdminCannotBuy]
 public class FavoritesController : Controller
 {
     private readonly IFavoriteService _favorites;

@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Shop.Core.Carts;
+using Shop.Web.Security;
 
 namespace Shop.Web.Controllers;
 
+[AdminCannotBuy]
 public class CartController : Controller
 {
     private readonly ICartService _cart;

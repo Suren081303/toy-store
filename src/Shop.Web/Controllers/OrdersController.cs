@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using Shop.Core.Orders;
 using Shop.Web.Identity;
 using Shop.Web.Models;
+using Shop.Web.Security;
 
 namespace Shop.Web.Controllers;
 
@@ -24,6 +25,7 @@ public class OrdersController : Controller
 
     // The signed-in customer's orders.
     [Authorize]
+    [AdminCannotBuy]
     [HttpGet]
     public async Task<IActionResult> Index()
     {
@@ -74,6 +76,7 @@ public class OrdersController : Controller
     }
 
     [HttpPost]
+    [AdminCannotBuy]
     public async Task<IActionResult> RequestReturn(int number, string? key, string? reason)
     {
         var order = await ResolveAsync(number, key);

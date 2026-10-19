@@ -9,6 +9,11 @@
     <div class="auth__card">
         <h1 class="page-title">@Localizer["Nav_Account"]</h1>
 
+        @if (User.IsAdmin())
+        {
+            <p><a class="btn btn--primary" href="/@CurrentCulture.Code/Admin">@Localizer["Admin_Title"]</a></p>
+        }
+
         @if (TempData["Saved"] is true)
         {
             <p class="alert alert--success" role="status">@Localizer["Account_Saved"]</p>
