@@ -1,0 +1,44 @@
+@model ProductListItem
+
+<article class="card">
+    <a class="card__media" asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id" tabindex="-1" aria-hidden="true">
+        <img src="@(Model.ImagePath ?? "/images/placeholders/generic-a.svg")" alt="" width="600" height="600" loading="lazy" />
+    </a>
+    <div class="card__badges">
+        @if (Model.IsNew)
+        {
+            <span class="badge badge--new">@Localizer["New"]</span>
+        }
+        @if (Model.DiscountPercent > 0)
+        {
+            <span class="badge badge--sale">-@Model.DiscountPercent%</span>
+        }
+    </div>
+    <partial name="_FavoriteButton" model="Model.Id" />
+    <div class="card__body">
+        <h3 class="card__title">
+            <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
+        </h3>
+        <p class="card__meta">@Model.CategoryName · @Model.Brand</p>
+        <p class="card__price">
+            <strong>@Money.Format(Model.FinalPrice)</strong>
+            @if (Model.DiscountPercent > 0)
+            {
+                <s>@Money.Format(Model.Price)</s>
+            }
+        </p>
+        @if (Model.InStock)
+        {
+            <form method="post" asp-controller="Cart" asp-action="Add" class="card__cta" data-cart-add>
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <button type="submit" class="btn btn--primary btn--block">
+                    <svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>@Localizer["AddToCart"]
+                </button>
+            </form>
+        }
+        else
+        {
+            <button class="btn btn--block btn--soldout card__cta" type="button" disabled>@Localizer["OutOfStock"]</button>
+        }
+    </div>
+</article>

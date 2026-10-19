@@ -1,0 +1,14 @@
+@model string
+@{
+    var current = CurrentCulture.Code;
+    var languages = new[] { ("hy", "Հայ"), ("ru", "RU"), ("en", "EN") };
+}
+<nav class="lang lang--@Model" aria-label="@Localizer["Language"].Value">
+    @foreach (var (code, label) in languages)
+    {
+        <a class="lang__link @(code == current ? "is-active" : "")"
+           href="@LanguageLinks.For(Context, code)"
+           hreflang="@code" lang="@code"
+           aria-current="@(code == current ? "true" : null)">@label</a>
+    }
+</nav>

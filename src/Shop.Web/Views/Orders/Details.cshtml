@@ -1,0 +1,56 @@
+@using System.Globalization
+@using Shop.Core.Orders
+@model OrderSummary
+@{
+    ViewData["Title"] = Localizer["Order_Number"].Value + " #" + Model.Number;
+    var key = ViewData["Key"] as string;
+    var signedIn = User.Identity?.IsAuthenticated == true;
+}
+
+<section class="container auth auth--wide">
+    @if (signedIn)
+    {
+        <p><a class="link" asp-controller="Orders" asp-action="Index"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left" /></svg>@Localizer["Nav_Orders"]</a></p>
+    }
+
+    @if (TempData["OrderMessage"] is string message)
+    {
+        <p class="alert alert--info" role="status">@message</p>
+    }
+
+    <partial name="_PaymentInfo" model="Model" />
+
+    <partial name="_OrderSummary" model="Model" />
+
+    @if (Model.Return is not null)
+    {
+        <div class="panel order__return">
+            <h3 class="order__title">@Localizer["Return_Status"]: @Localizer["Return_" + Model.Return.Status]</h3>
+            <p class="order__text">@Model.Return.Reason</p>
+            @if (!string.IsNullOrWhiteSpace(Model.Return.AdminNote))
+            {
+                <p class="order__text order__muted">@Model.Return.AdminNote</p>
+            }
+        </div>
+    }
+
+    @if (Model.CanRequestReturn)
+    {
+        <form method="post" asp-controller="Orders" asp-action="RequestReturn" class="panel form order__return">
+            <input type="hidden" name="number" value="@Model.Number" />
+            <input type="hidden" name="key" value="@key" />
+            <h3 class="order__title">@Localizer["Return_Title"]</h3>
+            <p class="order__text">@Localizer["Return_Lead"]</p>
+            <div class="field">
+                <label for="return-reason" class="field__label">@Localizer["Return_Reason"]</label>
+                <textarea id="return-reason" name="reason" class="input textarea" rows="3" minlength="5" maxlength="1000" required></textarea>
+            </div>
+            <button type="submit" class="btn btn--ghost">@Localizer["Return_Submit"]</button>
+        </form>
+    }
+
+    @if (Model.Status is not (OrderStatus.Delivered or OrderStatus.Cancelled))
+    {
+        <p class="order__muted order__help">@Localizer["Order_ContactUs"]</p>
+    }
+</section>

@@ -1,0 +1,14 @@
+@model Shop.Web.Legal.LegalViewModel
+
+<h2>@Localizer["Legal_Contact"]</h2>
+<p>
+    <strong>@Model.LegalName</strong>
+    @if (Model.TaxId is not null)
+    {
+        <text> (@Localizer["Legal_TaxId"] @Model.TaxId)</text>
+    }
+    <br />@Model.Address
+    <br /><a href="tel:@Model.Phone.Replace(" ", "")">@Model.Phone</a>
+    <br /><a href="mailto:@Model.Email">@Model.Email</a>
+    <br />@Model.Hours
+</p>

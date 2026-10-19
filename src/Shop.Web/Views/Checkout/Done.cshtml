@@ -1,0 +1,28 @@
+@using Shop.Core.Orders
+@model OrderSummary
+@{
+    ViewData["Title"] = Localizer["Done_Title"].Value;
+    var signedIn = User.Identity?.IsAuthenticated == true;
+    var awaitingCard = Model.PaymentMethod == PaymentMethod.Card && Model.Status == OrderStatus.AwaitingPayment;
+}
+
+<section class="container done">
+    <div class="done__hero">
+        <p class="done__icon" aria-hidden="true">🎉</p>
+        <h1 class="page-title">@Localizer[awaitingCard ? "Done_AwaitingTitle" : "Done_Title"]</h1>
+        <p class="done__number">@Localizer["Order_Number"] <strong>#@Model.Number</strong></p>
+        <p class="auth__lead">@(awaitingCard ? Localizer["Done_AwaitingText"].Value : Localizer.GetString("Done_Text", Model.Email).Value)</p>
+    </div>
+
+    <partial name="_PaymentInfo" model="Model" />
+
+    <partial name="_OrderSummary" model="Model" />
+
+    <div class="done__actions">
+        <a class="btn btn--primary" asp-controller="Products" asp-action="Index">@Localizer["Cart_Continue"]</a>
+        @if (signedIn)
+        {
+            <a class="btn btn--ghost" asp-controller="Orders" asp-action="Index">@Localizer["Nav_Orders"]</a>
+        }
+    </div>
+</section>

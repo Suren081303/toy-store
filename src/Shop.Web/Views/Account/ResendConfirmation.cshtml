@@ -1,0 +1,23 @@
+@model EmailOnlyViewModel
+@{
+    ViewData["Title"] = Localizer["Resend_Title"].Value;
+}
+
+<section class="container auth">
+    <div class="auth__card">
+        <h1 class="page-title">@Localizer["Resend_Title"]</h1>
+        <p class="auth__lead">@Localizer["Resend_Lead"]</p>
+
+        <form method="post" class="form" asp-controller="Account" asp-action="ResendConfirmation">
+            <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+
+            <div class="field">
+                <label asp-for="Email" class="field__label"></label>
+                <input asp-for="Email" class="input" type="email" autocomplete="email" inputmode="email" autocapitalize="none" required maxlength="256" />
+                <span asp-validation-for="Email" class="field__error"></span>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--lg btn--block">@Localizer["Resend_Submit"]</button>
+        </form>
+    </div>
+</section>

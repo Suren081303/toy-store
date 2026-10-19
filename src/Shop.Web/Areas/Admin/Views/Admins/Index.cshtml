@@ -1,0 +1,62 @@
+@using System.Globalization
+@model AdminAccountsViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Nav_Admins"].Value;
+}
+
+<h1 class="admin-title">@Localizer["Admin_Nav_Admins"]</h1>
+<p class="admin-hint">@Localizer["Admin_Adm_Hint"]</p>
+
+<table class="atable">
+    <thead>
+        <tr>
+            <th>@Localizer["Admin_Adm_Email"]</th>
+            <th>@Localizer["Admin_Adm_Name"]</th>
+            <th>@Localizer["Admin_Adm_Since"]</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var admin in Model.Admins)
+        {
+            var isYou = admin.Id == Model.CurrentAdminId;
+            <tr>
+                <td data-label="@Localizer["Admin_Adm_Email"].Value">
+                    <strong>@admin.Email</strong>
+                    @if (isYou)
+                    {
+                        <span class="flag">@Localizer["Admin_Adm_You"]</span>
+                    }
+                    @if (admin.IsConfigured)
+                    {
+                        <span class="flag">@Localizer["Admin_Adm_Main"]</span>
+                    }
+                </td>
+                <td data-label="@Localizer["Admin_Adm_Name"].Value">@admin.FullName</td>
+                <td data-label="@Localizer["Admin_Adm_Since"].Value">@ShopClock.ToShopTime(admin.CreatedAt).ToString("d MMM yyyy", CultureInfo.CurrentCulture)</td>
+                <td class="atable__actions">
+                    @if (!isYou && !admin.IsConfigured)
+                    {
+                        <form method="post" asp-action="Remove">
+                            <input type="hidden" name="id" value="@admin.Id" />
+                            <button type="submit" class="btn btn--danger" data-confirm="@Localizer.GetString("Admin_Adm_ConfirmRemove", admin.Email).Value">@Localizer["Admin_Adm_Remove"]</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p class="admin-hint">@Localizer["Admin_Adm_MainHint"]</p>
+
+<section class="panel admin-narrow">
+    <h2 class="admin-h2">@Localizer["Admin_Adm_AddTitle"]</h2>
+    <p class="muted">@Localizer["Admin_Adm_AddHint"]</p>
+    <form method="post" asp-action="Add" class="form">
+        <div class="field">
+            <label class="field__label" for="admin-email">@Localizer["Admin_Adm_Email"]</label>
+            <input id="admin-email" class="input" type="email" name="email" required maxlength="256" autocomplete="off" />
+        </div>
+        <button type="submit" class="btn btn--primary" data-confirm="@Localizer["Admin_Adm_ConfirmAdd"].Value">@Localizer["Admin_Adm_Add"]</button>
+    </form>
+</section>

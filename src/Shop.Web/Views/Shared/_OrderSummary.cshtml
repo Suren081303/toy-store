@@ -1,0 +1,70 @@
+@using System.Globalization
+@using Shop.Core.Orders
+@model OrderSummary
+
+<div class="order">
+    <div class="order__head">
+        <div>
+            <h2 class="order__number">@Localizer["Order_Number"] #@Model.Number</h2>
+            <p class="order__meta">@Localizer["Order_Placed"] @ShopClock.ToShopTime(Model.CreatedAt).ToString("d MMM yyyy, HH:mm", CultureInfo.CurrentCulture)</p>
+        </div>
+        <span class="status status--@Model.Status.ToString().ToLowerInvariant()">@Localizer["Status_" + Model.Status]</span>
+    </div>
+
+    <ul class="order-lines">
+        @foreach (var line in Model.Lines)
+        {
+            <li class="order-line">
+                <a class="order-line__media" asp-controller="Products" asp-action="Details" asp-route-id="@line.ProductId" tabindex="-1" aria-hidden="true">
+                    <img src="@(line.ImagePath ?? "/images/placeholders/generic-a.svg")" alt="" width="64" height="64" loading="lazy" />
+                </a>
+                <div class="order-line__body">
+                    <a class="order-line__title" asp-controller="Products" asp-action="Details" asp-route-id="@line.ProductId">@line.Name</a>
+                    <p class="order-line__meta">
+                        @Money.Format(line.UnitPrice) × @line.Quantity
+                        @if (line.UnitPrice < line.RegularPrice)
+                        {
+                            <s>@Money.Format(line.RegularPrice)</s>
+                        }
+                    </p>
+                </div>
+                <strong class="order-line__total">@Money.Format(line.LineTotal)</strong>
+            </li>
+        }
+    </ul>
+
+    <dl class="summary order__totals">
+        <div><dt>@Localizer["Cart_Subtotal"]</dt><dd>@Money.Format(Model.Subtotal)</dd></div>
+        @if (Model.Discount > 0)
+        {
+            <div class="summary__saving"><dt>@Localizer["Cart_Discounts"]</dt><dd>−@Money.Format(Model.Discount)</dd></div>
+        }
+        <div><dt>@Localizer["Cart_Delivery"]</dt><dd>@(Model.DeliveryFee == 0 ? Localizer["Checkout_FreeDelivery"].Value : Money.Format(Model.DeliveryFee))</dd></div>
+        <div class="summary__total"><dt>@Localizer["Cart_Total"]</dt><dd>@Money.Format(Model.Total)</dd></div>
+    </dl>
+
+    <div class="order__cols">
+        <div>
+            <h3 class="order__title">@Localizer["Order_DeliveryTitle"]</h3>
+            <p class="order__text">
+                @Model.DeliveryDate.ToString("dddd, d MMMM yyyy", CultureInfo.CurrentCulture), @Model.DeliverySlot<br />
+                @Localizer["Region_" + Model.Region], @Model.City<br />
+                @Model.Street @Model.Building@(string.IsNullOrWhiteSpace(Model.Apartment) ? "" : ", " + Localizer["Label_Apartment"].Value + " " + Model.Apartment)
+            </p>
+        </div>
+        <div>
+            <h3 class="order__title">@Localizer["Order_ContactTitle"]</h3>
+            <p class="order__text">@Model.CustomerName<br />@Model.Phone<br />@Model.Email</p>
+        </div>
+        <div>
+            <h3 class="order__title">@Localizer["Order_PaymentTitle"]</h3>
+            <p class="order__text">@Localizer["Pay_" + Model.PaymentMethod]<br /><span class="order__muted">@Localizer["PayStatus_" + Model.PaymentStatus]</span></p>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.Comment))
+    {
+        <h3 class="order__title">@Localizer["Order_Comment"]</h3>
+        <p class="order__text">@Model.Comment</p>
+    }
+</div>

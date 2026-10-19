@@ -1,0 +1,61 @@
+@using Microsoft.AspNetCore.Html
+@model RegisterViewModel
+@{
+    ViewData["Title"] = Localizer["Register_Title"].Value;
+
+    var terms = new HtmlString($"<a href=\"{Url.Action("Terms", "Legal")}\" target=\"_blank\" rel=\"noopener\">{Localizer["Terms"].Value}</a>");
+    var privacy = new HtmlString($"<a href=\"{Url.Action("Privacy", "Home")}\" target=\"_blank\" rel=\"noopener\">{Localizer["Privacy"].Value}</a>");
+}
+
+<section class="container auth">
+    <div class="auth__card">
+        <h1 class="page-title">@Localizer["Register_Title"]</h1>
+        <p class="auth__lead">@Localizer["Register_Lead"]</p>
+
+        <form method="post" class="form" asp-controller="Account" asp-action="Register">
+            <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+
+            <div class="field">
+                <label asp-for="FullName" class="field__label"></label>
+                <input asp-for="FullName" class="input" autocomplete="name" required maxlength="100" />
+                <span asp-validation-for="FullName" class="field__error"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Email" class="field__label"></label>
+                <input asp-for="Email" class="input" type="email" autocomplete="email" inputmode="email" autocapitalize="none" required maxlength="256" />
+                <span asp-validation-for="Email" class="field__error"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Phone" class="field__label"></label>
+                <input asp-for="Phone" class="input" type="tel" autocomplete="tel" inputmode="tel" placeholder="091 123456" required maxlength="20" />
+                <span asp-validation-for="Phone" class="field__error"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Password" class="field__label"></label>
+                <div class="pw">
+                    <input asp-for="Password" class="input" autocomplete="new-password" required minlength="8" maxlength="100" />
+                    <button type="button" class="pw__toggle" data-toggle-password aria-pressed="false" aria-label="@Localizer["Show_Password"].Value">
+                        <svg class="icon" aria-hidden="true"><use href="#i-eye" /></svg>
+                    </button>
+                </div>
+                <span asp-validation-for="Password" class="field__error"></span>
+                <p class="field__hint">@Localizer["Hint_Password"]</p>
+            </div>
+
+            <div class="field">
+                <label class="check check--top">
+                    <input asp-for="AcceptTerms" type="checkbox" required />
+                    <span>@Localizer["Consent_Text", terms, privacy]</span>
+                </label>
+                <span asp-validation-for="AcceptTerms" class="field__error"></span>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--lg btn--block">@Localizer["Register_Submit"]</button>
+        </form>
+
+        <p class="auth__switch">@Localizer["Register_HaveAccount"] <a asp-action="Login">@Localizer["Nav_SignIn"]</a></p>
+    </div>
+</section>

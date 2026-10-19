@@ -1,0 +1,104 @@
+@using System.Globalization
+@model AdminAuditViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Nav_Audit"].Value;
+    var filter = Model.Filter;
+
+    // "Product #25"; for an account the long id is not useful (the email is in the details), so only "User".
+    string Label(AuditRow row) => row.EntityType == "User" ? row.EntityType : $"{row.EntityType} #{row.EntityId}";
+
+    // Where the thing that was changed can be opened (a deleted one cannot).
+    string? LinkTo(AuditRow row)
+    {
+        if (row.Action.EndsWith(".Deleted", StringComparison.Ordinal))
+        {
+            return null;
+        }
+
+        return row.EntityType switch
+        {
+            "Order" => Url.Action("Details", "Orders", new { area = "Admin", number = row.EntityId }),
+            "Product" => Url.Action("Edit", "Products", new { area = "Admin", id = row.EntityId }),
+            "Category" => Url.Action("Edit", "Categories", new { area = "Admin", id = row.EntityId }),
+            "AgeGroup" => Url.Action("Edit", "AgeGroups", new { area = "Admin", id = row.EntityId }),
+            "Settings" or "DeliverySlot" => Url.Action("Index", "Settings", new { area = "Admin" }),
+            "User" => Url.Action("Index", "Admins", new { area = "Admin" }),
+            _ => null
+        };
+    }
+}
+
+<h1 class="admin-title">@Localizer["Admin_Nav_Audit"]</h1>
+<p class="admin-hint">@Localizer["Admin_Audit_Hint"]</p>
+
+<form method="get" class="admin-filter">
+    <div class="field admin-filter__wide">
+        <label class="field__label" for="a-query">@Localizer["Admin_Audit_Search"]</label>
+        <input id="a-query" class="input" type="search" name="Query" value="@filter.Query" />
+    </div>
+    <div class="field">
+        <label class="field__label" for="a-type">@Localizer["Admin_Audit_Type"]</label>
+        <select id="a-type" class="input" name="EntityType">
+            <option value="">@Localizer["Admin_Audit_AllTypes"]</option>
+            @foreach (var type in Model.EntityTypes)
+            {
+                <option value="@type" selected="@(filter.EntityType == type)">@type</option>
+            }
+        </select>
+    </div>
+    <div class="field">
+        <label class="field__label" for="a-from">@Localizer["Admin_From"]</label>
+        <input id="a-from" class="input" type="date" name="From" value="@filter.From?.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="field">
+        <label class="field__label" for="a-to">@Localizer["Admin_To"]</label>
+        <input id="a-to" class="input" type="date" name="To" value="@filter.To?.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="admin-filter__buttons">
+        <button type="submit" class="btn btn--primary">@Localizer["Admin_Filter"]</button>
+        <a class="btn btn--ghost" asp-action="Index">@Localizer["Admin_Reset"]</a>
+    </div>
+</form>
+
+@if (Model.Result.Items.Count == 0)
+{
+    <p class="admin-empty">@Localizer["Admin_NoResults"]</p>
+}
+else
+{
+    <table class="atable">
+        <thead>
+            <tr>
+                <th>@Localizer["Admin_Col_Date"]</th>
+                <th>@Localizer["Admin_Audit_Who"]</th>
+                <th>@Localizer["Admin_Audit_Action"]</th>
+                <th>@Localizer["Admin_Audit_Item"]</th>
+                <th>@Localizer["Admin_Audit_Details"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.Result.Items)
+            {
+                var link = LinkTo(row);
+                <tr>
+                    <td data-label="@Localizer["Admin_Col_Date"].Value">@ShopClock.ToShopTime(row.At).ToString("d MMM yyyy, HH:mm", CultureInfo.CurrentCulture)</td>
+                    <td data-label="@Localizer["Admin_Audit_Who"].Value">@(string.IsNullOrEmpty(row.UserEmail) ? "-" : row.UserEmail)</td>
+                    <td data-label="@Localizer["Admin_Audit_Action"].Value"><span class="flag">@row.Action</span></td>
+                    <td data-label="@Localizer["Admin_Audit_Item"].Value">
+                        @if (link is not null)
+                        {
+                            <a class="link" href="@link">@Label(row)</a>
+                        }
+                        else
+                        {
+                            @Label(row)
+                        }
+                    </td>
+                    <td data-label="@Localizer["Admin_Audit_Details"].Value" class="admin-reason">@row.Details</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <partial name="_Pager" model="(Model.Result.Page, Model.Result.TotalPages)" />
+}

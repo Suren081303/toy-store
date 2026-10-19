@@ -1,0 +1,32 @@
+@model DashboardCounts
+@{
+    ViewData["Title"] = Localizer["Admin_Nav_Dashboard"].Value;
+    var today = ShopClock.Today(TimeProvider.System).ToString("yyyy-MM-dd");
+}
+
+<h1 class="admin-title">@Localizer["Admin_Nav_Dashboard"]</h1>
+<p class="admin-hint">@Localizer["Admin_Dash_Hint"]</p>
+
+<div class="admin-cards">
+    <a class="admin-card" asp-controller="Orders" asp-action="Index" asp-route-from="@today" asp-route-to="@today">
+        <strong>@Model.OrdersToday</strong><span>@Localizer["Admin_Dash_OrdersToday"]</span>
+    </a>
+    <a class="admin-card @(Model.ToPack > 0 ? "admin-card--attention" : "")" asp-controller="Orders" asp-action="Index" asp-route-status="@OrderStatus.Ordered">
+        <strong>@Model.ToPack</strong><span>@Localizer["Admin_Dash_ToPack"]</span>
+    </a>
+    <a class="admin-card" asp-controller="Orders" asp-action="Index" asp-route-status="@OrderStatus.AwaitingPayment">
+        <strong>@Model.AwaitingPayment</strong><span>@Localizer["Admin_Dash_AwaitingPayment"]</span>
+    </a>
+    <a class="admin-card @(Model.OpenReturns > 0 ? "admin-card--attention" : "")" asp-controller="Returns" asp-action="Index">
+        <strong>@Model.OpenReturns</strong><span>@Localizer["Admin_Dash_OpenReturns"]</span>
+    </a>
+    <a class="admin-card @(Model.RefundsNeeded > 0 ? "admin-card--alert" : "")" asp-controller="Orders" asp-action="Index" asp-route-refundNeeded="true">
+        <strong>@Model.RefundsNeeded</strong><span>@Localizer["Admin_Dash_RefundsNeeded"]</span>
+    </a>
+    <a class="admin-card @(Model.FailedEmails > 0 ? "admin-card--alert" : "")" asp-controller="Emails" asp-action="Index" asp-route-status="@Shop.Core.Notifications.OutboxStatus.Failed">
+        <strong>@Model.FailedEmails</strong><span>@Localizer["Admin_Dash_FailedEmails"]</span>
+    </a>
+    <a class="admin-card @(Model.LowStock > 0 ? "admin-card--attention" : "")" asp-controller="Products" asp-action="Index" asp-route-lowStock="true">
+        <strong>@Model.LowStock</strong><span>@Localizer["Admin_Dash_LowStock"]</span>
+    </a>
+</div>

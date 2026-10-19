@@ -1,0 +1,43 @@
+@model IReadOnlyList<AdminAgeGroupRow>
+@{
+    ViewData["Title"] = Localizer["Admin_Nav_AgeGroups"].Value;
+}
+
+<div class="admin-toolbar">
+    <h1 class="admin-title">@Localizer["Admin_Nav_AgeGroups"]</h1>
+    <a class="btn btn--primary" asp-action="Edit">@Localizer["Admin_Add"]</a>
+</div>
+
+<table class="atable">
+    <thead>
+        <tr>
+            <th>@Localizer["Admin_Col_Name"]</th>
+            <th class="atable__num">@Localizer["Admin_Col_Products"]</th>
+            <th class="atable__num">@Localizer["Admin_SlotOrder"]</th>
+            <th>@Localizer["Admin_Col_Status"]</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in Model)
+        {
+            <tr>
+                <td data-label="@Localizer["Admin_Col_Name"].Value"><a class="link" asp-action="Edit" asp-route-id="@row.Id"><strong>@row.Name</strong></a></td>
+                <td class="atable__num" data-label="@Localizer["Admin_Col_Products"].Value">@row.ProductCount</td>
+                <td class="atable__num" data-label="@Localizer["Admin_SlotOrder"].Value">@row.SortOrder</td>
+                <td data-label="@Localizer["Admin_Col_Status"].Value"><span class="flag @(row.IsActive ? "" : "flag--alert")">@Localizer[row.IsActive ? "Admin_Shown" : "Admin_Hidden"]</span></td>
+                <td class="atable__actions">
+                    <a class="btn btn--ghost" asp-action="Edit" asp-route-id="@row.Id">@Localizer["Admin_Edit"]</a>
+                    @if (row.ProductCount == 0)
+                    {
+                        <form method="post" asp-action="Delete">
+                            <input type="hidden" name="id" value="@row.Id" />
+                            <button type="submit" class="btn btn--danger" data-confirm="@Localizer["Admin_Confirm_Delete"].Value">@Localizer["Admin_Delete"]</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p class="admin-hint">@Localizer["Admin_Age_Hint"]</p>

@@ -1,0 +1,135 @@
+@using Shop.Core.Carts
+@model CartView
+@{
+    ViewData["Title"] = Localizer["Cart"].Value;
+
+    var hasLines = Model.Lines.Count > 0;
+    ViewData["BuyBar"] = hasLines;
+
+    var signedIn = User.Identity?.IsAuthenticated == true;
+    var itemsText = Localizer["Items" + Plurals.GetForm(CurrentCulture.Code, Model.ItemCount), Model.ItemCount];
+}
+
+@* site.js replaces everything inside data-cart after a change (+, -, remove) and reads the badge number from data-cart-items. *@
+<section class="container cart" data-cart data-cart-items="@Model.ItemCount">
+    <h1 class="page-title">@Localizer["Cart"]</h1>
+
+    @if (TempData["CartMessage"] is string message)
+    {
+        <p class="alert alert--info" role="status">@message</p>
+    }
+
+    @foreach (var notice in Model.Notices)
+    {
+        <p class="alert alert--info" role="status">@Localizer.GetString("Cart_ReducedNotice", notice.ProductName, notice.Quantity).Value</p>
+    }
+
+    @if (!hasLines)
+    {
+        <div class="auth__card auth__card--center">
+            <p class="auth__lead">@Localizer["Cart_Empty"]</p>
+            <a class="btn btn--primary" asp-controller="Products" asp-action="Index">@Localizer["ShopNow"]</a>
+        </div>
+    }
+    else
+    {
+        @if (Model.HasUnavailableLines)
+        {
+            <p class="alert alert--info">@Localizer["Cart_UnavailableNote"]</p>
+        }
+
+        <div class="cart__grid">
+            <ul class="cart__lines">
+                @foreach (var line in Model.Lines)
+                {
+                    <li class="cart-line @(line.IsAvailable ? "" : "is-unavailable")">
+                        <a class="cart-line__media" asp-controller="Products" asp-action="Details" asp-route-id="@line.ProductId" tabindex="-1" aria-hidden="true">
+                            <img src="@(line.ImagePath ?? "/images/placeholders/generic-a.svg")" alt="" width="96" height="96" loading="lazy" />
+                        </a>
+                        <div class="cart-line__body">
+                            <a class="cart-line__title" asp-controller="Products" asp-action="Details" asp-route-id="@line.ProductId">@line.Name</a>
+                            <p class="cart-line__meta">@line.Brand</p>
+
+                            @if (!line.IsAvailable)
+                            {
+                                <p class="cart-line__status">@(line.Status == CartLineStatus.OutOfStock ? Localizer["OutOfStock"] : Localizer["Cart_NotForSale"])</p>
+                            }
+                            else
+                            {
+                                <p class="cart-line__price">
+                                    <strong>@Money.Format(line.UnitPrice)</strong>
+                                    @if (line.UnitPrice < line.RegularPrice)
+                                    {
+                                        <s>@Money.Format(line.RegularPrice)</s>
+                                        <span class="badge badge--sale">@(line.CustomerDiscountApplied ? $"-{ProductRules.CustomerDiscountPercent}%" : $"-{line.DiscountPercent}%")</span>
+                                    }
+                                </p>
+                                @if (line.StockQuantity <= 3)
+                                {
+                                    <p class="cart-line__status cart-line__status--low">@Localizer.GetString("OnlyLeft", line.StockQuantity).Value</p>
+                                }
+                            }
+
+                            <div class="cart-line__actions">
+                                @if (line.IsAvailable)
+                                {
+                                    <form method="post" asp-controller="Cart" asp-action="SetQuantity" class="qty" data-cart-form>
+                                        <input type="hidden" name="productId" value="@line.ProductId" />
+                                        <button type="submit" name="quantity" value="@(line.Quantity - 1)" disabled="@(line.Quantity <= 1)" aria-label="@Localizer["Cart_Decrease"].Value">−</button>
+                                        <span class="qty__value" aria-label="@Localizer["Cart_Quantity"].Value">@line.Quantity</span>
+                                        <button type="submit" name="quantity" value="@(line.Quantity + 1)" disabled="@(line.Quantity >= line.MaxQuantity)" aria-label="@Localizer["Cart_Increase"].Value">+</button>
+                                    </form>
+                                    <strong class="cart-line__total">@Money.Format(line.LineTotal)</strong>
+                                }
+
+                                <form method="post" asp-controller="Cart" asp-action="Remove" class="cart-line__remove" data-cart-form>
+                                    <input type="hidden" name="productId" value="@line.ProductId" />
+                                    <button type="submit" class="link-btn">@Localizer["Cart_Remove"]</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+
+            <aside class="cart__summary" aria-label="@Localizer["Cart_Summary"].Value">
+                <h2 class="cart__summary-title">@Localizer["Cart_Summary"]</h2>
+                <dl class="summary">
+                    <div><dt>@itemsText</dt><dd>@Money.Format(Model.RegularTotal)</dd></div>
+                    @if (Model.Savings > 0)
+                    {
+                        <div class="summary__saving"><dt>@Localizer["Cart_Discounts"]</dt><dd>−@Money.Format(Model.Savings)</dd></div>
+                    }
+                    <div><dt>@Localizer["Cart_Delivery"]</dt><dd class="summary__muted">@Localizer["Cart_DeliveryLater"]</dd></div>
+                    <div class="summary__total"><dt>@Localizer["Cart_Total"]</dt><dd>@Money.Format(Model.Total)</dd></div>
+                </dl>
+
+                @if (Model.CustomerDiscountItemCount > 0)
+                {
+                    <p class="summary__note">
+                        @Localizer.GetString("Cart_CustomerNote", ProductRules.CustomerDiscountPercent).Value
+                        @Localizer.GetString("Cart_OrdersLeft", Model.CustomerDiscountOrdersLeft).Value
+                    </p>
+                }
+                @if (!signedIn)
+                {
+                    <p class="summary__hint">
+                        @Localizer["Cart_GuestHint"]
+                        <a asp-controller="Account" asp-action="Register">@Localizer["Nav_Register"]</a>
+                    </p>
+                }
+
+                <a class="btn btn--primary btn--lg btn--block summary__checkout" asp-controller="Checkout" asp-action="Index">@Localizer["Cart_Checkout"]</a>
+                <a class="link summary__more" asp-controller="Products" asp-action="Index">@Localizer["Cart_Continue"]</a>
+            </aside>
+        </div>
+
+        <div class="buybar">
+            <p class="buybar__price">
+                <span class="buybar__label">@Localizer["Cart_Total"]</span>
+                <strong>@Money.Format(Model.Total)</strong>
+            </p>
+            <a class="btn btn--primary" asp-controller="Checkout" asp-action="Index">@Localizer["Cart_Checkout"]</a>
+        </div>
+    }
+</section>

@@ -1,0 +1,194 @@
+@using System.Globalization
+@using Shop.Core.Payments
+@model AdminOrderDetail
+@{
+    var order = Model.Order;
+    ViewData["Title"] = Localizer["Order_Number"].Value + " #" + order.Number;
+    string When(DateTime utc) => ShopClock.ToShopTime(utc).ToString("d MMM yyyy, HH:mm", CultureInfo.CurrentCulture);
+}
+
+<p><a class="link" asp-action="Index">← @Localizer["Admin_Nav_Orders"]</a></p>
+
+<div class="admin-head">
+    <div>
+        <h1 class="admin-title">@Localizer["Order_Number"] #@order.Number</h1>
+        <p class="muted">@Localizer["Order_Placed"] @When(order.CreatedAt)</p>
+    </div>
+    <span class="status status--@order.Status.ToString().ToLowerInvariant()">@Localizer["Status_" + order.Status]</span>
+</div>
+
+<div class="admin-grid">
+    <div class="admin-col">
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_Items"]</h2>
+            <table class="atable atable--plain">
+                <tbody>
+                    @foreach (var line in order.Lines)
+                    {
+                        <tr>
+                            <td>@line.Name<br /><span class="muted">@line.Brand</span></td>
+                            <td class="atable__num">@Money.Format(line.UnitPrice) × @line.Quantity</td>
+                            <td class="atable__num"><strong>@Money.Format(line.LineTotal)</strong></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <dl class="summary order__totals">
+                <div><dt>@Localizer["Cart_Subtotal"]</dt><dd>@Money.Format(order.Subtotal)</dd></div>
+                @if (order.Discount > 0)
+                {
+                    <div class="summary__saving"><dt>@Localizer["Cart_Discounts"]</dt><dd>−@Money.Format(order.Discount)</dd></div>
+                }
+                <div><dt>@Localizer["Cart_Delivery"]</dt><dd>@(order.DeliveryFee == 0 ? Localizer["Checkout_FreeDelivery"].Value : Money.Format(order.DeliveryFee))</dd></div>
+                <div class="summary__total"><dt>@Localizer["Cart_Total"]</dt><dd>@Money.Format(order.Total)</dd></div>
+            </dl>
+        </section>
+
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Order_DeliveryTitle"]</h2>
+            <p class="order__text">
+                @order.DeliveryDate.ToString("dddd, d MMMM yyyy", CultureInfo.CurrentCulture), @order.DeliverySlot<br />
+                @Localizer["Region_" + order.Region], @order.City<br />
+                @order.Street @order.Building@(string.IsNullOrWhiteSpace(order.Apartment) ? "" : ", " + Localizer["Label_Apartment"].Value + " " + order.Apartment)
+            </p>
+            @if (!string.IsNullOrWhiteSpace(order.Comment))
+            {
+                <h3 class="order__title">@Localizer["Order_Comment"]</h3>
+                <p class="order__text">@order.Comment</p>
+            }
+            <h3 class="order__title">@Localizer["Order_ContactTitle"]</h3>
+            <p class="order__text">
+                @order.CustomerName<br />
+                <a class="link" href="tel:@order.Phone">@order.Phone</a><br />
+                <a class="link" href="mailto:@order.Email">@order.Email</a>
+            </p>
+        </section>
+
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_History"]</h2>
+            <ul class="admin-history">
+                @foreach (var e in Model.Events)
+                {
+                    <li>
+                        <span class="muted">@When(e.At)</span>
+                        <span class="status status--@e.Status.ToString().ToLowerInvariant()">@Localizer["Status_" + e.Status]</span>
+                        @if (!string.IsNullOrWhiteSpace(e.Note))
+                        {
+                            <span>@e.Note</span>
+                        }
+                        @if (e.ByEmail is not null)
+                        {
+                            <span class="muted">@Localizer.GetString("Admin_By", e.ByEmail).Value</span>
+                        }
+                    </li>
+                }
+            </ul>
+        </section>
+    </div>
+
+    <div class="admin-col">
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_Actions"]</h2>
+
+            @{
+                // Says what the order waits for, so a missing button is never a mystery.
+                var hint = order.Status switch
+                {
+                    OrderStatus.AwaitingPayment => order.PaymentMethod == PaymentMethod.BankTransfer ? "Admin_Hint_AwaitingTransfer" : "Admin_Hint_AwaitingCard",
+                    OrderStatus.Ordered => "Admin_Hint_Ordered",
+                    OrderStatus.Packed => "Admin_Hint_Packed",
+                    _ => null
+                };
+            }
+            @if (hint is not null)
+            {
+                <p class="admin-hint">@Localizer[hint]</p>
+            }
+
+            @if (Model.NextStatuses.Count == 0 && !Model.CanMarkTransferReceived)
+            {
+                <p class="muted">@Localizer["Admin_NoActions"]</p>
+            }
+
+            @if (Model.CanMarkTransferReceived)
+            {
+                <form method="post" asp-action="MarkReceived" class="admin-action">
+                    <input type="hidden" name="number" value="@order.Number" />
+                    <button type="submit" class="btn btn--primary" data-confirm="@Localizer["Admin_Confirm_Received"].Value">@Localizer["Admin_MarkReceived"]</button>
+                </form>
+            }
+
+            @if (Model.NextStatuses.Count > 0)
+            {
+                <form method="post" asp-action="ChangeStatus" class="form admin-action">
+                    <input type="hidden" name="number" value="@order.Number" />
+                    <div class="field">
+                        <label class="field__label" for="status-note">@Localizer["Admin_Note"]</label>
+                        <textarea id="status-note" name="note" class="input textarea" rows="2" maxlength="500"></textarea>
+                    </div>
+                    <div class="admin-buttons">
+                        @foreach (var next in Model.NextStatuses)
+                        {
+                            if (next == OrderStatus.Cancelled)
+                            {
+                                <button type="submit" name="status" value="@next" class="btn btn--danger" data-confirm="@Localizer["Admin_Confirm_Cancel"].Value">@Localizer["Admin_Set_" + next]</button>
+                            }
+                            else
+                            {
+                                <button type="submit" name="status" value="@next" class="btn btn--primary">@Localizer["Admin_Set_" + next]</button>
+                            }
+                        }
+                    </div>
+                </form>
+            }
+        </section>
+
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_Col_Payment"]</h2>
+            <p class="order__text">@Localizer["Pay_" + order.PaymentMethod]<br /><span class="muted">@Localizer["PayStatus_" + order.PaymentStatus]</span></p>
+
+            @if (Model.Payments.Count > 0)
+            {
+                <table class="atable atable--plain">
+                    <tbody>
+                        @foreach (var payment in Model.Payments)
+                        {
+                            <tr>
+                                <td>@When(payment.CreatedAt)<br /><span class="muted">@payment.Provider</span></td>
+                                <td class="atable__num">
+                                    @Money.Format(payment.Amount)<br />
+                                    <span class="muted">@Localizer["AttemptStatus_" + payment.Status]</span>
+                                </td>
+                            </tr>
+                            @if (payment.NeedsRefund)
+                            {
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="flag flag--alert">@Localizer["Admin_Flag_Refund"]</span>
+                                        <form method="post" asp-action="RefundDone" class="admin-action">
+                                            <input type="hidden" name="paymentId" value="@payment.Id" />
+                                            <input type="hidden" name="number" value="@order.Number" />
+                                            <button type="submit" class="btn btn--ghost" data-confirm="@Localizer["Admin_Confirm_Refund"].Value">@Localizer["Admin_RefundDone"]</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            }
+        </section>
+
+        @if (Model.ReturnId is not null)
+        {
+            <section class="panel">
+                <h2 class="admin-h2">@Localizer["Admin_Return"]</h2>
+                @if (order.Return is not null)
+                {
+                    <p class="order__text">@Localizer["Return_" + order.Return.Status]</p>
+                }
+                <a class="btn btn--ghost" asp-controller="Returns" asp-action="Details" asp-route-id="@Model.ReturnId">@Localizer["Admin_OpenReturn"]</a>
+            </section>
+        }
+    </div>
+</div>

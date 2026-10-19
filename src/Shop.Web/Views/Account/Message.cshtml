@@ -1,0 +1,18 @@
+@model MessageViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="container auth">
+    <div class="auth__card auth__card--center">
+        <h1 class="page-title">@Model.Title</h1>
+        <p class="auth__lead">@Model.Text</p>
+        <partial name="_DevVerify" />
+        <div class="auth__links">
+            @foreach (var link in Model.Links)
+            {
+                <a class="btn btn--primary" href="@link.Url">@link.Label</a>
+            }
+        </div>
+    </div>
+</section>

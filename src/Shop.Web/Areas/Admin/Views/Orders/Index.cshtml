@@ -1,0 +1,136 @@
+@using System.Globalization
+@using Shop.Core.Payments
+@model AdminOrdersViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Nav_Orders"].Value;
+    var filter = Model.Filter;
+    var returnUrl = Context.Request.Path + Context.Request.QueryString; // the buttons in the table bring you back to this list
+}
+
+<h1 class="admin-title">@Localizer["Admin_Nav_Orders"]</h1>
+
+<form method="get" class="admin-filter">
+    <div class="field admin-filter__wide">
+        <label class="field__label" for="f-query">@Localizer["Admin_Search"]</label>
+        <input id="f-query" class="input" type="search" name="Query" value="@filter.Query" />
+    </div>
+    <div class="field">
+        <label class="field__label" for="f-status">@Localizer["Admin_Status"]</label>
+        <select id="f-status" class="input" name="Status">
+            <option value="">@Localizer["Admin_AllStatuses"]</option>
+            @foreach (var status in Enum.GetValues<OrderStatus>())
+            {
+                <option value="@status" selected="@(filter.Status == status)">@Localizer["Status_" + status]</option>
+            }
+        </select>
+    </div>
+    <div class="field">
+        <label class="field__label" for="f-method">@Localizer["Admin_PaymentMethod"]</label>
+        <select id="f-method" class="input" name="Method">
+            <option value="">@Localizer["Admin_AllMethods"]</option>
+            @foreach (var method in Enum.GetValues<PaymentMethod>())
+            {
+                <option value="@method" selected="@(filter.Method == method)">@Localizer["Pay_" + method]</option>
+            }
+        </select>
+    </div>
+    <div class="field">
+        <label class="field__label" for="f-from">@Localizer["Admin_From"]</label>
+        <input id="f-from" class="input" type="date" name="From" value="@filter.From?.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="field">
+        <label class="field__label" for="f-to">@Localizer["Admin_To"]</label>
+        <input id="f-to" class="input" type="date" name="To" value="@filter.To?.ToString("yyyy-MM-dd")" />
+    </div>
+    <label class="check admin-filter__check">
+        <input type="checkbox" name="RefundNeeded" value="true" checked="@filter.RefundNeeded" />
+        <span>@Localizer["Admin_RefundOnly"]</span>
+    </label>
+    <div class="admin-filter__buttons">
+        <button type="submit" class="btn btn--primary">@Localizer["Admin_Filter"]</button>
+        <a class="btn btn--ghost" asp-action="Index">@Localizer["Admin_Reset"]</a>
+    </div>
+</form>
+
+@if (Model.Result.Items.Count == 0)
+{
+    <p class="admin-empty">@Localizer["Admin_NoResults"]</p>
+}
+else
+{
+    <table class="atable">
+        <thead>
+            <tr>
+                <th>@Localizer["Admin_Col_Order"]</th>
+                <th>@Localizer["Admin_Col_Date"]</th>
+                <th>@Localizer["Admin_Col_Customer"]</th>
+                <th>@Localizer["Admin_Col_Status"]</th>
+                <th>@Localizer["Admin_Col_Payment"]</th>
+                <th class="atable__num">@Localizer["Admin_Col_Total"]</th>
+                <th>@Localizer["Admin_Actions"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.Result.Items)
+            {
+                <tr>
+                    <td data-label="@Localizer["Admin_Col_Order"].Value"><a class="link" asp-action="Details" asp-route-number="@row.Number"><strong>#@row.Number</strong></a></td>
+                    <td data-label="@Localizer["Admin_Col_Date"].Value">@ShopClock.ToShopTime(row.CreatedAt).ToString("d MMM yyyy, HH:mm", CultureInfo.CurrentCulture)</td>
+                    <td data-label="@Localizer["Admin_Col_Customer"].Value">@row.CustomerName<br /><span class="muted">@row.Phone</span></td>
+                    <td data-label="@Localizer["Admin_Col_Status"].Value">
+                        <span class="status status--@row.Status.ToString().ToLowerInvariant()">@Localizer["Status_" + row.Status]</span>
+                        @if (row.NeedsRefund)
+                        {
+                            <span class="flag flag--alert">@Localizer["Admin_Flag_Refund"]</span>
+                        }
+                        @if (row.OpenReturn)
+                        {
+                            <span class="flag">@Localizer["Admin_Flag_Return"]</span>
+                        }
+                    </td>
+                    <td data-label="@Localizer["Admin_Col_Payment"].Value">@Localizer["Pay_" + row.Method]<br /><span class="muted">@Localizer["PayStatus_" + row.PaymentStatus]</span></td>
+                    <td class="atable__num" data-label="@Localizer["Admin_Col_Total"].Value"><strong>@Money.Format(row.Total)</strong></td>
+                    <td data-label="@Localizer["Admin_Actions"].Value">
+                        @{
+                            // Same choices as on the order page: "ordered" is not offered by hand while the order waits for payment.
+                            var next = OrderStatusRules.AllowedNext(row.Status).Where(x => !(row.Status == OrderStatus.AwaitingPayment && x == OrderStatus.Ordered)).ToList();
+                            var canReceive = row.Method == PaymentMethod.BankTransfer && row.Status == OrderStatus.AwaitingPayment;
+                        }
+                        <div class="atable__actions">
+                            @if (canReceive)
+                            {
+                                <form method="post" asp-action="MarkReceived">
+                                    <input type="hidden" name="number" value="@row.Number" />
+                                    <input type="hidden" name="returnUrl" value="@returnUrl" />
+                                    <button type="submit" class="btn btn--primary btn--small" data-confirm="@Localizer["Admin_Confirm_Received"].Value">@Localizer["Admin_MarkReceived"]</button>
+                                </form>
+                            }
+                            @foreach (var step in next)
+                            {
+                                <form method="post" asp-action="ChangeStatus">
+                                    <input type="hidden" name="number" value="@row.Number" />
+                                    <input type="hidden" name="status" value="@step" />
+                                    <input type="hidden" name="returnUrl" value="@returnUrl" />
+                                    @if (step == OrderStatus.Cancelled)
+                                    {
+                                        <button type="submit" class="btn btn--danger btn--small" data-confirm="@Localizer["Admin_Confirm_Cancel"].Value">@Localizer["Admin_Set_" + step]</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn--primary btn--small">@Localizer["Admin_Set_" + step]</button>
+                                    }
+                                </form>
+                            }
+                            @if (!canReceive && next.Count == 0)
+                            {
+                                <span class="muted">—</span>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <partial name="_Pager" model="(Model.Result.Page, Model.Result.TotalPages)" />
+}

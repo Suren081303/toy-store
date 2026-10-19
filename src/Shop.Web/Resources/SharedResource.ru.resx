@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="SkipToContent" xml:space="preserve"><value>Перейти к содержимому</value></data>
+  <data name="AnnouncementText" xml:space="preserve"><value>Доставка по всей Армении</value></data>
+  <data name="SupportHours" xml:space="preserve"><value>Поддержка: {0}</value></data>
+  <data name="Menu" xml:space="preserve"><value>Меню</value></data>
+  <data name="Tagline" xml:space="preserve"><value>Немного радости. Целый мир игр.</value></data>
+  <data name="Search" xml:space="preserve"><value>Поиск</value></data>
+  <data name="SearchPlaceholder" xml:space="preserve"><value>Поиск игрушек...</value></data>
+  <data name="SignIn" xml:space="preserve"><value>Войти</value></data>
+  <data name="Favorites" xml:space="preserve"><value>Избранное</value></data>
+  <data name="Cart" xml:space="preserve"><value>Корзина</value></data>
+  <data name="Categories" xml:space="preserve"><value>Категории</value></data>
+  <data name="Close" xml:space="preserve"><value>Закрыть</value></data>
+  <data name="Language" xml:space="preserve"><value>Язык</value></data>
+  <data name="MetaDescription" xml:space="preserve"><value>Игрушки для детей и коллекционеров. Доставка по всей Армении.</value></data>
+  <data name="Home" xml:space="preserve"><value>Главная</value></data>
+  <data name="Products" xml:space="preserve"><value>Товары</value></data>
+  <data name="Privacy" xml:space="preserve"><value>Конфиденциальность</value></data>
+  <data name="FooterAddress" xml:space="preserve"><value>Наш адрес</value></data>
+  <data name="FooterContact" xml:space="preserve"><value>Связаться с нами</value></data>
+  <data name="FooterFollow" xml:space="preserve"><value>Мы в соцсетях</value></data>
+  <data name="AllRightsReserved" xml:space="preserve"><value>Все права защищены.</value></data>
+  <data name="DeliveryReturns" xml:space="preserve"><value>Доставка и возврат</value></data>
+  <data name="Terms" xml:space="preserve"><value>Условия использования</value></data>
+  <data name="HeroEyebrow" xml:space="preserve"><value>ИГРАЙ • ОТКРЫВАЙ • РАСТИ</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Мир игр для любого возраста</value></data>
+  <data name="HeroLead" xml:space="preserve"><value>Игрушки, которые вдохновляют воображение: от малышей до взрослых коллекционеров.</value></data>
+  <data name="ShopNow" xml:space="preserve"><value>К покупкам</value></data>
+  <data name="ShopByCategory" xml:space="preserve"><value>Покупки по категориям</value></data>
+  <data name="AllCategories" xml:space="preserve"><value>Все категории</value></data>
+  <data name="NewArrivals" xml:space="preserve"><value>Новинки</value></data>
+  <data name="AllNewArrivals" xml:space="preserve"><value>Все новинки</value></data>
+  <data name="ChooseByAge" xml:space="preserve"><value>Выберите по возрасту</value></data>
+  <data name="GiftTitle" xml:space="preserve"><value>Выбрать подарок легко.</value></data>
+  <data name="GiftText" xml:space="preserve"><value>Идеи для малышей, друзей и коллекционеров.</value></data>
+  <data name="GiftButton" xml:space="preserve"><value>Подобрать подарок</value></data>
+  <data name="Gift_Nav" xml:space="preserve"><value>Подобрать подарок</value></data>
+  <data name="Gift_Title" xml:space="preserve"><value>Подбор подарка</value></data>
+  <data name="Gift_Intro" xml:space="preserve"><value>Ответьте на то, что знаете, остальное пропустите. Мы покажем игрушки в наличии, сначала самые популярные.</value></data>
+  <data name="Gift_Q_Age" xml:space="preserve"><value>Для кого? (возраст)</value></data>
+  <data name="Gift_Q_Budget" xml:space="preserve"><value>Бюджет (цена со скидкой)</value></data>
+  <data name="Gift_BudgetHint" xml:space="preserve"><value>В драмах. Оставьте поле пустым, если ограничения нет.</value></data>
+  <data name="Gift_Q_Kind" xml:space="preserve"><value>Какая игрушка?</value></data>
+  <data name="Gift_KindHint" xml:space="preserve"><value>Выберите сколько угодно или ничего.</value></data>
+  <data name="Gift_Show" xml:space="preserve"><value>Показать идеи</value></data>
+  <data name="Gift_ResultsFor" xml:space="preserve"><value>Идеи для вас</value></data>
+  <data name="Gift_Popular" xml:space="preserve"><value>Популярные подарки</value></data>
+  <data name="Gift_None" xml:space="preserve"><value>Сейчас ничего не подходит под все ответы.</value></data>
+  <data name="Gift_Widen" xml:space="preserve"><value>Попробовать без бюджета</value></data>
+  <data name="Gift_Browse" xml:space="preserve"><value>Смотреть все игрушки</value></data>
+  <data name="Gift_BudgetFrom" xml:space="preserve"><value>от {0}</value></data>
+  <data name="Gift_BudgetUpTo" xml:space="preserve"><value>до {0}</value></data>
+  <data name="Gift_TryFinder" xml:space="preserve"><value>Не знаете, что выбрать? Попробуйте подбор подарка.</value></data>
+  <data name="Price_Label" xml:space="preserve"><value>Цена (֏)</value></data>
+  <data name="Price_From" xml:space="preserve"><value>От</value></data>
+  <data name="Price_To" xml:space="preserve"><value>До</value></data>
+  <data name="BenefitDeliveryTitle" xml:space="preserve"><value>Быстрая доставка</value></data>
+  <data name="BenefitDeliveryText" xml:space="preserve"><value>по всей Армении</value></data>
+  <data name="BenefitPaymentTitle" xml:space="preserve"><value>Удобная оплата</value></data>
+  <data name="BenefitPaymentText" xml:space="preserve"><value>Картой, переводом или наличными</value></data>
+  <data name="BenefitReturnsTitle" xml:space="preserve"><value>Простой возврат</value></data>
+  <data name="BenefitReturnsText" xml:space="preserve"><value>Заявка на возврат на странице заказа</value></data>
+  <data name="Filters" xml:space="preserve"><value>Фильтры</value></data>
+  <data name="Category" xml:space="preserve"><value>Категория</value></data>
+  <data name="AgeGroups" xml:space="preserve"><value>Возраст</value></data>
+  <data name="AllAges" xml:space="preserve"><value>Любой возраст</value></data>
+  <data name="SortBy" xml:space="preserve"><value>Сортировка</value></data>
+  <data name="SortRecommended" xml:space="preserve"><value>Рекомендуем</value></data>
+  <data name="SortPriceAsc" xml:space="preserve"><value>Сначала дешевле</value></data>
+  <data name="SortPriceDesc" xml:space="preserve"><value>Сначала дороже</value></data>
+  <data name="SortNewest" xml:space="preserve"><value>Сначала новые</value></data>
+  <data name="NewArrivalsOnly" xml:space="preserve"><value>Только новинки</value></data>
+  <data name="Apply" xml:space="preserve"><value>Применить</value></data>
+  <data name="ClearFilters" xml:space="preserve"><value>Сбросить</value></data>
+  <data name="ItemsOne" xml:space="preserve"><value>{0} товар</value></data>
+  <data name="ItemsFew" xml:space="preserve"><value>{0} товара</value></data>
+  <data name="ItemsMany" xml:space="preserve"><value>{0} товаров</value></data>
+  <data name="NoProducts" xml:space="preserve"><value>Ничего не найдено. Измените запрос или фильтр.</value></data>
+  <data name="LoadMore" xml:space="preserve"><value>Показать ещё</value></data>
+  <data name="Previous" xml:space="preserve"><value>Назад</value></data>
+  <data name="PageOf" xml:space="preserve"><value>Страница {0} из {1}</value></data>
+  <data name="New" xml:space="preserve"><value>Новинка</value></data>
+  <data name="OutOfStock" xml:space="preserve"><value>Нет в наличии</value></data>
+  <data name="InStock" xml:space="preserve"><value>В наличии</value></data>
+  <data name="Brand" xml:space="preserve"><value>Бренд</value></data>
+  <data name="Sku" xml:space="preserve"><value>Артикул</value></data>
+  <data name="Description" xml:space="preserve"><value>Описание</value></data>
+  <data name="AddToCart" xml:space="preserve"><value>В корзину</value></data>
+  <data name="PhotoOf" xml:space="preserve"><value>Фото {0} из {1}</value></data>
+  <data name="NotFoundTitle" xml:space="preserve"><value>Страница не найдена</value></data>
+  <data name="NotFoundText" xml:space="preserve"><value>Возможно, ссылка неверна или товар больше недоступен.</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>На главную</value></data>
+  <data name="Legal_Contact" xml:space="preserve"><value>Контакты</value></data>
+  <data name="Legal_TaxId" xml:space="preserve"><value>ИНН</value></data>
+  <data name="Legal_DeliveryDesc" xml:space="preserve"><value>Доставка по Армении, способы оплаты, возврат товара и денег.</value></data>
+  <data name="Legal_TermsDesc" xml:space="preserve"><value>Условия использования интернет-магазина игрушек.</value></data>
+  <data name="Legal_PrivacyDesc" xml:space="preserve"><value>Как мы обращаемся с вашими данными и файлами cookie.</value></data>
+  <data name="Error_Reference" xml:space="preserve"><value>Код ошибки</value></data>
+  <data name="Nav_SignIn" xml:space="preserve"><value>Войти</value></data>
+  <data name="Nav_Register" xml:space="preserve"><value>Регистрация</value></data>
+  <data name="Nav_Account" xml:space="preserve"><value>Мой аккаунт</value></data>
+  <data name="Nav_Orders" xml:space="preserve"><value>Заказы</value></data>
+  <data name="Nav_Favorites" xml:space="preserve"><value>Избранное</value></data>
+  <data name="Nav_ChangePassword" xml:space="preserve"><value>Смена пароля</value></data>
+  <data name="Nav_SignOut" xml:space="preserve"><value>Выйти</value></data>
+  <data name="Greeting" xml:space="preserve"><value>Здравствуйте, {0}</value></data>
+  <data name="Back_Home" xml:space="preserve"><value>На главную</value></data>
+  <data name="Label_FullName" xml:space="preserve"><value>Имя и фамилия</value></data>
+  <data name="Label_Email" xml:space="preserve"><value>Эл. почта</value></data>
+  <data name="Label_Phone" xml:space="preserve"><value>Телефон</value></data>
+  <data name="Label_Password" xml:space="preserve"><value>Пароль</value></data>
+  <data name="Label_NewPassword" xml:space="preserve"><value>Новый пароль</value></data>
+  <data name="Label_CurrentPassword" xml:space="preserve"><value>Текущий пароль</value></data>
+  <data name="Label_RememberMe" xml:space="preserve"><value>Запомнить меня</value></data>
+  <data name="Label_AcceptTerms" xml:space="preserve"><value>Согласие</value></data>
+  <data name="Val_Required" xml:space="preserve"><value>Поле «{0}» обязательно.</value></data>
+  <data name="Val_Email" xml:space="preserve"><value>Введите корректный адрес электронной почты.</value></data>
+  <data name="Val_Phone" xml:space="preserve"><value>Введите корректный номер телефона, например 091 123456 или +374 91 123456.</value></data>
+  <data name="Val_MaxLength" xml:space="preserve"><value>Поле «{0}» не должно быть длиннее {1} символов.</value></data>
+  <data name="Val_Terms" xml:space="preserve"><value>Необходимо принять условия.</value></data>
+  <data name="Register_Title" xml:space="preserve"><value>Регистрация</value></data>
+  <data name="Register_Lead" xml:space="preserve"><value>Зарегистрируйтесь и получите скидку 10% на первые 5 заказов.</value></data>
+  <data name="Register_Submit" xml:space="preserve"><value>Создать аккаунт</value></data>
+  <data name="Register_HaveAccount" xml:space="preserve"><value>Уже есть аккаунт?</value></data>
+  <data name="Hint_Password" xml:space="preserve"><value>Не менее 8 символов, с буквами и цифрами.</value></data>
+  <data name="Consent_Text" xml:space="preserve"><value>Я прочитал(а) и принимаю: {0} и {1}.</value></data>
+  <data name="Show_Password" xml:space="preserve"><value>Показать пароль</value></data>
+  <data name="Login_NoAccount" xml:space="preserve"><value>Ещё нет аккаунта?</value></data>
+  <data name="Login_Invalid" xml:space="preserve"><value>Неверная эл. почта или пароль.</value></data>
+  <data name="Login_LockedOut" xml:space="preserve"><value>Слишком много попыток. Попробуйте снова через несколько минут.</value></data>
+  <data name="Login_NotConfirmed" xml:space="preserve"><value>Эл. почта ещё не подтверждена. Откройте письмо, которое мы отправили.</value></data>
+  <data name="Link_ResendConfirmation" xml:space="preserve"><value>Отправить письмо подтверждения ещё раз</value></data>
+  <data name="Dev_VerifyButton" xml:space="preserve"><value>Подтвердить мой аккаунт</value></data>
+  <data name="Dev_VerifyNote" xml:space="preserve"><value>Режим разработки: письма не отправляются. Нажмите кнопку, чтобы подтвердить этот аккаунт.</value></data>
+  <data name="Link_ForgotPassword" xml:space="preserve"><value>Забыли пароль?</value></data>
+  <data name="Resend_Title" xml:space="preserve"><value>Письмо подтверждения</value></data>
+  <data name="Resend_Lead" xml:space="preserve"><value>Введите эл. почту, и мы отправим ссылку подтверждения ещё раз.</value></data>
+  <data name="Resend_Submit" xml:space="preserve"><value>Отправить</value></data>
+  <data name="Forgot_Title" xml:space="preserve"><value>Восстановление пароля</value></data>
+  <data name="Forgot_Lead" xml:space="preserve"><value>Введите эл. почту, и мы отправим ссылку для восстановления.</value></data>
+  <data name="Forgot_Submit" xml:space="preserve"><value>Отправить ссылку</value></data>
+  <data name="Reset_Title" xml:space="preserve"><value>Новый пароль</value></data>
+  <data name="Reset_Submit" xml:space="preserve"><value>Сохранить пароль</value></data>
+  <data name="Msg_CheckEmailTitle" xml:space="preserve"><value>Проверьте почту</value></data>
+  <data name="Msg_CheckEmailText" xml:space="preserve"><value>Мы отправили ссылку подтверждения на {0}. Откройте её, чтобы завершить регистрацию.</value></data>
+  <data name="Msg_EmailConfirmedTitle" xml:space="preserve"><value>Эл. почта подтверждена</value></data>
+  <data name="Msg_EmailConfirmedText" xml:space="preserve"><value>Теперь вы можете войти.</value></data>
+  <data name="Msg_LinkInvalidTitle" xml:space="preserve"><value>Ссылка не работает</value></data>
+  <data name="Msg_LinkInvalidText" xml:space="preserve"><value>Ссылка неверна или устарела. Запросите новую.</value></data>
+  <data name="Msg_ResetLinkInvalidText" xml:space="preserve"><value>Ссылка для восстановления неверна или устарела. Запросите новую.</value></data>
+  <data name="Msg_EmailSentTitle" xml:space="preserve"><value>Письмо отправлено</value></data>
+  <data name="Msg_ResendSentText" xml:space="preserve"><value>Если для этого адреса есть неподтверждённый аккаунт, мы отправили ссылку подтверждения.</value></data>
+  <data name="Msg_ForgotSentText" xml:space="preserve"><value>Если для этого адреса есть аккаунт, мы отправили инструкции.</value></data>
+  <data name="Msg_PasswordChangedTitle" xml:space="preserve"><value>Пароль изменён</value></data>
+  <data name="Msg_PasswordChangedText" xml:space="preserve"><value>Теперь вы можете войти с новым паролем.</value></data>
+  <data name="Msg_AccessDeniedTitle" xml:space="preserve"><value>Доступ запрещён</value></data>
+  <data name="Msg_AccessDeniedText" xml:space="preserve"><value>У вас нет прав для просмотра этой страницы.</value></data>
+  <data name="Msg_TooManyTitle" xml:space="preserve"><value>Слишком много запросов</value></data>
+  <data name="Msg_TooManyText" xml:space="preserve"><value>Подождите минуту и попробуйте снова.</value></data>
+  <data name="Msg_ErrorTitle" xml:space="preserve"><value>Ошибка</value></data>
+  <data name="Msg_ErrorText" xml:space="preserve"><value>Что-то пошло не так. Попробуйте чуть позже.</value></data>
+  <data name="Account_Save" xml:space="preserve"><value>Сохранить</value></data>
+  <data name="Account_Saved" xml:space="preserve"><value>Сохранено.</value></data>
+  <data name="Account_EmailNote" xml:space="preserve"><value>Чтобы изменить эл. почту, свяжитесь с нами.</value></data>
+  <data name="Orders_Empty" xml:space="preserve"><value>У вас пока нет заказов.</value></data>
+  <data name="ChangePassword_Submit" xml:space="preserve"><value>Изменить пароль</value></data>
+  <data name="Favorites_Empty" xml:space="preserve"><value>В избранном пока пусто. Нажмите на сердечко, чтобы сохранить товар.</value></data>
+  <data name="Err_DefaultError" xml:space="preserve"><value>Произошла ошибка.</value></data>
+  <data name="Err_ConcurrencyFailure" xml:space="preserve"><value>Данные изменились. Попробуйте ещё раз.</value></data>
+  <data name="Err_PasswordMismatch" xml:space="preserve"><value>Неверный пароль.</value></data>
+  <data name="Err_InvalidToken" xml:space="preserve"><value>Ссылка неверна или устарела.</value></data>
+  <data name="Err_LoginAlreadyAssociated" xml:space="preserve"><value>Этот вход уже связан с аккаунтом.</value></data>
+  <data name="Err_InvalidUserName" xml:space="preserve"><value>Недопустимое имя пользователя.</value></data>
+  <data name="Err_InvalidEmail" xml:space="preserve"><value>Недопустимый адрес эл. почты.</value></data>
+  <data name="Err_DuplicateEmail" xml:space="preserve"><value>Аккаунт с этой эл. почтой уже существует. Войдите или восстановите пароль.</value></data>
+  <data name="Err_PasswordTooShort" xml:space="preserve"><value>Пароль должен содержать не менее {0} символов.</value></data>
+  <data name="Err_PasswordRequiresDigit" xml:space="preserve"><value>Пароль должен содержать хотя бы одну цифру.</value></data>
+  <data name="Err_PasswordRequiresLetter" xml:space="preserve"><value>Пароль должен содержать хотя бы одну букву.</value></data>
+  <data name="Email_ConfirmSubject" xml:space="preserve"><value>Подтвердите эл. почту — {0}</value></data>
+  <data name="Email_ConfirmHeading" xml:space="preserve"><value>Здравствуйте, {0}</value></data>
+  <data name="Email_ConfirmIntro" xml:space="preserve"><value>Спасибо за регистрацию. Нажмите кнопку, чтобы подтвердить эл. почту.</value></data>
+  <data name="Email_ConfirmButton" xml:space="preserve"><value>Подтвердить эл. почту</value></data>
+  <data name="Email_ConfirmFootnote" xml:space="preserve"><value>Если вы не создавали аккаунт, просто проигнорируйте это письмо. Ссылка действует 24 часа.</value></data>
+  <data name="Email_ResetSubject" xml:space="preserve"><value>Восстановление пароля — {0}</value></data>
+  <data name="Email_ResetHeading" xml:space="preserve"><value>Здравствуйте, {0}</value></data>
+  <data name="Email_ResetIntro" xml:space="preserve"><value>Мы получили запрос на восстановление пароля. Нажмите кнопку, чтобы задать новый пароль.</value></data>
+  <data name="Email_ResetButton" xml:space="preserve"><value>Задать новый пароль</value></data>
+  <data name="Email_ResetFootnote" xml:space="preserve"><value>Ссылка действует 1 час. Если вы не запрашивали восстановление, проигнорируйте это письмо.</value></data>
+  <data name="Email_LinkHelp" xml:space="preserve"><value>Если кнопка не работает, скопируйте эту ссылку в браузер:</value></data>
+  <data name="Cart_Empty" xml:space="preserve"><value>Корзина пуста.</value></data>
+  <data name="Cart_Summary" xml:space="preserve"><value>Итого по заказу</value></data>
+  <data name="Cart_Discounts" xml:space="preserve"><value>Скидки</value></data>
+  <data name="Cart_Delivery" xml:space="preserve"><value>Доставка</value></data>
+  <data name="Cart_DeliveryLater" xml:space="preserve"><value>Рассчитывается при оформлении</value></data>
+  <data name="Cart_Total" xml:space="preserve"><value>Итого</value></data>
+  <data name="Cart_Checkout" xml:space="preserve"><value>Оформить заказ</value></data>
+  <data name="Cart_Continue" xml:space="preserve"><value>Продолжить покупки</value></data>
+  <data name="Cart_Remove" xml:space="preserve"><value>Удалить</value></data>
+  <data name="Cart_Decrease" xml:space="preserve"><value>Уменьшить</value></data>
+  <data name="Cart_Increase" xml:space="preserve"><value>Увеличить</value></data>
+  <data name="Cart_Quantity" xml:space="preserve"><value>Количество</value></data>
+  <data name="Cart_CustomerNote" xml:space="preserve"><value>Применена цена зарегистрированного клиента (−{0}%), где она выгоднее.</value></data>
+  <data name="Cart_GuestHint" xml:space="preserve"><value>Зарегистрируйтесь и получите скидку 10% на первые 5 заказов.</value></data>
+  <data name="Cart_UnavailableNote" xml:space="preserve"><value>Некоторые товары больше недоступны и не входят в итоговую сумму.</value></data>
+  <data name="Cart_NotForSale" xml:space="preserve"><value>Больше не продаётся</value></data>
+  <data name="Cart_ReducedNotice" xml:space="preserve"><value>«{0}»: на складе осталось только {1}, количество уменьшено.</value></data>
+  <data name="Cart_AddedToast" xml:space="preserve"><value>Добавлено в корзину</value></data>
+  <data name="Cart_ViewCart" xml:space="preserve"><value>Открыть корзину</value></data>
+  <data name="Cart_LimitReached" xml:space="preserve"><value>Доступно только {0}</value></data>
+  <data name="Cart_NotAvailable" xml:space="preserve"><value>Этот товар недоступен</value></data>
+  <data name="Cart_TooMany" xml:space="preserve"><value>Корзина заполнена. Сначала удалите что-нибудь.</value></data>
+  <data name="OnlyLeft" xml:space="preserve"><value>Осталось только {0}</value></data>
+  <data name="Fav_GuestHint" xml:space="preserve"><value>Войдите, чтобы избранное сохранялось на всех устройствах.</value></data>
+  <data name="Checkout_Title" xml:space="preserve"><value>Оформление заказа</value></data>
+  <data name="Checkout_Contact" xml:space="preserve"><value>Контактные данные</value></data>
+  <data name="Checkout_Delivery" xml:space="preserve"><value>Доставка</value></data>
+  <data name="Checkout_Payment" xml:space="preserve"><value>Оплата</value></data>
+  <data name="Checkout_PlaceOrder" xml:space="preserve"><value>Оформить заказ</value></data>
+  <data name="Checkout_GuestHint" xml:space="preserve"><value>Есть аккаунт? Войдите, чтобы использовать сохранённые данные и получить скидку 10% на первые заказы.</value></data>
+  <data name="Checkout_EmailLocked" xml:space="preserve"><value>Это эл. почта вашего аккаунта.</value></data>
+  <data name="Checkout_FreeDelivery" xml:space="preserve"><value>Бесплатно</value></data>
+  <data name="Checkout_FreeFrom" xml:space="preserve"><value>Бесплатная доставка от {0}</value></data>
+  <data name="Checkout_Soon" xml:space="preserve"><value>Скоро</value></data>
+  <data name="Checkout_CashNote" xml:space="preserve"><value>Оплатите наличными при получении заказа.</value></data>
+  <data name="Checkout_Choose" xml:space="preserve"><value>Выберите...</value></data>
+  <data name="Checkout_BackToCart" xml:space="preserve"><value>Назад в корзину</value></data>
+  <data name="Checkout_UnavailableItems" xml:space="preserve"><value>Некоторые товары в корзине недоступны. Удалите их, чтобы продолжить.</value></data>
+  <data name="Checkout_OutOfStock" xml:space="preserve"><value>«{0}»: на складе осталось только {1}. Проверьте корзину.</value></data>
+  <data name="Checkout_PriceChanged" xml:space="preserve"><value>Итоговая сумма изменилась: {0}. Проверьте её и нажмите «Оформить заказ» ещё раз.</value></data>
+  <data name="Checkout_BadDate" xml:space="preserve"><value>Выберите дату доставки из списка.</value></data>
+  <data name="Checkout_BadRegion" xml:space="preserve"><value>Выберите регион.</value></data>
+  <data name="Checkout_BadSlot" xml:space="preserve"><value>Выберите время доставки.</value></data>
+  <data name="Checkout_PaymentUnavailable" xml:space="preserve"><value>Этот способ оплаты пока недоступен.</value></data>
+  <data name="Checkout_BadDelivery" xml:space="preserve"><value>Данные доставки недействительны. Проверьте их.</value></data>
+  <data name="Label_Region" xml:space="preserve"><value>Регион</value></data>
+  <data name="Label_City" xml:space="preserve"><value>Город или населённый пункт</value></data>
+  <data name="Label_Street" xml:space="preserve"><value>Улица</value></data>
+  <data name="Label_Building" xml:space="preserve"><value>Дом</value></data>
+  <data name="Label_Apartment" xml:space="preserve"><value>Квартира</value></data>
+  <data name="Label_OrderComment" xml:space="preserve"><value>Комментарий для курьера (необязательно)</value></data>
+  <data name="Label_DeliveryDate" xml:space="preserve"><value>Дата доставки</value></data>
+  <data name="Label_DeliverySlot" xml:space="preserve"><value>Время доставки</value></data>
+  <data name="Label_OrderNumber" xml:space="preserve"><value>Номер заказа</value></data>
+  <data name="Region_yerevan" xml:space="preserve"><value>Ереван</value></data>
+  <data name="Region_aragatsotn" xml:space="preserve"><value>Арагацотн</value></data>
+  <data name="Region_ararat" xml:space="preserve"><value>Арарат</value></data>
+  <data name="Region_armavir" xml:space="preserve"><value>Армавир</value></data>
+  <data name="Region_gegharkunik" xml:space="preserve"><value>Гегаркуник</value></data>
+  <data name="Region_lori" xml:space="preserve"><value>Лори</value></data>
+  <data name="Region_kotayk" xml:space="preserve"><value>Котайк</value></data>
+  <data name="Region_shirak" xml:space="preserve"><value>Ширак</value></data>
+  <data name="Region_syunik" xml:space="preserve"><value>Сюник</value></data>
+  <data name="Region_vayots_dzor" xml:space="preserve"><value>Вайоц-Дзор</value></data>
+  <data name="Region_tavush" xml:space="preserve"><value>Тавуш</value></data>
+  <data name="Cart_Subtotal" xml:space="preserve"><value>Товары</value></data>
+  <data name="Cart_OrdersLeft" xml:space="preserve"><value>Осталось заказов со скидкой: {0}.</value></data>
+  <data name="Done_Title" xml:space="preserve"><value>Спасибо за заказ!</value></data>
+  <data name="Done_Text" xml:space="preserve"><value>Мы отправили подтверждение на {0}. Сохраните это письмо: ссылка в нём открывает ваш заказ в любое время.</value></data>
+  <data name="Order_Number" xml:space="preserve"><value>Заказ</value></data>
+  <data name="Order_Placed" xml:space="preserve"><value>Оформлен</value></data>
+  <data name="Order_DeliveryTitle" xml:space="preserve"><value>Доставка</value></data>
+  <data name="Order_ContactTitle" xml:space="preserve"><value>Контакты</value></data>
+  <data name="Order_PaymentTitle" xml:space="preserve"><value>Оплата</value></data>
+  <data name="Order_Comment" xml:space="preserve"><value>Ваш комментарий</value></data>
+  <data name="Order_ContactUs" xml:space="preserve"><value>Чтобы изменить или отменить заказ, свяжитесь с нами.</value></data>
+  <data name="Order_EmailSubject" xml:space="preserve"><value>Заказ #{0} - {1}</value></data>
+  <data name="Order_EmailHeading" xml:space="preserve"><value>Спасибо за заказ, {0}!</value></data>
+  <data name="Order_EmailIntro" xml:space="preserve"><value>Мы получили ваш заказ и подготовим его к доставке. Вот детали.</value></data>
+  <data name="Order_EmailButton" xml:space="preserve"><value>Открыть заказ</value></data>
+  <data name="Order_EmailFootnote" xml:space="preserve"><value>Сохраните это письмо: кнопка открывает заказ в любое время.</value></data>
+  <data name="Order_NewOrderSubject" xml:space="preserve"><value>Новый заказ #{0}</value></data>
+  <data name="Order_NewOrderHeading" xml:space="preserve"><value>Новый заказ #{0}</value></data>
+  <data name="Status_AwaitingPayment" xml:space="preserve"><value>Ожидает оплаты</value></data>
+  <data name="Status_Ordered" xml:space="preserve"><value>Заказан</value></data>
+  <data name="Status_Packed" xml:space="preserve"><value>Упакован</value></data>
+  <data name="Status_Delivered" xml:space="preserve"><value>Доставлен</value></data>
+  <data name="Status_Cancelled" xml:space="preserve"><value>Отменён</value></data>
+  <data name="Pay_CashOnDelivery" xml:space="preserve"><value>Наличными при получении</value></data>
+  <data name="Pay_Card" xml:space="preserve"><value>Картой онлайн</value></data>
+  <data name="Pay_BankTransfer" xml:space="preserve"><value>Банковский перевод</value></data>
+  <data name="PayStatus_Pending" xml:space="preserve"><value>Ещё не оплачен</value></data>
+  <data name="PayStatus_Paid" xml:space="preserve"><value>Оплачен</value></data>
+  <data name="PayStatus_Failed" xml:space="preserve"><value>Оплата не прошла</value></data>
+  <data name="PayStatus_Refunded" xml:space="preserve"><value>Возвращён</value></data>
+  <data name="Nav_FindOrder" xml:space="preserve"><value>Найти заказ</value></data>
+  <data name="Lookup_Title" xml:space="preserve"><value>Найти заказ</value></data>
+  <data name="Lookup_Lead" xml:space="preserve"><value>Введите номер заказа и эл. почту, указанную при оформлении.</value></data>
+  <data name="Lookup_Submit" xml:space="preserve"><value>Найти заказ</value></data>
+  <data name="Lookup_NotFound" xml:space="preserve"><value>Заказ с таким номером и почтой не найден.</value></data>
+  <data name="Return_Title" xml:space="preserve"><value>Заявка на возврат</value></data>
+  <data name="Return_Lead" xml:space="preserve"><value>Не устроил заказ? Расскажите почему, и мы свяжемся с вами.</value></data>
+  <data name="Return_Reason" xml:space="preserve"><value>Причина</value></data>
+  <data name="Return_Submit" xml:space="preserve"><value>Отправить заявку</value></data>
+  <data name="Return_Created" xml:space="preserve"><value>Заявка на возврат отправлена. Мы свяжемся с вами.</value></data>
+  <data name="Return_InvalidReason" xml:space="preserve"><value>Опишите причину (не менее 5 символов).</value></data>
+  <data name="Return_WindowClosed" xml:space="preserve"><value>Срок возврата этого заказа истёк.</value></data>
+  <data name="Return_AlreadyRequested" xml:space="preserve"><value>Заявка на возврат по этому заказу уже есть.</value></data>
+  <data name="Return_NotPossible" xml:space="preserve"><value>Возврат по этому заказу невозможен.</value></data>
+  <data name="Return_Status" xml:space="preserve"><value>Заявка на возврат</value></data>
+  <data name="Return_Requested" xml:space="preserve"><value>Отправлена</value></data>
+  <data name="Return_Rejected" xml:space="preserve"><value>Отклонена</value></data>
+  <data name="Return_Returned" xml:space="preserve"><value>Возврат принят</value></data>
+  <data name="Return_Refunded" xml:space="preserve"><value>Деньги возвращены</value></data>
+  <data name="Checkout_CardNote" xml:space="preserve"><value>Оплата на защищённой странице банка. Номер вашей карты мы не видим.</value></data>
+  <data name="Checkout_TransferNote" xml:space="preserve"><value>Реквизиты банка покажем после оформления заказа.</value></data>
+  <data name="Pay_NotPossible" xml:space="preserve"><value>Для этого заказа оплату больше нельзя начать.</value></data>
+  <data name="Pay_Now" xml:space="preserve"><value>Оплатить сейчас</value></data>
+  <data name="Pay_CardWaiting" xml:space="preserve"><value>Ждём оплату картой</value></data>
+  <data name="Pay_Deadline" xml:space="preserve"><value>Оплатите до {0}. Неоплаченные заказы отменяются автоматически.</value></data>
+  <data name="Bank_Title" xml:space="preserve"><value>Реквизиты для банковского перевода</value></data>
+  <data name="Bank_Name" xml:space="preserve"><value>Банк</value></data>
+  <data name="Bank_Account" xml:space="preserve"><value>Счёт (IBAN)</value></data>
+  <data name="Bank_Recipient" xml:space="preserve"><value>Получатель</value></data>
+  <data name="Bank_Amount" xml:space="preserve"><value>Сумма</value></data>
+  <data name="Bank_Reference" xml:space="preserve"><value>Назначение платежа</value></data>
+  <data name="Bank_ReferenceValue" xml:space="preserve"><value>Заказ #{0}</value></data>
+  <data name="Bank_Note" xml:space="preserve"><value>Когда деньги придут, мы отметим заказ как оплаченный.</value></data>
+  <data name="Done_AwaitingTitle" xml:space="preserve"><value>Заказ ждёт оплаты</value></data>
+  <data name="Done_AwaitingText" xml:space="preserve"><value>Заказ сохранён, но ещё не оплачен. Нажмите «Оплатить сейчас», чтобы завершить.</value></data>
+  <data name="PayReturn_Failed_Title" xml:space="preserve"><value>Оплата не прошла</value></data>
+  <data name="PayReturn_Failed_Text" xml:space="preserve"><value>Банк не принял платёж. Можно попробовать ещё раз.</value></data>
+  <data name="PayReturn_Cancelled_Title" xml:space="preserve"><value>Оплата отменена</value></data>
+  <data name="PayReturn_Cancelled_Text" xml:space="preserve"><value>Вы отменили оплату. Заказ всё ещё ждёт, можно оплатить сейчас.</value></data>
+  <data name="PayReturn_Waiting_Title" xml:space="preserve"><value>Ждём ответ банка</value></data>
+  <data name="PayReturn_Waiting_Text" xml:space="preserve"><value>Ответ банка ещё не получен. Обновите страницу через несколько секунд.</value></data>
+  <data name="PayReturn_Expired_Title" xml:space="preserve"><value>Заказ отменён</value></data>
+  <data name="PayReturn_Expired_Text" xml:space="preserve"><value>Время на оплату истекло, заказ отменён. Можно оформить новый заказ.</value></data>
+  <data name="PayReturn_Late_Title" xml:space="preserve"><value>Платёж пришёл с опозданием</value></data>
+  <data name="PayReturn_Late_Text" xml:space="preserve"><value>Ваш платёж поступил после отмены заказа. Мы вернём деньги. Пожалуйста, свяжитесь с нами.</value></data>
+  <data name="PayReturn_Refresh" xml:space="preserve"><value>Обновить</value></data>
+  <data name="PayReturn_ViewOrder" xml:space="preserve"><value>Открыть заказ</value></data>
+  <data name="Fake_Badge" xml:space="preserve"><value>Только для теста</value></data>
+  <data name="Fake_Title" xml:space="preserve"><value>Ненастоящий банк</value></data>
+  <data name="Fake_Lead" xml:space="preserve"><value>Эта страница имитирует страницу оплаты банка. Настоящие деньги не списываются.</value></data>
+  <data name="Fake_Pay" xml:space="preserve"><value>Оплатить</value></data>
+  <data name="Fake_Fail" xml:space="preserve"><value>Отклонить платёж</value></data>
+  <data name="Fake_Cancel" xml:space="preserve"><value>Отмена</value></data>
+  <data name="Fake_Closed" xml:space="preserve"><value>Этот платёж уже завершён.</value></data>
+  <data name="Admin_Title" xml:space="preserve"><value>Панель администратора</value></data>
+  <data name="Admin_Nav_Dashboard" xml:space="preserve"><value>Главная</value></data>
+  <data name="Admin_Nav_Orders" xml:space="preserve"><value>Заказы</value></data>
+  <data name="Admin_Nav_Returns" xml:space="preserve"><value>Возвраты</value></data>
+  <data name="Admin_Nav_Settings" xml:space="preserve"><value>Настройки</value></data>
+  <data name="Admin_ViewShop" xml:space="preserve"><value>В магазин</value></data>
+  <data name="Admin_Dash_Hint" xml:space="preserve"><value>Нажмите на число, чтобы открыть список.</value></data>
+  <data name="Admin_Dash_OrdersToday" xml:space="preserve"><value>Заказов сегодня</value></data>
+  <data name="Admin_Dash_ToPack" xml:space="preserve"><value>Нужно упаковать</value></data>
+  <data name="Admin_Dash_AwaitingPayment" xml:space="preserve"><value>Ждут оплаты</value></data>
+  <data name="Admin_Dash_OpenReturns" xml:space="preserve"><value>Открытые возвраты</value></data>
+  <data name="Admin_Dash_RefundsNeeded" xml:space="preserve"><value>Нужно вернуть деньги</value></data>
+  <data name="Admin_Dash_LowStock" xml:space="preserve"><value>Заканчивается товар</value></data>
+  <data name="Admin_Search" xml:space="preserve"><value>Номер заказа, имя, почта или телефон</value></data>
+  <data name="Admin_Status" xml:space="preserve"><value>Статус</value></data>
+  <data name="Admin_AllStatuses" xml:space="preserve"><value>Все статусы</value></data>
+  <data name="Admin_PaymentMethod" xml:space="preserve"><value>Оплата</value></data>
+  <data name="Admin_AllMethods" xml:space="preserve"><value>Все способы</value></data>
+  <data name="Admin_From" xml:space="preserve"><value>С</value></data>
+  <data name="Admin_To" xml:space="preserve"><value>По</value></data>
+  <data name="Admin_RefundOnly" xml:space="preserve"><value>Только где нужен возврат денег</value></data>
+  <data name="Admin_Filter" xml:space="preserve"><value>Показать</value></data>
+  <data name="Admin_Reset" xml:space="preserve"><value>Сбросить</value></data>
+  <data name="Admin_Col_Order" xml:space="preserve"><value>Заказ</value></data>
+  <data name="Admin_Col_Date" xml:space="preserve"><value>Дата</value></data>
+  <data name="Admin_Col_Customer" xml:space="preserve"><value>Клиент</value></data>
+  <data name="Admin_Col_Status" xml:space="preserve"><value>Статус</value></data>
+  <data name="Admin_Col_Payment" xml:space="preserve"><value>Оплата</value></data>
+  <data name="Admin_Col_Total" xml:space="preserve"><value>Сумма</value></data>
+  <data name="Admin_NoResults" xml:space="preserve"><value>Ничего не найдено.</value></data>
+  <data name="Admin_Flag_Refund" xml:space="preserve"><value>Нужен возврат денег</value></data>
+  <data name="Admin_Flag_Return" xml:space="preserve"><value>Есть возврат</value></data>
+  <data name="Admin_Page" xml:space="preserve"><value>Страница {0} из {1}</value></data>
+  <data name="Admin_Prev" xml:space="preserve"><value>Назад</value></data>
+  <data name="Admin_Next" xml:space="preserve"><value>Вперёд</value></data>
+  <data name="Admin_Items" xml:space="preserve"><value>Товары</value></data>
+  <data name="Admin_History" xml:space="preserve"><value>История</value></data>
+  <data name="Admin_By" xml:space="preserve"><value>{0}</value></data>
+  <data name="Admin_Actions" xml:space="preserve"><value>Действия</value></data>
+  <data name="Admin_NoActions" xml:space="preserve"><value>Больше действий нет.</value></data>
+  <data name="Admin_Hint_AwaitingCard" xml:space="preserve"><value>Ожидается оплата картой. Заказ станет «Заказан» сам, когда банк подтвердит платёж. Пока его можно только отменить.</value></data>
+  <data name="Admin_Hint_AwaitingTransfer" xml:space="preserve"><value>Ожидается банковский перевод. Нажмите «Перевод получен», когда деньги придут.</value></data>
+  <data name="Admin_Hint_Ordered" xml:space="preserve"><value>Следующий шаг: упакуйте заказ и нажмите «Отметить упакованным».</value></data>
+  <data name="Admin_Hint_Packed" xml:space="preserve"><value>Следующий шаг: когда заказ передан, нажмите «Отметить доставленным».</value></data>
+  <data name="Admin_Note" xml:space="preserve"><value>Заметка (необязательно)</value></data>
+  <data name="Admin_Set_Packed" xml:space="preserve"><value>Отметить упакованным</value></data>
+  <data name="Admin_Set_Delivered" xml:space="preserve"><value>Отметить доставленным</value></data>
+  <data name="Admin_Set_Cancelled" xml:space="preserve"><value>Отменить заказ</value></data>
+  <data name="Admin_Confirm_Cancel" xml:space="preserve"><value>Отменить этот заказ? Товар вернётся на склад.</value></data>
+  <data name="Admin_MarkReceived" xml:space="preserve"><value>Перевод получен</value></data>
+  <data name="Admin_Confirm_Received" xml:space="preserve"><value>Отметить перевод полученным? Заказ станет оплаченным.</value></data>
+  <data name="Admin_RefundDone" xml:space="preserve"><value>Деньги возвращены</value></data>
+  <data name="Admin_Confirm_Refund" xml:space="preserve"><value>Вы вернули деньги клиенту?</value></data>
+  <data name="Admin_Return" xml:space="preserve"><value>Заявка на возврат</value></data>
+  <data name="Admin_OpenReturn" xml:space="preserve"><value>Открыть возврат</value></data>
+  <data name="Admin_OpenOrder" xml:space="preserve"><value>Открыть заказ</value></data>
+  <data name="AttemptStatus_Created" xml:space="preserve"><value>Начата</value></data>
+  <data name="AttemptStatus_Paid" xml:space="preserve"><value>Оплачена</value></data>
+  <data name="AttemptStatus_Failed" xml:space="preserve"><value>Не прошла</value></data>
+  <data name="AttemptStatus_Cancelled" xml:space="preserve"><value>Отменена</value></data>
+  <data name="Admin_Msg_StatusChanged" xml:space="preserve"><value>Статус изменён.</value></data>
+  <data name="Admin_Msg_NotAllowed" xml:space="preserve"><value>Сейчас это изменение недоступно.</value></data>
+  <data name="Admin_Msg_Received" xml:space="preserve"><value>Перевод записан, заказ оплачен.</value></data>
+  <data name="Admin_Msg_RefundDone" xml:space="preserve"><value>Возврат денег записан.</value></data>
+  <data name="Admin_Msg_Saved" xml:space="preserve"><value>Сохранено.</value></data>
+  <data name="Admin_Msg_LastSlot" xml:space="preserve"><value>Должно остаться хотя бы одно активное время доставки.</value></data>
+  <data name="Admin_Msg_BadSlot" xml:space="preserve"><value>Введите время (до 50 символов) и порядок от 0 до 1000.</value></data>
+  <data name="Admin_Msg_ReturnChanged" xml:space="preserve"><value>Возврат обновлён.</value></data>
+  <data name="Admin_Ret_Title" xml:space="preserve"><value>Заявка на возврат</value></data>
+  <data name="Admin_Ret_Reason" xml:space="preserve"><value>Причина</value></data>
+  <data name="Admin_Ret_Note" xml:space="preserve"><value>Заметка для клиента (необязательно)</value></data>
+  <data name="Admin_Ret_Restock" xml:space="preserve"><value>Вернуть товары на склад</value></data>
+  <data name="Admin_Ret_Decided" xml:space="preserve"><value>решено</value></data>
+  <data name="Admin_Set_Rejected" xml:space="preserve"><value>Отклонить</value></data>
+  <data name="Admin_Set_Returned" xml:space="preserve"><value>Товар получен</value></data>
+  <data name="Admin_Set_Refunded" xml:space="preserve"><value>Деньги возвращены</value></data>
+  <data name="Admin_Confirm_Reject" xml:space="preserve"><value>Отклонить эту заявку на возврат?</value></data>
+  <data name="Admin_Set_Delivery" xml:space="preserve"><value>Доставка</value></data>
+  <data name="Admin_DeliveryFee" xml:space="preserve"><value>Стоимость доставки (AMD)</value></data>
+  <data name="Admin_FreeFrom" xml:space="preserve"><value>Бесплатная доставка от (AMD, 0 = никогда)</value></data>
+  <data name="Admin_DaysAhead" xml:space="preserve"><value>Сколько дней можно выбрать</value></data>
+  <data name="Admin_FirstDay" xml:space="preserve"><value>Первый день доставки (1 = завтра)</value></data>
+  <data name="Admin_ReturnWindow" xml:space="preserve"><value>Срок возврата (дней)</value></data>
+  <data name="Admin_BankDetails" xml:space="preserve"><value>Реквизиты для банковского перевода</value></data>
+  <data name="Admin_BankName" xml:space="preserve"><value>Банк</value></data>
+  <data name="Admin_BankAccount" xml:space="preserve"><value>Счёт (IBAN)</value></data>
+  <data name="Admin_BankRecipient" xml:space="preserve"><value>Получатель</value></data>
+  <data name="Admin_Save" xml:space="preserve"><value>Сохранить</value></data>
+  <data name="Admin_Slots" xml:space="preserve"><value>Время доставки</value></data>
+  <data name="Admin_SlotsHint" xml:space="preserve"><value>Время нельзя удалить, только скрыть: старые заказы сохраняют свой текст.</value></data>
+  <data name="Admin_SlotLabel" xml:space="preserve"><value>Время</value></data>
+  <data name="Admin_SlotOrder" xml:space="preserve"><value>Порядок</value></data>
+  <data name="Admin_SlotActive" xml:space="preserve"><value>Показывать клиентам</value></data>
+  <data name="Admin_AddSlot" xml:space="preserve"><value>Добавить время</value></data>
+  <data name="Val_Range" xml:space="preserve"><value>{0}: значение от {1} до {2}.</value></data>
+  <data name="Admin_Nav_Products" xml:space="preserve"><value>Товары</value></data>
+  <data name="Admin_Nav_Categories" xml:space="preserve"><value>Категории</value></data>
+  <data name="Admin_Nav_AgeGroups" xml:space="preserve"><value>Возрасты</value></data>
+  <data name="Admin_Add" xml:space="preserve"><value>Добавить</value></data>
+  <data name="Admin_Edit" xml:space="preserve"><value>Изменить</value></data>
+  <data name="Admin_Delete" xml:space="preserve"><value>Удалить</value></data>
+  <data name="Admin_Confirm_Delete" xml:space="preserve"><value>Удалить это?</value></data>
+  <data name="Admin_Shown" xml:space="preserve"><value>Показывается</value></data>
+  <data name="Admin_Hidden" xml:space="preserve"><value>Скрыто</value></data>
+  <data name="Admin_Archived" xml:space="preserve"><value>В архиве</value></data>
+  <data name="Admin_Col_Name" xml:space="preserve"><value>Название</value></data>
+  <data name="Admin_Col_Products" xml:space="preserve"><value>Товаров</value></data>
+  <data name="Admin_Name_Hint" xml:space="preserve"><value>Армянский обязателен. Если русского или английского текста нет, показывается армянский.</value></data>
+  <data name="Admin_NameHy" xml:space="preserve"><value>Название (армянский)</value></data>
+  <data name="Admin_NameRu" xml:space="preserve"><value>Название (русский)</value></data>
+  <data name="Admin_NameEn" xml:space="preserve"><value>Название (английский)</value></data>
+  <data name="Admin_DescHy" xml:space="preserve"><value>Описание (армянский)</value></data>
+  <data name="Admin_DescRu" xml:space="preserve"><value>Описание (русский)</value></data>
+  <data name="Admin_DescEn" xml:space="preserve"><value>Описание (английский)</value></data>
+  <data name="Admin_Cat_New" xml:space="preserve"><value>Новая категория</value></data>
+  <data name="Admin_Cat_Edit" xml:space="preserve"><value>Изменение категории</value></data>
+  <data name="Admin_Cat_Active" xml:space="preserve"><value>Показывать в магазине</value></data>
+  <data name="Admin_Cat_Hint" xml:space="preserve"><value>Категорию с товарами нельзя удалить: скройте её.</value></data>
+  <data name="Admin_Picture" xml:space="preserve"><value>Картинка</value></data>
+  <data name="Admin_Img_Hint" xml:space="preserve"><value>JPG, PNG или WebP, до 5 МБ. Картинка автоматически уменьшается и очищается.</value></data>
+  <data name="Admin_Age_New" xml:space="preserve"><value>Новый возраст</value></data>
+  <data name="Admin_Age_Edit" xml:space="preserve"><value>Изменение возраста</value></data>
+  <data name="Admin_Age_Hint" xml:space="preserve"><value>Возраст, который используют товары, нельзя удалить: скройте его.</value></data>
+  <data name="Admin_Prod_Search" xml:space="preserve"><value>Артикул, бренд или название</value></data>
+  <data name="Admin_AllCategories" xml:space="preserve"><value>Все категории</value></data>
+  <data name="Admin_Show" xml:space="preserve"><value>Показать</value></data>
+  <data name="Admin_Show_Active" xml:space="preserve"><value>Активные товары</value></data>
+  <data name="Admin_Show_Archived" xml:space="preserve"><value>В архиве</value></data>
+  <data name="Admin_Show_All" xml:space="preserve"><value>Все</value></data>
+  <data name="Admin_Prod_LowOnly" xml:space="preserve"><value>Только товары, которых осталось {0} или меньше</value></data>
+  <data name="Admin_Prod_Sku" xml:space="preserve"><value>Артикул</value></data>
+  <data name="Admin_Prod_Brand" xml:space="preserve"><value>Бренд</value></data>
+  <data name="Admin_Prod_Category" xml:space="preserve"><value>Категория</value></data>
+  <data name="Admin_Prod_Price" xml:space="preserve"><value>Цена (AMD)</value></data>
+  <data name="Admin_Prod_Discount" xml:space="preserve"><value>Скидка (%)</value></data>
+  <data name="Admin_Prod_Stock" xml:space="preserve"><value>На складе</value></data>
+  <data name="Admin_Prod_New" xml:space="preserve"><value>Новый товар</value></data>
+  <data name="Admin_Prod_Edit" xml:space="preserve"><value>Изменение товара</value></data>
+  <data name="Admin_ViewInShop" xml:space="preserve"><value>Открыть в магазине</value></data>
+  <data name="Admin_Prod_Basics" xml:space="preserve"><value>Основное</value></data>
+  <data name="Admin_Prod_AgeGroups" xml:space="preserve"><value>Возрасты</value></data>
+  <data name="Admin_Prod_Pinned" xml:space="preserve"><value>Показывать в «Новинках», даже если товар старый</value></data>
+  <data name="Admin_Prod_Archived" xml:space="preserve"><value>В архиве (скрыт из магазина, хранится для старых заказов)</value></data>
+  <data name="Admin_Prod_Texts" xml:space="preserve"><value>Названия и описания</value></data>
+  <data name="Admin_Prod_Photos" xml:space="preserve"><value>Фотографии ({0} из {1})</value></data>
+  <data name="Admin_Prod_PhotosAfterSave" xml:space="preserve"><value>Сначала сохраните товар, затем добавьте здесь фотографии.</value></data>
+  <data name="Admin_Prod_NoPhotos" xml:space="preserve"><value>Фотографий пока нет.</value></data>
+  <data name="Admin_Photo_Main" xml:space="preserve"><value>Главное</value></data>
+  <data name="Admin_Photo_Earlier" xml:space="preserve"><value>Сдвинуть раньше</value></data>
+  <data name="Admin_Photo_Later" xml:space="preserve"><value>Сдвинуть позже</value></data>
+  <data name="Admin_Photo_MakeMain" xml:space="preserve"><value>Сделать главным</value></data>
+  <data name="Admin_Photo_ConfirmRemove" xml:space="preserve"><value>Удалить это фото?</value></data>
+  <data name="Admin_Prod_AddPhotos" xml:space="preserve"><value>Добавить фотографии</value></data>
+  <data name="Admin_Prod_Upload" xml:space="preserve"><value>Загрузить</value></data>
+  <data name="Admin_Img_NotImage" xml:space="preserve"><value>Этот файл не является картинкой JPG, PNG или WebP.</value></data>
+  <data name="Admin_Img_TooBig" xml:space="preserve"><value>Файл больше 5 МБ.</value></data>
+  <data name="Admin_Img_TooLarge" xml:space="preserve"><value>Картинка слишком большая (больше 12000 px или 40 миллионов пикселей).</value></data>
+  <data name="Admin_Img_Damaged" xml:space="preserve"><value>Файл картинки повреждён или неполный. Попробуйте другой файл.</value></data>
+  <data name="Admin_Img_Choose" xml:space="preserve"><value>Выберите хотя бы одну фотографию.</value></data>
+  <data name="Admin_Img_TooMany" xml:space="preserve"><value>У товара может быть не больше {0} фотографий.</value></data>
+  <data name="Admin_Img_Refused" xml:space="preserve"><value>«{0}» не добавлено: {1}</value></data>
+  <data name="Admin_Msg_Deleted" xml:space="preserve"><value>Удалено.</value></data>
+  <data name="Admin_Msg_CategoryInUse" xml:space="preserve"><value>В этой категории ещё есть товары. Скройте её.</value></data>
+  <data name="Admin_Msg_AgeGroupInUse" xml:space="preserve"><value>Этот возраст используют товары. Скройте его.</value></data>
+  <data name="Admin_Msg_ProductCreated" xml:space="preserve"><value>Товар создан. Теперь можно добавить фотографии.</value></data>
+  <data name="Admin_Msg_DuplicateSku" xml:space="preserve"><value>Этот артикул уже используется другим товаром.</value></data>
+  <data name="Admin_Msg_Conflict" xml:space="preserve"><value>Товар изменился за это время (например, из-за заказа или другого администратора). Страница показывает текущие значения: проверьте и измените снова.</value></data>
+  <data name="Admin_Msg_PhotosAdded" xml:space="preserve"><value>Добавлено фотографий: {0}.</value></data>
+  <data name="Admin_Msg_PhotoRemoved" xml:space="preserve"><value>Фото удалено.</value></data>
+  <data name="Admin_Val_Sku" xml:space="preserve"><value>Только буквы, цифры и знаки . _ -</value></data>
+  <data name="Admin_Nav_Admins" xml:space="preserve"><value>Администраторы</value></data>
+  <data name="Admin_Nav_Audit" xml:space="preserve"><value>Журнал изменений</value></data>
+  <data name="Admin_Adm_Hint" xml:space="preserve"><value>Все, кто указан здесь, могут делать в панели всё.</value></data>
+  <data name="Admin_Adm_Email" xml:space="preserve"><value>Эл. почта</value></data>
+  <data name="Admin_Adm_Name" xml:space="preserve"><value>Имя</value></data>
+  <data name="Admin_Adm_Since" xml:space="preserve"><value>Зарегистрирован</value></data>
+  <data name="Admin_Adm_You" xml:space="preserve"><value>Вы</value></data>
+  <data name="Admin_Adm_Main" xml:space="preserve"><value>Главный администратор (задан в настройках сайта)</value></data>
+  <data name="Admin_Adm_Remove" xml:space="preserve"><value>Убрать доступ</value></data>
+  <data name="Admin_Adm_ConfirmRemove" xml:space="preserve"><value>Убрать доступ администратора у {0}?</value></data>
+  <data name="Admin_Adm_MainHint" xml:space="preserve"><value>Главный администратор задан в настройках сайта и не может быть удалён здесь. Свой доступ убрать нельзя: это может сделать другой администратор.</value></data>
+  <data name="Admin_Adm_AddTitle" xml:space="preserve"><value>Добавить администратора</value></data>
+  <data name="Admin_Adm_AddHint" xml:space="preserve"><value>Введите почту существующего аккаунта (почта должна быть подтверждена). Чтобы увидеть панель, человеку нужно выйти и войти снова.</value></data>
+  <data name="Admin_Adm_Add" xml:space="preserve"><value>Сделать администратором</value></data>
+  <data name="Admin_Adm_ConfirmAdd" xml:space="preserve"><value>Дать этому человеку полный доступ к панели администратора?</value></data>
+  <data name="Admin_Adm_Granted" xml:space="preserve"><value>{0} теперь администратор. Чтобы увидеть панель, нужно войти снова.</value></data>
+  <data name="Admin_Adm_AlreadyAdmin" xml:space="preserve"><value>Этот человек уже администратор.</value></data>
+  <data name="Admin_Adm_NotConfirmed" xml:space="preserve"><value>Почта этого аккаунта ещё не подтверждена.</value></data>
+  <data name="Admin_Adm_NotFound" xml:space="preserve"><value>Аккаунта с такой почтой нет.</value></data>
+  <data name="Admin_Adm_Revoked" xml:space="preserve"><value>Доступ администратора убран.</value></data>
+  <data name="Admin_Adm_Yourself" xml:space="preserve"><value>Нельзя убрать свой собственный доступ. Попросите другого администратора.</value></data>
+  <data name="Admin_Adm_Configured" xml:space="preserve"><value>Главный администратор задан в настройках сайта и не может быть удалён здесь.</value></data>
+  <data name="Admin_Adm_Last" xml:space="preserve"><value>Последнего администратора удалить нельзя.</value></data>
+  <data name="Admin_Audit_Hint" xml:space="preserve"><value>Кто что изменил в панели администратора, сначала новые.</value></data>
+  <data name="Admin_Audit_Search" xml:space="preserve"><value>Администратор, действие, номер или подробности</value></data>
+  <data name="Admin_Audit_Type" xml:space="preserve"><value>Вид</value></data>
+  <data name="Admin_Audit_AllTypes" xml:space="preserve"><value>Все виды</value></data>
+  <data name="Admin_Audit_Who" xml:space="preserve"><value>Администратор</value></data>
+  <data name="Admin_Audit_Action" xml:space="preserve"><value>Действие</value></data>
+  <data name="Admin_Audit_Item" xml:space="preserve"><value>Объект</value></data>
+  <data name="Admin_Audit_Details" xml:space="preserve"><value>Подробности</value></data>
+  <data name="Admin_Nav_Analytics" xml:space="preserve"><value>Аналитика</value></data>
+  <data name="An_Hint" xml:space="preserve"><value>Продажи, покупатели и товары за выбранный период в сравнении с предыдущим.</value></data>
+  <data name="An_BadRange" xml:space="preserve"><value>Даты неверны (нужны обе, первая не позже второй, не более 366 дней). Показаны последние 30 дней.</value></data>
+  <data name="An_Period" xml:space="preserve"><value>Период</value></data>
+  <data name="An_Today" xml:space="preserve"><value>Сегодня</value></data>
+  <data name="An_Last7" xml:space="preserve"><value>7 дней</value></data>
+  <data name="An_Last30" xml:space="preserve"><value>30 дней</value></data>
+  <data name="An_ThisMonth" xml:space="preserve"><value>Этот месяц</value></data>
+  <data name="An_LastMonth" xml:space="preserve"><value>Прошлый месяц</value></data>
+  <data name="An_Show" xml:space="preserve"><value>Показать</value></data>
+  <data name="An_ComparedWith" xml:space="preserve"><value>в сравнении с</value></data>
+  <data name="An_New" xml:space="preserve"><value>новое</value></data>
+  <data name="An_Before" xml:space="preserve"><value>Изменение по сравнению с предыдущим периодом</value></data>
+  <data name="An_NoData" xml:space="preserve"><value>За этот период ничего нет.</value></data>
+  <data name="An_Orders" xml:space="preserve"><value>Заказы</value></data>
+  <data name="An_Units" xml:space="preserve"><value>Штук</value></data>
+  <data name="An_Sales" xml:space="preserve"><value>Продажи</value></data>
+  <data name="An_Product" xml:space="preserve"><value>Товар</value></data>
+  <data name="An_InStock" xml:space="preserve"><value>в наличии:</value></data>
+  <data name="An_SalesPerDay" xml:space="preserve"><value>Продажи по дням</value></data>
+  <data name="An_SalesPerWeek" xml:space="preserve"><value>Продажи по неделям</value></data>
+  <data name="An_ChartMax" xml:space="preserve"><value>Самый высокий столбик:</value></data>
+  <data name="An_ShowTable" xml:space="preserve"><value>Показать таблицей</value></data>
+  <data name="An_K_Sales" xml:space="preserve"><value>Продажи</value></data>
+  <data name="An_K_Orders" xml:space="preserve"><value>Заказы</value></data>
+  <data name="An_K_Average" xml:space="preserve"><value>Средний заказ</value></data>
+  <data name="An_K_Items" xml:space="preserve"><value>Продано штук</value></data>
+  <data name="An_K_Discounts" xml:space="preserve"><value>Скидки</value></data>
+  <data name="An_K_Delivery" xml:space="preserve"><value>Плата за доставку</value></data>
+  <data name="An_K_Cancelled" xml:space="preserve"><value>Отменённые заказы</value></data>
+  <data name="An_K_CancelRate" xml:space="preserve"><value>Доля отмен:</value></data>
+  <data name="An_K_Returns" xml:space="preserve"><value>Заявки на возврат</value></data>
+  <data name="An_K_Refunded" xml:space="preserve"><value>Возвращено денег</value></data>
+  <data name="An_K_Net" xml:space="preserve"><value>Чистые продажи</value></data>
+  <data name="An_K_NewAccounts" xml:space="preserve"><value>Новые аккаунты</value></data>
+  <data name="An_K_RegGuest" xml:space="preserve"><value>Заказы: с аккаунтом / гости</value></data>
+  <data name="An_K_RegGuestNote" xml:space="preserve"><value>Сделаны с входом / без аккаунта</value></data>
+  <data name="An_K_DiscountedShare" xml:space="preserve"><value>Заказы со скидкой покупателя</value></data>
+  <data name="An_T_Payment" xml:space="preserve"><value>По способу оплаты</value></data>
+  <data name="An_T_Status" xml:space="preserve"><value>По статусу заказа (все заказы)</value></data>
+  <data name="An_T_Region" xml:space="preserve"><value>По региону</value></data>
+  <data name="An_T_Category" xml:space="preserve"><value>По категории</value></data>
+  <data name="An_T_Brand" xml:space="preserve"><value>По бренду</value></data>
+  <data name="An_T_AgeGroup" xml:space="preserve"><value>По возрасту (товар может входить в несколько групп)</value></data>
+  <data name="An_T_Slot" xml:space="preserve"><value>По времени доставки</value></data>
+  <data name="An_T_Weekday" xml:space="preserve"><value>По дню недели (время Армении)</value></data>
+  <data name="An_T_Hour" xml:space="preserve"><value>По часу дня (время Армении)</value></data>
+  <data name="An_Day_0" xml:space="preserve"><value>Понедельник</value></data>
+  <data name="An_Day_1" xml:space="preserve"><value>Вторник</value></data>
+  <data name="An_Day_2" xml:space="preserve"><value>Среда</value></data>
+  <data name="An_Day_3" xml:space="preserve"><value>Четверг</value></data>
+  <data name="An_Day_4" xml:space="preserve"><value>Пятница</value></data>
+  <data name="An_Day_5" xml:space="preserve"><value>Суббота</value></data>
+  <data name="An_Day_6" xml:space="preserve"><value>Воскресенье</value></data>
+  <data name="An_Products" xml:space="preserve"><value>Товары</value></data>
+  <data name="An_TopUnits" xml:space="preserve"><value>Топ-10 по количеству</value></data>
+  <data name="An_TopMoney" xml:space="preserve"><value>Топ-10 по выручке</value></data>
+  <data name="An_NoSales" xml:space="preserve"><value>Не продавались в этом периоде (до 10, новые сначала)</value></data>
+  <data name="An_LowStock" xml:space="preserve"><value>Мало на складе (3 или меньше)</value></data>
+  <data name="An_Customers" xml:space="preserve"><value>Покупатели</value></data>
+  <data name="An_Buyers" xml:space="preserve"><value>Покупатели за период</value></data>
+  <data name="An_BuyersAll" xml:space="preserve"><value>Разных покупателей</value></data>
+  <data name="An_BuyersNew" xml:space="preserve"><value>Новые (первый заказ)</value></data>
+  <data name="An_BuyersReturning" xml:space="preserve"><value>Вернувшиеся (уже заказывали)</value></data>
+  <data name="An_TopCustomers" xml:space="preserve"><value>Топ-10 покупателей по тратам</value></data>
+  <data name="An_Customer" xml:space="preserve"><value>Покупатель</value></data>
+  <data name="An_Spent" xml:space="preserve"><value>Потрачено</value></data>
+  <data name="An_Waiting" xml:space="preserve"><value>Корзины, которые ждут больше 24 часов</value></data>
+  <data name="An_WaitingCarts" xml:space="preserve"><value>корзин с товарами</value></data>
+  <data name="An_WaitingValue" xml:space="preserve"><value>по сегодняшним ценам</value></data>
+  <data name="An_Export" xml:space="preserve"><value>Экспорт</value></data>
+  <data name="An_ExportHint" xml:space="preserve"><value>CSV-файлы за показанный период для Excel или Google Таблиц. В них нет имён, телефонов, почты и адресов. Каждый экспорт записывается в журнал изменений.</value></data>
+  <data name="An_ExportOrders" xml:space="preserve"><value>Скачать заказы (CSV)</value></data>
+  <data name="An_ExportItems" xml:space="preserve"><value>Скачать проданные товары (CSV)</value></data>
+  <data name="An_Notes" xml:space="preserve"><value>Как считаются цифры</value></data>
+  <data name="An_Note1" xml:space="preserve"><value>Продажи — это подтверждённые заказы (оформлен, собран, доставлен) по дню оформления по времени Армении. Отменённые заказы и заказы, ожидающие оплату, не считаются продажами.</value></data>
+  <data name="An_Note2" xml:space="preserve"><value>Деньги — сумма заказа с доставкой; скидки и плата за доставку показаны и отдельно.</value></data>
+  <data name="An_Note3" xml:space="preserve"><value>Возвраты считаются в день возврата денег, независимо от даты заказа, и вычитаются в чистых продажах.</value></data>
+  <data name="An_Note4" xml:space="preserve"><value>Сравнение — с периодом такой же длины сразу перед выбранным. Сайт не следит за посетителями.</value></data>
+  <data name="Admin_Nav_Emails" xml:space="preserve"><value>Письма</value></data>
+  <data name="Admin_Notif_Title" xml:space="preserve"><value>Уведомления</value></data>
+  <data name="Admin_Notif_All" xml:space="preserve"><value>Все</value></data>
+  <data name="Admin_Notif_Unread" xml:space="preserve"><value>Непрочитанные</value></data>
+  <data name="Admin_Notif_MarkAll" xml:space="preserve"><value>Отметить все прочитанными</value></data>
+  <data name="Admin_Notif_MarkRead" xml:space="preserve"><value>Отметить прочитанным</value></data>
+  <data name="Admin_Notif_Open" xml:space="preserve"><value>Открыть</value></data>
+  <data name="Admin_Notif_Empty" xml:space="preserve"><value>Уведомлений нет.</value></data>
+  <data name="Admin_Notif_AllRead" xml:space="preserve"><value>Все уведомления отмечены прочитанными.</value></data>
+  <data name="Notif_NewOrder" xml:space="preserve"><value>Новый заказ #{0}: {1}</value></data>
+  <data name="Notif_ReturnRequested" xml:space="preserve"><value>Заявка на возврат по заказу #{0}</value></data>
+  <data name="Notif_RefundNeeded" xml:space="preserve"><value>Нужно вернуть деньги: {1} по заказу #{0}</value></data>
+  <data name="Notif_LowStock" xml:space="preserve"><value>Заканчивается товар: {0}, осталось {1}</value></data>
+  <data name="Admin_Dash_FailedEmails" xml:space="preserve"><value>Неотправленные письма</value></data>
+  <data name="Admin_Email_Hint" xml:space="preserve"><value>Письма ставятся в очередь и отправляются в фоне. Неудавшееся письмо пробуют отправить снова позже, до 5 раз; потом его можно повторить здесь.</value></data>
+  <data name="Admin_Email_Kind" xml:space="preserve"><value>Письмо</value></data>
+  <data name="Admin_Email_To" xml:space="preserve"><value>Кому</value></data>
+  <data name="Admin_Email_Tries" xml:space="preserve"><value>Попыток</value></data>
+  <data name="Admin_Email_Next" xml:space="preserve"><value>Следующая попытка:</value></data>
+  <data name="Admin_Email_Retry" xml:space="preserve"><value>Повторить</value></data>
+  <data name="Admin_Msg_Retried" xml:space="preserve"><value>Письмо снова в очереди.</value></data>
+  <data name="OutboxStatus_Pending" xml:space="preserve"><value>Ждёт</value></data>
+  <data name="OutboxStatus_Sent" xml:space="preserve"><value>Отправлено</value></data>
+  <data name="OutboxStatus_Failed" xml:space="preserve"><value>Не отправлено</value></data>
+  <data name="EmailKind_OrderConfirmation" xml:space="preserve"><value>Подтверждение заказа</value></data>
+  <data name="EmailKind_OrderPacked" xml:space="preserve"><value>Заказ упакован</value></data>
+  <data name="EmailKind_OrderDelivered" xml:space="preserve"><value>Заказ доставлен</value></data>
+  <data name="EmailKind_OrderCancelled" xml:space="preserve"><value>Заказ отменён</value></data>
+  <data name="EmailKind_TransferReceived" xml:space="preserve"><value>Перевод получен</value></data>
+  <data name="EmailKind_ReturnRejected" xml:space="preserve"><value>Возврат отклонён</value></data>
+  <data name="EmailKind_ReturnReceived" xml:space="preserve"><value>Товар получен</value></data>
+  <data name="EmailKind_ReturnRefunded" xml:space="preserve"><value>Деньги возвращены</value></data>
+  <data name="EmailKind_ShopNewOrder" xml:space="preserve"><value>Новый заказ (магазину)</value></data>
+  <data name="EmailKind_ShopReturnRequested" xml:space="preserve"><value>Заявка на возврат (магазину)</value></data>
+  <data name="EmailKind_ShopRefundNeeded" xml:space="preserve"><value>Нужен возврат денег (магазину)</value></data>
+  <data name="Email_OpenOrderAdmin" xml:space="preserve"><value>Открыть заказ в панели администратора</value></data>
+  <data name="Email_OpenReturnAdmin" xml:space="preserve"><value>Открыть возврат в панели администратора</value></data>
+  <data name="Email_Packed_Subject" xml:space="preserve"><value>Заказ #{0} упакован</value></data>
+  <data name="Email_Packed_Heading" xml:space="preserve"><value>Ваш заказ упакован</value></data>
+  <data name="Email_Packed_Text" xml:space="preserve"><value>Мы упаковали заказ #{0}. Доставим его {1}, {2}.</value></data>
+  <data name="Email_Delivered_Subject" xml:space="preserve"><value>Заказ #{0} доставлен</value></data>
+  <data name="Email_Delivered_Heading" xml:space="preserve"><value>Ваш заказ доставлен</value></data>
+  <data name="Email_Delivered_Text" xml:space="preserve"><value>Спасибо за покупку! Если что-то не так, вы можете оформить возврат до {0}.</value></data>
+  <data name="Email_Cancelled_Subject" xml:space="preserve"><value>Заказ #{0} отменён</value></data>
+  <data name="Email_Cancelled_Heading" xml:space="preserve"><value>Ваш заказ отменён</value></data>
+  <data name="Email_Cancelled_Text" xml:space="preserve"><value>Заказ #{0} отменён.</value></data>
+  <data name="Email_Cancelled_Expired" xml:space="preserve"><value>Время на оплату заказа #{0} истекло, поэтому он был отменён автоматически. Будем рады новому заказу.</value></data>
+  <data name="Email_Transfer_Subject" xml:space="preserve"><value>Мы получили оплату заказа #{0}</value></data>
+  <data name="Email_Transfer_Heading" xml:space="preserve"><value>Оплата получена</value></data>
+  <data name="Email_Transfer_Text" xml:space="preserve"><value>Спасибо! Мы получили ваш банковский перевод за заказ #{0} и теперь подготовим его к доставке.</value></data>
+  <data name="Email_ReturnRejected_Subject" xml:space="preserve"><value>Ваша заявка на возврат по заказу #{0}</value></data>
+  <data name="Email_ReturnRejected_Heading" xml:space="preserve"><value>Мы не смогли принять вашу заявку на возврат</value></data>
+  <data name="Email_ReturnRejected_Text" xml:space="preserve"><value>Мы рассмотрели вашу заявку на возврат по заказу #{0} и не смогли её принять.</value></data>
+  <data name="Email_ReturnReceived_Subject" xml:space="preserve"><value>Возврат по заказу #{0}: товар получен</value></data>
+  <data name="Email_ReturnReceived_Heading" xml:space="preserve"><value>Мы получили ваш товар</value></data>
+  <data name="Email_ReturnReceived_Text" xml:space="preserve"><value>Мы получили товар, который вы вернули по заказу #{0}. Скоро вернём вам деньги.</value></data>
+  <data name="Email_ReturnRefunded_Subject" xml:space="preserve"><value>Возврат по заказу #{0}: деньги возвращены</value></data>
+  <data name="Email_ReturnRefunded_Heading" xml:space="preserve"><value>Деньги возвращены</value></data>
+  <data name="Email_ReturnRefunded_Text" xml:space="preserve"><value>Мы вернули вам деньги за заказ #{0}. Они могут появиться на счёте через несколько дней.</value></data>
+  <data name="Email_ShopReturn_Subject" xml:space="preserve"><value>Заявка на возврат: заказ #{0}</value></data>
+  <data name="Email_ShopReturn_Heading" xml:space="preserve"><value>Заявка на возврат по заказу #{0}</value></data>
+  <data name="Email_ShopReturn_Text" xml:space="preserve"><value>{1} просит вернуть заказ #{0}. Причина:</value></data>
+  <data name="Email_ShopRefund_Subject" xml:space="preserve"><value>Нужен возврат денег: заказ #{0}</value></data>
+  <data name="Email_ShopRefund_Heading" xml:space="preserve"><value>Нужен возврат денег по заказу #{0}</value></data>
+  <data name="Email_ShopRefund_Text" xml:space="preserve"><value>Пришёл платёж {0}, который заказ не может использовать (заказ отменён или оплачен дважды). Пожалуйста, верните деньги и отметьте это в панели администратора.</value></data>
+</root>

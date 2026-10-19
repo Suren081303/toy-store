@@ -1,0 +1,46 @@
+@* A table of rows with a bar behind each amount. The bars are relative to the biggest row. *@
+@model AnalyticsTable
+@{
+    var max = Model.Rows.Count == 0 ? 0 : Model.Rows.Max(r => r.Row.Sales);
+}
+<section class="panel an-panel">
+    <h2 class="an-h">@Model.Title</h2>
+    @if (Model.Rows.Count == 0 || Model.Rows.All(r => r.Row.Orders == 0))
+    {
+        <p class="muted">@Localizer["An_NoData"]</p>
+    }
+    else
+    {
+        <table class="an-table">
+            <thead>
+                <tr>
+                    <th scope="col"><span class="visually-hidden">@Model.Title</span></th>
+                    <th scope="col" class="atable__num">@Localizer["An_Orders"]</th>
+                    @if (Model.ShowUnits)
+                    {
+                        <th scope="col" class="atable__num">@Localizer["An_Units"]</th>
+                    }
+                    <th scope="col" class="atable__num">@Localizer["An_Sales"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var (label, row) in Model.Rows)
+                {
+                    var width = max == 0 ? 0 : (int)Math.Round(row.Sales * 100m / max, 0);
+                    <tr>
+                        <th scope="row">
+                            <span class="an-label">@label</span>
+                            <span class="an-bar" aria-hidden="true"><i style="width:@(width)%"></i></span>
+                        </th>
+                        <td class="atable__num">@row.Orders</td>
+                        @if (Model.ShowUnits)
+                        {
+                            <td class="atable__num">@row.Units</td>
+                        }
+                        <td class="atable__num">@Money.Format(row.Sales)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</section>

@@ -1,0 +1,50 @@
+@using System.Globalization
+@using Microsoft.Extensions.Options
+@using Shop.Core.Orders
+@using Shop.Core.Payments
+@inject IOptions<PaymentOptions> PaymentOptionsAccessor
+@inject IStoreSettingsService SettingsService
+@inject IPaymentService Payments
+@model OrderSummary
+@{
+    // What the customer must still do to pay: bank details for a transfer, a "Pay now" button for a card order.
+    var waiting = Model.Status == OrderStatus.AwaitingPayment;
+    var deadline = waiting ? PaymentRules.GetDeadline(Model.PaymentMethod, Model.CreatedAt, PaymentOptionsAccessor.Value) : null;
+}
+
+@if (waiting && deadline is not null)
+{
+    var deadlineText = ShopClock.ToShopTime(deadline.Value).ToString("d MMM yyyy, HH:mm", CultureInfo.CurrentCulture);
+
+    <section class="panel pay-info">
+        @if (Model.PaymentMethod == PaymentMethod.BankTransfer)
+        {
+            var settings = await SettingsService.GetAsync();
+
+            <h2 class="pay-info__title">@Localizer["Bank_Title"]</h2>
+            <dl class="bank">
+                <div><dt>@Localizer["Bank_Name"]</dt><dd>@settings.BankName</dd></div>
+                <div><dt>@Localizer["Bank_Account"]</dt><dd>@settings.BankAccount</dd></div>
+                <div><dt>@Localizer["Bank_Recipient"]</dt><dd>@settings.BankRecipient</dd></div>
+                <div><dt>@Localizer["Bank_Amount"]</dt><dd>@Money.Format(Model.Total)</dd></div>
+                <div><dt>@Localizer["Bank_Reference"]</dt><dd>@Localizer.GetString("Bank_ReferenceValue", Model.Number).Value</dd></div>
+            </dl>
+            <p class="pay-info__text">@Localizer["Bank_Note"]</p>
+        }
+        else if (Model.PaymentMethod == PaymentMethod.Card)
+        {
+            <h2 class="pay-info__title">@Localizer["Pay_CardWaiting"]</h2>
+
+            @if (Payments.CardPaymentAvailable)
+            {
+                <form method="post" asp-controller="Payments" asp-action="Start" class="pay-info__form">
+                    <input type="hidden" name="number" value="@Model.Number" />
+                    <input type="hidden" name="key" value="@Model.AccessKey" />
+                    <button type="submit" class="btn btn--primary">@Localizer["Pay_Now"]</button>
+                </form>
+            }
+        }
+
+        <p class="pay-info__text pay-info__deadline">@Localizer.GetString("Pay_Deadline", deadlineText).Value</p>
+    </section>
+}

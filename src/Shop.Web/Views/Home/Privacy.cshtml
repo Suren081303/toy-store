@@ -1,0 +1,11 @@
+@model Shop.Web.Legal.LegalViewModel
+@{
+    ViewData["Title"] = Localizer["Privacy"].Value;
+    ViewData["Description"] = Localizer["Legal_PrivacyDesc"].Value;
+}
+
+<section class="container section section--first prose">
+    <h1 class="page-title">@Localizer["Privacy"]</h1>
+    @await Html.PartialAsync($"~/Views/Legal/_Privacy_{CurrentCulture.Code}.cshtml", Model)
+    <partial name="~/Views/Legal/_Contact.cshtml" model="Model" />
+</section>

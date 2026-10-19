@@ -1,0 +1,30 @@
+@using Shop.Web.Models
+@model PaymentReturnViewModel
+@{
+    ViewData["Title"] = Localizer["PayReturn_" + Model.State + "_Title"].Value;
+}
+
+<section class="container done">
+    <div class="done__hero">
+        <p class="done__icon" aria-hidden="true">@(Model.State == "Waiting" ? "⏳" : "💳")</p>
+        <h1 class="page-title">@Localizer["PayReturn_" + Model.State + "_Title"]</h1>
+        <p class="done__number">@Localizer["Order_Number"] <strong>#@Model.Order.Number</strong></p>
+        <p class="auth__lead">@Localizer["PayReturn_" + Model.State + "_Text"]</p>
+    </div>
+
+    <div class="done__actions">
+        @if (Model.CanPay)
+        {
+            <form method="post" asp-controller="Payments" asp-action="Start">
+                <input type="hidden" name="number" value="@Model.Order.Number" />
+                <input type="hidden" name="key" value="@Model.Order.AccessKey" />
+                <button type="submit" class="btn btn--primary">@Localizer["Pay_Now"]</button>
+            </form>
+        }
+        @if (Model.State == "Waiting")
+        {
+            <a class="btn btn--primary" asp-controller="Payments" asp-action="Return" asp-route-number="@Model.Order.Number" asp-route-key="@Model.Order.AccessKey">@Localizer["PayReturn_Refresh"]</a>
+        }
+        <a class="btn btn--ghost" asp-controller="Orders" asp-action="Details" asp-route-number="@Model.Order.Number" asp-route-key="@Model.Order.AccessKey">@Localizer["PayReturn_ViewOrder"]</a>
+    </div>
+</section>

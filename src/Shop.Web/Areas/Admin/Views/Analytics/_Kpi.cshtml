@@ -1,0 +1,33 @@
+@* One number with its change against the previous period. *@
+@model AnalyticsKpi
+@{
+    string? deltaText = null;
+    var deltaClass = "";
+
+    if (Model.Before is { } before)
+    {
+        if (before == 0)
+        {
+            deltaText = Model.Now == 0 ? "–" : Localizer["An_New"].Value;
+            deltaClass = "kpi__delta--flat";
+        }
+        else
+        {
+            var percent = Math.Round((Model.Now - before) * 100m / before, 0, MidpointRounding.AwayFromZero);
+            deltaText = (percent > 0 ? "+" : "") + percent.ToString("0", System.Globalization.CultureInfo.CurrentCulture) + "%";
+            deltaClass = percent == 0 ? "kpi__delta--flat" : (percent > 0) == Model.GoodWhenUp ? "kpi__delta--good" : "kpi__delta--bad";
+        }
+    }
+}
+<div class="admin-card kpi">
+    <strong>@Model.Value</strong>
+    <span>@Model.Label</span>
+    @if (deltaText is not null)
+    {
+        <span class="kpi__delta @deltaClass" title="@Localizer["An_Before"].Value">@deltaText</span>
+    }
+    @if (Model.Note is not null)
+    {
+        <span class="kpi__note">@Model.Note</span>
+    }
+</div>

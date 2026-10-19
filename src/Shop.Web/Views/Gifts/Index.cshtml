@@ -1,0 +1,143 @@
+@using System.Globalization
+@model GiftsViewModel
+@{
+    ViewData["Title"] = Localizer["Gift_Title"].Value;
+    var inCulture = CultureInfo.CurrentCulture;
+
+    string Money0(decimal value) => Money.Format(value);
+
+    // "10 000 – 20 000 ֏", "from 10 000 ֏" or "up to 20 000 ֏".
+    string? Budget()
+    {
+        if (Model.PriceFrom is { } from && Model.PriceTo is { } to)
+        {
+            return from.ToString("N0", inCulture) + " – " + Money0(to);
+        }
+
+        if (Model.PriceFrom is { } onlyFrom)
+        {
+            return Localizer.GetString("Gift_BudgetFrom", Money0(onlyFrom)).Value;
+        }
+
+        if (Model.PriceTo is { } onlyTo)
+        {
+            return Localizer.GetString("Gift_BudgetUpTo", Money0(onlyTo)).Value;
+        }
+
+        return null;
+    }
+
+    // What the visitor chose, in words, above the results.
+    var summary = new List<string>();
+    if (Model.AgeGroupId is int ageId)
+    {
+        summary.Add(Model.AgeGroups.First(a => a.Id == ageId).Name);
+    }
+
+    if (Budget() is { } budget)
+    {
+        summary.Add(budget);
+    }
+
+    summary.AddRange(Model.Categories.Where(c => Model.CategoryIds.Contains(c.Id)).Select(c => c.Name));
+
+    var count = Model.Results.Count;
+}
+
+<div class="container giftfinder">
+    <h1 class="page-title">@Localizer["Gift_Title"]</h1>
+    <p class="giftfinder__intro">@Localizer["Gift_Intro"]</p>
+
+    <form id="gift-form" class="giftfinder__form" method="get" action="@Url.Action("Index", "Gifts")">
+        <fieldset class="field">
+            <legend class="field__label">@Localizer["Gift_Q_Age"]</legend>
+            <div class="chips">
+                <label class="chip-radio">
+                    <input type="radio" name="age" value="" checked="@(Model.AgeGroupId is null)" />
+                    <span>@Localizer["AllAges"]</span>
+                </label>
+                @foreach (var ageGroup in Model.AgeGroups)
+                {
+                    <label class="chip-radio">
+                        <input type="radio" name="age" value="@ageGroup.Id" checked="@(Model.AgeGroupId == ageGroup.Id)" />
+                        <span>@ageGroup.Name</span>
+                    </label>
+                }
+            </div>
+        </fieldset>
+
+        <fieldset class="field">
+            <legend class="field__label">@Localizer["Gift_Q_Budget"]</legend>
+            <div class="price-range">
+                <input class="input" type="number" name="priceFrom" min="0" step="1" inputmode="numeric" value="@Model.PriceFrom?.ToString("0")" placeholder="@Localizer["Price_From"].Value" aria-label="@Localizer["Price_From"].Value" />
+                <span aria-hidden="true">–</span>
+                <input class="input" type="number" name="priceTo" min="0" step="1" inputmode="numeric" value="@Model.PriceTo?.ToString("0")" placeholder="@Localizer["Price_To"].Value" aria-label="@Localizer["Price_To"].Value" />
+            </div>
+            <p class="giftfinder__hint">@Localizer["Gift_BudgetHint"]</p>
+        </fieldset>
+
+        <fieldset class="field">
+            <legend class="field__label">@Localizer["Gift_Q_Kind"]</legend>
+            <div class="chips">
+                @foreach (var category in Model.Categories)
+                {
+                    <label class="chip-radio">
+                        <input type="checkbox" name="category" value="@category.Id" checked="@Model.CategoryIds.Contains(category.Id)" />
+                        <span>@category.Name</span>
+                    </label>
+                }
+            </div>
+            <p class="giftfinder__hint">@Localizer["Gift_KindHint"]</p>
+        </fieldset>
+
+        <div class="giftfinder__buttons">
+            <button class="btn btn--primary" type="submit" name="find" value="true">@Localizer["Gift_Show"]</button>
+            @if (Model.Searched)
+            {
+                <a class="btn btn--ghost" asp-action="Index">@Localizer["ClearFilters"]</a>
+            }
+        </div>
+    </form>
+
+    @if (Model.Searched)
+    {
+        <section class="giftfinder__results" aria-labelledby="gift-results-title">
+            <h2 id="gift-results-title">@Localizer[Model.HasAnswers ? "Gift_ResultsFor" : "Gift_Popular"]</h2>
+
+            @if (summary.Count > 0)
+            {
+                <ul class="giftfinder__summary">
+                    @foreach (var item in summary)
+                    {
+                        <li>@item</li>
+                    }
+                </ul>
+            }
+
+            @if (count == 0)
+            {
+                <p class="empty">@Localizer["Gift_None"]</p>
+                <p class="giftfinder__more">
+                    @if (Model.PriceFrom.HasValue || Model.PriceTo.HasValue)
+                    {
+                        <a class="btn btn--ghost" href="@(Url.Action("Index", "Gifts") + "?" + Model.QueryWithoutPrice())">@Localizer["Gift_Widen"]</a>
+                    }
+                    <a class="btn btn--ghost" asp-controller="Products" asp-action="Index">@Localizer["Gift_Browse"]</a>
+                </p>
+            }
+            else
+            {
+                <p class="catalog__count">@Localizer["Items" + Plurals.GetForm(CurrentCulture.Code, count), count]</p>
+                <div class="product-grid">
+                    @foreach (var product in Model.Results)
+                    {
+                        <partial name="_ProductCard" model="product" />
+                    }
+                </div>
+                <p class="giftfinder__more">
+                    <a class="btn btn--ghost" asp-controller="Products" asp-action="Index">@Localizer["Gift_Browse"]</a>
+                </p>
+            }
+        </section>
+    }
+</div>

@@ -1,0 +1,95 @@
+@using System.Globalization
+@model AdminReturnDetail
+@{
+    ViewData["Title"] = Localizer["Admin_Ret_Title"].Value + " #" + Model.Order.Number;
+    string When(DateTime utc) => ShopClock.ToShopTime(utc).ToString("d MMM yyyy, HH:mm", CultureInfo.CurrentCulture);
+}
+
+<p><a class="link" asp-action="Index">← @Localizer["Admin_Nav_Returns"]</a></p>
+
+<div class="admin-head">
+    <div>
+        <h1 class="admin-title">@Localizer["Admin_Ret_Title"] · @Localizer["Order_Number"] #@Model.Order.Number</h1>
+        <p class="muted">@When(Model.CreatedAt)@(Model.DecidedAt is null ? "" : " · " + Localizer["Admin_Ret_Decided"].Value + " " + When(Model.DecidedAt.Value))</p>
+    </div>
+    <span class="flag @(Model.Status == ReturnStatus.Requested ? "flag--alert" : "")">@Localizer["Return_" + Model.Status]</span>
+</div>
+
+<div class="admin-grid">
+    <div class="admin-col">
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_Ret_Reason"]</h2>
+            <p class="order__text admin-reason">@Model.Reason</p>
+            @if (!string.IsNullOrWhiteSpace(Model.AdminNote))
+            {
+                <h3 class="order__title">@Localizer["Admin_Ret_Note"]</h3>
+                <p class="order__text">@Model.AdminNote</p>
+            }
+        </section>
+
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_Items"]</h2>
+            <table class="atable atable--plain">
+                <tbody>
+                    @foreach (var line in Model.Order.Lines)
+                    {
+                        <tr>
+                            <td>@line.Name</td>
+                            <td class="atable__num">@Money.Format(line.UnitPrice) × @line.Quantity</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <p class="order__text"><strong>@Localizer["Cart_Total"]: @Money.Format(Model.Order.Total)</strong> · @Localizer["PayStatus_" + Model.Order.PaymentStatus]</p>
+            <p class="order__text">
+                @Model.Order.CustomerName ·
+                <a class="link" href="tel:@Model.Order.Phone">@Model.Order.Phone</a> ·
+                <a class="link" href="mailto:@Model.Order.Email">@Model.Order.Email</a>
+            </p>
+            <a class="btn btn--ghost" asp-controller="Orders" asp-action="Details" asp-route-number="@Model.Order.Number">@Localizer["Admin_OpenOrder"]</a>
+        </section>
+    </div>
+
+    <div class="admin-col">
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_Actions"]</h2>
+
+            @if (Model.NextStatuses.Count == 0)
+            {
+                <p class="muted">@Localizer["Admin_NoActions"]</p>
+            }
+            else
+            {
+                <form method="post" asp-action="Change" class="form admin-action">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <div class="field">
+                        <label class="field__label" for="return-note">@Localizer["Admin_Ret_Note"]</label>
+                        <textarea id="return-note" name="note" class="input textarea" rows="3" maxlength="1000"></textarea>
+                    </div>
+
+                    @if (Model.NextStatuses.Contains(ReturnStatus.Returned))
+                    {
+                        <label class="check">
+                            <input type="checkbox" name="restock" value="true" checked />
+                            <span>@Localizer["Admin_Ret_Restock"]</span>
+                        </label>
+                    }
+
+                    <div class="admin-buttons">
+                        @foreach (var next in Model.NextStatuses)
+                        {
+                            if (next == ReturnStatus.Rejected)
+                            {
+                                <button type="submit" name="status" value="@next" class="btn btn--danger" data-confirm="@Localizer["Admin_Confirm_Reject"].Value">@Localizer["Admin_Set_" + next]</button>
+                            }
+                            else
+                            {
+                                <button type="submit" name="status" value="@next" class="btn btn--primary">@Localizer["Admin_Set_" + next]</button>
+                            }
+                        }
+                    </div>
+                </form>
+            }
+        </section>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+@* Previous / next links under a list. Model: the current page and the number of pages. Other query values (filters) are kept. *@
+@model (int Page, int TotalPages)
+@{
+    string PageUrl(int page)
+    {
+        var parts = Context.Request.Query
+            .Where(q => !string.Equals(q.Key, "page", StringComparison.OrdinalIgnoreCase))
+            .Select(q => $"{Uri.EscapeDataString(q.Key)}={Uri.EscapeDataString(q.Value.ToString())}")
+            .ToList();
+        parts.Add($"page={page}");
+        return Context.Request.Path + "?" + string.Join("&", parts);
+    }
+}
+
+@if (Model.TotalPages > 1)
+{
+    <nav class="admin-pager" aria-label="@Localizer["Admin_Page", Model.Page, Model.TotalPages].Value">
+        @if (Model.Page > 1)
+        {
+            <a class="btn btn--ghost" href="@PageUrl(Model.Page - 1)">@Localizer["Admin_Prev"]</a>
+        }
+        <span>@Localizer.GetString("Admin_Page", Model.Page, Model.TotalPages).Value</span>
+        @if (Model.Page < Model.TotalPages)
+        {
+            <a class="btn btn--ghost" href="@PageUrl(Model.Page + 1)">@Localizer["Admin_Next"]</a>
+        }
+    </nav>
+}

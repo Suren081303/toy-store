@@ -1,0 +1,95 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = Localizer["Home"].Value;
+}
+
+<section class="container section section--first">
+    <div class="hero">
+        <div class="hero__text">
+            <p class="hero__eyebrow">@Localizer["HeroEyebrow"]</p>
+            <h1 class="hero__title">@Localizer["HeroTitle"]</h1>
+            <p class="hero__lead">@Localizer["HeroLead"]</p>
+            <a class="btn btn--primary btn--lg" asp-controller="Products" asp-action="Index">
+                @Localizer["ShopNow"]<svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg>
+            </a>
+        </div>
+        <div class="hero__art" aria-hidden="true">
+            <span class="hero__spark hero__spark--1">✦</span>
+            <span class="hero__spark hero__spark--2">✧</span>
+            <div class="hero__toys"><span>🧸</span><span>🧱</span><span>🚗</span><span>🎲</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    <div class="section__head">
+        <h2>@Localizer["ShopByCategory"]</h2>
+        <a class="link" asp-controller="Categories" asp-action="Index">@Localizer["AllCategories"]<svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg></a>
+    </div>
+    <ul class="tiles">
+        @foreach (var category in Model.Categories)
+        {
+            <li>
+                <a class="tile" asp-controller="Products" asp-action="Index" asp-route-category="@category.Id">
+                    <img src="@(category.ImagePath ?? "/images/placeholders/generic-a.svg")" alt="" width="600" height="600" loading="lazy" />
+                    <span>@category.Name</span>
+                </a>
+            </li>
+        }
+    </ul>
+</section>
+
+<section class="container section">
+    <div class="section__head">
+        <h2>@Localizer["NewArrivals"]</h2>
+        <a class="link" asp-controller="Products" asp-action="Index" asp-route-isNew="true">@Localizer["AllNewArrivals"]<svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg></a>
+    </div>
+    <div class="product-grid product-grid--four">
+        @foreach (var product in Model.NewArrivals)
+        {
+            <partial name="_ProductCard" model="product" />
+        }
+    </div>
+</section>
+
+<section class="container section">
+    <div class="agebar">
+        <p class="agebar__label"><svg class="icon" aria-hidden="true"><use href="#i-gift" /></svg>@Localizer["ChooseByAge"]</p>
+        <div class="chips">
+            @foreach (var ageGroup in Model.AgeGroups)
+            {
+                <a class="chip" asp-controller="Products" asp-action="Index" asp-route-age="@ageGroup.Id">@ageGroup.Name</a>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    <div class="gift">
+        <div class="gift__text">
+            <h2>@Localizer["GiftTitle"]</h2>
+            <p>@Localizer["GiftText"]</p>
+            <a class="btn btn--accent" asp-controller="Gifts" asp-action="Index">
+                @Localizer["GiftButton"]<svg class="icon" aria-hidden="true"><use href="#i-arrow" /></svg>
+            </a>
+        </div>
+        <div class="gift__art" aria-hidden="true">🎁🧸</div>
+    </div>
+</section>
+
+<section class="container section">
+    <ul class="benefits">
+        <li>
+            <svg class="icon" aria-hidden="true"><use href="#i-truck" /></svg>
+            <div><strong>@Localizer["BenefitDeliveryTitle"]</strong><span>@Localizer["BenefitDeliveryText"]</span></div>
+        </li>
+        <li>
+            <svg class="icon" aria-hidden="true"><use href="#i-shield" /></svg>
+            <div><strong>@Localizer["BenefitPaymentTitle"]</strong><span>@Localizer["BenefitPaymentText"]</span></div>
+        </li>
+        <li>
+            <svg class="icon" aria-hidden="true"><use href="#i-return" /></svg>
+            <div><strong>@Localizer["BenefitReturnsTitle"]</strong><span>@Localizer["BenefitReturnsText"]</span></div>
+        </li>
+    </ul>
+</section>

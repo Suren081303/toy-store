@@ -1,0 +1,60 @@
+@using System.Globalization
+@using Shop.Core.Notifications
+@model AdminNotificationsViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Notif_Title"].Value;
+
+    // The text is made here, in the language of the admin who looks at it (only facts are stored).
+    string Text(NotificationRow n) => n.Type switch
+    {
+        NotificationType.NewOrder => Localizer.GetString("Notif_NewOrder", n.OrderNumber ?? 0, Money.Format(n.Amount ?? 0)).Value,
+        NotificationType.ReturnRequested => Localizer.GetString("Notif_ReturnRequested", n.OrderNumber ?? 0).Value,
+        NotificationType.RefundNeeded => Localizer.GetString("Notif_RefundNeeded", n.OrderNumber ?? 0, Money.Format(n.Amount ?? 0)).Value,
+        NotificationType.LowStock => Localizer.GetString("Notif_LowStock", n.Name ?? string.Empty, n.Stock ?? 0).Value,
+        _ => n.Type.ToString()
+    };
+}
+
+<div class="admin-toolbar">
+    <h1 class="admin-title">@Localizer["Admin_Notif_Title"]</h1>
+    <form method="post" asp-action="MarkAllRead">
+        <button type="submit" class="btn btn--ghost">@Localizer["Admin_Notif_MarkAll"]</button>
+    </form>
+</div>
+
+<nav class="admin-tabs" aria-label="@Localizer["Admin_Notif_Title"].Value">
+    <a class="chip @(Model.UnreadOnly ? "" : "is-active")" asp-action="Index">@Localizer["Admin_Notif_All"]</a>
+    <a class="chip @(Model.UnreadOnly ? "is-active" : "")" asp-action="Index" asp-route-unread="true">@Localizer["Admin_Notif_Unread"]</a>
+</nav>
+
+@if (Model.Result.Items.Count == 0)
+{
+    <p class="admin-empty">@Localizer["Admin_Notif_Empty"]</p>
+}
+else
+{
+    <ul class="admin-notifs">
+        @foreach (var item in Model.Result.Items)
+        {
+            <li class="admin-notif @(item.IsRead ? "" : "admin-notif--unread")">
+                <div class="admin-notif__text">
+                    <strong>@Text(item)</strong>
+                    <span class="admin-notif__when">@ShopClock.ToShopTime(item.CreatedAt).ToString("d MMM yyyy, HH:mm", CultureInfo.CurrentCulture)</span>
+                </div>
+                <div class="admin-notif__buttons">
+                    <a class="btn btn--primary" asp-action="Open" asp-route-id="@item.Id">@Localizer["Admin_Notif_Open"]</a>
+                    @if (!item.IsRead)
+                    {
+                        <form method="post" asp-action="MarkRead">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <input type="hidden" name="unread" value="@Model.UnreadOnly.ToString().ToLowerInvariant()" />
+                            <button type="submit" class="btn btn--ghost">@Localizer["Admin_Notif_MarkRead"]</button>
+                        </form>
+                    }
+                </div>
+            </li>
+        }
+    </ul>
+
+    <partial name="_Pager" model="(Model.Result.Page, Model.Result.TotalPages)" />
+}

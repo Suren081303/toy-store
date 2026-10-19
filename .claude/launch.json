@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "shop-web",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "src/Shop.Web", "--no-launch-profile", "--", "--environment", "Development", "--urls", "http://localhost:5028"],
+      "port": 5028
+    }
+  ]
+}

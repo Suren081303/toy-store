@@ -1,0 +1,10 @@
+@* The heart. Model: the product id. Works for everyone (site.js sends the request): signed-in customers keep favorites in the account, guests in a cookie. *@
+@model int
+@inject FavoriteState Favorites
+@{
+    var isFavorite = await Favorites.IsFavoriteAsync(Context, Model);
+}
+<button class="fav-btn @(isFavorite ? "is-active" : "")" type="button" data-fav-toggle="@Model"
+        aria-pressed="@(isFavorite ? "true" : "false")" aria-label="@Localizer["Favorites"].Value">
+    <svg class="icon" aria-hidden="true"><use href="#i-heart" /></svg>
+</button>

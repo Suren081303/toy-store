@@ -1,0 +1,35 @@
+@model Shop.Web.Legal.LegalViewModel
+@* DRAFT: this wording is not approved by the shop owner or a lawyer yet. Check every sentence against how the shop really works, then remove this note. *@
+
+<h2>Where and when we deliver</h2>
+<p>We deliver to every region of Armenia: Yerevan and all ten marzes. At checkout you choose the day and a time slot. You can pick any day within the next @Model.DeliveryDaysAhead days.</p>
+
+<h2>Delivery cost</h2>
+@if (Model.DeliveryFee == 0)
+{
+    <p>Delivery is free.</p>
+}
+else
+{
+    <p>Delivery costs @Shop.Web.Money.Format(Model.DeliveryFee).@if (Model.FreeDeliveryFrom > 0) { <text> Orders of @Shop.Web.Money.Format(Model.FreeDeliveryFrom) or more are delivered free.</text> }</p>
+}
+
+<h2>Payment</h2>
+<ul>
+    <li><strong>Cash on delivery:</strong> you pay the courier when you receive the order.</li>
+    @if (Model.CardAvailable)
+    {
+        <li><strong>Online by card:</strong> you are sent to the bank's payment page; we never see your card number. The order is kept for @Model.CardMinutes minutes while you pay. If the payment does not go through, the order is cancelled and the items go back on sale.</li>
+    }
+    <li><strong>Bank transfer:</strong> after you order, you get our bank details. The order is kept for @Model.TransferDays days and is packed once the money has reached us. If it does not arrive in time, the order is cancelled.</li>
+</ul>
+
+<h2>When you receive your order</h2>
+<p>Please check the parcel when you receive it. If something is damaged or missing, call or write to us the same day (contacts below).</p>
+
+<h2>Returns and refunds</h2>
+<p>You can ask to return the goods of a delivered order within @Model.ReturnDays days after delivery. Open your order (My orders, or Find my order with the link from your email), send a return request and tell us the reason.</p>
+<p>We read every request and answer by email. If we accept it, we tell you how to send or bring the goods back. The goods should be unused and in their original packaging. When the goods have reached us, we send the money back (to the card or bank account you paid from; for cash orders as agreed with you) and email you when it is done.</p>
+
+<h2>Cancelling an order</h2>
+<p>To cancel an order, call or write to us as soon as possible. An order that has not been packed yet can normally be cancelled. If you have paid, the money is returned.</p>

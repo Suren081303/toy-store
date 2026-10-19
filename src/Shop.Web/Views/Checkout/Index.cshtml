@@ -1,0 +1,218 @@
+@using System.Globalization
+@using Microsoft.AspNetCore.Html
+@using Shop.Core.Orders
+@model CheckoutViewModel
+@{
+    ViewData["Title"] = Localizer["Checkout_Title"].Value;
+    ViewData["BuyBar"] = true;
+
+    var terms = new HtmlString($"<a href=\"{Url.Action("Terms", "Legal")}\" target=\"_blank\" rel=\"noopener\">{Localizer["Terms"].Value}</a>");
+    var privacy = new HtmlString($"<a href=\"{Url.Action("Privacy", "Home")}\" target=\"_blank\" rel=\"noopener\">{Localizer["Privacy"].Value}</a>");
+    var loginUrl = Url.Action("Login", "Account", new { returnUrl = Url.Action("Index", "Checkout") });
+}
+
+<section class="container checkout">
+    <h1 class="page-title">@Localizer["Checkout_Title"]</h1>
+
+    <form id="checkout-form" method="post" asp-controller="Checkout" asp-action="Index" class="checkout__grid" data-once>
+        <input type="hidden" asp-for="CheckoutId" />
+        <input type="hidden" asp-for="ExpectedTotal" />
+
+        <div class="checkout__main">
+            <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+
+            @if (!Model.IsSignedIn)
+            {
+                <p class="alert alert--info">@Localizer["Checkout_GuestHint"] <a href="@loginUrl">@Localizer["Nav_SignIn"]</a></p>
+            }
+
+            <section class="panel">
+                <h2 class="panel__title"><span class="panel__num">1</span>@Localizer["Checkout_Contact"]</h2>
+
+                <div class="field">
+                    <label asp-for="CustomerName" class="field__label"></label>
+                    <input asp-for="CustomerName" class="input" autocomplete="name" required maxlength="100" />
+                    <span asp-validation-for="CustomerName" class="field__error"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Email" class="field__label"></label>
+                    <input asp-for="Email" class="input" type="email" autocomplete="email" inputmode="email" autocapitalize="none" required maxlength="256" readonly="@Model.IsSignedIn" />
+                    @if (Model.IsSignedIn)
+                    {
+                        <p class="field__hint">@Localizer["Checkout_EmailLocked"]</p>
+                    }
+                    <span asp-validation-for="Email" class="field__error"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Phone" class="field__label"></label>
+                    <input asp-for="Phone" class="input" type="tel" autocomplete="tel" inputmode="tel" placeholder="091 123456" required maxlength="20" />
+                    <span asp-validation-for="Phone" class="field__error"></span>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2 class="panel__title"><span class="panel__num">2</span>@Localizer["Checkout_Delivery"]</h2>
+
+                <div class="field">
+                    <label asp-for="Region" class="field__label"></label>
+                    <select asp-for="Region" class="select" autocomplete="address-level1" required>
+                        <option value="">@Localizer["Checkout_Choose"]</option>
+                        @foreach (var code in Regions.Codes)
+                        {
+                            <option value="@code" selected="@(Model.Region == code)">@Localizer["Region_" + code]</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Region" class="field__error"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="City" class="field__label"></label>
+                    <input asp-for="City" class="input" autocomplete="address-level2" required maxlength="100" />
+                    <span asp-validation-for="City" class="field__error"></span>
+                </div>
+
+                <div class="field">
+                    <label asp-for="Street" class="field__label"></label>
+                    <input asp-for="Street" class="input" autocomplete="address-line1" required maxlength="150" />
+                    <span asp-validation-for="Street" class="field__error"></span>
+                </div>
+
+                <div class="field-row">
+                    <div class="field">
+                        <label asp-for="Building" class="field__label"></label>
+                        <input asp-for="Building" class="input" required maxlength="30" />
+                        <span asp-validation-for="Building" class="field__error"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="Apartment" class="field__label"></label>
+                        <input asp-for="Apartment" class="input" maxlength="30" />
+                        <span asp-validation-for="Apartment" class="field__error"></span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label asp-for="DeliveryDate" class="field__label"></label>
+                    <select asp-for="DeliveryDate" class="select" required>
+                        @foreach (var date in Model.Dates)
+                        {
+                            var value = date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                            <option value="@value" selected="@(Model.DeliveryDate == value)">@date.ToString("dddd, d MMMM", CultureInfo.CurrentCulture)</option>
+                        }
+                    </select>
+                    <span asp-validation-for="DeliveryDate" class="field__error"></span>
+                </div>
+
+                <fieldset class="field">
+                    <legend class="field__label">@Localizer["Label_DeliverySlot"]</legend>
+                    <div class="chips">
+                        @foreach (var slot in Model.Slots)
+                        {
+                            <label class="chip-radio">
+                                <input type="radio" name="DeliverySlotId" value="@slot.Id" checked="@(Model.DeliverySlotId == slot.Id)" required />
+                                <span>@slot.Label</span>
+                            </label>
+                        }
+                    </div>
+                    <span asp-validation-for="DeliverySlotId" class="field__error"></span>
+                </fieldset>
+
+                <div class="field">
+                    <label asp-for="Comment" class="field__label"></label>
+                    <textarea asp-for="Comment" class="input textarea" rows="3" maxlength="500"></textarea>
+                    <span asp-validation-for="Comment" class="field__error"></span>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2 class="panel__title"><span class="panel__num">3</span>@Localizer["Checkout_Payment"]</h2>
+
+                <label class="radio-card">
+                    <input type="radio" name="PaymentMethod" value="@PaymentMethod.CashOnDelivery" checked="@(Model.PaymentMethod == PaymentMethod.CashOnDelivery)" />
+                    <span>
+                        <strong>@Localizer["Pay_CashOnDelivery"]</strong>
+                        <small>@Localizer["Checkout_CashNote"]</small>
+                    </span>
+                </label>
+                @if (Model.CardAvailable)
+                {
+                    <label class="radio-card">
+                        <input type="radio" name="PaymentMethod" value="@PaymentMethod.Card" checked="@(Model.PaymentMethod == PaymentMethod.Card)" />
+                        <span>
+                            <strong>@Localizer["Pay_Card"]</strong>
+                            <small>@Localizer["Checkout_CardNote"]</small>
+                        </span>
+                    </label>
+                }
+                <label class="radio-card">
+                    <input type="radio" name="PaymentMethod" value="@PaymentMethod.BankTransfer" checked="@(Model.PaymentMethod == PaymentMethod.BankTransfer)" />
+                    <span>
+                        <strong>@Localizer["Pay_BankTransfer"]</strong>
+                        <small>@Localizer["Checkout_TransferNote"]</small>
+                    </span>
+                </label>
+                <span asp-validation-for="PaymentMethod" class="field__error"></span>
+            </section>
+
+            <div class="field">
+                <label class="check check--top">
+                    <input asp-for="AcceptTerms" type="checkbox" required />
+                    <span>@Localizer["Consent_Text", terms, privacy]</span>
+                </label>
+                <span asp-validation-for="AcceptTerms" class="field__error"></span>
+            </div>
+        </div>
+
+        <aside class="checkout__summary" aria-label="@Localizer["Cart_Summary"].Value">
+            <div class="cart__summary">
+                <h2 class="cart__summary-title">@Localizer["Cart_Summary"]</h2>
+
+                <ul class="mini-lines">
+                    @foreach (var line in Model.Cart.Lines)
+                    {
+                        <li>
+                            <span>@line.Name <span class="mini-lines__qty">× @line.Quantity</span></span>
+                            <strong>@Money.Format(line.LineTotal)</strong>
+                        </li>
+                    }
+                </ul>
+
+                <dl class="summary">
+                    <div><dt>@Localizer["Cart_Subtotal"]</dt><dd>@Money.Format(Model.Cart.RegularTotal)</dd></div>
+                    @if (Model.Cart.Savings > 0)
+                    {
+                        <div class="summary__saving"><dt>@Localizer["Cart_Discounts"]</dt><dd>−@Money.Format(Model.Cart.Savings)</dd></div>
+                    }
+                    <div>
+                        <dt>@Localizer["Cart_Delivery"]</dt>
+                        <dd>@(Model.DeliveryFee == 0 ? Localizer["Checkout_FreeDelivery"].Value : Money.Format(Model.DeliveryFee))</dd>
+                    </div>
+                    <div class="summary__total"><dt>@Localizer["Cart_Total"]</dt><dd>@Money.Format(Model.Total)</dd></div>
+                </dl>
+
+                @if (Model.DeliveryFee > 0 && Model.FreeDeliveryFrom > 0)
+                {
+                    <p class="summary__hint">@Localizer.GetString("Checkout_FreeFrom", Money.Format(Model.FreeDeliveryFrom)).Value</p>
+                }
+                @if (Model.Cart.CustomerDiscountItemCount > 0)
+                {
+                    <p class="summary__note">@Localizer.GetString("Cart_CustomerNote", ProductRules.CustomerDiscountPercent).Value</p>
+                }
+
+                <button type="submit" class="btn btn--primary btn--lg btn--block summary__checkout">@Localizer["Checkout_PlaceOrder"]</button>
+                <a class="link summary__more" asp-controller="Cart" asp-action="Index">@Localizer["Checkout_BackToCart"]</a>
+            </div>
+        </aside>
+    </form>
+</section>
+
+@section BuyBar {
+    <div class="buybar">
+        <p class="buybar__price">
+            <span class="buybar__label">@Localizer["Cart_Total"]</span>
+            <strong>@Money.Format(Model.Total)</strong>
+        </p>
+        <button type="submit" form="checkout-form" class="btn btn--primary">@Localizer["Checkout_PlaceOrder"]</button>
+    </div>
+}

@@ -1,0 +1,19 @@
+@model IReadOnlyList<CategoryItem>
+@{
+    ViewData["Title"] = Localizer["Categories"].Value;
+}
+
+<section class="container section section--first">
+    <h1 class="page-title">@Localizer["Categories"]</h1>
+    <ul class="tiles tiles--grid">
+        @foreach (var category in Model)
+        {
+            <li>
+                <a class="tile" asp-controller="Products" asp-action="Index" asp-route-category="@category.Id">
+                    <img src="@(category.ImagePath ?? "/images/placeholders/generic-a.svg")" alt="" width="600" height="600" loading="lazy" />
+                    <span>@category.Name</span>
+                </a>
+            </li>
+        }
+    </ul>
+</section>

@@ -1,0 +1,11 @@
+@model Shop.Web.Legal.LegalViewModel
+@{
+    ViewData["Title"] = Localizer["DeliveryReturns"].Value;
+    ViewData["Description"] = Localizer["Legal_DeliveryDesc"].Value;
+}
+
+<section class="container section section--first prose">
+    <h1 class="page-title">@Localizer["DeliveryReturns"]</h1>
+    @await Html.PartialAsync($"~/Views/Legal/_Delivery_{CurrentCulture.Code}.cshtml", Model)
+    <partial name="~/Views/Legal/_Contact.cshtml" model="Model" />
+</section>

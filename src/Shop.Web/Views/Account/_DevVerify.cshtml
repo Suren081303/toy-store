@@ -1,0 +1,9 @@
+@* Development only: the controller sets DevVerifyEmail only in the Development environment. *@
+@if (ViewData["DevVerifyEmail"] is string devEmail)
+{
+    <form method="post" asp-controller="Account" asp-action="DevVerify" class="auth__dev">
+        <input type="hidden" name="email" value="@devEmail" />
+        <p class="auth__dev-note">@Localizer["Dev_VerifyNote"]</p>
+        <button type="submit" class="btn btn--accent">@Localizer["Dev_VerifyButton"]</button>
+    </form>
+}

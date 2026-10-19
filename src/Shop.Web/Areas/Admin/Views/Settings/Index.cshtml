@@ -1,0 +1,107 @@
+@model AdminSettingsViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Nav_Settings"].Value;
+}
+
+<h1 class="admin-title">@Localizer["Admin_Nav_Settings"]</h1>
+
+<form method="post" asp-action="Save" class="form">
+    <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+
+    <section class="panel">
+        <h2 class="admin-h2">@Localizer["Admin_Set_Delivery"]</h2>
+        <div class="admin-fields">
+            <div class="field">
+                <label asp-for="DeliveryFee" class="field__label"></label>
+                <input asp-for="DeliveryFee" class="input" type="number" min="0" step="1" required />
+                <span asp-validation-for="DeliveryFee" class="field__error"></span>
+            </div>
+            <div class="field">
+                <label asp-for="FreeDeliveryFrom" class="field__label"></label>
+                <input asp-for="FreeDeliveryFrom" class="input" type="number" min="0" step="1" required />
+                <span asp-validation-for="FreeDeliveryFrom" class="field__error"></span>
+            </div>
+            <div class="field">
+                <label asp-for="DeliveryDaysAhead" class="field__label"></label>
+                <input asp-for="DeliveryDaysAhead" class="input" type="number" min="1" max="60" step="1" required />
+                <span asp-validation-for="DeliveryDaysAhead" class="field__error"></span>
+            </div>
+            <div class="field">
+                <label asp-for="DeliveryFirstDayOffset" class="field__label"></label>
+                <input asp-for="DeliveryFirstDayOffset" class="input" type="number" min="0" max="14" step="1" required />
+                <span asp-validation-for="DeliveryFirstDayOffset" class="field__error"></span>
+            </div>
+            <div class="field">
+                <label asp-for="ReturnWindowDays" class="field__label"></label>
+                <input asp-for="ReturnWindowDays" class="input" type="number" min="0" max="90" step="1" required />
+                <span asp-validation-for="ReturnWindowDays" class="field__error"></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2 class="admin-h2">@Localizer["Admin_BankDetails"]</h2>
+        <div class="admin-fields">
+            <div class="field">
+                <label asp-for="BankName" class="field__label"></label>
+                <input asp-for="BankName" class="input" maxlength="200" required />
+                <span asp-validation-for="BankName" class="field__error"></span>
+            </div>
+            <div class="field">
+                <label asp-for="BankAccount" class="field__label"></label>
+                <input asp-for="BankAccount" class="input" maxlength="50" required />
+                <span asp-validation-for="BankAccount" class="field__error"></span>
+            </div>
+            <div class="field">
+                <label asp-for="BankRecipient" class="field__label"></label>
+                <input asp-for="BankRecipient" class="input" maxlength="200" required />
+                <span asp-validation-for="BankRecipient" class="field__error"></span>
+            </div>
+        </div>
+    </section>
+
+    <button type="submit" class="btn btn--primary">@Localizer["Admin_Save"]</button>
+</form>
+
+<section class="panel admin-slots">
+    <h2 class="admin-h2">@Localizer["Admin_Slots"]</h2>
+    <p class="muted">@Localizer["Admin_SlotsHint"]</p>
+
+    @foreach (var slot in Model.Slots)
+    {
+        <form method="post" asp-action="SaveSlot" class="admin-slot">
+            <input type="hidden" name="id" value="@slot.Id" />
+            <div class="field">
+                <label class="field__label" for="slot-label-@slot.Id">@Localizer["Admin_SlotLabel"]</label>
+                <input id="slot-label-@slot.Id" class="input" name="label" value="@slot.Label" maxlength="50" required />
+            </div>
+            <div class="field">
+                <label class="field__label" for="slot-order-@slot.Id">@Localizer["Admin_SlotOrder"]</label>
+                <input id="slot-order-@slot.Id" class="input" name="sortOrder" type="number" min="0" max="1000" value="@slot.SortOrder" required />
+            </div>
+            <label class="check">
+                <input type="checkbox" name="isActive" value="true" checked="@slot.IsActive" />
+                <input type="hidden" name="isActive" value="false" />
+                <span>@Localizer["Admin_SlotActive"]</span>
+            </label>
+            <button type="submit" class="btn btn--ghost">@Localizer["Admin_Save"]</button>
+        </form>
+    }
+
+    <form method="post" asp-action="SaveSlot" class="admin-slot admin-slot--new">
+        <div class="field">
+            <label class="field__label" for="slot-label-new">@Localizer["Admin_AddSlot"]</label>
+            <input id="slot-label-new" class="input" name="label" maxlength="50" placeholder="10:00–14:00" required />
+        </div>
+        <div class="field">
+            <label class="field__label" for="slot-order-new">@Localizer["Admin_SlotOrder"]</label>
+            <input id="slot-order-new" class="input" name="sortOrder" type="number" min="0" max="1000" value="@(Model.Slots.Count + 1)" required />
+        </div>
+        <label class="check">
+            <input type="checkbox" name="isActive" value="true" checked />
+            <input type="hidden" name="isActive" value="false" />
+            <span>@Localizer["Admin_SlotActive"]</span>
+        </label>
+        <button type="submit" class="btn btn--primary">@Localizer["Admin_AddSlot"]</button>
+    </form>
+</section>

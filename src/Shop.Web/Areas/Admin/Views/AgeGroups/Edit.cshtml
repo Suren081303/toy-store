@@ -1,0 +1,45 @@
+@model AdminAgeGroupViewModel
+@{
+    ViewData["Title"] = Localizer[Model.Id is null ? "Admin_Age_New" : "Admin_Age_Edit"].Value;
+}
+
+<p><a class="link" asp-action="Index">← @Localizer["Admin_Nav_AgeGroups"]</a></p>
+<h1 class="admin-title">@ViewData["Title"]</h1>
+
+<form method="post" asp-action="Edit" class="form admin-narrow">
+    <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+    <input type="hidden" asp-for="Id" />
+
+    <section class="panel">
+        <div class="admin-fields">
+            <div class="field">
+                <label asp-for="NameHy" class="field__label"></label>
+                <input asp-for="NameHy" class="input" maxlength="100" required />
+                <span asp-validation-for="NameHy" class="field__error"></span>
+            </div>
+            <div class="field">
+                <label asp-for="NameRu" class="field__label"></label>
+                <input asp-for="NameRu" class="input" maxlength="100" />
+                <span asp-validation-for="NameRu" class="field__error"></span>
+            </div>
+            <div class="field">
+                <label asp-for="NameEn" class="field__label"></label>
+                <input asp-for="NameEn" class="input" maxlength="100" />
+                <span asp-validation-for="NameEn" class="field__error"></span>
+            </div>
+            <div class="field">
+                <label asp-for="SortOrder" class="field__label"></label>
+                <input asp-for="SortOrder" class="input" type="number" min="0" max="1000" step="1" required />
+                <span asp-validation-for="SortOrder" class="field__error"></span>
+            </div>
+        </div>
+        <p class="admin-hint">@Localizer["Admin_Name_Hint"]</p>
+
+        <label class="check">
+            <input asp-for="IsActive" type="checkbox" />
+            <span>@Localizer["Admin_Cat_Active"]</span>
+        </label>
+    </section>
+
+    <button type="submit" class="btn btn--primary">@Localizer["Admin_Save"]</button>
+</form>

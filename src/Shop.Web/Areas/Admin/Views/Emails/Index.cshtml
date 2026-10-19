@@ -1,0 +1,78 @@
+@using System.Globalization
+@using Shop.Core.Notifications
+@model AdminEmailsViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Nav_Emails"].Value;
+    string When(DateTime utc) => ShopClock.ToShopTime(utc).ToString("d MMM yyyy, HH:mm", CultureInfo.CurrentCulture);
+}
+
+<h1 class="admin-title">@Localizer["Admin_Nav_Emails"]</h1>
+<p class="admin-hint">@Localizer["Admin_Email_Hint"]</p>
+
+<nav class="admin-tabs" aria-label="@Localizer["Admin_Status"].Value">
+    <a class="chip @(Model.Status is null ? "is-active" : "")" asp-action="Index">@Localizer["Admin_AllStatuses"]</a>
+    @foreach (var status in Enum.GetValues<OutboxStatus>())
+    {
+        <a class="chip @(Model.Status == status ? "is-active" : "")" asp-action="Index" asp-route-status="@status">@Localizer["OutboxStatus_" + status]</a>
+    }
+</nav>
+
+@if (Model.Result.Items.Count == 0)
+{
+    <p class="admin-empty">@Localizer["Admin_NoResults"]</p>
+}
+else
+{
+    <table class="atable">
+        <thead>
+            <tr>
+                <th>@Localizer["Admin_Col_Date"]</th>
+                <th>@Localizer["Admin_Email_Kind"]</th>
+                <th>@Localizer["Admin_Col_Order"]</th>
+                <th>@Localizer["Admin_Email_To"]</th>
+                <th>@Localizer["Admin_Col_Status"]</th>
+                <th class="atable__num">@Localizer["Admin_Email_Tries"]</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.Result.Items)
+            {
+                <tr>
+                    <td data-label="@Localizer["Admin_Col_Date"].Value">@When(row.CreatedAt)</td>
+                    <td data-label="@Localizer["Admin_Email_Kind"].Value">@Localizer["EmailKind_" + row.Kind]</td>
+                    <td data-label="@Localizer["Admin_Col_Order"].Value"><a class="link" asp-controller="Orders" asp-action="Details" asp-route-number="@row.OrderNumber">#@row.OrderNumber</a></td>
+                    <td data-label="@Localizer["Admin_Email_To"].Value">@(row.ToAddress ?? "-")</td>
+                    <td data-label="@Localizer["Admin_Col_Status"].Value">
+                        <span class="flag @(row.Status == OutboxStatus.Failed ? "flag--alert" : row.Status == OutboxStatus.Sent ? "flag--ok" : "")">@Localizer["OutboxStatus_" + row.Status]</span>
+                        @if (row.Status == OutboxStatus.Sent && row.SentAt is not null)
+                        {
+                            <br /><span class="muted">@When(row.SentAt.Value)</span>
+                        }
+                        else if (row.Status == OutboxStatus.Pending && row.Attempts > 0)
+                        {
+                            <br /><span class="muted">@Localizer["Admin_Email_Next"] @When(row.NextAttemptAt)</span>
+                        }
+                        @if (!string.IsNullOrEmpty(row.LastError))
+                        {
+                            <br /><span class="admin-reason">@row.LastError</span>
+                        }
+                    </td>
+                    <td class="atable__num" data-label="@Localizer["Admin_Email_Tries"].Value">@row.Attempts</td>
+                    <td class="atable__actions">
+                        @if (row.Status == OutboxStatus.Failed)
+                        {
+                            <form method="post" asp-action="Retry">
+                                <input type="hidden" name="id" value="@row.Id" />
+                                <input type="hidden" name="status" value="@Model.Status" />
+                                <button type="submit" class="btn btn--ghost">@Localizer["Admin_Email_Retry"]</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <partial name="_Pager" model="(Model.Result.Page, Model.Result.TotalPages)" />
+}

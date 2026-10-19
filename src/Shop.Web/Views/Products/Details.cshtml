@@ -1,0 +1,176 @@
+@using Microsoft.Extensions.Options
+@using Shop.Core.Carts
+@model ProductDetails
+@inject IOptions<CartOptions> CartOptions
+@{
+    ViewData["Title"] = Model.Name;
+    ViewData["BuyBar"] = true;
+
+    var images = Model.Images.Count > 0 ? Model.Images : new[] { "/images/placeholders/generic-a.svg" };
+    var maxQuantity = Math.Min(Model.StockQuantity, CartOptions.Value.MaxQuantityPerProduct);
+
+    // For search results and link previews: a short description, the first real photo, and the facts a search engine can show (price, stock).
+    var origin = Shop.Web.Seo.SeoLinks.Origin(Context, Configuration);
+    var description = Shop.Web.Seo.SeoLinks.Summary(Model.Description);
+    if (description.Length > 0)
+    {
+        ViewData["Description"] = description;
+    }
+
+    var photos = Model.Images.Where(i => !i.EndsWith(".svg", StringComparison.OrdinalIgnoreCase)).Select(i => origin + i).ToList();
+    if (photos.Count > 0)
+    {
+        ViewData["OgImage"] = photos[0];
+    }
+
+    ViewData["OgType"] = "product";
+
+    var structured = new Dictionary<string, object?>
+    {
+        ["@context"] = "https://schema.org",
+        ["@type"] = "Product",
+        ["name"] = Model.Name,
+        ["sku"] = Model.Sku,
+        ["description"] = description.Length > 0 ? description : null,
+        ["brand"] = string.IsNullOrWhiteSpace(Model.Brand) ? null : new Dictionary<string, string> { ["@type"] = "Brand", ["name"] = Model.Brand },
+        ["image"] = photos.Count > 0 ? photos : null,
+        ["offers"] = new Dictionary<string, string>
+        {
+            ["@type"] = "Offer",
+            ["priceCurrency"] = "AMD",
+            ["price"] = Model.FinalPrice.ToString("0", System.Globalization.CultureInfo.InvariantCulture),
+            ["availability"] = Model.InStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+            ["url"] = origin + Context.Request.Path.Value
+        }
+    };
+    var structuredJson = System.Text.Json.JsonSerializer.Serialize(
+        structured.Where(pair => pair.Value is not null).ToDictionary(pair => pair.Key, pair => pair.Value));
+}
+
+@* A data block, not a script that runs, so the Content-Security-Policy does not apply. The serializer escapes < and >, so the text cannot close the tag. *@
+@section Head {
+    <script type="application/ld+json">@Html.Raw(structuredJson)</script>
+}
+
+<div class="container pdp">
+    <nav class="breadcrumb" aria-label="@Localizer["Products"].Value">
+        <a asp-controller="Products" asp-action="Index">@Localizer["Products"]</a> /
+        <a asp-controller="Products" asp-action="Index" asp-route-category="@Model.CategoryId">@Model.CategoryName</a>
+    </nav>
+
+    <div class="pdp__grid">
+        <div class="gallery" data-gallery>
+            <div class="gallery__track" data-gallery-track>
+                @foreach (var image in images)
+                {
+                    <div class="gallery__slide"><img src="@image" alt="@Model.Name" width="600" height="600" /></div>
+                }
+            </div>
+            @if (images.Count > 1)
+            {
+                <div class="gallery__dots">
+                    @for (var i = 0; i < images.Count; i++)
+                    {
+                        <button type="button" class="gallery__dot" data-gallery-go="@i" aria-label="@Localizer.GetString("PhotoOf", i + 1, images.Count).Value"></button>
+                    }
+                </div>
+                <div class="gallery__thumbs">
+                    @for (var i = 0; i < images.Count; i++)
+                    {
+                        <button type="button" class="gallery__thumb" data-gallery-go="@i" aria-label="@Localizer.GetString("PhotoOf", i + 1, images.Count).Value">
+                            <img src="@images[i]" alt="" width="72" height="72" loading="lazy" />
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="pdp__info">
+            <div class="badges">
+                @if (Model.IsNew)
+                {
+                    <span class="badge badge--new">@Localizer["New"]</span>
+                }
+                @if (Model.DiscountPercent > 0)
+                {
+                    <span class="badge badge--sale">-@Model.DiscountPercent%</span>
+                }
+            </div>
+            <div class="pdp__titlebar">
+                <h1 class="pdp__title">@Model.Name</h1>
+                <partial name="_FavoriteButton" model="Model.Id" />
+            </div>
+            <p class="pdp__price">
+                <strong>@Money.Format(Model.FinalPrice)</strong>
+                @if (Model.DiscountPercent > 0)
+                {
+                    <s>@Money.Format(Model.Price)</s>
+                }
+            </p>
+            <p class="stock @(Model.InStock ? "stock--in" : "stock--out")">
+                @(Model.InStock ? Localizer["InStock"] : Localizer["OutOfStock"])
+                @if (Model.InStock && Model.StockQuantity <= 3)
+                {
+                    <span class="stock__low">· @Localizer.GetString("OnlyLeft", Model.StockQuantity).Value</span>
+                }
+            </p>
+
+            @if (Model.InStock)
+            {
+                <form id="add-to-cart-form" method="post" asp-controller="Cart" asp-action="Add" class="pdp__buy" data-cart-add>
+                    <input type="hidden" name="productId" value="@Model.Id" />
+                    <div class="qty qty--lg" data-qty>
+                        <button type="button" data-qty-step="-1" aria-label="@Localizer["Cart_Decrease"].Value">−</button>
+                        <input type="number" name="quantity" value="1" min="1" max="@maxQuantity" inputmode="numeric" aria-label="@Localizer["Cart_Quantity"].Value" />
+                        <button type="button" data-qty-step="1" aria-label="@Localizer["Cart_Increase"].Value">+</button>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--lg pdp__cta">
+                        <svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>@Localizer["AddToCart"]
+                    </button>
+                </form>
+            }
+            else
+            {
+                <button class="btn btn--lg btn--soldout pdp__cta" type="button" disabled>@Localizer["OutOfStock"]</button>
+            }
+
+            <dl class="specs">
+                <dt>@Localizer["Brand"]</dt>
+                <dd>@Model.Brand</dd>
+                <dt>@Localizer["Sku"]</dt>
+                <dd>@Model.Sku</dd>
+                @if (Model.AgeGroups.Count > 0)
+                {
+                    <dt>@Localizer["AgeGroups"]</dt>
+                    <dd>@string.Join(", ", Model.AgeGroups)</dd>
+                }
+            </dl>
+
+            <h2 class="pdp__subtitle">@Localizer["Description"]</h2>
+            <p class="pdp__desc">@Model.Description</p>
+        </div>
+    </div>
+</div>
+
+@section BuyBar {
+    <div class="buybar">
+        <p class="buybar__price">
+            <strong>@Money.Format(Model.FinalPrice)</strong>
+            @if (Model.DiscountPercent > 0)
+            {
+                <s>@Money.Format(Model.Price)</s>
+            }
+        </p>
+        @if (Model.InStock)
+        {
+            @* Submits the same form as the quantity stepper above. *@
+            <button type="submit" form="add-to-cart-form" class="btn btn--primary">
+                <svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>@Localizer["AddToCart"]
+            </button>
+        }
+        else
+        {
+            <button class="btn btn--soldout" type="button" disabled>@Localizer["OutOfStock"]</button>
+        }
+    </div>
+}

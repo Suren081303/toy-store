@@ -1,0 +1,40 @@
+@model Shop.Web.Legal.LegalViewModel
+@* DRAFT: this wording is not approved by the shop owner or a lawyer yet. Check every sentence against how the shop really works, then remove this note. *@
+
+<h2>Who is responsible for your data</h2>
+<p>@Model.LegalName, @Model.Address. Questions about your data: <a href="mailto:@Model.Email">@Model.Email</a>.</p>
+
+<h2>What we keep</h2>
+<ul>
+    <li><strong>Account:</strong> your name, email, phone number and a protected form of your password (we cannot read your password).</li>
+    <li><strong>Orders:</strong> your name, phone, email, delivery address and comment, the items, the payment method and state, and the history of the order. You can order without an account.</li>
+    <li><strong>Return requests:</strong> your reason and our answer.</li>
+    <li><strong>Cart and favorites:</strong> for a visitor without an account they are linked to a small cookie and kept for up to @Model.GuestCartDays days.</li>
+    <li><strong>Emails about your orders:</strong> we keep a short record of which email was sent and whether it arrived, for a limited time.</li>
+</ul>
+
+<h2>Why</h2>
+<p>To take and deliver your orders, to pay back returns, to tell you about your order by email, to answer you, to keep the site safe, and to keep the records the law requires (for example accounting).</p>
+
+<h2>Cookies</h2>
+<p>We use only the cookies the site needs to work: staying signed in (30 days), protection of forms, your cart and your favorites. We do not use advertising or tracking cookies, we do not track visitors, and no outside analytics run on this site, so there is no cookie banner.</p>
+
+<h2>Who else sees your data</h2>
+<ul>
+    <li>Our hosting and email providers, who only process it for us.</li>
+    <li>The bank, when you pay by card: you pay on the bank's page and we never see your card number.</li>
+    <li>The people who deliver your order see your name, phone and address.</li>
+</ul>
+<p>We do not sell your data and we do not use it for advertising.</p>
+
+<h2>How long we keep it</h2>
+<p>Orders and their records are kept as long as the law and our accounting need them. Your account stays until you ask us to delete it. A cart left by a visitor without an account is deleted after @Model.GuestCartDays days.</p>
+
+<h2>Your rights</h2>
+<p>You may ask to see the data we hold about you, to correct it, or to delete it (except what we must keep by law). Write to <a href="mailto:@Model.Email">@Model.Email</a>; we answer within a reasonable time.</p>
+
+<h2>Security</h2>
+<p>The site works over an encrypted connection. Passwords are stored in a protected form. Only the shop's staff who need it can see orders and customer details.</p>
+
+<h2>Changes</h2>
+<p>If we change this page, the new text appears here.</p>

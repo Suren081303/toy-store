@@ -1,0 +1,35 @@
+@using Shop.Core.Payments
+@using Shop.Web.Models
+@model FakeBankViewModel
+@{
+    ViewData["Title"] = Localizer["Fake_Title"].Value;
+    var open = Model.Attempt.Status == PaymentAttemptStatus.Created;
+}
+
+<section class="container auth">
+    <div class="panel fakebank">
+        <p class="fakebank__badge">@Localizer["Fake_Badge"]</p>
+        <h1 class="page-title">@Localizer["Fake_Title"]</h1>
+        <p class="auth__lead">@Localizer["Fake_Lead"]</p>
+
+        <dl class="bank">
+            <div><dt>@Localizer["Order_Number"]</dt><dd>#@Model.Attempt.OrderNumber</dd></div>
+            <div><dt>@Localizer["Bank_Amount"]</dt><dd>@Money.Format(Model.Attempt.Amount)</dd></div>
+        </dl>
+
+        @if (open)
+        {
+            <form method="post" asp-controller="FakeBank" asp-action="Complete" class="fakebank__actions">
+                <input type="hidden" name="reference" value="@Model.Attempt.Reference" />
+                <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                <button type="submit" name="result" value="Paid" class="btn btn--primary">@Localizer["Fake_Pay"]</button>
+                <button type="submit" name="result" value="Failed" class="btn btn--ghost">@Localizer["Fake_Fail"]</button>
+                <button type="submit" name="result" value="Cancelled" class="btn btn--ghost">@Localizer["Fake_Cancel"]</button>
+            </form>
+        }
+        else
+        {
+            <p class="alert alert--info">@Localizer["Fake_Closed"]</p>
+        }
+    </div>
+</section>

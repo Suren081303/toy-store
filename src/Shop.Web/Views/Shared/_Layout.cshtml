@@ -1,0 +1,286 @@
+@inject ICatalogService Catalog
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@inject CartState Cart
+@{
+    var culture = CurrentCulture.Code;
+    var shopName = Configuration["Shop:Name"];
+    var controller = ViewContext.RouteData.Values["controller"] as string;
+    var action = ViewContext.RouteData.Values["action"] as string;
+    var navCategories = await Catalog.GetCategoriesAsync(culture);
+    var hasBuyBar = ViewData["BuyBar"] is true;
+    var origin = Shop.Web.Seo.SeoLinks.Origin(Context, Configuration);
+    var noIndex = Shop.Web.Seo.SeoLinks.IsPrivate(controller, action, Context.Request.QueryString.HasValue);
+    var canonical = noIndex ? null : Shop.Web.Seo.SeoLinks.Canonical(origin, Context.Request, controller, action);
+    var ogImage = ViewData["OgImage"] as string;
+    if (ogImage is not null && !ogImage.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+    {
+        ogImage = origin + ogImage;
+    }
+    var description = ViewData["Description"] as string ?? Localizer["MetaDescription"].Value;
+    var tabHome = controller == "Home" && action == "Index";
+    var tabCategories = controller == "Categories" || (controller == "Products" && action == "Index");
+    var productsUrl = Url.Action("Index", "Products");
+    var categoriesUrl = Url.Action("Index", "Categories");
+    var homeUrl = Url.Action("Index", "Home");
+    var signedIn = User.Identity?.IsAuthenticated == true;
+    var firstName = (User.FindFirst("FullName")?.Value ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "";
+    var accountUrl = signedIn ? Url.Action("Index", "Account") : Url.Action("Login", "Account");
+    var favoritesUrl = Url.Action("Index", "Favorites");
+    var cartUrl = Url.Action("Index", "Cart");
+    var cartCount = await Cart.GetCountAsync(Context);
+    var tabCart = controller == "Cart";
+}
+<!DOCTYPE html>
+<html lang="@culture">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#6544a3" />
+    <title>@ViewData["Title"] - @shopName</title>
+    <meta name="description" content="@description" />
+    @if (noIndex)
+    {
+        <meta name="robots" content="noindex, follow" />
+    }
+    @if (canonical is not null)
+    {
+        <link rel="canonical" href="@canonical" />
+        <meta property="og:url" content="@canonical" />
+    }
+    <meta property="og:site_name" content="@shopName" />
+    <meta property="og:type" content="@(ViewData["OgType"] as string ?? "website")" />
+    <meta property="og:title" content="@ViewData["Title"]" />
+    <meta property="og:description" content="@description" />
+    <meta property="og:locale" content="@Shop.Web.Seo.SeoLinks.OgLocale(culture)" />
+    @if (ogImage is not null)
+    {
+        <meta property="og:image" content="@ogImage" />
+        <meta name="twitter:card" content="summary_large_image" />
+    }
+    @await RenderSectionAsync("Head", required: false)
+    <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
+    @* Read by site.js when it sends the heart (favorite) and add-to-cart requests. *@
+    <meta name="request-verification-token" content="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+    @foreach (var code in new[] { "hy", "ru", "en" })
+    {
+        <link rel="alternate" hreflang="@code" href="@(origin + LanguageLinks.For(Context, code))" />
+    }
+    <link rel="preload" href="~/fonts/noto-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    @if (culture == "hy")
+    {
+        <link rel="preload" href="~/fonts/noto-sans-armenian-armenian-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    }
+    @if (culture == "ru")
+    {
+        <link rel="preload" href="~/fonts/noto-sans-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    }
+    <link rel="stylesheet" href="~/css/base.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages.css" asp-append-version="true" />
+</head>
+<body class="@(hasBuyBar ? "has-buybar" : "")">
+    <partial name="_Icons" />
+    <a class="skip-link" href="#main">@Localizer["SkipToContent"]</a>
+
+    <div class="announcement">
+        <div class="container announcement__inner">
+            <p class="announcement__text">
+                <svg class="icon" aria-hidden="true"><use href="#i-truck" /></svg>
+                <span>@Localizer["AnnouncementText"]</span>
+                <span class="announcement__support">@Localizer["SupportHours", Configuration["Shop:Hours"] ?? ""]</span>
+            </p>
+            <partial name="_LanguageSwitcher" model='"announcement"' />
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="container header__row">
+            <a class="icon-btn header__menu" href="@categoriesUrl" data-open="menu-dialog" aria-label="@Localizer["Menu"].Value">
+                <svg class="icon" aria-hidden="true"><use href="#i-menu" /></svg>
+            </a>
+            <a class="brand" href="@homeUrl" aria-label="@shopName">
+                <partial name="_Logo" />
+                <span class="brand__text">
+                    <span class="brand__name">@shopName</span>
+                    <span class="brand__tag">@Localizer["Tagline"]</span>
+                </span>
+            </a>
+            <form class="header__search searchfield" role="search" method="get" action="@productsUrl">
+                <input type="search" name="q" placeholder="@Localizer["SearchPlaceholder"].Value" aria-label="@Localizer["Search"].Value" autocomplete="off" />
+                <button type="submit" aria-label="@Localizer["Search"].Value"><svg class="icon" aria-hidden="true"><use href="#i-search" /></svg></button>
+            </form>
+            <div class="header__actions">
+                <a class="icon-btn header__searchbtn" href="@productsUrl" data-open="search-dialog" aria-label="@Localizer["Search"].Value">
+                    <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+                </a>
+                <a class="icon-btn header__account" href="@accountUrl" aria-label="@(signedIn ? Localizer["Nav_Account"].Value : Localizer["SignIn"].Value)">
+                    <svg class="icon" aria-hidden="true"><use href="#i-user" /></svg>
+                    <span class="icon-btn__label">@(signedIn ? firstName : Localizer["SignIn"].Value)</span>
+                </a>
+                <a class="icon-btn" href="@favoritesUrl" aria-label="@Localizer["Favorites"].Value">
+                    <svg class="icon" aria-hidden="true"><use href="#i-heart" /></svg>
+                    <span class="icon-btn__label">@Localizer["Favorites"]</span>
+                </a>
+                <a class="icon-btn" href="@cartUrl" aria-label="@Localizer["Cart"].Value">
+                    <svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>
+                    <span class="icon-btn__badge" data-cart-count hidden="@(cartCount == 0)">@cartCount</span>
+                    <span class="icon-btn__label">@Localizer["Cart"]</span>
+                </a>
+            </div>
+        </div>
+        <nav class="category-nav" aria-label="@Localizer["Categories"].Value">
+            <div class="container category-nav__row">
+                <a class="chip chip--gift" asp-controller="Gifts" asp-action="Index"><svg class="icon" aria-hidden="true"><use href="#i-gift" /></svg>@Localizer["Gift_Nav"]</a>
+                @foreach (var category in navCategories)
+                {
+                    <a class="chip" asp-controller="Products" asp-action="Index" asp-route-category="@category.Id">@category.Name</a>
+                }
+            </div>
+        </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer__grid">
+            <div class="footer__col">
+                <a class="brand" href="@homeUrl" aria-label="@shopName">
+                    <partial name="_Logo" />
+                    <span class="brand__text">
+                        <span class="brand__name">@shopName</span>
+                        <span class="brand__tag brand__tag--always">@Localizer["Tagline"]</span>
+                    </span>
+                </a>
+            </div>
+            <div class="footer__col">
+                <h2>@Localizer["FooterAddress"]</h2>
+                <p class="footer__item">
+                    <svg class="icon" aria-hidden="true"><use href="#i-pin" /></svg>
+                    <span>@Configuration["Shop:Address"]<br />@Configuration["Shop:Hours"]</span>
+                </p>
+            </div>
+            <div class="footer__col">
+                <h2>@Localizer["FooterContact"]</h2>
+                <p class="footer__item">
+                    <svg class="icon" aria-hidden="true"><use href="#i-phone" /></svg>
+                    <a href="tel:@(Configuration["Shop:Phone"]?.Replace(" ", ""))">@Configuration["Shop:Phone"]</a>
+                </p>
+                <p class="footer__item">
+                    <svg class="icon" aria-hidden="true"><use href="#i-mail" /></svg>
+                    <a href="mailto:@Configuration["Shop:Email"]">@Configuration["Shop:Email"]</a>
+                </p>
+            </div>
+            <div class="footer__col">
+                <h2>@Localizer["FooterFollow"]</h2>
+                <p class="footer__item">
+                    <svg class="icon" aria-hidden="true"><use href="#i-instagram" /></svg>
+                    <a href="@Configuration["Shop:Instagram"]" rel="noopener" target="_blank">Instagram</a>
+                </p>
+            </div>
+        </div>
+        <div class="footer__bar">
+            <div class="container footer__bar-inner">
+                <span>© @DateTime.UtcNow.Year @shopName. @Localizer["AllRightsReserved"]</span>
+                <nav aria-label="@Localizer["FooterAddress"].Value">
+                    <a asp-controller="Orders" asp-action="Lookup">@Localizer["Nav_FindOrder"]</a>
+                    <a asp-controller="Legal" asp-action="Delivery">@Localizer["DeliveryReturns"]</a>
+                    <a asp-controller="Legal" asp-action="Terms">@Localizer["Terms"]</a>
+                    <a asp-controller="Home" asp-action="Privacy">@Localizer["Privacy"]</a>
+                </nav>
+            </div>
+        </div>
+    </footer>
+
+    @* Always rendered; the CSS hides it while a page shows its own sticky buy bar (body.has-buybar). *@
+    <nav class="bottom-nav" aria-label="@Localizer["Menu"].Value">
+        <a class="bottom-nav__item @(tabHome ? "is-active" : "")" href="@homeUrl" aria-current="@(tabHome ? "page" : null)">
+            <svg class="icon" aria-hidden="true"><use href="#i-home" /></svg><span>@Localizer["Home"]</span>
+        </a>
+        <a class="bottom-nav__item @(tabCategories ? "is-active" : "")" href="@categoriesUrl" aria-current="@(tabCategories ? "page" : null)">
+            <svg class="icon" aria-hidden="true"><use href="#i-grid" /></svg><span>@Localizer["Categories"]</span>
+        </a>
+        <a class="bottom-nav__item" href="@productsUrl" data-open="search-dialog">
+            <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg><span>@Localizer["Search"]</span>
+        </a>
+        <a class="bottom-nav__item @(tabCart ? "is-active" : "")" href="@cartUrl" aria-current="@(tabCart ? "page" : null)">
+            <svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg><span>@Localizer["Cart"]</span>
+            <span class="icon-btn__badge" data-cart-count hidden="@(cartCount == 0)">@cartCount</span>
+        </a>
+    </nav>
+
+    @await RenderSectionAsync("BuyBar", required: false)
+
+    <dialog id="menu-dialog" class="drawer" aria-label="@Localizer["Menu"].Value">
+        <div class="drawer__panel">
+            <div class="drawer__head">
+                <a class="brand" href="@homeUrl" aria-label="@shopName">
+                    <partial name="_Logo" />
+                    <span class="brand__text"><span class="brand__name">@shopName</span></span>
+                </a>
+                <button class="icon-btn" type="button" data-close aria-label="@Localizer["Close"].Value">
+                    <svg class="icon" aria-hidden="true"><use href="#i-close" /></svg>
+                </button>
+            </div>
+            <nav class="drawer__nav">
+                <a href="@homeUrl"><svg class="icon" aria-hidden="true"><use href="#i-home" /></svg>@Localizer["Home"]</a>
+                <a href="@productsUrl"><svg class="icon" aria-hidden="true"><use href="#i-gift" /></svg>@Localizer["Products"]</a>
+                <a asp-controller="Gifts" asp-action="Index"><svg class="icon" aria-hidden="true"><use href="#i-gift" /></svg>@Localizer["Gift_Nav"]</a>
+                <a href="@categoriesUrl"><svg class="icon" aria-hidden="true"><use href="#i-grid" /></svg>@Localizer["Categories"]</a>
+                <p class="drawer__title">@Localizer["Categories"]</p>
+                @foreach (var category in navCategories)
+                {
+                    <a class="drawer__sub" asp-controller="Products" asp-action="Index" asp-route-category="@category.Id">@category.Name</a>
+                }
+                <hr />
+                @if (signedIn)
+                {
+                    <p class="drawer__greeting">@Localizer.GetString("Greeting", firstName).Value</p>
+                    <a href="@accountUrl"><svg class="icon" aria-hidden="true"><use href="#i-user" /></svg>@Localizer["Nav_Account"]</a>
+                    <a asp-controller="Orders" asp-action="Index"><svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>@Localizer["Nav_Orders"]</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a href="/@culture/Admin"><svg class="icon" aria-hidden="true"><use href="#i-grid" /></svg>@Localizer["Admin_Title"]</a>
+                    }
+                }
+                else
+                {
+                    <a href="@accountUrl"><svg class="icon" aria-hidden="true"><use href="#i-user" /></svg>@Localizer["Nav_SignIn"]</a>
+                    <a asp-controller="Account" asp-action="Register"><svg class="icon" aria-hidden="true"><use href="#i-gift" /></svg>@Localizer["Nav_Register"]</a>
+                }
+                <a href="@favoritesUrl"><svg class="icon" aria-hidden="true"><use href="#i-heart" /></svg>@Localizer["Favorites"]</a>
+                <a href="@cartUrl"><svg class="icon" aria-hidden="true"><use href="#i-bag" /></svg>@Localizer["Cart"]</a>
+                @if (signedIn)
+                {
+                    <form method="post" asp-controller="Account" asp-action="Logout">
+                        <button type="submit" class="drawer__action"><svg class="icon" aria-hidden="true"><use href="#i-logout" /></svg>@Localizer["Nav_SignOut"]</button>
+                    </form>
+                }
+            </nav>
+            <div class="drawer__lang">
+                <partial name="_LanguageSwitcher" model='"drawer"' />
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="search-dialog" class="search-dialog" aria-label="@Localizer["Search"].Value">
+        <form class="search-dialog__form" role="search" method="get" action="@productsUrl">
+            <div class="searchfield">
+                <input type="search" name="q" placeholder="@Localizer["SearchPlaceholder"].Value" aria-label="@Localizer["Search"].Value" autocomplete="off" />
+                <button type="submit" aria-label="@Localizer["Search"].Value"><svg class="icon" aria-hidden="true"><use href="#i-search" /></svg></button>
+            </div>
+            <button class="icon-btn" type="button" data-close aria-label="@Localizer["Close"].Value">
+                <svg class="icon" aria-hidden="true"><use href="#i-close" /></svg>
+            </button>
+        </form>
+    </dialog>
+
+    @* Short confirmation ("Added to cart") shown by site.js. *@
+    <div class="toast" data-toast data-cart-url="@cartUrl" data-view-cart="@Localizer["Cart_ViewCart"].Value" role="status" aria-live="polite" hidden></div>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

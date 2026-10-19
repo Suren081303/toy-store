@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="SkipToContent" xml:space="preserve"><value>Անցնել բովանդակությանը</value></data>
+  <data name="AnnouncementText" xml:space="preserve"><value>Ամեն օր առաքում ամբողջ Հայաստանում</value></data>
+  <data name="SupportHours" xml:space="preserve"><value>Աջակցություն՝ {0}</value></data>
+  <data name="Menu" xml:space="preserve"><value>Մենյու</value></data>
+  <data name="Tagline" xml:space="preserve"><value>Մի փոքր ուրախություն։ Խաղերի մի ամբողջ աշխարհ։</value></data>
+  <data name="Search" xml:space="preserve"><value>Որոնում</value></data>
+  <data name="SearchPlaceholder" xml:space="preserve"><value>Որոնել խաղալիքներ...</value></data>
+  <data name="SignIn" xml:space="preserve"><value>Մուտք</value></data>
+  <data name="Favorites" xml:space="preserve"><value>Սիրվածներ</value></data>
+  <data name="Cart" xml:space="preserve"><value>Զամբյուղ</value></data>
+  <data name="Categories" xml:space="preserve"><value>Կատեգորիաներ</value></data>
+  <data name="Close" xml:space="preserve"><value>Փակել</value></data>
+  <data name="Language" xml:space="preserve"><value>Լեզու</value></data>
+  <data name="MetaDescription" xml:space="preserve"><value>Խաղալիքներ երեխաների և հավաքորդների համար՝ առաքում ամբողջ Հայաստանում։</value></data>
+  <data name="Home" xml:space="preserve"><value>Գլխավոր</value></data>
+  <data name="Products" xml:space="preserve"><value>Ապրանքներ</value></data>
+  <data name="Privacy" xml:space="preserve"><value>Գաղտնիություն</value></data>
+  <data name="FooterAddress" xml:space="preserve"><value>Մեր հասցեն</value></data>
+  <data name="FooterContact" xml:space="preserve"><value>Կապ մեզ հետ</value></data>
+  <data name="FooterFollow" xml:space="preserve"><value>Հետևեք մեզ</value></data>
+  <data name="AllRightsReserved" xml:space="preserve"><value>Բոլոր իրավունքները պաշտպանված են։</value></data>
+  <data name="DeliveryReturns" xml:space="preserve"><value>Առաքում և վերադարձ</value></data>
+  <data name="Terms" xml:space="preserve"><value>Օգտագործման պայմաններ</value></data>
+  <data name="HeroEyebrow" xml:space="preserve"><value>ԽԱՂԱԼ • ԲԱՑԱՀԱՅՏԵԼ • ՄԵԾԱՆԱԼ</value></data>
+  <data name="HeroTitle" xml:space="preserve"><value>Խաղերի աշխարհ՝ բոլոր տարիքի համար</value></data>
+  <data name="HeroLead" xml:space="preserve"><value>Գտեք խաղալիքներ, որոնք ոգեշնչում են երևակայությունը՝ փոքրիկներից մինչև մեծ հավաքորդներ։</value></data>
+  <data name="ShopNow" xml:space="preserve"><value>Գնել հիմա</value></data>
+  <data name="ShopByCategory" xml:space="preserve"><value>Գնումներ ըստ կատեգորիայի</value></data>
+  <data name="AllCategories" xml:space="preserve"><value>Բոլոր կատեգորիաները</value></data>
+  <data name="NewArrivals" xml:space="preserve"><value>Նորույթներ</value></data>
+  <data name="AllNewArrivals" xml:space="preserve"><value>Բոլոր նորույթները</value></data>
+  <data name="ChooseByAge" xml:space="preserve"><value>Ընտրեք ըստ տարիքի</value></data>
+  <data name="GiftTitle" xml:space="preserve"><value>Նվեր գտնելը հեշտ է։</value></data>
+  <data name="GiftText" xml:space="preserve"><value>Գաղափարներ փոքրիկների, ընկերների և հավաքորդների համար։</value></data>
+  <data name="GiftButton" xml:space="preserve"><value>Գտնել նվեր</value></data>
+  <data name="Gift_Nav" xml:space="preserve"><value>Գտնել նվեր</value></data>
+  <data name="Gift_Title" xml:space="preserve"><value>Նվերի ընտրություն</value></data>
+  <data name="Gift_Intro" xml:space="preserve"><value>Պատասխանեք այն, ինչ գիտեք, մնացածը բաց թողեք։ Մենք ցույց կտանք առկա խաղալիքները՝ ամենապահանջվածները առաջինը։</value></data>
+  <data name="Gift_Q_Age" xml:space="preserve"><value>Ո՞ւմ համար է (տարիք)</value></data>
+  <data name="Gift_Q_Budget" xml:space="preserve"><value>Բյուջե (գինը զեղչից հետո)</value></data>
+  <data name="Gift_BudgetHint" xml:space="preserve"><value>Դրամով։ Սահմանափակում չլինելու դեպքում թողեք դաշտը դատարկ։</value></data>
+  <data name="Gift_Q_Kind" xml:space="preserve"><value>Ինչպիսի՞ խաղալիք</value></data>
+  <data name="Gift_KindHint" xml:space="preserve"><value>Ընտրեք որքան ուզում եք կամ ոչինչ։</value></data>
+  <data name="Gift_Show" xml:space="preserve"><value>Ցույց տալ գաղափարներ</value></data>
+  <data name="Gift_ResultsFor" xml:space="preserve"><value>Գաղափարներ ձեզ համար</value></data>
+  <data name="Gift_Popular" xml:space="preserve"><value>Տարածված նվերներ</value></data>
+  <data name="Gift_None" xml:space="preserve"><value>Այս պահին ոչինչ չի համապատասխանում բոլոր պատասխաններին։</value></data>
+  <data name="Gift_Widen" xml:space="preserve"><value>Փորձել առանց բյուջեի</value></data>
+  <data name="Gift_Browse" xml:space="preserve"><value>Տեսնել բոլոր խաղալիքները</value></data>
+  <data name="Gift_BudgetFrom" xml:space="preserve"><value>սկսած {0}-ից</value></data>
+  <data name="Gift_BudgetUpTo" xml:space="preserve"><value>մինչև {0}</value></data>
+  <data name="Gift_TryFinder" xml:space="preserve"><value>Չգիտե՞ք ինչ ընտրել։ Փորձեք նվերի ընտրությունը։</value></data>
+  <data name="Price_Label" xml:space="preserve"><value>Գին (֏)</value></data>
+  <data name="Price_From" xml:space="preserve"><value>Սկսած</value></data>
+  <data name="Price_To" xml:space="preserve"><value>Մինչև</value></data>
+  <data name="BenefitDeliveryTitle" xml:space="preserve"><value>Արագ առաքում</value></data>
+  <data name="BenefitDeliveryText" xml:space="preserve"><value>ամբողջ Հայաստանում</value></data>
+  <data name="BenefitPaymentTitle" xml:space="preserve"><value>Անվտանգ վճարում</value></data>
+  <data name="BenefitPaymentText" xml:space="preserve"><value>Քարտ, փոխանցում կամ կանխիկ</value></data>
+  <data name="BenefitReturnsTitle" xml:space="preserve"><value>Հեշտ վերադարձ</value></data>
+  <data name="BenefitReturnsText" xml:space="preserve"><value>Վերադարձի հայտ՝ պատվերի էջից</value></data>
+  <data name="Filters" xml:space="preserve"><value>Ֆիլտրեր</value></data>
+  <data name="Category" xml:space="preserve"><value>Կատեգորիա</value></data>
+  <data name="AgeGroups" xml:space="preserve"><value>Տարիք</value></data>
+  <data name="AllAges" xml:space="preserve"><value>Բոլոր տարիքները</value></data>
+  <data name="SortBy" xml:space="preserve"><value>Դասավորել</value></data>
+  <data name="SortRecommended" xml:space="preserve"><value>Առաջարկվող</value></data>
+  <data name="SortPriceAsc" xml:space="preserve"><value>Գին՝ աճման կարգով</value></data>
+  <data name="SortPriceDesc" xml:space="preserve"><value>Գին՝ նվազման կարգով</value></data>
+  <data name="SortNewest" xml:space="preserve"><value>Նորագույնները նախ</value></data>
+  <data name="NewArrivalsOnly" xml:space="preserve"><value>Միայն նորույթներ</value></data>
+  <data name="Apply" xml:space="preserve"><value>Կիրառել</value></data>
+  <data name="ClearFilters" xml:space="preserve"><value>Մաքրել</value></data>
+  <data name="ItemsOne" xml:space="preserve"><value>{0} ապրանք</value></data>
+  <data name="ItemsFew" xml:space="preserve"><value>{0} ապրանք</value></data>
+  <data name="ItemsMany" xml:space="preserve"><value>{0} ապրանք</value></data>
+  <data name="NoProducts" xml:space="preserve"><value>Արդյունք չի գտնվել։ Փորձեք փոխել որոնումը կամ ֆիլտրը։</value></data>
+  <data name="LoadMore" xml:space="preserve"><value>Ցույց տալ ավելին</value></data>
+  <data name="Previous" xml:space="preserve"><value>Նախորդ</value></data>
+  <data name="PageOf" xml:space="preserve"><value>Էջ {0}՝ {1}-ից</value></data>
+  <data name="New" xml:space="preserve"><value>Նորույթ</value></data>
+  <data name="OutOfStock" xml:space="preserve"><value>Առկա չէ</value></data>
+  <data name="InStock" xml:space="preserve"><value>Առկա է</value></data>
+  <data name="Brand" xml:space="preserve"><value>Ապրանքանիշ</value></data>
+  <data name="Sku" xml:space="preserve"><value>Կոդ</value></data>
+  <data name="Description" xml:space="preserve"><value>Նկարագրություն</value></data>
+  <data name="AddToCart" xml:space="preserve"><value>Ավելացնել զամբյուղ</value></data>
+  <data name="PhotoOf" xml:space="preserve"><value>Նկար {0}՝ {1}-ից</value></data>
+  <data name="NotFoundTitle" xml:space="preserve"><value>Էջը չի գտնվել</value></data>
+  <data name="NotFoundText" xml:space="preserve"><value>Հնարավոր է՝ հղումը սխալ է կամ ապրանքն այլևս հասանելի չէ։</value></data>
+  <data name="BackToHome" xml:space="preserve"><value>Վերադառնալ գլխավոր էջ</value></data>
+  <data name="Legal_Contact" xml:space="preserve"><value>Կոնտակտներ</value></data>
+  <data name="Legal_TaxId" xml:space="preserve"><value>ՀՎՀՀ</value></data>
+  <data name="Legal_DeliveryDesc" xml:space="preserve"><value>Առաքում Հայաստանով մեկ, վճարման եղանակներ, վերադարձ և գումարի վերադարձ։</value></data>
+  <data name="Legal_TermsDesc" xml:space="preserve"><value>Խաղալիքների առցանց խանութի օգտագործման պայմանները։</value></data>
+  <data name="Legal_PrivacyDesc" xml:space="preserve"><value>Ինչպես ենք վարվում Ձեր անձնական տվյալների և cookie-ների հետ։</value></data>
+  <data name="Error_Reference" xml:space="preserve"><value>Սխալի կոդ</value></data>
+  <data name="Nav_SignIn" xml:space="preserve"><value>Մուտք</value></data>
+  <data name="Nav_Register" xml:space="preserve"><value>Գրանցվել</value></data>
+  <data name="Nav_Account" xml:space="preserve"><value>Իմ հաշիվը</value></data>
+  <data name="Nav_Orders" xml:space="preserve"><value>Պատվերներ</value></data>
+  <data name="Nav_Favorites" xml:space="preserve"><value>Սիրվածներ</value></data>
+  <data name="Nav_ChangePassword" xml:space="preserve"><value>Գաղտնաբառի փոփոխություն</value></data>
+  <data name="Nav_SignOut" xml:space="preserve"><value>Դուրս գալ</value></data>
+  <data name="Greeting" xml:space="preserve"><value>Բարև, {0}</value></data>
+  <data name="Back_Home" xml:space="preserve"><value>Գլխավոր էջ</value></data>
+  <data name="Label_FullName" xml:space="preserve"><value>Անուն Ազգանուն</value></data>
+  <data name="Label_Email" xml:space="preserve"><value>Էլ. փոստ</value></data>
+  <data name="Label_Phone" xml:space="preserve"><value>Հեռախոս</value></data>
+  <data name="Label_Password" xml:space="preserve"><value>Գաղտնաբառ</value></data>
+  <data name="Label_NewPassword" xml:space="preserve"><value>Նոր գաղտնաբառ</value></data>
+  <data name="Label_CurrentPassword" xml:space="preserve"><value>Ընթացիկ գաղտնաբառ</value></data>
+  <data name="Label_RememberMe" xml:space="preserve"><value>Հիշել ինձ</value></data>
+  <data name="Label_AcceptTerms" xml:space="preserve"><value>Համաձայնություն</value></data>
+  <data name="Val_Required" xml:space="preserve"><value>«{0}» դաշտը պարտադիր է։</value></data>
+  <data name="Val_Email" xml:space="preserve"><value>Մուտքագրեք վավեր էլ. փոստի հասցե։</value></data>
+  <data name="Val_Phone" xml:space="preserve"><value>Մուտքագրեք վավեր հեռախոսահամար, օրինակ՝ 091 123456 կամ +374 91 123456։</value></data>
+  <data name="Val_MaxLength" xml:space="preserve"><value>«{0}» դաշտը չպետք է գերազանցի {1} նիշը։</value></data>
+  <data name="Val_Terms" xml:space="preserve"><value>Անհրաժեշտ է ընդունել պայմանները։</value></data>
+  <data name="Register_Title" xml:space="preserve"><value>Գրանցում</value></data>
+  <data name="Register_Lead" xml:space="preserve"><value>Գրանցվեք և ստացեք 10% զեղչ առաջին 5 պատվերի համար։</value></data>
+  <data name="Register_Submit" xml:space="preserve"><value>Ստեղծել հաշիվ</value></data>
+  <data name="Register_HaveAccount" xml:space="preserve"><value>Արդեն ունե՞ք հաշիվ։</value></data>
+  <data name="Hint_Password" xml:space="preserve"><value>Առնվազն 8 նիշ՝ տառերով և թվերով։</value></data>
+  <data name="Consent_Text" xml:space="preserve"><value>Ես կարդացել և ընդունում եմ՝ {0} և {1}։</value></data>
+  <data name="Show_Password" xml:space="preserve"><value>Ցույց տալ գաղտնաբառը</value></data>
+  <data name="Login_NoAccount" xml:space="preserve"><value>Դեռ հաշիվ չունե՞ք։</value></data>
+  <data name="Login_Invalid" xml:space="preserve"><value>Էլ. փոստը կամ գաղտնաբառը սխալ է։</value></data>
+  <data name="Login_LockedOut" xml:space="preserve"><value>Չափազանց շատ փորձեր։ Կրկին փորձեք մի քանի րոպեից։</value></data>
+  <data name="Login_NotConfirmed" xml:space="preserve"><value>Էլ. փոստը դեռ հաստատված չէ։ Բացեք ձեզ ուղարկված նամակը։</value></data>
+  <data name="Link_ResendConfirmation" xml:space="preserve"><value>Նորից ուղարկել հաստատման նամակը</value></data>
+  <data name="Dev_VerifyButton" xml:space="preserve"><value>Հաստատել իմ հաշիվը</value></data>
+  <data name="Dev_VerifyNote" xml:space="preserve"><value>Մշակման ռեժիմ. իրական նամակ չի ուղարկվում։ Սեղմեք կոճակը՝ այս հաշիվը հաստատելու համար։</value></data>
+  <data name="Link_ForgotPassword" xml:space="preserve"><value>Մոռացե՞լ եք գաղտնաբառը</value></data>
+  <data name="Resend_Title" xml:space="preserve"><value>Հաստատման նամակ</value></data>
+  <data name="Resend_Lead" xml:space="preserve"><value>Մուտքագրեք էլ. փոստը, և մենք նորից կուղարկենք հաստատման հղումը։</value></data>
+  <data name="Resend_Submit" xml:space="preserve"><value>Ուղարկել</value></data>
+  <data name="Forgot_Title" xml:space="preserve"><value>Գաղտնաբառի վերականգնում</value></data>
+  <data name="Forgot_Lead" xml:space="preserve"><value>Մուտքագրեք էլ. փոստը, և մենք կուղարկենք վերականգնման հղում։</value></data>
+  <data name="Forgot_Submit" xml:space="preserve"><value>Ուղարկել հղումը</value></data>
+  <data name="Reset_Title" xml:space="preserve"><value>Նոր գաղտնաբառ</value></data>
+  <data name="Reset_Submit" xml:space="preserve"><value>Պահպանել գաղտնաբառը</value></data>
+  <data name="Msg_CheckEmailTitle" xml:space="preserve"><value>Ստուգեք էլ. փոստը</value></data>
+  <data name="Msg_CheckEmailText" xml:space="preserve"><value>Մենք ուղարկեցինք հաստատման հղում {0} հասցեին։ Բացեք այն՝ գրանցումն ավարտելու համար։</value></data>
+  <data name="Msg_EmailConfirmedTitle" xml:space="preserve"><value>Էլ. փոստը հաստատված է</value></data>
+  <data name="Msg_EmailConfirmedText" xml:space="preserve"><value>Այժմ կարող եք մուտք գործել։</value></data>
+  <data name="Msg_LinkInvalidTitle" xml:space="preserve"><value>Հղումը չի գործում</value></data>
+  <data name="Msg_LinkInvalidText" xml:space="preserve"><value>Հղումը սխալ է կամ ժամկետանց։ Պատվիրեք նորը։</value></data>
+  <data name="Msg_ResetLinkInvalidText" xml:space="preserve"><value>Վերականգնման հղումը սխալ է կամ ժամկետանց։ Պատվիրեք նորը։</value></data>
+  <data name="Msg_EmailSentTitle" xml:space="preserve"><value>Նամակը ուղարկվեց</value></data>
+  <data name="Msg_ResendSentText" xml:space="preserve"><value>Եթե այդ հասցեով չհաստատված հաշիվ կա, մենք ուղարկեցինք հաստատման հղում։</value></data>
+  <data name="Msg_ForgotSentText" xml:space="preserve"><value>Եթե այդ հասցեով հաշիվ կա, մենք ուղարկեցինք հրահանգներ։</value></data>
+  <data name="Msg_PasswordChangedTitle" xml:space="preserve"><value>Գաղտնաբառը փոխվեց</value></data>
+  <data name="Msg_PasswordChangedText" xml:space="preserve"><value>Այժմ կարող եք մուտք գործել նոր գաղտնաբառով։</value></data>
+  <data name="Msg_AccessDeniedTitle" xml:space="preserve"><value>Մուտքն արգելված է</value></data>
+  <data name="Msg_AccessDeniedText" xml:space="preserve"><value>Դուք իրավունք չունեք դիտելու այս էջը։</value></data>
+  <data name="Msg_TooManyTitle" xml:space="preserve"><value>Չափազանց շատ հարցումներ</value></data>
+  <data name="Msg_TooManyText" xml:space="preserve"><value>Խնդրում ենք սպասել մի րոպե և կրկին փորձել։</value></data>
+  <data name="Msg_ErrorTitle" xml:space="preserve"><value>Սխալ</value></data>
+  <data name="Msg_ErrorText" xml:space="preserve"><value>Ինչ-որ բան սխալ գնաց։ Փորձեք մի փոքր ուշ։</value></data>
+  <data name="Account_Save" xml:space="preserve"><value>Պահպանել</value></data>
+  <data name="Account_Saved" xml:space="preserve"><value>Պահպանվեց։</value></data>
+  <data name="Account_EmailNote" xml:space="preserve"><value>Էլ. փոստը փոխելու համար կապվեք մեզ հետ։</value></data>
+  <data name="Orders_Empty" xml:space="preserve"><value>Դուք դեռ պատվերներ չունեք։</value></data>
+  <data name="ChangePassword_Submit" xml:space="preserve"><value>Փոխել գաղտնաբառը</value></data>
+  <data name="Favorites_Empty" xml:space="preserve"><value>Սիրված ապրանքներ դեռ չկան։ Սեղմեք սրտիկի վրա՝ ապրանքը պահելու համար։</value></data>
+  <data name="Err_DefaultError" xml:space="preserve"><value>Սխալ տեղի ունեցավ։</value></data>
+  <data name="Err_ConcurrencyFailure" xml:space="preserve"><value>Տվյալները փոխվել են։ Փորձեք կրկին։</value></data>
+  <data name="Err_PasswordMismatch" xml:space="preserve"><value>Գաղտնաբառը սխալ է։</value></data>
+  <data name="Err_InvalidToken" xml:space="preserve"><value>Հղումը սխալ է կամ ժամկետանց։</value></data>
+  <data name="Err_LoginAlreadyAssociated" xml:space="preserve"><value>Այս մուտքն արդեն կապված է։</value></data>
+  <data name="Err_InvalidUserName" xml:space="preserve"><value>Անվավեր օգտանուն։</value></data>
+  <data name="Err_InvalidEmail" xml:space="preserve"><value>Անվավեր էլ. փոստ։</value></data>
+  <data name="Err_DuplicateEmail" xml:space="preserve"><value>Այս էլ. փոստով հաշիվ արդեն կա։ Մուտք գործեք կամ վերականգնեք գաղտնաբառը։</value></data>
+  <data name="Err_PasswordTooShort" xml:space="preserve"><value>Գաղտնաբառը պետք է լինի առնվազն {0} նիշ։</value></data>
+  <data name="Err_PasswordRequiresDigit" xml:space="preserve"><value>Գաղտնաբառը պետք է պարունակի առնվազն մեկ թիվ։</value></data>
+  <data name="Err_PasswordRequiresLetter" xml:space="preserve"><value>Գաղտնաբառը պետք է պարունակի առնվազն մեկ տառ։</value></data>
+  <data name="Email_ConfirmSubject" xml:space="preserve"><value>Հաստատեք էլ. փոստը՝ {0}</value></data>
+  <data name="Email_ConfirmHeading" xml:space="preserve"><value>Բարև, {0}</value></data>
+  <data name="Email_ConfirmIntro" xml:space="preserve"><value>Շնորհակալություն գրանցվելու համար։ Սեղմեք կոճակը՝ էլ. փոստը հաստատելու համար։</value></data>
+  <data name="Email_ConfirmButton" xml:space="preserve"><value>Հաստատել էլ. փոստը</value></data>
+  <data name="Email_ConfirmFootnote" xml:space="preserve"><value>Եթե դուք հաշիվ չեք ստեղծել, պարզապես անտեսեք այս նամակը։ Հղումը գործում է 24 ժամ։</value></data>
+  <data name="Email_ResetSubject" xml:space="preserve"><value>Գաղտնաբառի վերականգնում՝ {0}</value></data>
+  <data name="Email_ResetHeading" xml:space="preserve"><value>Բարև, {0}</value></data>
+  <data name="Email_ResetIntro" xml:space="preserve"><value>Մենք ստացել ենք ձեր գաղտնաբառը վերականգնելու հարցում։ Սեղմեք կոճակը՝ նոր գաղտնաբառ սահմանելու համար։</value></data>
+  <data name="Email_ResetButton" xml:space="preserve"><value>Սահմանել նոր գաղտնաբառ</value></data>
+  <data name="Email_ResetFootnote" xml:space="preserve"><value>Հղումը գործում է 1 ժամ։ Եթե դուք չեք պահանջել, անտեսեք այս նամակը։</value></data>
+  <data name="Email_LinkHelp" xml:space="preserve"><value>Եթե կոճակը չի աշխատում, պատճենեք այս հղումը բրաուզերում՝</value></data>
+  <data name="Cart_Empty" xml:space="preserve"><value>Զամբյուղը դատարկ է։</value></data>
+  <data name="Cart_Summary" xml:space="preserve"><value>Պատվերի ամփոփում</value></data>
+  <data name="Cart_Discounts" xml:space="preserve"><value>Զեղչեր</value></data>
+  <data name="Cart_Delivery" xml:space="preserve"><value>Առաքում</value></data>
+  <data name="Cart_DeliveryLater" xml:space="preserve"><value>Կհաշվարկվի պատվերի ժամանակ</value></data>
+  <data name="Cart_Total" xml:space="preserve"><value>Ընդամենը</value></data>
+  <data name="Cart_Checkout" xml:space="preserve"><value>Պատվիրել</value></data>
+  <data name="Cart_Continue" xml:space="preserve"><value>Շարունակել գնումները</value></data>
+  <data name="Cart_Remove" xml:space="preserve"><value>Հեռացնել</value></data>
+  <data name="Cart_Decrease" xml:space="preserve"><value>Պակասեցնել</value></data>
+  <data name="Cart_Increase" xml:space="preserve"><value>Ավելացնել</value></data>
+  <data name="Cart_Quantity" xml:space="preserve"><value>Քանակ</value></data>
+  <data name="Cart_CustomerNote" xml:space="preserve"><value>Գրանցված հաճախորդի {0}% զեղչը կիրառված է՝ որտեղ այն ավելի ձեռնտու է։</value></data>
+  <data name="Cart_GuestHint" xml:space="preserve"><value>Գրանցվեք և ստացեք 10% զեղչ առաջին 5 պատվերի համար։</value></data>
+  <data name="Cart_UnavailableNote" xml:space="preserve"><value>Որոշ ապրանքներ այլևս հասանելի չեն և չեն ներառվում ընդհանուր գումարում։</value></data>
+  <data name="Cart_NotForSale" xml:space="preserve"><value>Այլևս վաճառքում չէ</value></data>
+  <data name="Cart_ReducedNotice" xml:space="preserve"><value>«{0}»՝ պահեստում մնացել է միայն {1}, քանակը նվազեցվել է։</value></data>
+  <data name="Cart_AddedToast" xml:space="preserve"><value>Ավելացվեց զամբյուղում</value></data>
+  <data name="Cart_ViewCart" xml:space="preserve"><value>Տեսնել զամբյուղը</value></data>
+  <data name="Cart_LimitReached" xml:space="preserve"><value>Հասանելի է միայն {0}</value></data>
+  <data name="Cart_NotAvailable" xml:space="preserve"><value>Այս ապրանքը հասանելի չէ</value></data>
+  <data name="Cart_TooMany" xml:space="preserve"><value>Զամբյուղը լի է։ Նախ հեռացրեք որևէ ապրանք։</value></data>
+  <data name="OnlyLeft" xml:space="preserve"><value>Մնացել է միայն {0}</value></data>
+  <data name="Fav_GuestHint" xml:space="preserve"><value>Մուտք գործեք՝ սիրվածները բոլոր սարքերում պահելու համար։</value></data>
+  <data name="Checkout_Title" xml:space="preserve"><value>Պատվերի ձևակերպում</value></data>
+  <data name="Checkout_Contact" xml:space="preserve"><value>Կոնտակտային տվյալներ</value></data>
+  <data name="Checkout_Delivery" xml:space="preserve"><value>Առաքում</value></data>
+  <data name="Checkout_Payment" xml:space="preserve"><value>Վճարում</value></data>
+  <data name="Checkout_PlaceOrder" xml:space="preserve"><value>Հաստատել պատվերը</value></data>
+  <data name="Checkout_GuestHint" xml:space="preserve"><value>Ունե՞ք հաշիվ։ Մուտք գործեք՝ պահված տվյալներն օգտագործելու և առաջին պատվերների համար 10% զեղչ ստանալու համար։</value></data>
+  <data name="Checkout_EmailLocked" xml:space="preserve"><value>Սա ձեր հաշվի էլ. փոստն է։</value></data>
+  <data name="Checkout_FreeDelivery" xml:space="preserve"><value>Անվճար</value></data>
+  <data name="Checkout_FreeFrom" xml:space="preserve"><value>Անվճար առաքում՝ {0}-ից</value></data>
+  <data name="Checkout_Soon" xml:space="preserve"><value>Շուտով</value></data>
+  <data name="Checkout_CashNote" xml:space="preserve"><value>Վճարեք կանխիկ՝ պատվերը ստանալիս։</value></data>
+  <data name="Checkout_Choose" xml:space="preserve"><value>Ընտրեք...</value></data>
+  <data name="Checkout_BackToCart" xml:space="preserve"><value>Վերադառնալ զամբյուղ</value></data>
+  <data name="Checkout_UnavailableItems" xml:space="preserve"><value>Զամբյուղի որոշ ապրանքներ հասանելի չեն։ Հեռացրեք դրանք՝ շարունակելու համար։</value></data>
+  <data name="Checkout_OutOfStock" xml:space="preserve"><value>«{0}»՝ պահեստում մնացել է միայն {1}։ Ստուգեք զամբյուղը։</value></data>
+  <data name="Checkout_PriceChanged" xml:space="preserve"><value>Ընդհանուր գումարը փոխվել է՝ {0}։ Ստուգեք և նորից սեղմեք «Հաստատել պատվերը»։</value></data>
+  <data name="Checkout_BadDate" xml:space="preserve"><value>Ընտրեք առաքման օրը ցանկից։</value></data>
+  <data name="Checkout_BadRegion" xml:space="preserve"><value>Ընտրեք մարզը։</value></data>
+  <data name="Checkout_BadSlot" xml:space="preserve"><value>Ընտրեք առաքման ժամը։</value></data>
+  <data name="Checkout_PaymentUnavailable" xml:space="preserve"><value>Վճարման այս եղանակը դեռ հասանելի չէ։</value></data>
+  <data name="Checkout_BadDelivery" xml:space="preserve"><value>Առաքման տվյալները անվավեր են։ Ստուգեք դրանք։</value></data>
+  <data name="Label_Region" xml:space="preserve"><value>Մարզ</value></data>
+  <data name="Label_City" xml:space="preserve"><value>Քաղաք/համայնք</value></data>
+  <data name="Label_Street" xml:space="preserve"><value>Փողոց</value></data>
+  <data name="Label_Building" xml:space="preserve"><value>Շենք</value></data>
+  <data name="Label_Apartment" xml:space="preserve"><value>Բնակարան</value></data>
+  <data name="Label_OrderComment" xml:space="preserve"><value>Մեկնաբանություն առաքիչի համար (ըստ ցանկության)</value></data>
+  <data name="Label_DeliveryDate" xml:space="preserve"><value>Առաքման օր</value></data>
+  <data name="Label_DeliverySlot" xml:space="preserve"><value>Առաքման ժամ</value></data>
+  <data name="Label_OrderNumber" xml:space="preserve"><value>Պատվերի համար</value></data>
+  <data name="Region_yerevan" xml:space="preserve"><value>Երևան</value></data>
+  <data name="Region_aragatsotn" xml:space="preserve"><value>Արագածոտն</value></data>
+  <data name="Region_ararat" xml:space="preserve"><value>Արարատ</value></data>
+  <data name="Region_armavir" xml:space="preserve"><value>Արմավիր</value></data>
+  <data name="Region_gegharkunik" xml:space="preserve"><value>Գեղարքունիք</value></data>
+  <data name="Region_lori" xml:space="preserve"><value>Լոռի</value></data>
+  <data name="Region_kotayk" xml:space="preserve"><value>Կոտայք</value></data>
+  <data name="Region_shirak" xml:space="preserve"><value>Շիրակ</value></data>
+  <data name="Region_syunik" xml:space="preserve"><value>Սյունիք</value></data>
+  <data name="Region_vayots_dzor" xml:space="preserve"><value>Վայոց ձոր</value></data>
+  <data name="Region_tavush" xml:space="preserve"><value>Տավուշ</value></data>
+  <data name="Cart_Subtotal" xml:space="preserve"><value>Ապրանքներ</value></data>
+  <data name="Cart_OrdersLeft" xml:space="preserve"><value>Զեղչով մնացած պատվերներ՝ {0}։</value></data>
+  <data name="Done_Title" xml:space="preserve"><value>Շնորհակալություն պատվերի համար։</value></data>
+  <data name="Done_Text" xml:space="preserve"><value>Հաստատումը ուղարկեցինք {0} հասցեին։ Պահեք այդ նամակը՝ դրա հղումով ցանկացած պահի կարող եք բացել ձեր պատվերը։</value></data>
+  <data name="Order_Number" xml:space="preserve"><value>Պատվեր</value></data>
+  <data name="Order_Placed" xml:space="preserve"><value>Ձևակերպված՝</value></data>
+  <data name="Order_DeliveryTitle" xml:space="preserve"><value>Առաքում</value></data>
+  <data name="Order_ContactTitle" xml:space="preserve"><value>Կոնտակտ</value></data>
+  <data name="Order_PaymentTitle" xml:space="preserve"><value>Վճարում</value></data>
+  <data name="Order_Comment" xml:space="preserve"><value>Ձեր մեկնաբանությունը</value></data>
+  <data name="Order_ContactUs" xml:space="preserve"><value>Պատվերը փոխելու կամ չեղարկելու համար կապվեք մեզ հետ։</value></data>
+  <data name="Order_EmailSubject" xml:space="preserve"><value>Պատվեր #{0} - {1}</value></data>
+  <data name="Order_EmailHeading" xml:space="preserve"><value>Շնորհակալություն պատվերի համար, {0}։</value></data>
+  <data name="Order_EmailIntro" xml:space="preserve"><value>Մենք ստացանք ձեր պատվերը և կպատրաստենք այն առաքման համար։ Ահա մանրամասները։</value></data>
+  <data name="Order_EmailButton" xml:space="preserve"><value>Դիտել պատվերը</value></data>
+  <data name="Order_EmailFootnote" xml:space="preserve"><value>Պահեք այս նամակը՝ կոճակով ցանկացած պահի կարող եք բացել պատվերը։</value></data>
+  <data name="Order_NewOrderSubject" xml:space="preserve"><value>Նոր պատվեր #{0}</value></data>
+  <data name="Order_NewOrderHeading" xml:space="preserve"><value>Նոր պատվեր #{0}</value></data>
+  <data name="Status_AwaitingPayment" xml:space="preserve"><value>Սպասում է վճարման</value></data>
+  <data name="Status_Ordered" xml:space="preserve"><value>Պատվիրված</value></data>
+  <data name="Status_Packed" xml:space="preserve"><value>Փաթեթավորված</value></data>
+  <data name="Status_Delivered" xml:space="preserve"><value>Առաքված</value></data>
+  <data name="Status_Cancelled" xml:space="preserve"><value>Չեղարկված</value></data>
+  <data name="Pay_CashOnDelivery" xml:space="preserve"><value>Կանխիկ՝ ստանալիս</value></data>
+  <data name="Pay_Card" xml:space="preserve"><value>Քարտով առցանց</value></data>
+  <data name="Pay_BankTransfer" xml:space="preserve"><value>Բանկային փոխանցում</value></data>
+  <data name="PayStatus_Pending" xml:space="preserve"><value>Դեռ չի վճարվել</value></data>
+  <data name="PayStatus_Paid" xml:space="preserve"><value>Վճարված</value></data>
+  <data name="PayStatus_Failed" xml:space="preserve"><value>Վճարումը չի կայացել</value></data>
+  <data name="PayStatus_Refunded" xml:space="preserve"><value>Վերադարձված</value></data>
+  <data name="Nav_FindOrder" xml:space="preserve"><value>Գտնել պատվերը</value></data>
+  <data name="Lookup_Title" xml:space="preserve"><value>Գտնել պատվերը</value></data>
+  <data name="Lookup_Lead" xml:space="preserve"><value>Մուտքագրեք պատվերի համարը և պատվերի ժամանակ նշված էլ. փոստը։</value></data>
+  <data name="Lookup_Submit" xml:space="preserve"><value>Գտնել</value></data>
+  <data name="Lookup_NotFound" xml:space="preserve"><value>Այս համարով և էլ. փոստով պատվեր չգտնվեց։</value></data>
+  <data name="Return_Title" xml:space="preserve"><value>Վերադարձի հայտ</value></data>
+  <data name="Return_Lead" xml:space="preserve"><value>Գոհ չե՞ք պատվերից։ Նշեք պատճառը, և մենք կկապվենք ձեզ հետ։</value></data>
+  <data name="Return_Reason" xml:space="preserve"><value>Պատճառ</value></data>
+  <data name="Return_Submit" xml:space="preserve"><value>Ուղարկել հայտը</value></data>
+  <data name="Return_Created" xml:space="preserve"><value>Վերադարձի հայտն ուղարկվեց։ Մենք կկապվենք ձեզ հետ։</value></data>
+  <data name="Return_InvalidReason" xml:space="preserve"><value>Նկարագրեք պատճառը (առնվազն 5 նիշ)։</value></data>
+  <data name="Return_WindowClosed" xml:space="preserve"><value>Այս պատվերի վերադարձի ժամկետը լրացել է։</value></data>
+  <data name="Return_AlreadyRequested" xml:space="preserve"><value>Այս պատվերի համար վերադարձի հայտ արդեն կա։</value></data>
+  <data name="Return_NotPossible" xml:space="preserve"><value>Այս պատվերի համար վերադարձ հնարավոր չէ։</value></data>
+  <data name="Return_Status" xml:space="preserve"><value>Վերադարձի հայտ</value></data>
+  <data name="Return_Requested" xml:space="preserve"><value>Ուղարկված է</value></data>
+  <data name="Return_Rejected" xml:space="preserve"><value>Մերժված է</value></data>
+  <data name="Return_Returned" xml:space="preserve"><value>Վերադարձված է</value></data>
+  <data name="Return_Refunded" xml:space="preserve"><value>Գումարը վերադարձված է</value></data>
+  <data name="Checkout_CardNote" xml:space="preserve"><value>Վճարեք բանկի անվտանգ էջում։ Մենք երբեք չենք տեսնում ձեր քարտի համարը։</value></data>
+  <data name="Checkout_TransferNote" xml:space="preserve"><value>Բանկային տվյալները կցուցադրվեն պատվերը հաստատելուց հետո։</value></data>
+  <data name="Pay_NotPossible" xml:space="preserve"><value>Այս պատվերի համար վճարումը այլևս հնարավոր չէ սկսել։</value></data>
+  <data name="Pay_Now" xml:space="preserve"><value>Վճարել հիմա</value></data>
+  <data name="Pay_CardWaiting" xml:space="preserve"><value>Սպասում ենք ձեր քարտային վճարմանը</value></data>
+  <data name="Pay_Deadline" xml:space="preserve"><value>Խնդրում ենք վճարել մինչև {0}։ Չվճարված պատվերները չեղարկվում են ավտոմատ։</value></data>
+  <data name="Bank_Title" xml:space="preserve"><value>Բանկային փոխանցման տվյալներ</value></data>
+  <data name="Bank_Name" xml:space="preserve"><value>Բանկ</value></data>
+  <data name="Bank_Account" xml:space="preserve"><value>Հաշվեհամար (IBAN)</value></data>
+  <data name="Bank_Recipient" xml:space="preserve"><value>Ստացող</value></data>
+  <data name="Bank_Amount" xml:space="preserve"><value>Գումար</value></data>
+  <data name="Bank_Reference" xml:space="preserve"><value>Վճարման նպատակ</value></data>
+  <data name="Bank_ReferenceValue" xml:space="preserve"><value>Պատվեր #{0}</value></data>
+  <data name="Bank_Note" xml:space="preserve"><value>Երբ գումարը ստանանք, պատվերը կնշենք որպես վճարված։</value></data>
+  <data name="Done_AwaitingTitle" xml:space="preserve"><value>Ձեր պատվերը սպասում է վճարման</value></data>
+  <data name="Done_AwaitingText" xml:space="preserve"><value>Պատվերը պահպանված է, բայց դեռ չի վճարվել։ Սեղմեք «Վճարել հիմա»՝ ավարտելու համար։</value></data>
+  <data name="PayReturn_Failed_Title" xml:space="preserve"><value>Վճարումը չկայացավ</value></data>
+  <data name="PayReturn_Failed_Text" xml:space="preserve"><value>Բանկը չընդունեց վճարումը։ Կարող եք նորից փորձել։</value></data>
+  <data name="PayReturn_Cancelled_Title" xml:space="preserve"><value>Վճարումը չեղարկվեց</value></data>
+  <data name="PayReturn_Cancelled_Text" xml:space="preserve"><value>Դուք չեղարկեցիք վճարումը։ Պատվերը դեռ սպասում է, կարող եք վճարել հիմա։</value></data>
+  <data name="PayReturn_Waiting_Title" xml:space="preserve"><value>Սպասում ենք բանկին</value></data>
+  <data name="PayReturn_Waiting_Text" xml:space="preserve"><value>Բանկի պատասխանը դեռ չենք ստացել։ Մի քանի վայրկյանից թարմացրեք էջը։</value></data>
+  <data name="PayReturn_Expired_Title" xml:space="preserve"><value>Պատվերը չեղարկվել է</value></data>
+  <data name="PayReturn_Expired_Text" xml:space="preserve"><value>Վճարման ժամանակը լրացավ, և պատվերը չեղարկվեց։ Կարող եք նոր պատվեր ձևակերպել։</value></data>
+  <data name="PayReturn_Late_Title" xml:space="preserve"><value>Վճարումը ստացվել է ուշացումով</value></data>
+  <data name="PayReturn_Late_Text" xml:space="preserve"><value>Ձեր վճարումը եկավ պատվերի չեղարկումից հետո։ Մենք կվերադարձնենք գումարը։ Խնդրում ենք կապվել մեզ հետ։</value></data>
+  <data name="PayReturn_Refresh" xml:space="preserve"><value>Թարմացնել</value></data>
+  <data name="PayReturn_ViewOrder" xml:space="preserve"><value>Դիտել պատվերը</value></data>
+  <data name="Fake_Badge" xml:space="preserve"><value>Միայն թեստի համար</value></data>
+  <data name="Fake_Title" xml:space="preserve"><value>Կեղծ բանկ</value></data>
+  <data name="Fake_Lead" xml:space="preserve"><value>Այս էջը նմանակում է բանկի վճարման էջը։ Իրական գումար չի տեղափոխվում։</value></data>
+  <data name="Fake_Pay" xml:space="preserve"><value>Վճարել</value></data>
+  <data name="Fake_Fail" xml:space="preserve"><value>Մերժել վճարումը</value></data>
+  <data name="Fake_Cancel" xml:space="preserve"><value>Չեղարկել</value></data>
+  <data name="Fake_Closed" xml:space="preserve"><value>Այս վճարումն արդեն ավարտված է։</value></data>
+  <data name="Admin_Title" xml:space="preserve"><value>Ադմին վահանակ</value></data>
+  <data name="Admin_Nav_Dashboard" xml:space="preserve"><value>Գլխավոր</value></data>
+  <data name="Admin_Nav_Orders" xml:space="preserve"><value>Պատվերներ</value></data>
+  <data name="Admin_Nav_Returns" xml:space="preserve"><value>Վերադարձներ</value></data>
+  <data name="Admin_Nav_Settings" xml:space="preserve"><value>Կարգավորումներ</value></data>
+  <data name="Admin_ViewShop" xml:space="preserve"><value>Դեպի խանութ</value></data>
+  <data name="Admin_Dash_Hint" xml:space="preserve"><value>Սեղմեք թվի վրա՝ ցուցակը բացելու համար։</value></data>
+  <data name="Admin_Dash_OrdersToday" xml:space="preserve"><value>Այսօրվա պատվերներ</value></data>
+  <data name="Admin_Dash_ToPack" xml:space="preserve"><value>Փաթեթավորելու</value></data>
+  <data name="Admin_Dash_AwaitingPayment" xml:space="preserve"><value>Սպասում են վճարման</value></data>
+  <data name="Admin_Dash_OpenReturns" xml:space="preserve"><value>Բաց վերադարձներ</value></data>
+  <data name="Admin_Dash_RefundsNeeded" xml:space="preserve"><value>Գումար վերադարձնելու</value></data>
+  <data name="Admin_Dash_LowStock" xml:space="preserve"><value>Սպառվող ապրանք</value></data>
+  <data name="Admin_Search" xml:space="preserve"><value>Պատվերի համար, անուն, էլ. փոստ կամ հեռախոս</value></data>
+  <data name="Admin_Status" xml:space="preserve"><value>Կարգավիճակ</value></data>
+  <data name="Admin_AllStatuses" xml:space="preserve"><value>Բոլոր կարգավիճակները</value></data>
+  <data name="Admin_PaymentMethod" xml:space="preserve"><value>Վճարում</value></data>
+  <data name="Admin_AllMethods" xml:space="preserve"><value>Բոլոր եղանակները</value></data>
+  <data name="Admin_From" xml:space="preserve"><value>Սկսած</value></data>
+  <data name="Admin_To" xml:space="preserve"><value>Մինչև</value></data>
+  <data name="Admin_RefundOnly" xml:space="preserve"><value>Միայն գումար վերադարձնելու դեպքերը</value></data>
+  <data name="Admin_Filter" xml:space="preserve"><value>Ցուցադրել</value></data>
+  <data name="Admin_Reset" xml:space="preserve"><value>Մաքրել</value></data>
+  <data name="Admin_Col_Order" xml:space="preserve"><value>Պատվեր</value></data>
+  <data name="Admin_Col_Date" xml:space="preserve"><value>Ամսաթիվ</value></data>
+  <data name="Admin_Col_Customer" xml:space="preserve"><value>Հաճախորդ</value></data>
+  <data name="Admin_Col_Status" xml:space="preserve"><value>Կարգավիճակ</value></data>
+  <data name="Admin_Col_Payment" xml:space="preserve"><value>Վճարում</value></data>
+  <data name="Admin_Col_Total" xml:space="preserve"><value>Գումար</value></data>
+  <data name="Admin_NoResults" xml:space="preserve"><value>Ոչինչ չգտնվեց։</value></data>
+  <data name="Admin_Flag_Refund" xml:space="preserve"><value>Պետք է գումար վերադարձնել</value></data>
+  <data name="Admin_Flag_Return" xml:space="preserve"><value>Բաց վերադարձ</value></data>
+  <data name="Admin_Page" xml:space="preserve"><value>Էջ {0}՝ {1}-ից</value></data>
+  <data name="Admin_Prev" xml:space="preserve"><value>Նախորդ</value></data>
+  <data name="Admin_Next" xml:space="preserve"><value>Հաջորդ</value></data>
+  <data name="Admin_Items" xml:space="preserve"><value>Ապրանքներ</value></data>
+  <data name="Admin_History" xml:space="preserve"><value>Պատմություն</value></data>
+  <data name="Admin_By" xml:space="preserve"><value>{0}</value></data>
+  <data name="Admin_Actions" xml:space="preserve"><value>Գործողություններ</value></data>
+  <data name="Admin_NoActions" xml:space="preserve"><value>Այլ գործողություններ չկան։</value></data>
+  <data name="Admin_Hint_AwaitingCard" xml:space="preserve"><value>Սպասվում է հաճախորդի քարտային վճարումը։ Բանկի հաստատումից հետո պատվերն ինքնաբերաբար կդառնա «Պատվիրված»։ Առայժմ կարելի է միայն չեղարկել։</value></data>
+  <data name="Admin_Hint_AwaitingTransfer" xml:space="preserve"><value>Սպասվում է բանկային փոխանցումը։ Գումարը ստանալուց հետո սեղմեք «Փոխանցումը ստացվել է»։</value></data>
+  <data name="Admin_Hint_Ordered" xml:space="preserve"><value>Հաջորդ քայլը՝ փաթեթավորեք պատվերը և սեղմեք «Նշել փաթեթավորված»։</value></data>
+  <data name="Admin_Hint_Packed" xml:space="preserve"><value>Հաջորդ քայլը՝ երբ պատվերը հանձնվի, սեղմեք «Նշել առաքված»։</value></data>
+  <data name="Admin_Note" xml:space="preserve"><value>Նշում (ըստ ցանկության)</value></data>
+  <data name="Admin_Set_Packed" xml:space="preserve"><value>Նշել փաթեթավորված</value></data>
+  <data name="Admin_Set_Delivered" xml:space="preserve"><value>Նշել առաքված</value></data>
+  <data name="Admin_Set_Cancelled" xml:space="preserve"><value>Չեղարկել պատվերը</value></data>
+  <data name="Admin_Confirm_Cancel" xml:space="preserve"><value>Չեղարկե՞լ այս պատվերը։ Ապրանքը կվերադառնա պահեստ։</value></data>
+  <data name="Admin_MarkReceived" xml:space="preserve"><value>Փոխանցումը ստացվել է</value></data>
+  <data name="Admin_Confirm_Received" xml:space="preserve"><value>Նշե՞լ փոխանցումը ստացված։ Պատվերը կդառնա վճարված։</value></data>
+  <data name="Admin_RefundDone" xml:space="preserve"><value>Գումարը վերադարձվել է</value></data>
+  <data name="Admin_Confirm_Refund" xml:space="preserve"><value>Գումարը վերադարձրե՞լ եք հաճախորդին։</value></data>
+  <data name="Admin_Return" xml:space="preserve"><value>Վերադարձի հայտ</value></data>
+  <data name="Admin_OpenReturn" xml:space="preserve"><value>Բացել վերադարձը</value></data>
+  <data name="Admin_OpenOrder" xml:space="preserve"><value>Բացել պատվերը</value></data>
+  <data name="AttemptStatus_Created" xml:space="preserve"><value>Սկսված</value></data>
+  <data name="AttemptStatus_Paid" xml:space="preserve"><value>Վճարված</value></data>
+  <data name="AttemptStatus_Failed" xml:space="preserve"><value>Չկայացած</value></data>
+  <data name="AttemptStatus_Cancelled" xml:space="preserve"><value>Չեղարկված</value></data>
+  <data name="Admin_Msg_StatusChanged" xml:space="preserve"><value>Կարգավիճակը փոխվեց։</value></data>
+  <data name="Admin_Msg_NotAllowed" xml:space="preserve"><value>Այս փոփոխությունն այժմ հնարավոր չէ։</value></data>
+  <data name="Admin_Msg_Received" xml:space="preserve"><value>Փոխանցումը գրանցվեց, պատվերը վճարված է։</value></data>
+  <data name="Admin_Msg_RefundDone" xml:space="preserve"><value>Գումարի վերադարձը գրանցվեց։</value></data>
+  <data name="Admin_Msg_Saved" xml:space="preserve"><value>Պահպանվեց։</value></data>
+  <data name="Admin_Msg_LastSlot" xml:space="preserve"><value>Առնվազն մեկ առաքման ժամ պետք է մնա ակտիվ։</value></data>
+  <data name="Admin_Msg_BadSlot" xml:space="preserve"><value>Մուտքագրեք ժամը (մինչև 50 նիշ) և հերթականություն 0-ից 1000։</value></data>
+  <data name="Admin_Msg_ReturnChanged" xml:space="preserve"><value>Վերադարձը թարմացվեց։</value></data>
+  <data name="Admin_Ret_Title" xml:space="preserve"><value>Վերադարձի հայտ</value></data>
+  <data name="Admin_Ret_Reason" xml:space="preserve"><value>Պատճառ</value></data>
+  <data name="Admin_Ret_Note" xml:space="preserve"><value>Նշում հաճախորդի համար (ըստ ցանկության)</value></data>
+  <data name="Admin_Ret_Restock" xml:space="preserve"><value>Ապրանքները վերադարձնել պահեստ</value></data>
+  <data name="Admin_Ret_Decided" xml:space="preserve"><value>որոշված է</value></data>
+  <data name="Admin_Set_Rejected" xml:space="preserve"><value>Մերժել</value></data>
+  <data name="Admin_Set_Returned" xml:space="preserve"><value>Ապրանքը ստացվել է</value></data>
+  <data name="Admin_Set_Refunded" xml:space="preserve"><value>Գումարը վերադարձվել է</value></data>
+  <data name="Admin_Confirm_Reject" xml:space="preserve"><value>Մերժե՞լ այս վերադարձի հայտը։</value></data>
+  <data name="Admin_Set_Delivery" xml:space="preserve"><value>Առաքում</value></data>
+  <data name="Admin_DeliveryFee" xml:space="preserve"><value>Առաքման վճար (AMD)</value></data>
+  <data name="Admin_FreeFrom" xml:space="preserve"><value>Անվճար առաքում սկսած (AMD, 0 = երբեք)</value></data>
+  <data name="Admin_DaysAhead" xml:space="preserve"><value>Քանի օր կարելի է ընտրել</value></data>
+  <data name="Admin_FirstDay" xml:space="preserve"><value>Առաքման առաջին օր (1 = վաղը)</value></data>
+  <data name="Admin_ReturnWindow" xml:space="preserve"><value>Վերադարձի ժամկետ (օր)</value></data>
+  <data name="Admin_BankDetails" xml:space="preserve"><value>Բանկային փոխանցման տվյալներ</value></data>
+  <data name="Admin_BankName" xml:space="preserve"><value>Բանկ</value></data>
+  <data name="Admin_BankAccount" xml:space="preserve"><value>Հաշվեհամար (IBAN)</value></data>
+  <data name="Admin_BankRecipient" xml:space="preserve"><value>Ստացող</value></data>
+  <data name="Admin_Save" xml:space="preserve"><value>Պահպանել</value></data>
+  <data name="Admin_Slots" xml:space="preserve"><value>Առաքման ժամեր</value></data>
+  <data name="Admin_SlotsHint" xml:space="preserve"><value>Ժամը հնարավոր չէ ջնջել, միայն թաքցնել․ հին պատվերները պահում են իրենց տեքստը։</value></data>
+  <data name="Admin_SlotLabel" xml:space="preserve"><value>Ժամ</value></data>
+  <data name="Admin_SlotOrder" xml:space="preserve"><value>Հերթականություն</value></data>
+  <data name="Admin_SlotActive" xml:space="preserve"><value>Ցուցադրել հաճախորդներին</value></data>
+  <data name="Admin_AddSlot" xml:space="preserve"><value>Ավելացնել ժամ</value></data>
+  <data name="Val_Range" xml:space="preserve"><value>{0}՝ արժեքը պետք է լինի {1}-ից {2}։</value></data>
+  <data name="Admin_Nav_Products" xml:space="preserve"><value>Ապրանքներ</value></data>
+  <data name="Admin_Nav_Categories" xml:space="preserve"><value>Կատեգորիաներ</value></data>
+  <data name="Admin_Nav_AgeGroups" xml:space="preserve"><value>Տարիքային խմբեր</value></data>
+  <data name="Admin_Add" xml:space="preserve"><value>Ավելացնել</value></data>
+  <data name="Admin_Edit" xml:space="preserve"><value>Փոխել</value></data>
+  <data name="Admin_Delete" xml:space="preserve"><value>Ջնջել</value></data>
+  <data name="Admin_Confirm_Delete" xml:space="preserve"><value>Ջնջե՞լ սա։</value></data>
+  <data name="Admin_Shown" xml:space="preserve"><value>Երևում է</value></data>
+  <data name="Admin_Hidden" xml:space="preserve"><value>Թաքցված է</value></data>
+  <data name="Admin_Archived" xml:space="preserve"><value>Արխիվացված</value></data>
+  <data name="Admin_Col_Name" xml:space="preserve"><value>Անվանում</value></data>
+  <data name="Admin_Col_Products" xml:space="preserve"><value>Ապրանքներ</value></data>
+  <data name="Admin_Name_Hint" xml:space="preserve"><value>Հայերեն անվանումը պարտադիր է։ Բացակայող ռուսերեն կամ անգլերեն տեքստը կցուցադրվի հայերեն։</value></data>
+  <data name="Admin_NameHy" xml:space="preserve"><value>Անվանում (հայերեն)</value></data>
+  <data name="Admin_NameRu" xml:space="preserve"><value>Անվանում (ռուսերեն)</value></data>
+  <data name="Admin_NameEn" xml:space="preserve"><value>Անվանում (անգլերեն)</value></data>
+  <data name="Admin_DescHy" xml:space="preserve"><value>Նկարագրություն (հայերեն)</value></data>
+  <data name="Admin_DescRu" xml:space="preserve"><value>Նկարագրություն (ռուսերեն)</value></data>
+  <data name="Admin_DescEn" xml:space="preserve"><value>Նկարագրություն (անգլերեն)</value></data>
+  <data name="Admin_Cat_New" xml:space="preserve"><value>Նոր կատեգորիա</value></data>
+  <data name="Admin_Cat_Edit" xml:space="preserve"><value>Կատեգորիայի խմբագրում</value></data>
+  <data name="Admin_Cat_Active" xml:space="preserve"><value>Ցուցադրել խանութում</value></data>
+  <data name="Admin_Cat_Hint" xml:space="preserve"><value>Ապրանքներ ունեցող կատեգորիան հնարավոր չէ ջնջել․ թաքցրեք այն։</value></data>
+  <data name="Admin_Picture" xml:space="preserve"><value>Նկար</value></data>
+  <data name="Admin_Img_Hint" xml:space="preserve"><value>JPG, PNG կամ WebP, մինչև 5 ՄԲ։ Նկարը ավտոմատ փոքրացվում և մաքրվում է։</value></data>
+  <data name="Admin_Age_New" xml:space="preserve"><value>Նոր տարիքային խումբ</value></data>
+  <data name="Admin_Age_Edit" xml:space="preserve"><value>Տարիքային խմբի խմբագրում</value></data>
+  <data name="Admin_Age_Hint" xml:space="preserve"><value>Ապրանքների կողմից օգտագործվող տարիքային խումբը հնարավոր չէ ջնջել․ թաքցրեք այն։</value></data>
+  <data name="Admin_Prod_Search" xml:space="preserve"><value>SKU, ապրանքանիշ կամ անվանում</value></data>
+  <data name="Admin_AllCategories" xml:space="preserve"><value>Բոլոր կատեգորիաները</value></data>
+  <data name="Admin_Show" xml:space="preserve"><value>Ցուցադրել</value></data>
+  <data name="Admin_Show_Active" xml:space="preserve"><value>Ակտիվ ապրանքներ</value></data>
+  <data name="Admin_Show_Archived" xml:space="preserve"><value>Արխիվացված</value></data>
+  <data name="Admin_Show_All" xml:space="preserve"><value>Բոլորը</value></data>
+  <data name="Admin_Prod_LowOnly" xml:space="preserve"><value>Միայն ապրանքներ, որոնցից մնացել է {0} կամ պակաս</value></data>
+  <data name="Admin_Prod_Sku" xml:space="preserve"><value>SKU</value></data>
+  <data name="Admin_Prod_Brand" xml:space="preserve"><value>Ապրանքանիշ</value></data>
+  <data name="Admin_Prod_Category" xml:space="preserve"><value>Կատեգորիա</value></data>
+  <data name="Admin_Prod_Price" xml:space="preserve"><value>Գին (AMD)</value></data>
+  <data name="Admin_Prod_Discount" xml:space="preserve"><value>Զեղչ (%)</value></data>
+  <data name="Admin_Prod_Stock" xml:space="preserve"><value>Պահեստում</value></data>
+  <data name="Admin_Prod_New" xml:space="preserve"><value>Նոր ապրանք</value></data>
+  <data name="Admin_Prod_Edit" xml:space="preserve"><value>Ապրանքի խմբագրում</value></data>
+  <data name="Admin_ViewInShop" xml:space="preserve"><value>Տեսնել խանութում</value></data>
+  <data name="Admin_Prod_Basics" xml:space="preserve"><value>Հիմնական տվյալներ</value></data>
+  <data name="Admin_Prod_AgeGroups" xml:space="preserve"><value>Տարիքային խմբեր</value></data>
+  <data name="Admin_Prod_Pinned" xml:space="preserve"><value>Ցուցադրել «Նորույթներում», եթե նույնիսկ հին է</value></data>
+  <data name="Admin_Prod_Archived" xml:space="preserve"><value>Արխիվացված (թաքցված է խանութից, պահվում է հին պատվերների համար)</value></data>
+  <data name="Admin_Prod_Texts" xml:space="preserve"><value>Անվանումներ և նկարագրություններ</value></data>
+  <data name="Admin_Prod_Photos" xml:space="preserve"><value>Լուսանկարներ ({0}՝ {1}-ից)</value></data>
+  <data name="Admin_Prod_PhotosAfterSave" xml:space="preserve"><value>Նախ պահպանեք ապրանքը, ապա այստեղ ավելացրեք լուսանկարներ։</value></data>
+  <data name="Admin_Prod_NoPhotos" xml:space="preserve"><value>Լուսանկարներ դեռ չկան։</value></data>
+  <data name="Admin_Photo_Main" xml:space="preserve"><value>Գլխավոր</value></data>
+  <data name="Admin_Photo_Earlier" xml:space="preserve"><value>Տեղափոխել առաջ</value></data>
+  <data name="Admin_Photo_Later" xml:space="preserve"><value>Տեղափոխել հետ</value></data>
+  <data name="Admin_Photo_MakeMain" xml:space="preserve"><value>Դարձնել գլխավոր</value></data>
+  <data name="Admin_Photo_ConfirmRemove" xml:space="preserve"><value>Ջնջե՞լ այս լուսանկարը։</value></data>
+  <data name="Admin_Prod_AddPhotos" xml:space="preserve"><value>Ավելացնել լուսանկարներ</value></data>
+  <data name="Admin_Prod_Upload" xml:space="preserve"><value>Վերբեռնել</value></data>
+  <data name="Admin_Img_NotImage" xml:space="preserve"><value>Այս ֆայլը JPG, PNG կամ WebP նկար չէ։</value></data>
+  <data name="Admin_Img_TooBig" xml:space="preserve"><value>Ֆայլը 5 ՄԲ-ից մեծ է։</value></data>
+  <data name="Admin_Img_TooLarge" xml:space="preserve"><value>Նկարը չափազանց մեծ է (12000 px-ից կամ 40 միլիոն պիքսելից ավելի)։</value></data>
+  <data name="Admin_Img_Damaged" xml:space="preserve"><value>Նկարի ֆայլը վնասված է կամ թերի է։ Փորձեք մեկ այլ ֆայլ։</value></data>
+  <data name="Admin_Img_Choose" xml:space="preserve"><value>Ընտրեք առնվազն մեկ լուսանկար։</value></data>
+  <data name="Admin_Img_TooMany" xml:space="preserve"><value>Մեկ ապրանքի համար թույլատրվում է առավելագույնը {0} լուսանկար։</value></data>
+  <data name="Admin_Img_Refused" xml:space="preserve"><value>«{0}» չավելացվեց՝ {1}</value></data>
+  <data name="Admin_Msg_Deleted" xml:space="preserve"><value>Ջնջվեց։</value></data>
+  <data name="Admin_Msg_CategoryInUse" xml:space="preserve"><value>Այս կատեգորիայում դեռ ապրանքներ կան։ Թաքցրեք այն։</value></data>
+  <data name="Admin_Msg_AgeGroupInUse" xml:space="preserve"><value>Այս տարիքային խումբը օգտագործվում է ապրանքների կողմից։ Թաքցրեք այն։</value></data>
+  <data name="Admin_Msg_ProductCreated" xml:space="preserve"><value>Ապրանքը ստեղծվեց։ Այժմ կարող եք ավելացնել լուսանկարներ։</value></data>
+  <data name="Admin_Msg_DuplicateSku" xml:space="preserve"><value>Այս SKU-ն արդեն օգտագործվում է մեկ այլ ապրանքի համար։</value></data>
+  <data name="Admin_Msg_Conflict" xml:space="preserve"><value>Ապրանքը փոխվել է այդ ընթացքում (օրինակ՝ պատվերի կամ այլ ադմինի կողմից)։ Էջը այժմ ցույց է տալիս ընթացիկ արժեքները․ ստուգեք և նորից խմբագրեք։</value></data>
+  <data name="Admin_Msg_PhotosAdded" xml:space="preserve"><value>Ավելացվեց {0} լուսանկար։</value></data>
+  <data name="Admin_Msg_PhotoRemoved" xml:space="preserve"><value>Լուսանկարը ջնջվեց։</value></data>
+  <data name="Admin_Val_Sku" xml:space="preserve"><value>Օգտագործեք միայն տառեր, թվեր և . _ - նշանները։</value></data>
+  <data name="Admin_Nav_Admins" xml:space="preserve"><value>Ադմիններ</value></data>
+  <data name="Admin_Nav_Audit" xml:space="preserve"><value>Փոփոխությունների մատյան</value></data>
+  <data name="Admin_Adm_Hint" xml:space="preserve"><value>Այստեղ նշվածները կարող են անել ամեն ինչ ադմին վահանակում։</value></data>
+  <data name="Admin_Adm_Email" xml:space="preserve"><value>Էլ. փոստ</value></data>
+  <data name="Admin_Adm_Name" xml:space="preserve"><value>Անուն</value></data>
+  <data name="Admin_Adm_Since" xml:space="preserve"><value>Գրանցվել է</value></data>
+  <data name="Admin_Adm_You" xml:space="preserve"><value>Դուք</value></data>
+  <data name="Admin_Adm_Main" xml:space="preserve"><value>Գլխավոր ադմին (նշված է կայքի կարգավորումներում)</value></data>
+  <data name="Admin_Adm_Remove" xml:space="preserve"><value>Հանել հասանելիությունը</value></data>
+  <data name="Admin_Adm_ConfirmRemove" xml:space="preserve"><value>Հանե՞լ {0}-ի ադմինի հասանելիությունը։</value></data>
+  <data name="Admin_Adm_MainHint" xml:space="preserve"><value>Գլխավոր ադմինը նշված է կայքի կարգավորումներում և այստեղ չի կարող հեռացվել։ Դուք չեք կարող հեռացնել ձեր սեփական հասանելիությունը․ դա կարող է անել մեկ այլ ադմին։</value></data>
+  <data name="Admin_Adm_AddTitle" xml:space="preserve"><value>Ավելացնել ադմին</value></data>
+  <data name="Admin_Adm_AddHint" xml:space="preserve"><value>Մուտքագրեք գոյություն ունեցող հաշվի էլ. փոստը (այն պետք է հաստատված լինի)։ Անձը պետք է դուրս գա և նորից մուտք գործի՝ ադմին վահանակը տեսնելու համար։</value></data>
+  <data name="Admin_Adm_Add" xml:space="preserve"><value>Դարձնել ադմին</value></data>
+  <data name="Admin_Adm_ConfirmAdd" xml:space="preserve"><value>Տա՞լ այս անձին ադմին վահանակի լրիվ հասանելիություն։</value></data>
+  <data name="Admin_Adm_Granted" xml:space="preserve"><value>{0}-ը այժմ ադմին է։ Վահանակը տեսնելու համար նա պետք է նորից մուտք գործի։</value></data>
+  <data name="Admin_Adm_AlreadyAdmin" xml:space="preserve"><value>Այս անձը արդեն ադմին է։</value></data>
+  <data name="Admin_Adm_NotConfirmed" xml:space="preserve"><value>Այս հաշվի էլ. փոստը դեռ հաստատված չէ։</value></data>
+  <data name="Admin_Adm_NotFound" xml:space="preserve"><value>Այս էլ. փոստով հաշիվ չկա։</value></data>
+  <data name="Admin_Adm_Revoked" xml:space="preserve"><value>Ադմինի հասանելիությունը հանվեց։</value></data>
+  <data name="Admin_Adm_Yourself" xml:space="preserve"><value>Դուք չեք կարող հեռացնել ձեր սեփական հասանելիությունը։ Խնդրեք մեկ այլ ադմինի։</value></data>
+  <data name="Admin_Adm_Configured" xml:space="preserve"><value>Գլխավոր ադմինը նշված է կայքի կարգավորումներում և այստեղ չի կարող հեռացվել։</value></data>
+  <data name="Admin_Adm_Last" xml:space="preserve"><value>Վերջին ադմինին հնարավոր չէ հեռացնել։</value></data>
+  <data name="Admin_Audit_Hint" xml:space="preserve"><value>Ով ինչ է փոխել ադմին վահանակում՝ նորերը վերևում։</value></data>
+  <data name="Admin_Audit_Search" xml:space="preserve"><value>Ադմին, գործողություն, համար կամ մանրամասներ</value></data>
+  <data name="Admin_Audit_Type" xml:space="preserve"><value>Տեսակ</value></data>
+  <data name="Admin_Audit_AllTypes" xml:space="preserve"><value>Բոլոր տեսակները</value></data>
+  <data name="Admin_Audit_Who" xml:space="preserve"><value>Ադմին</value></data>
+  <data name="Admin_Audit_Action" xml:space="preserve"><value>Գործողություն</value></data>
+  <data name="Admin_Audit_Item" xml:space="preserve"><value>Օբյեկտ</value></data>
+  <data name="Admin_Audit_Details" xml:space="preserve"><value>Մանրամասներ</value></data>
+  <data name="Admin_Nav_Analytics" xml:space="preserve"><value>Վերլուծություն</value></data>
+  <data name="An_Hint" xml:space="preserve"><value>Վաճառքները, հաճախորդները և ապրանքները ընտրված ժամանակահատվածի համար՝ նախորդի համեմատ։</value></data>
+  <data name="An_BadRange" xml:space="preserve"><value>Ամսաթվերը սխալ են (երկուսն էլ պետք են, առաջինը չպետք է լինի երկրորդից հետո, առավելագույնը 366 օր)։ Ցուցադրված են վերջին 30 օրը։</value></data>
+  <data name="An_Period" xml:space="preserve"><value>Ժամանակահատված</value></data>
+  <data name="An_Today" xml:space="preserve"><value>Այսօր</value></data>
+  <data name="An_Last7" xml:space="preserve"><value>7 օր</value></data>
+  <data name="An_Last30" xml:space="preserve"><value>30 օր</value></data>
+  <data name="An_ThisMonth" xml:space="preserve"><value>Այս ամիս</value></data>
+  <data name="An_LastMonth" xml:space="preserve"><value>Անցյալ ամիս</value></data>
+  <data name="An_Show" xml:space="preserve"><value>Ցույց տալ</value></data>
+  <data name="An_ComparedWith" xml:space="preserve"><value>համեմատ</value></data>
+  <data name="An_New" xml:space="preserve"><value>նոր</value></data>
+  <data name="An_Before" xml:space="preserve"><value>Փոփոխություն նախորդ ժամանակահատվածի համեմատ</value></data>
+  <data name="An_NoData" xml:space="preserve"><value>Այս ժամանակահատվածում ոչինչ չկա։</value></data>
+  <data name="An_Orders" xml:space="preserve"><value>Պատվերներ</value></data>
+  <data name="An_Units" xml:space="preserve"><value>Հատ</value></data>
+  <data name="An_Sales" xml:space="preserve"><value>Վաճառք</value></data>
+  <data name="An_Product" xml:space="preserve"><value>Ապրանք</value></data>
+  <data name="An_InStock" xml:space="preserve"><value>պահեստում՝</value></data>
+  <data name="An_SalesPerDay" xml:space="preserve"><value>Վաճառքը ըստ օրերի</value></data>
+  <data name="An_SalesPerWeek" xml:space="preserve"><value>Վաճառքը ըստ շաբաթների</value></data>
+  <data name="An_ChartMax" xml:space="preserve"><value>Ամենաբարձր սյունը՝</value></data>
+  <data name="An_ShowTable" xml:space="preserve"><value>Ցույց տալ աղյուսակով</value></data>
+  <data name="An_K_Sales" xml:space="preserve"><value>Վաճառք</value></data>
+  <data name="An_K_Orders" xml:space="preserve"><value>Պատվերներ</value></data>
+  <data name="An_K_Average" xml:space="preserve"><value>Միջին պատվեր</value></data>
+  <data name="An_K_Items" xml:space="preserve"><value>Վաճառված հատեր</value></data>
+  <data name="An_K_Discounts" xml:space="preserve"><value>Տրված զեղչեր</value></data>
+  <data name="An_K_Delivery" xml:space="preserve"><value>Առաքման վճար</value></data>
+  <data name="An_K_Cancelled" xml:space="preserve"><value>Չեղարկված պատվերներ</value></data>
+  <data name="An_K_CancelRate" xml:space="preserve"><value>Չեղարկվածների մասնաբաժինը՝</value></data>
+  <data name="An_K_Returns" xml:space="preserve"><value>Վերադարձի հայտեր</value></data>
+  <data name="An_K_Refunded" xml:space="preserve"><value>Վերադարձված գումար</value></data>
+  <data name="An_K_Net" xml:space="preserve"><value>Զուտ վաճառք</value></data>
+  <data name="An_K_NewAccounts" xml:space="preserve"><value>Նոր հաշիվներ</value></data>
+  <data name="An_K_RegGuest" xml:space="preserve"><value>Պատվերներ՝ հաշվով / հյուր</value></data>
+  <data name="An_K_RegGuestNote" xml:space="preserve"><value>Կատարված մուտքով / առանց հաշվի</value></data>
+  <data name="An_K_DiscountedShare" xml:space="preserve"><value>Պատվերներ հաճախորդի զեղչով</value></data>
+  <data name="An_T_Payment" xml:space="preserve"><value>Ըստ վճարման եղանակի</value></data>
+  <data name="An_T_Status" xml:space="preserve"><value>Ըստ պատվերի կարգավիճակի (բոլոր պատվերները)</value></data>
+  <data name="An_T_Region" xml:space="preserve"><value>Ըստ մարզի</value></data>
+  <data name="An_T_Category" xml:space="preserve"><value>Ըստ կատեգորիայի</value></data>
+  <data name="An_T_Brand" xml:space="preserve"><value>Ըստ բրենդի</value></data>
+  <data name="An_T_AgeGroup" xml:space="preserve"><value>Ըստ տարիքային խմբի (ապրանքը կարող է լինել մի քանիսում)</value></data>
+  <data name="An_T_Slot" xml:space="preserve"><value>Ըստ առաքման ժամի</value></data>
+  <data name="An_T_Weekday" xml:space="preserve"><value>Ըստ շաբաթվա օրվա (Հայաստանի ժամանակով)</value></data>
+  <data name="An_T_Hour" xml:space="preserve"><value>Ըստ օրվա ժամի (Հայաստանի ժամանակով)</value></data>
+  <data name="An_Day_0" xml:space="preserve"><value>Երկուշաբթի</value></data>
+  <data name="An_Day_1" xml:space="preserve"><value>Երեքշաբթի</value></data>
+  <data name="An_Day_2" xml:space="preserve"><value>Չորեքշաբթի</value></data>
+  <data name="An_Day_3" xml:space="preserve"><value>Հինգշաբթի</value></data>
+  <data name="An_Day_4" xml:space="preserve"><value>Ուրբաթ</value></data>
+  <data name="An_Day_5" xml:space="preserve"><value>Շաբաթ</value></data>
+  <data name="An_Day_6" xml:space="preserve"><value>Կիրակի</value></data>
+  <data name="An_Products" xml:space="preserve"><value>Ապրանքներ</value></data>
+  <data name="An_TopUnits" xml:space="preserve"><value>Լավագույն 10-ը ըստ քանակի</value></data>
+  <data name="An_TopMoney" xml:space="preserve"><value>Լավագույն 10-ը ըստ գումարի</value></data>
+  <data name="An_NoSales" xml:space="preserve"><value>Չվաճառված այս ժամանակահատվածում (մինչև 10, նորերը առաջինը)</value></data>
+  <data name="An_LowStock" xml:space="preserve"><value>Քիչ պահեստում (3 կամ պակաս)</value></data>
+  <data name="An_Customers" xml:space="preserve"><value>Հաճախորդներ</value></data>
+  <data name="An_Buyers" xml:space="preserve"><value>Գնորդները ժամանակահատվածում</value></data>
+  <data name="An_BuyersAll" xml:space="preserve"><value>Տարբեր գնորդներ</value></data>
+  <data name="An_BuyersNew" xml:space="preserve"><value>Նոր (առաջին պատվեր)</value></data>
+  <data name="An_BuyersReturning" xml:space="preserve"><value>Վերադարձած (նախկինում պատվիրել են)</value></data>
+  <data name="An_TopCustomers" xml:space="preserve"><value>Լավագույն 10 հաճախորդները ըստ ծախսի</value></data>
+  <data name="An_Customer" xml:space="preserve"><value>Հաճախորդ</value></data>
+  <data name="An_Spent" xml:space="preserve"><value>Ծախսել է</value></data>
+  <data name="An_Waiting" xml:space="preserve"><value>Զամբյուղներ, որոնք սպասում են 24 ժամից ավելի</value></data>
+  <data name="An_WaitingCarts" xml:space="preserve"><value>զամբյուղ ապրանքներով</value></data>
+  <data name="An_WaitingValue" xml:space="preserve"><value>այսօրվա գներով</value></data>
+  <data name="An_Export" xml:space="preserve"><value>Արտահանում</value></data>
+  <data name="An_ExportHint" xml:space="preserve"><value>CSV ֆայլեր ցուցադրված ժամանակահատվածի համար՝ Excel-ի կամ Google Sheets-ի համար։ Դրանցում չկան անուններ, հեռախոսներ, էլ. փոստեր և հասցեներ։ Յուրաքանչյուր արտահանում գրանցվում է փոփոխությունների մատյանում։</value></data>
+  <data name="An_ExportOrders" xml:space="preserve"><value>Ներբեռնել պատվերները (CSV)</value></data>
+  <data name="An_ExportItems" xml:space="preserve"><value>Ներբեռնել վաճառված ապրանքները (CSV)</value></data>
+  <data name="An_Notes" xml:space="preserve"><value>Ինչպես են հաշվվում թվերը</value></data>
+  <data name="An_Note1" xml:space="preserve"><value>Վաճառքները հաստատված պատվերներն են (պատվիրված, փաթեթավորված, առաքված)՝ ըստ պատվերի օրվա Հայաստանի ժամանակով։ Չեղարկված և վճարման սպասող պատվերները վաճառք չեն համարվում։</value></data>
+  <data name="An_Note2" xml:space="preserve"><value>Գումարը պատվերի ընդհանուրն է՝ առաքումով. զեղչերը և առաքման վճարը ցուցադրվում են նաև առանձին։</value></data>
+  <data name="An_Note3" xml:space="preserve"><value>Վերադարձները հաշվվում են գումարի վերադարձի օրը՝ անկախ պատվերի ամսաթվից, և հանվում են զուտ վաճառքից։</value></data>
+  <data name="An_Note4" xml:space="preserve"><value>Համեմատությունը նույն երկարության անմիջապես նախորդ ժամանակահատվածի հետ է։ Կայքը չի հետևում այցելուներին։</value></data>
+  <data name="Admin_Nav_Emails" xml:space="preserve"><value>Նամակներ</value></data>
+  <data name="Admin_Notif_Title" xml:space="preserve"><value>Ծանուցումներ</value></data>
+  <data name="Admin_Notif_All" xml:space="preserve"><value>Բոլորը</value></data>
+  <data name="Admin_Notif_Unread" xml:space="preserve"><value>Չկարդացված</value></data>
+  <data name="Admin_Notif_MarkAll" xml:space="preserve"><value>Նշել բոլորը կարդացված</value></data>
+  <data name="Admin_Notif_MarkRead" xml:space="preserve"><value>Նշել կարդացված</value></data>
+  <data name="Admin_Notif_Open" xml:space="preserve"><value>Բացել</value></data>
+  <data name="Admin_Notif_Empty" xml:space="preserve"><value>Ծանուցումներ չկան։</value></data>
+  <data name="Admin_Notif_AllRead" xml:space="preserve"><value>Բոլոր ծանուցումները նշվեցին կարդացված։</value></data>
+  <data name="Notif_NewOrder" xml:space="preserve"><value>Նոր պատվեր #{0}՝ {1}</value></data>
+  <data name="Notif_ReturnRequested" xml:space="preserve"><value>Վերադարձի հայտ #{0} պատվերի համար</value></data>
+  <data name="Notif_RefundNeeded" xml:space="preserve"><value>Պետք է գումար վերադարձնել՝ {1} (պատվեր #{0})</value></data>
+  <data name="Notif_LowStock" xml:space="preserve"><value>Պահեստը սպառվում է՝ {0}, մնացել է {1}</value></data>
+  <data name="Admin_Dash_FailedEmails" xml:space="preserve"><value>Չուղարկված նամակներ</value></data>
+  <data name="Admin_Email_Hint" xml:space="preserve"><value>Նամակները հերթագրվում և ուղարկվում են ֆոնային ռեժիմով։ Չուղարկված նամակը կրկին փորձվում է ավելի ուշ՝ մինչև 5 անգամ, ապա կարող եք այստեղ նորից փորձել։</value></data>
+  <data name="Admin_Email_Kind" xml:space="preserve"><value>Նամակ</value></data>
+  <data name="Admin_Email_To" xml:space="preserve"><value>Ում</value></data>
+  <data name="Admin_Email_Tries" xml:space="preserve"><value>Փորձեր</value></data>
+  <data name="Admin_Email_Next" xml:space="preserve"><value>Հաջորդ փորձը՝</value></data>
+  <data name="Admin_Email_Retry" xml:space="preserve"><value>Նորից փորձել</value></data>
+  <data name="Admin_Msg_Retried" xml:space="preserve"><value>Նամակը վերադարձվեց հերթ։</value></data>
+  <data name="OutboxStatus_Pending" xml:space="preserve"><value>Սպասում է</value></data>
+  <data name="OutboxStatus_Sent" xml:space="preserve"><value>Ուղարկված</value></data>
+  <data name="OutboxStatus_Failed" xml:space="preserve"><value>Չի ուղարկվել</value></data>
+  <data name="EmailKind_OrderConfirmation" xml:space="preserve"><value>Պատվերի հաստատում</value></data>
+  <data name="EmailKind_OrderPacked" xml:space="preserve"><value>Պատվերը փաթեթավորված է</value></data>
+  <data name="EmailKind_OrderDelivered" xml:space="preserve"><value>Պատվերը առաքված է</value></data>
+  <data name="EmailKind_OrderCancelled" xml:space="preserve"><value>Պատվերը չեղարկված է</value></data>
+  <data name="EmailKind_TransferReceived" xml:space="preserve"><value>Փոխանցումը ստացվել է</value></data>
+  <data name="EmailKind_ReturnRejected" xml:space="preserve"><value>Վերադարձը մերժված է</value></data>
+  <data name="EmailKind_ReturnReceived" xml:space="preserve"><value>Ապրանքը ստացվել է</value></data>
+  <data name="EmailKind_ReturnRefunded" xml:space="preserve"><value>Գումարը վերադարձվել է</value></data>
+  <data name="EmailKind_ShopNewOrder" xml:space="preserve"><value>Նոր պատվեր (խանութին)</value></data>
+  <data name="EmailKind_ShopReturnRequested" xml:space="preserve"><value>Վերադարձի հայտ (խանութին)</value></data>
+  <data name="EmailKind_ShopRefundNeeded" xml:space="preserve"><value>Գումար վերադարձնելու կարիք (խանութին)</value></data>
+  <data name="Email_OpenOrderAdmin" xml:space="preserve"><value>Բացել պատվերը ադմին վահանակում</value></data>
+  <data name="Email_OpenReturnAdmin" xml:space="preserve"><value>Բացել վերադարձը ադմին վահանակում</value></data>
+  <data name="Email_Packed_Subject" xml:space="preserve"><value>Պատվեր #{0}-ը փաթեթավորված է</value></data>
+  <data name="Email_Packed_Heading" xml:space="preserve"><value>Ձեր պատվերը փաթեթավորված է</value></data>
+  <data name="Email_Packed_Text" xml:space="preserve"><value>Մենք փաթեթավորեցինք պատվեր #{0}-ը։ Այն կառաքենք {1}, {2}։</value></data>
+  <data name="Email_Delivered_Subject" xml:space="preserve"><value>Պատվեր #{0}-ը առաքված է</value></data>
+  <data name="Email_Delivered_Heading" xml:space="preserve"><value>Ձեր պատվերը առաքվեց</value></data>
+  <data name="Email_Delivered_Text" xml:space="preserve"><value>Շնորհակալություն գնումների համար։ Եթե ինչ-որ բան այնպես չէ, մինչև {0} կարող եք վերադարձ պահանջել։</value></data>
+  <data name="Email_Cancelled_Subject" xml:space="preserve"><value>Պատվեր #{0}-ը չեղարկվեց</value></data>
+  <data name="Email_Cancelled_Heading" xml:space="preserve"><value>Ձեր պատվերը չեղարկվեց</value></data>
+  <data name="Email_Cancelled_Text" xml:space="preserve"><value>Պատվեր #{0}-ը չեղարկվեց։</value></data>
+  <data name="Email_Cancelled_Expired" xml:space="preserve"><value>Պատվեր #{0}-ի վճարման ժամանակը լրացավ, ուստի այն ավտոմատ չեղարկվեց։ Սիրով սպասում ենք նոր պատվերի։</value></data>
+  <data name="Email_Transfer_Subject" xml:space="preserve"><value>Ստացանք ձեր վճարումը #{0} պատվերի համար</value></data>
+  <data name="Email_Transfer_Heading" xml:space="preserve"><value>Վճարումը ստացվեց</value></data>
+  <data name="Email_Transfer_Text" xml:space="preserve"><value>Շնորհակալություն։ Մենք ստացանք բանկային փոխանցումը #{0} պատվերի համար և այժմ կպատրաստենք այն առաքման։</value></data>
+  <data name="Email_ReturnRejected_Subject" xml:space="preserve"><value>Ձեր վերադարձի հայտը #{0} պատվերի համար</value></data>
+  <data name="Email_ReturnRejected_Heading" xml:space="preserve"><value>Չկարողացանք ընդունել ձեր վերադարձի հայտը</value></data>
+  <data name="Email_ReturnRejected_Text" xml:space="preserve"><value>Մենք քննարկեցինք #{0} պատվերի վերադարձի հայտը և չկարողացանք ընդունել այն։</value></data>
+  <data name="Email_ReturnReceived_Subject" xml:space="preserve"><value>Վերադարձ #{0} պատվերի համար՝ ապրանքը ստացվեց</value></data>
+  <data name="Email_ReturnReceived_Heading" xml:space="preserve"><value>Մենք ստացանք ձեր ապրանքը</value></data>
+  <data name="Email_ReturnReceived_Text" xml:space="preserve"><value>Մենք ստացանք #{0} պատվերի վերադարձրած ապրանքը։ Շուտով կվերադարձնենք ձեր գումարը։</value></data>
+  <data name="Email_ReturnRefunded_Subject" xml:space="preserve"><value>Վերադարձ #{0} պատվերի համար՝ գումարը վերադարձվեց</value></data>
+  <data name="Email_ReturnRefunded_Heading" xml:space="preserve"><value>Ձեր գումարը վերադարձվեց</value></data>
+  <data name="Email_ReturnRefunded_Text" xml:space="preserve"><value>Մենք #{0} պատվերի գումարը վերադարձրինք ձեզ։ Այն կարող է հաշվին երևալ մի քանի օրից։</value></data>
+  <data name="Email_ShopReturn_Subject" xml:space="preserve"><value>Վերադարձի հայտ՝ պատվեր #{0}</value></data>
+  <data name="Email_ShopReturn_Heading" xml:space="preserve"><value>Վերադարձի հայտ #{0} պատվերի համար</value></data>
+  <data name="Email_ShopReturn_Text" xml:space="preserve"><value>{1}-ը խնդրել է վերադարձնել #{0} պատվերը։ Պատճառը՝</value></data>
+  <data name="Email_ShopRefund_Subject" xml:space="preserve"><value>Պետք է գումար վերադարձնել՝ պատվեր #{0}</value></data>
+  <data name="Email_ShopRefund_Heading" xml:space="preserve"><value>Գումար վերադարձնելու կարիք՝ պատվեր #{0}</value></data>
+  <data name="Email_ShopRefund_Text" xml:space="preserve"><value>Ստացվել է {0} վճարում, որը պատվերը չի կարող օգտագործել (պատվերը չեղարկվել է կամ արդեն վճարվել է)։ Խնդրում ենք գումարը վերադարձնել և նշել ադմին վահանակում։</value></data>
+</root>

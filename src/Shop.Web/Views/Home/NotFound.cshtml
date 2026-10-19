@@ -1,0 +1,12 @@
+@{
+    var titleKey = ViewData["TitleKey"] as string ?? "NotFoundTitle";
+    var textKey = ViewData["TextKey"] as string ?? "NotFoundText";
+    ViewData["Title"] = Localizer[titleKey].Value;
+}
+
+<section class="container notice">
+    <p class="notice__code" aria-hidden="true">@(ViewData["StatusCode"] ?? "404")</p>
+    <h1 class="page-title">@Localizer[titleKey]</h1>
+    <p class="notice__text">@Localizer[textKey]</p>
+    <a class="btn btn--primary" asp-controller="Home" asp-action="Index">@Localizer["BackToHome"]</a>
+</section>

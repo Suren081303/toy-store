@@ -1,0 +1,47 @@
+@model ProfileViewModel
+@{
+    ViewData["Title"] = Localizer["Nav_Account"].Value;
+}
+
+<section class="container auth auth--wide">
+    <partial name="_AccountNav" model='"Profile"' />
+
+    <div class="auth__card">
+        <h1 class="page-title">@Localizer["Nav_Account"]</h1>
+
+        @if (TempData["Saved"] is true)
+        {
+            <p class="alert alert--success" role="status">@Localizer["Account_Saved"]</p>
+        }
+
+        <form method="post" class="form" asp-controller="Account" asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+
+            <div class="field">
+                <label asp-for="FullName" class="field__label"></label>
+                <input asp-for="FullName" class="input" autocomplete="name" required maxlength="100" />
+                <span asp-validation-for="FullName" class="field__error"></span>
+            </div>
+
+            <div class="field">
+                <label for="profile-email" class="field__label">@Localizer["Label_Email"]</label>
+                <input id="profile-email" class="input" value="@Model.Email" readonly />
+                <p class="field__hint">@Localizer["Account_EmailNote"]</p>
+            </div>
+
+            <div class="field">
+                <label asp-for="Phone" class="field__label"></label>
+                <input asp-for="Phone" class="input" type="tel" autocomplete="tel" inputmode="tel" required maxlength="20" />
+                <span asp-validation-for="Phone" class="field__error"></span>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--lg btn--block">@Localizer["Account_Save"]</button>
+        </form>
+
+        <form method="post" asp-controller="Account" asp-action="Logout" class="auth__signout">
+            <button type="submit" class="btn btn--ghost btn--block">
+                <svg class="icon" aria-hidden="true"><use href="#i-logout" /></svg>@Localizer["Nav_SignOut"]
+            </button>
+        </form>
+    </div>
+</section>

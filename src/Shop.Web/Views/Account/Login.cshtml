@@ -1,0 +1,48 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = Localizer["Nav_SignIn"].Value;
+}
+
+<section class="container auth">
+    <div class="auth__card">
+        <h1 class="page-title">@Localizer["Nav_SignIn"]</h1>
+
+        <form method="post" class="form" asp-controller="Account" asp-action="Login">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+
+            @if (Model.ShowResend)
+            {
+                <p><a class="link" asp-action="ResendConfirmation">@Localizer["Link_ResendConfirmation"]</a></p>
+            }
+
+            <partial name="_DevVerify" />
+
+            <div class="field">
+                <label asp-for="Email" class="field__label"></label>
+                <input asp-for="Email" class="input" type="email" autocomplete="username" inputmode="email" autocapitalize="none" required maxlength="256" />
+                <span asp-validation-for="Email" class="field__error"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Password" class="field__label"></label>
+                <div class="pw">
+                    <input asp-for="Password" class="input" autocomplete="current-password" required maxlength="100" />
+                    <button type="button" class="pw__toggle" data-toggle-password aria-pressed="false" aria-label="@Localizer["Show_Password"].Value">
+                        <svg class="icon" aria-hidden="true"><use href="#i-eye" /></svg>
+                    </button>
+                </div>
+                <span asp-validation-for="Password" class="field__error"></span>
+            </div>
+
+            <div class="form__row">
+                <label class="check"><input asp-for="RememberMe" type="checkbox" /><span>@Localizer["Label_RememberMe"]</span></label>
+                <a class="link" asp-action="ForgotPassword">@Localizer["Link_ForgotPassword"]</a>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--lg btn--block">@Localizer["Nav_SignIn"]</button>
+        </form>
+
+        <p class="auth__switch">@Localizer["Login_NoAccount"] <a asp-action="Register">@Localizer["Nav_Register"]</a></p>
+    </div>
+</section>

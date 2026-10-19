@@ -1,0 +1,80 @@
+@inject Shop.Core.Notifications.IAdminNotificationService Notifications
+@{
+    var unread = await Notifications.UnreadCountAsync();
+    var culture = CurrentCulture.Code;
+    var shopName = Configuration["Shop:Name"];
+    var controller = ViewContext.RouteData.Values["controller"] as string;
+    string Active(string name) => controller == name ? "is-active" : "";
+    string? Current(string name) => controller == name ? "page" : null;
+}
+<!DOCTYPE html>
+<html lang="@culture">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>@ViewData["Title"] - @Localizer["Admin_Title"] - @shopName</title>
+    <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="~/css/base.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+</head>
+<body class="admin">
+    <header class="admin-top">
+        <div class="admin-top__row">
+            <div class="admin-brand">
+                @* Links to the shop use the route named "default": from inside the admin area asp-area="" gives an empty address. *@
+                <a class="admin-brand__name" asp-route="default" asp-route-culture="@culture" asp-route-controller="Home" asp-route-action="Index">@shopName</a>
+                <a class="admin-brand__label" asp-area="Admin" asp-controller="Home" asp-action="Index">@Localizer["Admin_Title"]</a>
+            </div>
+            <div class="admin-top__right">
+                <nav class="admin-lang" aria-label="@Localizer["Language"].Value">
+                    @foreach (var (code, label) in new[] { ("hy", "Հայ"), ("ru", "RU"), ("en", "EN") })
+                    {
+                        <a class="@(code == culture ? "is-active" : "")" href="@LanguageLinks.For(Context, code)" hreflang="@code" lang="@code">@label</a>
+                    }
+                </nav>
+                @* The bell: a link to the notifications page; admin.js refreshes the number every 120 seconds while the page is visible. *@
+                <a class="admin-bell" asp-area="Admin" asp-controller="Notifications" asp-action="Index" aria-label="@Localizer["Admin_Notif_Title"].Value"
+                   data-bell data-url="@Url.Action("Summary", "Notifications", new { area = "Admin" })" data-interval="120">
+                    <svg class="admin-bell__icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+                    <span class="admin-bell__badge" data-bell-count hidden="@(unread == 0)">@unread</span>
+                </a>
+                <a class="admin-link admin-link--shop" asp-route="default" asp-route-culture="@culture" asp-route-controller="Home" asp-route-action="Index">← @Localizer["Admin_ViewShop"]</a>
+                <form method="post" asp-route="default" asp-route-culture="@culture" asp-route-controller="Account" asp-route-action="Logout">
+                    <button type="submit" class="admin-link admin-link--button">@Localizer["Nav_SignOut"]</button>
+                </form>
+            </div>
+        </div>
+        <nav class="admin-nav" aria-label="@Localizer["Admin_Title"].Value">
+            <a class="chip @Active("Home")" asp-area="Admin" asp-controller="Home" asp-action="Index" aria-current="@Current("Home")">@Localizer["Admin_Nav_Dashboard"]</a>
+            <a class="chip @Active("Orders")" asp-area="Admin" asp-controller="Orders" asp-action="Index" aria-current="@Current("Orders")">@Localizer["Admin_Nav_Orders"]</a>
+            <a class="chip @Active("Returns")" asp-area="Admin" asp-controller="Returns" asp-action="Index" aria-current="@Current("Returns")">@Localizer["Admin_Nav_Returns"]</a>
+            <a class="chip @Active("Analytics")" asp-area="Admin" asp-controller="Analytics" asp-action="Index" aria-current="@Current("Analytics")">@Localizer["Admin_Nav_Analytics"]</a>
+            <a class="chip @Active("Products")" asp-area="Admin" asp-controller="Products" asp-action="Index" aria-current="@Current("Products")">@Localizer["Admin_Nav_Products"]</a>
+            <a class="chip @Active("Categories")" asp-area="Admin" asp-controller="Categories" asp-action="Index" aria-current="@Current("Categories")">@Localizer["Admin_Nav_Categories"]</a>
+            <a class="chip @Active("AgeGroups")" asp-area="Admin" asp-controller="AgeGroups" asp-action="Index" aria-current="@Current("AgeGroups")">@Localizer["Admin_Nav_AgeGroups"]</a>
+            <a class="chip @Active("Admins")" asp-area="Admin" asp-controller="Admins" asp-action="Index" aria-current="@Current("Admins")">@Localizer["Admin_Nav_Admins"]</a>
+            <a class="chip @Active("Audit")" asp-area="Admin" asp-controller="Audit" asp-action="Index" aria-current="@Current("Audit")">@Localizer["Admin_Nav_Audit"]</a>
+            <a class="chip @Active("Emails")" asp-area="Admin" asp-controller="Emails" asp-action="Index" aria-current="@Current("Emails")">@Localizer["Admin_Nav_Emails"]</a>
+            <a class="chip @Active("Settings")" asp-area="Admin" asp-controller="Settings" asp-action="Index" aria-current="@Current("Settings")">@Localizer["Admin_Nav_Settings"]</a>
+        </nav>
+    </header>
+
+    <main id="main" class="admin-main" tabindex="-1">
+        @if (TempData["AdminMessage"] is string message)
+        {
+            <p class="alert alert--success" role="status">@message</p>
+        }
+        @if (TempData["AdminError"] is string error)
+        {
+            <p class="alert alert--error" role="alert">@error</p>
+        }
+
+        @RenderBody()
+    </main>
+
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+</body>
+</html>

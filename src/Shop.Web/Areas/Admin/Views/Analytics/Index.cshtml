@@ -1,0 +1,224 @@
+@using System.Globalization
+@model AdminAnalyticsViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Nav_Analytics"].Value;
+    var report = Model.Report;
+    var period = report.Period;
+    var now = report.Current;
+    var before = report.Before;
+    var inCulture = CultureInfo.CurrentCulture;
+
+    string Range(AnalyticsPeriod p) => p.From == p.To
+        ? p.From.ToString("d MMM yyyy", inCulture)
+        : p.From.ToString("d MMM yyyy", inCulture) + " – " + p.To.ToString("d MMM yyyy", inCulture);
+
+    decimal Share(SalesTotals t) => t.Orders == 0 ? 0 : Math.Round(t.DiscountedOrders * 100m / t.Orders, 0);
+    string Percent(decimal value) => value.ToString("0.#", inCulture) + "%";
+
+    var presets = new[]
+    {
+        (PeriodPreset.Today, "An_Today"),
+        (PeriodPreset.Last7Days, "An_Last7"),
+        (PeriodPreset.Last30Days, "An_Last30"),
+        (PeriodPreset.ThisMonth, "An_ThisMonth"),
+        (PeriodPreset.LastMonth, "An_LastMonth")
+    };
+
+    var kpis = new List<AnalyticsKpi>
+    {
+        new(Localizer["An_K_Sales"].Value, Money.Format(now.Sales), now.Sales, before.Sales),
+        new(Localizer["An_K_Orders"].Value, now.Orders.ToString(inCulture), now.Orders, before.Orders),
+        new(Localizer["An_K_Average"].Value, Money.Format(now.AverageOrder), now.AverageOrder, before.AverageOrder),
+        new(Localizer["An_K_Items"].Value, now.Items.ToString(inCulture), now.Items, before.Items),
+        new(Localizer["An_K_Discounts"].Value, Money.Format(now.Discounts), now.Discounts, before.Discounts),
+        new(Localizer["An_K_Delivery"].Value, Money.Format(now.DeliveryFees), now.DeliveryFees, before.DeliveryFees),
+        new(Localizer["An_K_Cancelled"].Value, now.Cancelled.ToString(inCulture), now.Cancelled, before.Cancelled, false,
+            Localizer["An_K_CancelRate"].Value + " " + Percent(now.CancelRate)),
+        new(Localizer["An_K_Returns"].Value, now.Returns.ToString(inCulture), now.Returns, before.Returns, false),
+        new(Localizer["An_K_Refunded"].Value, Money.Format(now.Refunded), now.Refunded, before.Refunded, false),
+        new(Localizer["An_K_Net"].Value, Money.Format(now.NetSales), now.NetSales, before.NetSales),
+        new(Localizer["An_K_NewAccounts"].Value, now.NewAccounts.ToString(inCulture), now.NewAccounts, before.NewAccounts),
+        new(Localizer["An_K_RegGuest"].Value, now.RegisteredOrders.ToString(inCulture) + " / " + now.GuestOrders.ToString(inCulture), 0, null, true,
+            Localizer["An_K_RegGuestNote"].Value),
+        new(Localizer["An_K_DiscountedShare"].Value, Percent(Share(now)), Share(now), Share(before))
+    };
+
+    string Weekday(string key) => Localizer["An_Day_" + key].Value;
+    string Hour(string key) => key.PadLeft(2, '0') + ":00";
+
+    var tables = new List<AnalyticsTable>
+    {
+        new(Localizer["An_T_Payment"].Value, report.ByPayment.Select(r => (Localizer["Pay_" + r.Key].Value, r)).ToList()),
+        new(Localizer["An_T_Status"].Value, report.ByStatus.Select(r => (Localizer["Status_" + r.Key].Value, r)).ToList()),
+        new(Localizer["An_T_Region"].Value, report.ByRegion.Select(r => (Localizer["Region_" + r.Key].Value, r)).ToList()),
+        new(Localizer["An_T_Category"].Value, report.ByCategory.Select(r => (r.Key, r)).ToList(), true),
+        new(Localizer["An_T_Brand"].Value, report.ByBrand.Select(r => (r.Key, r)).ToList(), true),
+        new(Localizer["An_T_AgeGroup"].Value, report.ByAgeGroup.Select(r => (r.Key, r)).ToList(), true),
+        new(Localizer["An_T_Slot"].Value, report.BySlot.Select(r => (r.Key, r)).ToList()),
+        new(Localizer["An_T_Weekday"].Value, report.ByWeekday.Select(r => (Weekday(r.Key), r)).ToList()),
+        new(Localizer["An_T_Hour"].Value, report.ByHour.Select(r => (Hour(r.Key), r)).ToList())
+    };
+}
+
+<h1 class="admin-title">@Localizer["Admin_Nav_Analytics"]</h1>
+<p class="admin-hint">@Localizer["An_Hint"]</p>
+
+@if (Model.CustomWasInvalid)
+{
+    <p class="alert alert--error" role="alert">@Localizer["An_BadRange"]</p>
+}
+
+<nav class="admin-tabs" aria-label="@Localizer["An_Period"].Value">
+    @foreach (var (preset, key) in presets)
+    {
+        <a class="chip @(Model.Preset == preset ? "is-active" : "")" asp-action="Index" asp-route-preset="@preset" aria-current="@(Model.Preset == preset ? "true" : null)">@Localizer[key]</a>
+    }
+</nav>
+
+<form method="get" asp-action="Index" class="admin-filter an-custom">
+    <input type="hidden" name="preset" value="@PeriodPreset.Custom" />
+    <div class="field">
+        <label class="field__label" for="an-from">@Localizer["Admin_From"]</label>
+        <input id="an-from" class="input" type="date" name="from" value="@period.From.ToString("yyyy-MM-dd")" required />
+    </div>
+    <div class="field">
+        <label class="field__label" for="an-to">@Localizer["Admin_To"]</label>
+        <input id="an-to" class="input" type="date" name="to" value="@period.To.ToString("yyyy-MM-dd")" required />
+    </div>
+    <div class="admin-filter__buttons">
+        <button type="submit" class="btn btn--primary">@Localizer["An_Show"]</button>
+    </div>
+</form>
+
+<p class="an-range"><strong>@Range(period)</strong> <span class="muted">· @Localizer["An_ComparedWith"] @Range(period.Previous)</span></p>
+
+<div class="admin-cards an-kpis">
+    @foreach (var kpi in kpis)
+    {
+        <partial name="_Kpi" model="kpi" />
+    }
+</div>
+
+<partial name="_Chart" model="AnalyticsChart.Bars(report.Days)" />
+
+<div class="an-grid">
+    @foreach (var table in tables)
+    {
+        <partial name="_Table" model="table" />
+    }
+</div>
+
+<h2 class="an-section">@Localizer["An_Products"]</h2>
+<div class="an-grid">
+    @foreach (var (title, rows) in new[] { (Localizer["An_TopUnits"].Value, report.TopByUnits), (Localizer["An_TopMoney"].Value, report.TopByMoney) })
+    {
+        <section class="panel an-panel">
+            <h3 class="an-h">@title</h3>
+            @if (rows.Count == 0)
+            {
+                <p class="muted">@Localizer["An_NoData"]</p>
+            }
+            else
+            {
+                <table class="an-table">
+                    <thead><tr><th scope="col">@Localizer["An_Product"]</th><th scope="col" class="atable__num">@Localizer["An_Units"]</th><th scope="col" class="atable__num">@Localizer["An_Sales"]</th></tr></thead>
+                    <tbody>
+                        @foreach (var p in rows)
+                        {
+                            <tr>
+                                <th scope="row"><a class="link" asp-controller="Products" asp-action="Edit" asp-route-id="@p.ProductId">@p.Name</a> <span class="muted">@p.Sku</span></th>
+                                <td class="atable__num">@p.Units</td>
+                                <td class="atable__num">@Money.Format(p.Sales)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </section>
+    }
+    @foreach (var (title, rows) in new[] { (Localizer["An_NoSales"].Value, report.NoSales), (Localizer["An_LowStock"].Value, report.LowStock) })
+    {
+        <section class="panel an-panel">
+            <h3 class="an-h">@title</h3>
+            @if (rows.Count == 0)
+            {
+                <p class="muted">@Localizer["An_NoData"]</p>
+            }
+            else
+            {
+                <ul class="an-list">
+                    @foreach (var p in rows)
+                    {
+                        <li><a class="link" asp-controller="Products" asp-action="Edit" asp-route-id="@p.ProductId">@p.Name</a> <span class="muted">@p.Sku · @Localizer["An_InStock"] @p.Stock</span></li>
+                    }
+                </ul>
+            }
+        </section>
+    }
+</div>
+
+<h2 class="an-section">@Localizer["An_Customers"]</h2>
+<div class="an-grid">
+    <section class="panel an-panel">
+        <h3 class="an-h">@Localizer["An_Buyers"]</h3>
+        <dl class="an-facts">
+            <div><dt>@Localizer["An_BuyersAll"]</dt><dd>@report.Customers.Buyers</dd></div>
+            <div><dt>@Localizer["An_BuyersNew"]</dt><dd>@report.Customers.NewBuyers</dd></div>
+            <div><dt>@Localizer["An_BuyersReturning"]</dt><dd>@report.Customers.ReturningBuyers</dd></div>
+        </dl>
+    </section>
+    <section class="panel an-panel">
+        <h3 class="an-h">@Localizer["An_Waiting"]</h3>
+        <p class="an-big">@report.Waiting.Carts <span class="muted">@Localizer["An_WaitingCarts"]</span></p>
+        <p class="an-big">@Money.Format(report.Waiting.Value) <span class="muted">@Localizer["An_WaitingValue"]</span></p>
+    </section>
+    <section class="panel an-panel an-wide">
+        <h3 class="an-h">@Localizer["An_TopCustomers"]</h3>
+        @if (report.Customers.Top.Count == 0)
+        {
+            <p class="muted">@Localizer["An_NoData"]</p>
+        }
+        else
+        {
+            <table class="an-table">
+                <thead><tr><th scope="col">@Localizer["An_Customer"]</th><th scope="col" class="atable__num">@Localizer["An_Orders"]</th><th scope="col" class="atable__num">@Localizer["An_Spent"]</th></tr></thead>
+                <tbody>
+                    @foreach (var c in report.Customers.Top)
+                    {
+                        <tr>
+                            <th scope="row">@c.Name <span class="muted">@c.Email</span></th>
+                            <td class="atable__num">@c.Orders</td>
+                            <td class="atable__num">@Money.Format(c.Spent)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </section>
+</div>
+
+<h2 class="an-section">@Localizer["An_Export"]</h2>
+<section class="panel an-panel">
+    <p class="muted">@Localizer["An_ExportHint"]</p>
+    <div class="admin-buttons">
+        @foreach (var (action, key) in new[] { ("ExportOrders", "An_ExportOrders"), ("ExportItems", "An_ExportItems") })
+        {
+            <form method="post" asp-action="@action">
+                <input type="hidden" name="preset" value="@PeriodPreset.Custom" />
+                <input type="hidden" name="from" value="@period.From.ToString("yyyy-MM-dd")" />
+                <input type="hidden" name="to" value="@period.To.ToString("yyyy-MM-dd")" />
+                <button type="submit" class="btn btn--ghost">@Localizer[key]</button>
+            </form>
+        }
+    </div>
+</section>
+
+<section class="panel an-panel an-notes">
+    <h2 class="an-h">@Localizer["An_Notes"]</h2>
+    <ul class="an-list">
+        <li>@Localizer["An_Note1"]</li>
+        <li>@Localizer["An_Note2"]</li>
+        <li>@Localizer["An_Note3"]</li>
+        <li>@Localizer["An_Note4"]</li>
+    </ul>
+</section>

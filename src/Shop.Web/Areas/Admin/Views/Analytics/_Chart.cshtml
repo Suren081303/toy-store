@@ -1,0 +1,64 @@
+@* Sales per day (or per week) as a plain SVG bar chart, with the same figures in a table for screen readers. *@
+@using System.Globalization
+@model IReadOnlyList<ChartBar>
+@{
+    const int width = 640, height = 200, left = 8, bottom = 24, top = 8;
+    var plotHeight = height - bottom - top;
+    var max = Model.Count == 0 ? 0 : Model.Max(b => b.Sales);
+    var slot = (width - left * 2) / (double)Math.Max(Model.Count, 1);
+    var barWidth = Math.Max(slot * 0.7, 1);
+    var weekly = Model.Count > 0 && Model[0].From != Model[0].To;
+
+    string Label(ChartBar bar) => weekly
+        ? bar.From.ToString("d MMM", CultureInfo.CurrentCulture) + " – " + bar.To.ToString("d MMM", CultureInfo.CurrentCulture)
+        : bar.From.ToString("d MMM", CultureInfo.CurrentCulture);
+}
+<section class="panel an-panel">
+    <h2 class="an-h">@Localizer[weekly ? "An_SalesPerWeek" : "An_SalesPerDay"]</h2>
+    @if (max == 0)
+    {
+        <p class="muted">@Localizer["An_NoData"]</p>
+    }
+    else
+    {
+        <svg class="an-chart" viewBox="0 0 @width @height" role="img" aria-label="@Localizer[weekly ? "An_SalesPerWeek" : "An_SalesPerDay"].Value" preserveAspectRatio="none">
+            <line class="an-chart__axis" x1="@left" x2="@(width - left)" y1="@(top + plotHeight)" y2="@(top + plotHeight)" />
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                var bar = Model[i];
+                var barHeight = bar.Sales <= 0 ? 0 : Math.Max(Math.Round((double)(bar.Sales / max) * plotHeight, 1), 1);
+                var x = left + i * slot + (slot - barWidth) / 2;
+                var y = top + plotHeight - barHeight;
+                <rect class="an-chart__bar" x="@x.ToString("0.##", CultureInfo.InvariantCulture)" y="@y.ToString("0.##", CultureInfo.InvariantCulture)" width="@barWidth.ToString("0.##", CultureInfo.InvariantCulture)" height="@barHeight.ToString("0.##", CultureInfo.InvariantCulture)" rx="2">
+                    <title>@Label(bar): @Money.Format(bar.Sales), @bar.Orders @Localizer["An_Orders"].Value.ToLowerInvariant()</title>
+                </rect>
+            }
+            <text class="an-chart__text" x="@left" y="@(height - 6)">@Model[0].From.ToString("d MMM", CultureInfo.CurrentCulture)</text>
+            <text class="an-chart__text" x="@(width - left)" y="@(height - 6)" text-anchor="end">@Model[^1].To.ToString("d MMM", CultureInfo.CurrentCulture)</text>
+        </svg>
+        <p class="an-chart__max muted">@Localizer["An_ChartMax"] @Money.Format(max)</p>
+
+        <details class="an-details">
+            <summary>@Localizer["An_ShowTable"]</summary>
+            <table class="an-table">
+                <thead>
+                    <tr>
+                        <th scope="col">@Localizer["Admin_Col_Date"]</th>
+                        <th scope="col" class="atable__num">@Localizer["An_Orders"]</th>
+                        <th scope="col" class="atable__num">@Localizer["An_Sales"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var bar in Model)
+                    {
+                        <tr>
+                            <th scope="row">@Label(bar)</th>
+                            <td class="atable__num">@bar.Orders</td>
+                            <td class="atable__num">@Money.Format(bar.Sales)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </details>
+    }
+</section>

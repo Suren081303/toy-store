@@ -1,0 +1,29 @@
+@model LookupViewModel
+@{
+    ViewData["Title"] = Localizer["Lookup_Title"].Value;
+}
+
+<section class="container auth">
+    <div class="auth__card">
+        <h1 class="page-title">@Localizer["Lookup_Title"]</h1>
+        <p class="auth__lead">@Localizer["Lookup_Lead"]</p>
+
+        <form method="post" class="form" asp-controller="Orders" asp-action="Lookup">
+            <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+
+            <div class="field">
+                <label asp-for="Number" class="field__label"></label>
+                <input asp-for="Number" class="input" type="number" inputmode="numeric" min="1" required />
+                <span asp-validation-for="Number" class="field__error"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Email" class="field__label"></label>
+                <input asp-for="Email" class="input" type="email" autocomplete="email" inputmode="email" autocapitalize="none" required maxlength="256" />
+                <span asp-validation-for="Email" class="field__error"></span>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--lg btn--block">@Localizer["Lookup_Submit"]</button>
+        </form>
+    </div>
+</section>

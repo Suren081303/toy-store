@@ -1,0 +1,131 @@
+@model ProductsIndexViewModel
+@{
+    ViewData["Title"] = Localizer["Products"].Value;
+
+    var count = Model.Result.TotalCount;
+    var countText = Localizer["Items" + Plurals.GetForm(CurrentCulture.Code, count), count];
+
+    Dictionary<string, string> PageRoute(int page) => Model.Route(r =>
+    {
+        if (page > 1) { r["page"] = page.ToString(); } else { r.Remove("page"); }
+    });
+}
+
+<div class="container catalog">
+    <form id="filter-form" class="catalog__side" method="get" action="@Url.Action("Index", "Products")" role="search">
+        <div class="searchfield">
+            <input type="search" name="q" value="@Model.Search" placeholder="@Localizer["SearchPlaceholder"].Value" aria-label="@Localizer["Search"].Value" autocomplete="off" />
+            <button type="submit" aria-label="@Localizer["Search"].Value"><svg class="icon" aria-hidden="true"><use href="#i-search" /></svg></button>
+        </div>
+
+        <button type="button" class="btn btn--ghost btn--block filters-toggle" data-open="filters-dialog">
+            <svg class="icon" aria-hidden="true"><use href="#i-filter" /></svg>@Localizer["Filters"]
+            @if (Model.ActiveFilterCount > 0)
+            {
+                <span class="count-badge">@Model.ActiveFilterCount</span>
+            }
+        </button>
+
+        <dialog id="filters-dialog" class="filters" aria-label="@Localizer["Filters"].Value">
+            <div class="filters__panel">
+                <div class="filters__head">
+                    <h2>@Localizer["Filters"]</h2>
+                    <button class="icon-btn" type="button" data-close aria-label="@Localizer["Close"].Value">
+                        <svg class="icon" aria-hidden="true"><use href="#i-close" /></svg>
+                    </button>
+                </div>
+                <div class="filters__body">
+                    <label class="field">
+                        <span class="field__label">@Localizer["Category"]</span>
+                        <select name="category" class="select">
+                            <option value="">@Localizer["AllCategories"]</option>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value="@category.Id" selected="@(Model.CategoryId == category.Id)">@category.Name</option>
+                            }
+                        </select>
+                    </label>
+
+                    <fieldset class="field">
+                        <legend class="field__label">@Localizer["AgeGroups"]</legend>
+                        <div class="chips">
+                            <label class="chip-radio">
+                                <input type="radio" name="age" value="" checked="@(Model.AgeGroupId is null)" />
+                                <span>@Localizer["AllAges"]</span>
+                            </label>
+                            @foreach (var ageGroup in Model.AgeGroups)
+                            {
+                                <label class="chip-radio">
+                                    <input type="radio" name="age" value="@ageGroup.Id" checked="@(Model.AgeGroupId == ageGroup.Id)" />
+                                    <span>@ageGroup.Name</span>
+                                </label>
+                            }
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="field">
+                        <legend class="field__label">@Localizer["Price_Label"]</legend>
+                        <div class="price-range">
+                            <input class="input" type="number" name="priceFrom" min="0" step="1" inputmode="numeric" value="@Model.PriceFrom?.ToString("0")" placeholder="@Localizer["Price_From"].Value" aria-label="@Localizer["Price_From"].Value" />
+                            <span aria-hidden="true">–</span>
+                            <input class="input" type="number" name="priceTo" min="0" step="1" inputmode="numeric" value="@Model.PriceTo?.ToString("0")" placeholder="@Localizer["Price_To"].Value" aria-label="@Localizer["Price_To"].Value" />
+                        </div>
+                    </fieldset>
+
+                    <label class="field">
+                        <span class="field__label">@Localizer["SortBy"]</span>
+                        <select name="sort" class="select">
+                            <option value="Recommended" selected="@(Model.Sort == ProductSort.Recommended)">@Localizer["SortRecommended"]</option>
+                            <option value="PriceAsc" selected="@(Model.Sort == ProductSort.PriceAsc)">@Localizer["SortPriceAsc"]</option>
+                            <option value="PriceDesc" selected="@(Model.Sort == ProductSort.PriceDesc)">@Localizer["SortPriceDesc"]</option>
+                            <option value="Newest" selected="@(Model.Sort == ProductSort.Newest)">@Localizer["SortNewest"]</option>
+                        </select>
+                    </label>
+
+                    <label class="check">
+                        <input type="checkbox" name="isNew" value="true" checked="@Model.OnlyNew" />
+                        <span>@Localizer["NewArrivalsOnly"]</span>
+                    </label>
+                </div>
+                <div class="filters__foot">
+                    <a class="btn btn--ghost" href="@Url.Action("Index", "Products")">@Localizer["ClearFilters"]</a>
+                    <button class="btn btn--primary" type="submit">@Localizer["Apply"]</button>
+                </div>
+            </div>
+        </dialog>
+    </form>
+
+    <div class="catalog__main">
+        <div class="catalog__head">
+            <h1 class="page-title">@Localizer["Products"]</h1>
+            <p class="catalog__count">@countText</p>
+        </div>
+
+        @if (Model.Result.Page > 1)
+        {
+            <p><a class="link" rel="prev" asp-action="Index" asp-all-route-data="PageRoute(Model.Result.Page - 1)"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left" /></svg>@Localizer["Previous"]</a></p>
+        }
+
+        @if (Model.Result.Items.Count == 0)
+        {
+            <p class="empty">@Localizer["NoProducts"] <a class="link" asp-controller="Gifts" asp-action="Index">@Localizer["Gift_TryFinder"]</a></p>
+        }
+        else
+        {
+            <div class="product-grid" data-product-grid>
+                @foreach (var product in Model.Result.Items)
+                {
+                    <partial name="_ProductCard" model="product" />
+                }
+            </div>
+        }
+
+        @if (Model.Result.Page < Model.Result.TotalPages)
+        {
+            <div class="load-more" data-load-more-box>
+                <a class="btn btn--ghost" rel="next" data-load-more asp-action="Index" asp-all-route-data="PageRoute(Model.Result.Page + 1)">@Localizer["LoadMore"]</a>
+                <p class="load-more__status">@Localizer["PageOf", Model.Result.Page, Model.Result.TotalPages]</p>
+            </div>
+        }
+    </div>
+</div>

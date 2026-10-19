@@ -1,0 +1,203 @@
+@using Shop.Core.Admin
+@model AdminProductViewModel
+@{
+    var isNew = Model.Id is null;
+    ViewData["Title"] = Localizer[isNew ? "Admin_Prod_New" : "Admin_Prod_Edit"].Value;
+    var maxPhotos = ImageRules.MaxPerProduct;
+}
+
+<p><a class="link" asp-action="Index">← @Localizer["Admin_Nav_Products"]</a></p>
+<div class="admin-head">
+    <h1 class="admin-title">@ViewData["Title"]</h1>
+    @if (!isNew)
+    {
+        <a class="btn btn--ghost" asp-route="default" asp-route-culture="@CurrentCulture.Code" asp-route-controller="Products" asp-route-action="Details" asp-route-id="@Model.Id">@Localizer["Admin_ViewInShop"]</a>
+    }
+</div>
+
+<div class="admin-grid admin-grid--product">
+    <form method="post" asp-action="Edit" class="form admin-col">
+        <div asp-validation-summary="ModelOnly" class="alert alert--error"></div>
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="RowVersion" />
+
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_Prod_Basics"]</h2>
+            <div class="admin-fields">
+                <div class="field">
+                    <label asp-for="Sku" class="field__label"></label>
+                    <input asp-for="Sku" class="input" maxlength="50" required />
+                    <span asp-validation-for="Sku" class="field__error"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="Brand" class="field__label"></label>
+                    <input asp-for="Brand" class="input" maxlength="100" required />
+                    <span asp-validation-for="Brand" class="field__error"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="CategoryId" class="field__label"></label>
+                    <select asp-for="CategoryId" class="input" asp-items="@(new SelectList(Model.Categories, "Id", "Name", Model.CategoryId))" required>
+                        <option value="">@Localizer["Checkout_Choose"]</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="field__error"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="Price" class="field__label"></label>
+                    <input asp-for="Price" class="input" type="number" min="1" max="10000000" step="1" required />
+                    <span asp-validation-for="Price" class="field__error"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="DiscountPercent" class="field__label"></label>
+                    <input asp-for="DiscountPercent" class="input" type="number" min="0" max="100" step="1" required />
+                    <span asp-validation-for="DiscountPercent" class="field__error"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="StockQuantity" class="field__label"></label>
+                    <input asp-for="StockQuantity" class="input" type="number" min="0" max="100000" step="1" required />
+                    <span asp-validation-for="StockQuantity" class="field__error"></span>
+                </div>
+            </div>
+
+            <fieldset class="admin-checks">
+                <legend class="field__label">@Localizer["Admin_Prod_AgeGroups"]</legend>
+                @foreach (var group in Model.AgeGroups)
+                {
+                    <label class="check">
+                        <input type="checkbox" name="AgeGroupIds" value="@group.Id" checked="@Model.AgeGroupIds.Contains(group.Id)" />
+                        <span>@group.Name</span>
+                    </label>
+                }
+            </fieldset>
+
+            <label class="check">
+                <input asp-for="IsPinnedAsNew" type="checkbox" />
+                <span>@Localizer["Admin_Prod_Pinned"]</span>
+            </label>
+            <label class="check">
+                <input asp-for="IsArchived" type="checkbox" />
+                <span>@Localizer["Admin_Prod_Archived"]</span>
+            </label>
+        </section>
+
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer["Admin_Prod_Texts"]</h2>
+            <p class="admin-hint">@Localizer["Admin_Name_Hint"]</p>
+
+            <div class="admin-lang-block">
+                <div class="field">
+                    <label asp-for="NameHy" class="field__label"></label>
+                    <input asp-for="NameHy" class="input" maxlength="200" required />
+                    <span asp-validation-for="NameHy" class="field__error"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="DescriptionHy" class="field__label"></label>
+                    <textarea asp-for="DescriptionHy" class="input textarea" rows="4" maxlength="4000"></textarea>
+                    <span asp-validation-for="DescriptionHy" class="field__error"></span>
+                </div>
+            </div>
+            <div class="admin-lang-block">
+                <div class="field">
+                    <label asp-for="NameRu" class="field__label"></label>
+                    <input asp-for="NameRu" class="input" maxlength="200" />
+                    <span asp-validation-for="NameRu" class="field__error"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="DescriptionRu" class="field__label"></label>
+                    <textarea asp-for="DescriptionRu" class="input textarea" rows="4" maxlength="4000"></textarea>
+                    <span asp-validation-for="DescriptionRu" class="field__error"></span>
+                </div>
+            </div>
+            <div class="admin-lang-block">
+                <div class="field">
+                    <label asp-for="NameEn" class="field__label"></label>
+                    <input asp-for="NameEn" class="input" maxlength="200" />
+                    <span asp-validation-for="NameEn" class="field__error"></span>
+                </div>
+                <div class="field">
+                    <label asp-for="DescriptionEn" class="field__label"></label>
+                    <textarea asp-for="DescriptionEn" class="input textarea" rows="4" maxlength="4000"></textarea>
+                    <span asp-validation-for="DescriptionEn" class="field__error"></span>
+                </div>
+            </div>
+        </section>
+
+        <button type="submit" class="btn btn--primary">@Localizer["Admin_Save"]</button>
+    </form>
+
+    <div class="admin-col">
+        <section class="panel">
+            <h2 class="admin-h2">@Localizer.GetString("Admin_Prod_Photos", Model.Images.Count, maxPhotos).Value</h2>
+
+            @if (isNew)
+            {
+                <p class="muted">@Localizer["Admin_Prod_PhotosAfterSave"]</p>
+            }
+            else
+            {
+                @if (Model.Images.Count == 0)
+                {
+                    <p class="muted">@Localizer["Admin_Prod_NoPhotos"]</p>
+                }
+
+                <ul class="admin-photos">
+                    @foreach (var (image, index) in Model.Images.Select((image, index) => (image, index)))
+                    {
+                        <li class="admin-photo">
+                            <img src="@(image.ThumbPath ?? image.Path)" alt="" width="120" height="120" loading="lazy" />
+                            @if (index == 0)
+                            {
+                                <span class="flag">@Localizer["Admin_Photo_Main"]</span>
+                            }
+                            <div class="admin-photo__buttons">
+                                @if (index > 0)
+                                {
+                                    <form method="post" asp-action="MovePhoto">
+                                        <input type="hidden" name="id" value="@Model.Id" />
+                                        <input type="hidden" name="imageId" value="@image.Id" />
+                                        <input type="hidden" name="direction" value="-1" />
+                                        <button type="submit" class="btn btn--ghost" aria-label="@Localizer["Admin_Photo_Earlier"].Value" title="@Localizer["Admin_Photo_Earlier"].Value">←</button>
+                                    </form>
+                                }
+                                @if (index < Model.Images.Count - 1)
+                                {
+                                    <form method="post" asp-action="MovePhoto">
+                                        <input type="hidden" name="id" value="@Model.Id" />
+                                        <input type="hidden" name="imageId" value="@image.Id" />
+                                        <input type="hidden" name="direction" value="1" />
+                                        <button type="submit" class="btn btn--ghost" aria-label="@Localizer["Admin_Photo_Later"].Value" title="@Localizer["Admin_Photo_Later"].Value">→</button>
+                                    </form>
+                                }
+                                @if (index > 0)
+                                {
+                                    <form method="post" asp-action="MakeMainPhoto">
+                                        <input type="hidden" name="id" value="@Model.Id" />
+                                        <input type="hidden" name="imageId" value="@image.Id" />
+                                        <button type="submit" class="btn btn--ghost">@Localizer["Admin_Photo_MakeMain"]</button>
+                                    </form>
+                                }
+                                <form method="post" asp-action="RemovePhoto">
+                                    <input type="hidden" name="id" value="@Model.Id" />
+                                    <input type="hidden" name="imageId" value="@image.Id" />
+                                    <button type="submit" class="btn btn--danger" data-confirm="@Localizer["Admin_Photo_ConfirmRemove"].Value">@Localizer["Admin_Delete"]</button>
+                                </form>
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+                @if (Model.Images.Count < maxPhotos)
+                {
+                    <form method="post" asp-action="UploadPhotos" enctype="multipart/form-data" class="form admin-upload">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <div class="field">
+                            <label class="field__label" for="photos">@Localizer["Admin_Prod_AddPhotos"]</label>
+                            <input id="photos" class="input" type="file" name="photos" multiple accept="image/jpeg,image/png,image/webp" required />
+                        </div>
+                        <p class="admin-hint">@Localizer["Admin_Img_Hint"]</p>
+                        <button type="submit" class="btn btn--primary">@Localizer["Admin_Prod_Upload"]</button>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>

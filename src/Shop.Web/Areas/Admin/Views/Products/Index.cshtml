@@ -1,0 +1,98 @@
+@model AdminProductsViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Nav_Products"].Value;
+    var filter = Model.Filter;
+    var back = Context.Request.Path + Context.Request.QueryString;
+}
+
+<div class="admin-toolbar">
+    <h1 class="admin-title">@Localizer["Admin_Nav_Products"]</h1>
+    <a class="btn btn--primary" asp-action="Edit">@Localizer["Admin_Add"]</a>
+</div>
+
+<form method="get" class="admin-filter">
+    <div class="field admin-filter__wide">
+        <label class="field__label" for="p-query">@Localizer["Admin_Prod_Search"]</label>
+        <input id="p-query" class="input" type="search" name="Query" value="@filter.Query" />
+    </div>
+    <div class="field">
+        <label class="field__label" for="p-category">@Localizer["Admin_Prod_Category"]</label>
+        <select id="p-category" class="input" name="CategoryId">
+            <option value="">@Localizer["Admin_AllCategories"]</option>
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Id" selected="@(filter.CategoryId == category.Id)">@category.Name</option>
+            }
+        </select>
+    </div>
+    <div class="field">
+        <label class="field__label" for="p-show">@Localizer["Admin_Show"]</label>
+        <select id="p-show" class="input" name="Show">
+            @foreach (var option in Enum.GetValues<ProductVisibility>())
+            {
+                <option value="@option" selected="@(filter.Show == option)">@Localizer["Admin_Show_" + option]</option>
+            }
+        </select>
+    </div>
+    <label class="check admin-filter__check">
+        <input type="checkbox" name="LowStock" value="true" checked="@filter.LowStock" />
+        <span>@Localizer["Admin_Prod_LowOnly", StockLevels.Low]</span>
+    </label>
+    <div class="admin-filter__buttons">
+        <button type="submit" class="btn btn--primary">@Localizer["Admin_Filter"]</button>
+        <a class="btn btn--ghost" asp-action="Index">@Localizer["Admin_Reset"]</a>
+    </div>
+</form>
+
+@if (Model.Result.Items.Count == 0)
+{
+    <p class="admin-empty">@Localizer["Admin_NoResults"]</p>
+}
+else
+{
+    <table class="atable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Localizer["Admin_Col_Name"]</th>
+                <th>@Localizer["Admin_Prod_Sku"]</th>
+                <th>@Localizer["Admin_Prod_Category"]</th>
+                <th class="atable__num">@Localizer["Admin_Prod_Price"]</th>
+                <th>@Localizer["Admin_Prod_Stock"]</th>
+                <th>@Localizer["Admin_Col_Status"]</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.Result.Items)
+            {
+                <tr>
+                    <td class="atable__thumb">@if (!string.IsNullOrEmpty(row.ImagePath)) {<img src="@row.ImagePath" alt="" width="48" height="48" loading="lazy" />}</td>
+                    <td data-label="@Localizer["Admin_Col_Name"].Value">
+                        <a class="link" asp-action="Edit" asp-route-id="@row.Id"><strong>@row.Name</strong></a><br />
+                        <span class="muted">@row.Brand</span>
+                    </td>
+                    <td data-label="@Localizer["Admin_Prod_Sku"].Value">@row.Sku</td>
+                    <td data-label="@Localizer["Admin_Prod_Category"].Value">@row.CategoryName</td>
+                    <td class="atable__num" data-label="@Localizer["Admin_Prod_Price"].Value">
+                        @Money.Format(row.Price)
+                        @if (row.DiscountPercent > 0)
+                        {
+                            <br /><span class="flag">-@row.DiscountPercent%</span>
+                        }
+                    </td>
+                    <td data-label="@Localizer["Admin_Prod_Stock"].Value">
+                        <form method="post" asp-action="SetStock" class="admin-stock">
+                            <input type="hidden" name="id" value="@row.Id" />
+                            <input type="hidden" name="back" value="@back" />
+                            <input class="input input--small @(row.StockQuantity <= StockLevels.Low ? "input--warn" : "")" type="number" name="stock" min="0" max="100000" step="1" value="@row.StockQuantity" aria-label="@Localizer["Admin_Prod_Stock"].Value" />
+                            <button type="submit" class="btn btn--ghost">@Localizer["Admin_Save"]</button>
+                        </form>
+                    </td>
+                    <td data-label="@Localizer["Admin_Col_Status"].Value"><span class="flag @(row.IsArchived ? "flag--alert" : "")">@Localizer[row.IsArchived ? "Admin_Archived" : "Admin_Shown"]</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <partial name="_Pager" model="(Model.Result.Page, Model.Result.TotalPages)" />
+}
