@@ -187,3 +187,24 @@ a.admin-card:hover { border-color: var(--purple); }
 @media (min-width: 1024px) {
     .an-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
+
+/* Customers: the panel is a row of its own, shown when its address is the page's #target (no script needed) */
+.customer-more { display: none; scroll-margin-top: 130px; }
+.customer-more:target { display: table-row; }
+.customer-more > td { padding: 14px; background: var(--purple-soft); }
+.customer-panel { display: grid; gap: 14px; }
+.customer-box { padding: 14px; background: #fff; border: 1px solid var(--line); border-radius: 14px; }
+.customer-box .admin-h2 { margin-bottom: 6px; }
+.customer-box > .muted { margin: 0 0 10px; font-size: 13px; }
+.customer-box form + form { margin-top: 8px; }
+.customer-messages { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
+
+@media (min-width: 1024px) {
+    .customer-panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.5fr); align-items: start; }
+}
+
+@media (max-width: 767px) {
+    .atable:not(.atable--plain) .customer-more:target { display: block; }
+    .atable:not(.atable--plain) .customer-more > td { display: block; text-align: left; }
+    .atable:not(.atable--plain) .customer-more > td::before { content: none; }
+}

@@ -28,6 +28,9 @@ public enum EmailKind
     ReturnReceived,
     ReturnRefunded,
 
+    // A message an admin wrote to a customer (see CustomerMessage).
+    CustomerMessage,
+
     // To the shop (the address in Shop:Email).
     ShopNewOrder,
     ShopReturnRequested,

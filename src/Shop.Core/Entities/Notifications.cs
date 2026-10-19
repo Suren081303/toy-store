@@ -48,6 +48,9 @@ public class OutboxEmail
 
     public int? ReturnId { get; set; }
 
+    // For an email that is an admin's message to a customer (then OrderNumber is 0).
+    public int? CustomerMessageId { get; set; }
+
     // A note for the text: the admin's note on a cancel or a return answer, or a code such as "expired".
     public string? Detail { get; set; }
 

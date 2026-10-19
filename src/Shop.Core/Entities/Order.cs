@@ -61,6 +61,9 @@ public class Order
 
     public bool CustomerDiscountApplied { get; set; }
 
+    // The registered-customer percent that was applied (10, or the customer's personal one); 0 when none.
+    public int CustomerDiscountPercent { get; set; }
+
     // Language of the order (for emails): hy, ru or en.
     public string Culture { get; set; } = "hy";
 

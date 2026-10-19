@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using System.Text.Encodings.Web;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Shop.Core.Admin;
@@ -9,6 +10,7 @@ using Shop.Core.Localization;
 using Shop.Core.Notifications;
 using Shop.Core.Orders;
 using Shop.Core.Payments;
+using Shop.Infrastructure.Data;
 
 namespace Shop.Web;
 
@@ -25,6 +27,7 @@ public class OrderEmails
     private readonly PaymentOptions _payments;
     private readonly IOrderService _orders;
     private readonly IAdminReturnService _returns;
+    private readonly ShopDbContext _db;
 
     public OrderEmails(
         IStringLocalizer<SharedResource> localizer,
@@ -32,7 +35,8 @@ public class OrderEmails
         IStoreSettingsService settings,
         IOptions<PaymentOptions> payments,
         IOrderService orders,
-        IAdminReturnService returns)
+        IAdminReturnService returns,
+        ShopDbContext db)
     {
         _l = localizer;
         _configuration = configuration;
@@ -40,10 +44,17 @@ public class OrderEmails
         _payments = payments.Value;
         _orders = orders;
         _returns = returns;
+        _db = db;
     }
 
     public async Task<RenderedEmail> RenderAsync(OutboxEmail item)
     {
+        // An admin's message to a customer has no order.
+        if (item.Kind == EmailKind.CustomerMessage)
+        {
+            return await RenderMessageAsync(item);
+        }
+
         var order = await _orders.FindForSystemAsync(item.OrderNumber)
             ?? throw new InvalidOperationException($"Order {item.OrderNumber} (queued email {item.Id}) does not exist.");
 
@@ -146,6 +157,62 @@ public class OrderEmails
         });
 
         return new RenderedEmail(to, subject, html);
+    }
+
+    // The admin's own text, in a plain frame (greeting, button to the shop, a note who sent it). The text is shown as typed, never as HTML.
+    private async Task<RenderedEmail> RenderMessageAsync(OutboxEmail item)
+    {
+        var message = await _db.CustomerMessages.AsNoTracking().FirstOrDefaultAsync(m => m.Id == item.CustomerMessageId)
+            ?? throw new InvalidOperationException($"Message {item.CustomerMessageId} (queued email {item.Id}) does not exist.");
+
+        var user = await _db.Users.AsNoTracking().Where(u => u.Id == message.UserId).Select(u => new { u.Email, u.FullName }).FirstOrDefaultAsync()
+            ?? throw new InvalidOperationException($"The customer of message {message.Id} (queued email {item.Id}) does not exist any more.");
+
+        if (string.IsNullOrWhiteSpace(user.Email))
+        {
+            throw new InvalidOperationException($"The customer of message {message.Id} has no email address.");
+        }
+
+        var baseUrl = (_configuration["Shop:BaseUrl"] ?? string.Empty).TrimEnd('/');
+        if (baseUrl.Length == 0)
+        {
+            throw new InvalidOperationException("Shop:BaseUrl is not configured. Emails need it to build their links (for example https://www.example.am).");
+        }
+
+        var shopName = _configuration["Shop:Name"] ?? "Shop";
+        var shopEmail = _configuration["Shop:Email"] ?? string.Empty;
+
+        var html = InCulture(message.Culture, () => BuildMessageHtml(
+            message.Culture, shopName, message.Subject, _l["Msg_Greeting", user.FullName].Value, message.Body,
+            $"{baseUrl}/{message.Culture}", _l["Msg_Button"].Value, _l["Msg_Footnote", shopName, shopEmail].Value));
+
+        return new RenderedEmail(user.Email, message.Subject, html);
+    }
+
+    private static string BuildMessageHtml(string culture, string shopName, string heading, string greeting, string text, string url, string buttonText, string footnote)
+    {
+        var encoder = HtmlEncoder.Default;
+
+        return $"""
+            <!DOCTYPE html>
+            <html lang="{culture}">
+            <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{encoder.Encode(heading)}</title></head>
+            <body style="margin:0;background:#f6f2fb;font-family:Arial,Helvetica,sans-serif;color:#28223a">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:24px 12px">
+                <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#ffffff;border-radius:16px;overflow:hidden">
+                  <tr><td style="background:#6544a3;color:#ffffff;padding:18px 24px;font-size:22px;font-weight:bold">{encoder.Encode(shopName)}</td></tr>
+                  <tr><td style="padding:24px">
+                    <h1 style="font-size:20px;margin:0 0 12px">{encoder.Encode(heading)}</h1>
+                    <p style="margin:0 0 14px;line-height:1.5">{encoder.Encode(greeting)}</p>
+                    <p style="margin:0 0 14px;line-height:1.5;white-space:pre-line">{encoder.Encode(text)}</p>
+                    <p style="margin:20px 0"><a href="{encoder.Encode(url)}" style="background:#6544a3;color:#ffffff;text-decoration:none;padding:12px 22px;border-radius:999px;display:inline-block;font-weight:bold">{encoder.Encode(buttonText)}</a></p>
+                    <p style="margin:0;font-size:13px;color:#6b657a">{encoder.Encode(footnote)}</p>
+                  </td></tr>
+                </table>
+              </td></tr></table>
+            </body>
+            </html>
+            """;
     }
 
     // The texts are translated into the language of the email, whatever language the code that triggered it was running in.

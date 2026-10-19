@@ -1,0 +1,212 @@
+@using System.Globalization
+@using Shop.Core.Notifications
+@model AdminCustomersViewModel
+@{
+    ViewData["Title"] = Localizer["Admin_Nav_Customers"].Value;
+    var filter = Model.Filter;
+    var returnUrl = Context.Request.Path + Context.Request.QueryString; // every action comes back to this list
+    var today = ShopClock.Today(TimeProvider.System).ToString("yyyy-MM-dd");
+    string Day(DateTime utc) => ShopClock.ToShopTime(utc).ToString("d MMM yyyy", CultureInfo.CurrentCulture);
+}
+
+<h1 class="admin-title">@Localizer["Admin_Nav_Customers"]</h1>
+<p class="admin-hint">@Localizer["Admin_Cust_Hint"]</p>
+
+<form method="get" class="admin-filter">
+    <div class="field admin-filter__wide">
+        <label class="field__label" for="f-query">@Localizer["Admin_Cust_SearchLabel"]</label>
+        <input id="f-query" class="input" type="search" name="Query" value="@filter.Query" />
+    </div>
+    <div class="field">
+        <label class="field__label" for="f-status">@Localizer["Admin_Status"]</label>
+        <select id="f-status" class="input" name="Status">
+            @foreach (var status in Enum.GetValues<CustomerStatusFilter>())
+            {
+                <option value="@status" selected="@(filter.Status == status)">@Localizer["Admin_Cust_Status_" + status]</option>
+            }
+        </select>
+    </div>
+    <div class="field">
+        <label class="field__label" for="f-sort">@Localizer["Admin_Cust_Sort"]</label>
+        <select id="f-sort" class="input" name="Sort">
+            @foreach (var sort in Enum.GetValues<CustomerSort>())
+            {
+                <option value="@sort" selected="@(filter.Sort == sort)">@Localizer["Admin_Cust_Sort_" + sort]</option>
+            }
+        </select>
+    </div>
+    <div class="admin-filter__buttons">
+        <button type="submit" class="btn btn--primary">@Localizer["Admin_Filter"]</button>
+        <a class="btn btn--ghost" asp-action="Index">@Localizer["Admin_Reset"]</a>
+    </div>
+</form>
+
+@if (Model.Result.Items.Count == 0)
+{
+    <p class="admin-empty">@Localizer["Admin_NoResults"]</p>
+}
+else
+{
+    <table class="atable">
+        <thead>
+            <tr>
+                <th>@Localizer["Admin_Cust_Col_Customer"]</th>
+                <th>@Localizer["Admin_Cust_Col_Registered"]</th>
+                <th class="atable__num">@Localizer["Admin_Cust_Col_Orders"]</th>
+                <th class="atable__num">@Localizer["Admin_Cust_Col_Spent"]</th>
+                <th>@Localizer["Admin_Cust_Col_Last"]</th>
+                <th>@Localizer["Admin_Col_Status"]</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.Result.Items)
+            {
+                <tr id="c-@row.Id">
+                    <td data-label="@Localizer["Admin_Cust_Col_Customer"].Value">
+                        <strong>@row.FullName</strong><br />
+                        <span class="muted">@row.Email</span><br />
+                        <span class="muted">@row.Phone</span>
+                    </td>
+                    <td data-label="@Localizer["Admin_Cust_Col_Registered"].Value">@Day(row.CreatedAt)</td>
+                    <td class="atable__num" data-label="@Localizer["Admin_Cust_Col_Orders"].Value">@row.Orders</td>
+                    <td class="atable__num" data-label="@Localizer["Admin_Cust_Col_Spent"].Value"><strong>@Money.Format(row.TotalSpent)</strong></td>
+                    <td data-label="@Localizer["Admin_Cust_Col_Last"].Value">@(row.LastOrderAt is null ? "—" : Day(row.LastOrderAt.Value))</td>
+                    <td data-label="@Localizer["Admin_Col_Status"].Value">
+                        @if (row.IsBlocked)
+                        {
+                            <span class="flag flag--alert">@Localizer["Admin_Cust_FlagBlocked"]</span>
+                        }
+                        else
+                        {
+                            <span class="flag flag--ok">@Localizer["Admin_Cust_FlagActive"]</span>
+                        }
+                        @if (row.PersonalDiscountPercent is not null)
+                        {
+                            if (row.PersonalDiscountActive)
+                            {
+                                <span class="flag">@(row.PersonalDiscountUntil is null
+                                    ? Localizer.GetString("Admin_Cust_FlagDiscount", row.PersonalDiscountPercent).Value
+                                    : Localizer.GetString("Admin_Cust_FlagDiscountUntil", row.PersonalDiscountPercent, row.PersonalDiscountUntil.Value.ToString("d MMM yyyy", CultureInfo.CurrentCulture)).Value)</span>
+                            }
+                            else
+                            {
+                                <span class="flag">@Localizer["Admin_Cust_FlagDiscountEnded"]</span>
+                            }
+                        }
+                        @if (!row.EmailConfirmed)
+                        {
+                            <span class="flag">@Localizer["Admin_Cust_FlagUnconfirmed"]</span>
+                        }
+                    </td>
+                    <td class="atable__actions" data-label="">
+                        <a class="btn btn--ghost btn--small" href="#more-@row.Id">@Localizer["Admin_Cust_Manage"]</a>
+                    </td>
+                </tr>
+                @* The panel is a row of its own that opens when the "Manage" link is followed (CSS :target), so it needs no script. *@
+                <tr class="customer-more" id="more-@row.Id">
+                    <td colspan="7">
+                        <div class="customer-panel">
+                            <section class="customer-box">
+                                <h2 class="admin-h2">@Localizer["Admin_Cust_AccessTitle"]</h2>
+                                <p class="muted">@Localizer[row.IsBlocked ? "Admin_Cust_AccessBlocked" : "Admin_Cust_AccessActive"]</p>
+                                <form method="post" asp-action="@(row.IsBlocked ? "Unblock" : "Block")">
+                                    <input type="hidden" name="id" value="@row.Id" />
+                                    <input type="hidden" name="email" value="@row.Email" />
+                                    <input type="hidden" name="returnUrl" value="@returnUrl" />
+                                    @if (row.IsBlocked)
+                                    {
+                                        <button type="submit" class="btn btn--primary btn--small">@Localizer["Admin_Cust_Unblock"]</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn--danger btn--small" data-confirm="@Localizer.GetString("Admin_Cust_ConfirmBlock", row.Email).Value">@Localizer["Admin_Cust_Block"]</button>
+                                    }
+                                </form>
+                            </section>
+
+                            <section class="customer-box">
+                                <h2 class="admin-h2">@Localizer["Admin_Cust_DiscountTitle"]</h2>
+                                <p class="muted">@Localizer["Admin_Cust_DiscountHint"]</p>
+                                <form method="post" asp-action="Discount" class="form">
+                                    <input type="hidden" name="id" value="@row.Id" />
+                                    <input type="hidden" name="returnUrl" value="@returnUrl" />
+                                    <div class="field">
+                                        <label class="field__label" for="pct-@row.Id">@Localizer["Admin_Cust_Percent"]</label>
+                                        <input id="pct-@row.Id" class="input input--small" type="number" name="percent" min="1" max="50" step="1" required value="@row.PersonalDiscountPercent" />
+                                    </div>
+                                    <div class="field">
+                                        <label class="field__label" for="until-@row.Id">@Localizer["Admin_Cust_LastDay"]</label>
+                                        <input id="until-@row.Id" class="input" type="date" name="until" min="@today" value="@row.PersonalDiscountUntil?.ToString("yyyy-MM-dd")" />
+                                    </div>
+                                    <button type="submit" class="btn btn--primary btn--small">@Localizer["Admin_Cust_SaveDiscount"]</button>
+                                </form>
+                                @if (row.PersonalDiscountPercent is not null)
+                                {
+                                    <form method="post" asp-action="Discount">
+                                        <input type="hidden" name="id" value="@row.Id" />
+                                        <input type="hidden" name="percent" value="0" />
+                                        <input type="hidden" name="returnUrl" value="@returnUrl" />
+                                        <button type="submit" class="btn btn--ghost btn--small" data-confirm="@Localizer["Admin_Cust_ConfirmRemoveDiscount"].Value">@Localizer["Admin_Cust_RemoveDiscount"]</button>
+                                    </form>
+                                }
+                            </section>
+
+                            <section class="customer-box">
+                                <h2 class="admin-h2">@Localizer["Admin_Cust_MessageTitle"]</h2>
+                                @if (!row.EmailConfirmed)
+                                {
+                                    <p class="muted">@Localizer["Admin_Cust_MessageUnconfirmed"]</p>
+                                }
+                                else
+                                {
+                                    <p class="muted">@Localizer.GetString("Admin_Cust_MessageHint", row.Email).Value</p>
+                                    <form method="post" asp-action="Message" class="form">
+                                        <input type="hidden" name="id" value="@row.Id" />
+                                        <input type="hidden" name="email" value="@row.Email" />
+                                        <input type="hidden" name="returnUrl" value="@returnUrl" />
+                                        <div class="field">
+                                            <label class="field__label" for="subj-@row.Id">@Localizer["Admin_Cust_Subject"]</label>
+                                            <input id="subj-@row.Id" class="input" name="subject" maxlength="150" required />
+                                        </div>
+                                        <div class="field">
+                                            <label class="field__label" for="body-@row.Id">@Localizer["Admin_Cust_Text"]</label>
+                                            <textarea id="body-@row.Id" class="input textarea" name="body" rows="5" maxlength="2000" required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn--primary btn--small" data-confirm="@Localizer.GetString("Admin_Cust_ConfirmSend", row.Email).Value">@Localizer["Admin_Cust_Send"]</button>
+                                    </form>
+                                }
+
+                                <h3 class="order__title">@Localizer["Admin_Cust_Recent"]</h3>
+                                @if (row.Messages.Count == 0)
+                                {
+                                    <p class="muted">@Localizer["Admin_Cust_NoMessages"]</p>
+                                }
+                                else
+                                {
+                                    <ul class="customer-messages">
+                                        @foreach (var message in row.Messages)
+                                        {
+                                            <li>
+                                                <strong>@message.Subject</strong>
+                                                @if (message.EmailStatus is { } emailStatus)
+                                                {
+                                                    <span class="flag @(emailStatus == OutboxStatus.Failed ? "flag--alert" : emailStatus == OutboxStatus.Sent ? "flag--ok" : "")">@Localizer["OutboxStatus_" + emailStatus]</span>
+                                                }
+                                                <br /><span class="muted">@Day(message.CreatedAt) · @message.SentByEmail</span>
+                                                <div class="admin-reason">@message.Body</div>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </section>
+                        </div>
+                        <p><a class="link" href="#c-@row.Id">@Localizer["Admin_Cust_Close"]</a></p>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <partial name="_Pager" model="(Model.Result.Page, Model.Result.TotalPages)" />
+}

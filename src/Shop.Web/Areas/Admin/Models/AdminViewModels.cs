@@ -10,6 +10,8 @@ namespace Shop.Web.Areas.Admin.Models;
 
 public record AdminOrdersViewModel(AdminOrderFilter Filter, PagedResult<AdminOrderRow> Result);
 
+public record AdminCustomersViewModel(AdminCustomerFilter Filter, PagedResult<AdminCustomerRow> Result);
+
 public record AdminReturnsViewModel(ReturnStatus? Status, PagedResult<AdminReturnRow> Result);
 
 // CurrentAdminId: the signed-in admin (their own row has no "Remove" button).

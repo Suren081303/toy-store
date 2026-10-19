@@ -515,6 +515,69 @@
   <data name="Admin_Msg_PhotoRemoved" xml:space="preserve"><value>Фото удалено.</value></data>
   <data name="Admin_Val_Sku" xml:space="preserve"><value>Только буквы, цифры и знаки . _ -</value></data>
   <data name="Admin_Nav_Admins" xml:space="preserve"><value>Администраторы</value></data>
+  <data name="Admin_Nav_Customers" xml:space="preserve"><value>Клиенты</value></data>
+  <data name="Admin_Cust_Hint" xml:space="preserve"><value>Зарегистрированные аккаунты магазина (админы на странице «Админы»). «Заказы» и «Потрачено» считают подтверждённые заказы (заказан, упакован, доставлен) за вычетом возвращённых денег.</value></data>
+  <data name="Admin_Cust_SearchLabel" xml:space="preserve"><value>Имя, email или телефон</value></data>
+  <data name="Admin_Cust_Status_All" xml:space="preserve"><value>Все клиенты</value></data>
+  <data name="Admin_Cust_Status_Active" xml:space="preserve"><value>Активные</value></data>
+  <data name="Admin_Cust_Status_Blocked" xml:space="preserve"><value>Заблокированные</value></data>
+  <data name="Admin_Cust_Sort" xml:space="preserve"><value>Сортировка</value></data>
+  <data name="Admin_Cust_Sort_Newest" xml:space="preserve"><value>Новые аккаунты</value></data>
+  <data name="Admin_Cust_Sort_Name" xml:space="preserve"><value>Имя</value></data>
+  <data name="Admin_Cust_Sort_Orders" xml:space="preserve"><value>Больше заказов</value></data>
+  <data name="Admin_Cust_Sort_Spent" xml:space="preserve"><value>Больше потрачено</value></data>
+  <data name="Admin_Cust_Sort_LastOrder" xml:space="preserve"><value>Последний заказ</value></data>
+  <data name="Admin_Cust_Col_Customer" xml:space="preserve"><value>Клиент</value></data>
+  <data name="Admin_Cust_Col_Registered" xml:space="preserve"><value>Регистрация</value></data>
+  <data name="Admin_Cust_Col_Orders" xml:space="preserve"><value>Заказы</value></data>
+  <data name="Admin_Cust_Col_Spent" xml:space="preserve"><value>Потрачено</value></data>
+  <data name="Admin_Cust_Col_Last" xml:space="preserve"><value>Последний заказ</value></data>
+  <data name="Admin_Cust_FlagBlocked" xml:space="preserve"><value>Заблокирован</value></data>
+  <data name="Admin_Cust_FlagActive" xml:space="preserve"><value>Активен</value></data>
+  <data name="Admin_Cust_FlagDiscount" xml:space="preserve"><value>Скидка {0}%</value></data>
+  <data name="Admin_Cust_FlagDiscountUntil" xml:space="preserve"><value>Скидка {0}% до {1}</value></data>
+  <data name="Admin_Cust_FlagDiscountEnded" xml:space="preserve"><value>Скидка закончилась</value></data>
+  <data name="Admin_Cust_FlagUnconfirmed" xml:space="preserve"><value>Email не подтверждён</value></data>
+  <data name="Admin_Cust_Manage" xml:space="preserve"><value>Управлять</value></data>
+  <data name="Admin_Cust_Close" xml:space="preserve"><value>Закрыть</value></data>
+  <data name="Admin_Cust_AccessTitle" xml:space="preserve"><value>Доступ</value></data>
+  <data name="Admin_Cust_AccessActive" xml:space="preserve"><value>Клиент может войти.</value></data>
+  <data name="Admin_Cust_AccessBlocked" xml:space="preserve"><value>Клиент не может войти.</value></data>
+  <data name="Admin_Cust_Block" xml:space="preserve"><value>Заблокировать</value></data>
+  <data name="Admin_Cust_Unblock" xml:space="preserve"><value>Разблокировать</value></data>
+  <data name="Admin_Cust_ConfirmBlock" xml:space="preserve"><value>Заблокировать {0}? Клиент сразу выйдет из системы и не сможет войти, пока вы его не разблокируете. Заказы без входа с тем же email не блокируются.</value></data>
+  <data name="Admin_Cust_Blocked" xml:space="preserve"><value>{0} заблокирован.</value></data>
+  <data name="Admin_Cust_Unblocked" xml:space="preserve"><value>{0} разблокирован.</value></data>
+  <data name="Admin_Cust_DiscountTitle" xml:space="preserve"><value>Личная скидка</value></data>
+  <data name="Admin_Cust_DiscountHint" xml:space="preserve"><value>Процент от 1 до 50 от обычной цены вместо стандартных 10% на первые 5 заказов. Как всегда, действует более низкая цена: эта скидка или скидка самого товара.</value></data>
+  <data name="Admin_Cust_Percent" xml:space="preserve"><value>Процент (1-50)</value></data>
+  <data name="Admin_Cust_LastDay" xml:space="preserve"><value>Последний день (необязательно)</value></data>
+  <data name="Admin_Cust_SaveDiscount" xml:space="preserve"><value>Сохранить скидку</value></data>
+  <data name="Admin_Cust_RemoveDiscount" xml:space="preserve"><value>Убрать скидку</value></data>
+  <data name="Admin_Cust_ConfirmRemoveDiscount" xml:space="preserve"><value>Убрать личную скидку?</value></data>
+  <data name="Admin_Cust_DiscountSaved" xml:space="preserve"><value>Скидка сохранена.</value></data>
+  <data name="Admin_Cust_DiscountRemoved" xml:space="preserve"><value>Скидка убрана.</value></data>
+  <data name="Admin_Cust_MessageTitle" xml:space="preserve"><value>Отправить сообщение</value></data>
+  <data name="Admin_Cust_MessageHint" xml:space="preserve"><value>Простой текст, отправляется по email на {0}. Не более 5 сообщений одному клиенту за 24 часа.</value></data>
+  <data name="Admin_Cust_MessageUnconfirmed" xml:space="preserve"><value>Email этого аккаунта не подтверждён, поэтому сообщения отправлять нельзя.</value></data>
+  <data name="Admin_Cust_Subject" xml:space="preserve"><value>Тема</value></data>
+  <data name="Admin_Cust_Text" xml:space="preserve"><value>Сообщение</value></data>
+  <data name="Admin_Cust_Send" xml:space="preserve"><value>Отправить</value></data>
+  <data name="Admin_Cust_ConfirmSend" xml:space="preserve"><value>Отправить это сообщение на {0}?</value></data>
+  <data name="Admin_Cust_Recent" xml:space="preserve"><value>Последние сообщения</value></data>
+  <data name="Admin_Cust_NoMessages" xml:space="preserve"><value>За последние 30 дней нет.</value></data>
+  <data name="Admin_Cust_MessageQueued" xml:space="preserve"><value>Сообщение для {0} в очереди. Оно уйдёт через несколько секунд (см. «Письма»).</value></data>
+  <data name="Admin_Cust_NothingToChange" xml:space="preserve"><value>Менять нечего.</value></data>
+  <data name="Admin_Cust_InvalidDiscount" xml:space="preserve"><value>Введите процент от 1 до 50 и последний день не в прошлом.</value></data>
+  <data name="Admin_Cust_InvalidMessage" xml:space="preserve"><value>Введите тему (до 150 символов) и сообщение (до 2000 символов).</value></data>
+  <data name="Admin_Cust_TooManyMessages" xml:space="preserve"><value>Этот клиент уже получил 5 сообщений за последние 24 часа.</value></data>
+  <data name="Admin_Cust_EmailNotConfirmed" xml:space="preserve"><value>Email этого аккаунта не подтверждён, сообщения ему отправлять нельзя.</value></data>
+  <data name="Login_Blocked" xml:space="preserve"><value>Этот аккаунт заблокирован. Свяжитесь с магазином.</value></data>
+  <data name="Cart_PersonalNote" xml:space="preserve"><value>Ваша личная скидка {0}% применяется там, где цена ниже.</value></data>
+  <data name="EmailKind_CustomerMessage" xml:space="preserve"><value>Сообщение клиенту</value></data>
+  <data name="Msg_Greeting" xml:space="preserve"><value>Здравствуйте, {0}!</value></data>
+  <data name="Msg_Button" xml:space="preserve"><value>Открыть магазин</value></data>
+  <data name="Msg_Footnote" xml:space="preserve"><value>Это сообщение отправил магазин {0}. Есть вопросы? Напишите на {1}.</value></data>
   <data name="Admin_Nav_Audit" xml:space="preserve"><value>Журнал изменений</value></data>
   <data name="Admin_Adm_Hint" xml:space="preserve"><value>Все из списка могут делать в панели всё. Админы создаются здесь, это не покупатели магазина.</value></data>
   <data name="Admin_Adm_Phone" xml:space="preserve"><value>Телефон</value></data>

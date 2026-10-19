@@ -36,5 +36,6 @@ public class OutboxEmailConfiguration : IEntityTypeConfiguration<OutboxEmail>
         // The sender asks for "pending and due".
         builder.HasIndex(e => new { e.Status, e.NextAttemptAt });
         builder.HasIndex(e => e.OrderNumber);
+        builder.HasIndex(e => e.CustomerMessageId);
     }
 }

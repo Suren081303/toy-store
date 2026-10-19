@@ -515,6 +515,69 @@
   <data name="Admin_Msg_PhotoRemoved" xml:space="preserve"><value>Լուսանկարը ջնջվեց։</value></data>
   <data name="Admin_Val_Sku" xml:space="preserve"><value>Օգտագործեք միայն տառեր, թվեր և . _ - նշանները։</value></data>
   <data name="Admin_Nav_Admins" xml:space="preserve"><value>Ադմիններ</value></data>
+  <data name="Admin_Nav_Customers" xml:space="preserve"><value>Հաճախորդներ</value></data>
+  <data name="Admin_Cust_Hint" xml:space="preserve"><value>Խանութի գրանցված հաշիվները (ադմինները «Ադմիններ» էջում են)։ «Պատվերներ» և «Ծախսված» հաշվում են հաստատված պատվերները (պատվիրված, փաթեթավորված, առաքված)՝ հանած վերադարձված գումարները։</value></data>
+  <data name="Admin_Cust_SearchLabel" xml:space="preserve"><value>Անուն, էլ. հասցե կամ հեռախոս</value></data>
+  <data name="Admin_Cust_Status_All" xml:space="preserve"><value>Բոլոր հաճախորդները</value></data>
+  <data name="Admin_Cust_Status_Active" xml:space="preserve"><value>Ակտիվ</value></data>
+  <data name="Admin_Cust_Status_Blocked" xml:space="preserve"><value>Արգելափակված</value></data>
+  <data name="Admin_Cust_Sort" xml:space="preserve"><value>Դասավորել ըստ</value></data>
+  <data name="Admin_Cust_Sort_Newest" xml:space="preserve"><value>Նորագույն հաշիվներ</value></data>
+  <data name="Admin_Cust_Sort_Name" xml:space="preserve"><value>Անուն</value></data>
+  <data name="Admin_Cust_Sort_Orders" xml:space="preserve"><value>Ամենաշատ պատվերներ</value></data>
+  <data name="Admin_Cust_Sort_Spent" xml:space="preserve"><value>Ամենաշատ ծախսված</value></data>
+  <data name="Admin_Cust_Sort_LastOrder" xml:space="preserve"><value>Վերջին պատվեր</value></data>
+  <data name="Admin_Cust_Col_Customer" xml:space="preserve"><value>Հաճախորդ</value></data>
+  <data name="Admin_Cust_Col_Registered" xml:space="preserve"><value>Գրանցվել է</value></data>
+  <data name="Admin_Cust_Col_Orders" xml:space="preserve"><value>Պատվերներ</value></data>
+  <data name="Admin_Cust_Col_Spent" xml:space="preserve"><value>Ծախսված</value></data>
+  <data name="Admin_Cust_Col_Last" xml:space="preserve"><value>Վերջին պատվեր</value></data>
+  <data name="Admin_Cust_FlagBlocked" xml:space="preserve"><value>Արգելափակված</value></data>
+  <data name="Admin_Cust_FlagActive" xml:space="preserve"><value>Ակտիվ</value></data>
+  <data name="Admin_Cust_FlagDiscount" xml:space="preserve"><value>Զեղչ {0}%</value></data>
+  <data name="Admin_Cust_FlagDiscountUntil" xml:space="preserve"><value>Զեղչ {0}% մինչև {1}</value></data>
+  <data name="Admin_Cust_FlagDiscountEnded" xml:space="preserve"><value>Զեղչը ավարտվել է</value></data>
+  <data name="Admin_Cust_FlagUnconfirmed" xml:space="preserve"><value>Էլ. հասցեն չի հաստատվել</value></data>
+  <data name="Admin_Cust_Manage" xml:space="preserve"><value>Կառավարել</value></data>
+  <data name="Admin_Cust_Close" xml:space="preserve"><value>Փակել</value></data>
+  <data name="Admin_Cust_AccessTitle" xml:space="preserve"><value>Մուտք</value></data>
+  <data name="Admin_Cust_AccessActive" xml:space="preserve"><value>Հաճախորդը կարող է մուտք գործել։</value></data>
+  <data name="Admin_Cust_AccessBlocked" xml:space="preserve"><value>Հաճախորդը չի կարող մուտք գործել։</value></data>
+  <data name="Admin_Cust_Block" xml:space="preserve"><value>Արգելափակել</value></data>
+  <data name="Admin_Cust_Unblock" xml:space="preserve"><value>Արգելահանել</value></data>
+  <data name="Admin_Cust_ConfirmBlock" xml:space="preserve"><value>Արգելափակե՞լ {0}-ին։ Նա անմիջապես դուրս կգա համակարգից և չի կարողանա մուտք գործել, մինչև չարգելահանեք։ Նույն էլ. հասցեով հյուրի պատվերները չեն արգելվում։</value></data>
+  <data name="Admin_Cust_Blocked" xml:space="preserve"><value>{0}-ը արգելափակված է։</value></data>
+  <data name="Admin_Cust_Unblocked" xml:space="preserve"><value>{0}-ը արգելահանված է։</value></data>
+  <data name="Admin_Cust_DiscountTitle" xml:space="preserve"><value>Անհատական զեղչ</value></data>
+  <data name="Admin_Cust_DiscountHint" xml:space="preserve"><value>1-ից 50 տոկոս սովորական գնից՝ առաջին 5 պատվերի ստանդարտ 10%-ի փոխարեն։ Ինչպես միշտ, գործում է ավելի ցածր գինը՝ այս զեղչը կամ ապրանքի սեփական զեղչը։</value></data>
+  <data name="Admin_Cust_Percent" xml:space="preserve"><value>Տոկոս (1-50)</value></data>
+  <data name="Admin_Cust_LastDay" xml:space="preserve"><value>Վերջին օրը (ըստ ցանկության)</value></data>
+  <data name="Admin_Cust_SaveDiscount" xml:space="preserve"><value>Պահպանել զեղչը</value></data>
+  <data name="Admin_Cust_RemoveDiscount" xml:space="preserve"><value>Հեռացնել զեղչը</value></data>
+  <data name="Admin_Cust_ConfirmRemoveDiscount" xml:space="preserve"><value>Հեռացնե՞լ անհատական զեղչը։</value></data>
+  <data name="Admin_Cust_DiscountSaved" xml:space="preserve"><value>Զեղչը պահպանվեց։</value></data>
+  <data name="Admin_Cust_DiscountRemoved" xml:space="preserve"><value>Զեղչը հեռացվեց։</value></data>
+  <data name="Admin_Cust_MessageTitle" xml:space="preserve"><value>Ուղարկել հաղորդագրություն</value></data>
+  <data name="Admin_Cust_MessageHint" xml:space="preserve"><value>Պարզ տեքստ, ուղարկվում է էլ. փոստով {0}-ին։ Մեկ հաճախորդին՝ ոչ ավելի, քան 5 հաղորդագրություն 24 ժամում։</value></data>
+  <data name="Admin_Cust_MessageUnconfirmed" xml:space="preserve"><value>Այս հաշվի էլ. հասցեն հաստատված չէ, ուստի հաղորդագրություն ուղարկել հնարավոր չէ։</value></data>
+  <data name="Admin_Cust_Subject" xml:space="preserve"><value>Թեմա</value></data>
+  <data name="Admin_Cust_Text" xml:space="preserve"><value>Հաղորդագրություն</value></data>
+  <data name="Admin_Cust_Send" xml:space="preserve"><value>Ուղարկել</value></data>
+  <data name="Admin_Cust_ConfirmSend" xml:space="preserve"><value>Ուղարկե՞լ այս հաղորդագրությունը {0}-ին։</value></data>
+  <data name="Admin_Cust_Recent" xml:space="preserve"><value>Վերջին հաղորդագրությունները</value></data>
+  <data name="Admin_Cust_NoMessages" xml:space="preserve"><value>Վերջին 30 օրում չկան։</value></data>
+  <data name="Admin_Cust_MessageQueued" xml:space="preserve"><value>{0}-ի հաղորդագրությունը հերթում է։ Այն կուղարկվի մի քանի վայրկյանից (տես «Նամակներ»)։</value></data>
+  <data name="Admin_Cust_NothingToChange" xml:space="preserve"><value>Փոխելու բան չկա։</value></data>
+  <data name="Admin_Cust_InvalidDiscount" xml:space="preserve"><value>Մուտքագրեք 1-ից 50 տոկոս և անցյալում չլինող վերջին օր։</value></data>
+  <data name="Admin_Cust_InvalidMessage" xml:space="preserve"><value>Մուտքագրեք թեմա (մինչև 150 նիշ) և հաղորդագրություն (մինչև 2000 նիշ)։</value></data>
+  <data name="Admin_Cust_TooManyMessages" xml:space="preserve"><value>Այս հաճախորդն արդեն ստացել է 5 հաղորդագրություն վերջին 24 ժամում։</value></data>
+  <data name="Admin_Cust_EmailNotConfirmed" xml:space="preserve"><value>Այս հաշվի էլ. հասցեն հաստատված չէ, ուստի հաղորդագրություն չի կարելի ուղարկել։</value></data>
+  <data name="Login_Blocked" xml:space="preserve"><value>Այս հաշիվը արգելափակված է։ Խնդրում ենք կապվել խանութի հետ։</value></data>
+  <data name="Cart_PersonalNote" xml:space="preserve"><value>Ձեր անհատական {0}% զեղչը կիրառվում է այնտեղ, որտեղ գինն ավելի ցածր է։</value></data>
+  <data name="EmailKind_CustomerMessage" xml:space="preserve"><value>Հաղորդագրություն հաճախորդին</value></data>
+  <data name="Msg_Greeting" xml:space="preserve"><value>Բարև, {0}։</value></data>
+  <data name="Msg_Button" xml:space="preserve"><value>Բացել խանութը</value></data>
+  <data name="Msg_Footnote" xml:space="preserve"><value>Այս հաղորդագրությունը ուղարկել է {0}-ը։ Հարցեր ունե՞ք։ Գրեք {1}։</value></data>
   <data name="Admin_Nav_Audit" xml:space="preserve"><value>Փոփոխությունների մատյան</value></data>
   <data name="Admin_Adm_Hint" xml:space="preserve"><value>Ցանկի բոլոր անդամները կարող են անել ամեն ինչ ադմին վահանակում։ Ադմինները ստեղծվում են այստեղ և խանութի գնորդներ չեն։</value></data>
   <data name="Admin_Adm_Phone" xml:space="preserve"><value>Հեռախոս</value></data>

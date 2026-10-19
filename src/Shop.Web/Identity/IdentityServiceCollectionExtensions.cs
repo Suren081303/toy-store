@@ -1,8 +1,10 @@
+using System.Security.Claims;
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Shop.Core.Entities;
 using Shop.Infrastructure.Data;
@@ -53,6 +55,25 @@ public static class IdentityServiceCollectionExtensions
             options.Cookie.SecurePolicy = environment.IsDevelopment() ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.Always;
             options.ExpireTimeSpan = TimeSpan.FromDays(30);
             options.SlidingExpiration = true;
+            // Identity's own check (the security stamp) stays; after it, a blocked customer's cookie is refused and removed.
+            var validateStamp = options.Events.OnValidatePrincipal;
+            options.Events.OnValidatePrincipal = async context =>
+            {
+                await validateStamp(context);
+
+                var userId = context.Principal?.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (userId is null)
+                {
+                    return;
+                }
+
+                var db = context.HttpContext.RequestServices.GetRequiredService<ShopDbContext>();
+                if (await db.Users.AsNoTracking().AnyAsync(u => u.Id == userId && u.BlockedAt != null))
+                {
+                    context.RejectPrincipal();
+                    await context.HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+                }
+            };
             options.Events.OnRedirectToLogin = context => Redirect(context, "Login", StatusCodes.Status401Unauthorized);
             options.Events.OnRedirectToAccessDenied = context => Redirect(context, "AccessDenied", StatusCodes.Status403Forbidden);
         });

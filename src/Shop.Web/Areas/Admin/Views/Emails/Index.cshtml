@@ -41,7 +41,7 @@ else
                 <tr>
                     <td data-label="@Localizer["Admin_Col_Date"].Value">@When(row.CreatedAt)</td>
                     <td data-label="@Localizer["Admin_Email_Kind"].Value">@Localizer["EmailKind_" + row.Kind]</td>
-                    <td data-label="@Localizer["Admin_Col_Order"].Value"><a class="link" asp-controller="Orders" asp-action="Details" asp-route-number="@row.OrderNumber">#@row.OrderNumber</a></td>
+                    <td data-label="@Localizer["Admin_Col_Order"].Value">@if (row.OrderNumber > 0) { <a class="link" asp-controller="Orders" asp-action="Details" asp-route-number="@row.OrderNumber">#@row.OrderNumber</a> } else { <span class="muted">-</span> }</td>
                     <td data-label="@Localizer["Admin_Email_To"].Value">@(row.ToAddress ?? "-")</td>
                     <td data-label="@Localizer["Admin_Col_Status"].Value">
                         <span class="flag @(row.Status == OutboxStatus.Failed ? "flag--alert" : row.Status == OutboxStatus.Sent ? "flag--ok" : "")">@Localizer["OutboxStatus_" + row.Status]</span>

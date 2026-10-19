@@ -45,6 +45,8 @@ public class ShopDbContext : IdentityDbContext<ApplicationUser>, IDataProtection
 
     public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
 
+    public DbSet<CustomerMessage> CustomerMessages => Set<CustomerMessage>();
+
     public DbSet<AdminNotification> AdminNotifications => Set<AdminNotification>();
 
     public DbSet<OutboxEmail> OutboxEmails => Set<OutboxEmail>();

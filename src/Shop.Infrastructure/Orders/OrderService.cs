@@ -150,6 +150,7 @@ public class OrderService : IOrderService
             DeliveryFee = deliveryFee,
             Total = total,
             CustomerDiscountApplied = cart.CustomerDiscountItemCount > 0,
+            CustomerDiscountPercent = cart.CustomerDiscountItemCount > 0 ? cart.CustomerDiscountPercent : 0,
             Culture = culture,
             CreatedAt = now,
             UpdatedAt = now,
@@ -170,7 +171,8 @@ public class OrderService : IOrderService
                 RegularPrice = line.RegularPrice,
                 UnitPrice = line.UnitPrice,
                 DiscountPercent = line.DiscountPercent,
-                CustomerDiscountApplied = line.CustomerDiscountApplied
+                CustomerDiscountApplied = line.CustomerDiscountApplied,
+                CustomerDiscountPercent = line.CustomerDiscountApplied ? cart.CustomerDiscountPercent : 0
             });
         }
 

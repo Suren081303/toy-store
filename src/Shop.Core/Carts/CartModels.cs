@@ -42,15 +42,20 @@ public enum CartNoticeKind
 
 public record CartNotice(CartNoticeKind Kind, string ProductName, int Quantity);
 
-// CustomerDiscountOrdersLeft: how many more orders get the registered-customer price (0 for guests and after the 5th order).
+// CustomerDiscountOrdersLeft: how many more orders get the registered-customer price (0 for guests and after the 5th order;
+// also 0 with a personal discount, which has no order limit).
+// CustomerDiscountPercent: the percent in use (10, or the customer's personal one). CustomerDiscountPersonal: it is a personal one.
 public record CartView(
     IReadOnlyList<CartLine> Lines,
     IReadOnlyList<CartNotice> Notices,
     bool CustomerDiscountActive,
-    int CustomerDiscountOrdersLeft = 0)
+    int CustomerDiscountOrdersLeft = 0,
+    int CustomerDiscountPercent = Shop.Core.Catalog.ProductRules.CustomerDiscountPercent,
+    bool CustomerDiscountPersonal = false)
 {
-    public static CartView Empty(bool customerDiscountActive, int customerDiscountOrdersLeft = 0) =>
-        new(Array.Empty<CartLine>(), Array.Empty<CartNotice>(), customerDiscountActive, customerDiscountOrdersLeft);
+    public static CartView Empty(bool customerDiscountActive, int customerDiscountOrdersLeft = 0,
+        int customerDiscountPercent = Shop.Core.Catalog.ProductRules.CustomerDiscountPercent, bool customerDiscountPersonal = false) =>
+        new(Array.Empty<CartLine>(), Array.Empty<CartNotice>(), customerDiscountActive, customerDiscountOrdersLeft, customerDiscountPercent, customerDiscountPersonal);
 
     // Totals count only the products that can be bought now.
     public int ItemCount => Lines.Where(l => l.IsAvailable).Sum(l => l.Quantity);

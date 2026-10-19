@@ -29,6 +29,9 @@ public class OrderItem
 
     public bool CustomerDiscountApplied { get; set; }
 
+    // The registered-customer percent that gave this price (10, or the customer's personal one); 0 when it was not applied.
+    public int CustomerDiscountPercent { get; set; }
+
     public decimal LineTotal => UnitPrice * Quantity;
 
     public Order Order { get; set; } = null!;

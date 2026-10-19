@@ -5,7 +5,7 @@
     var filter = Model.Filter;
 
     // "Product #25"; for an account the long id is not useful (the email is in the details), so only "User".
-    string Label(AuditRow row) => row.EntityType == "User" ? row.EntityType : $"{row.EntityType} #{row.EntityId}";
+    string Label(AuditRow row) => row.EntityType is "User" or "Customer" ? row.EntityType : $"{row.EntityType} #{row.EntityId}";
 
     // Where the thing that was changed can be opened (a deleted one cannot).
     string? LinkTo(AuditRow row)
@@ -23,6 +23,7 @@
             "AgeGroup" => Url.Action("Edit", "AgeGroups", new { area = "Admin", id = row.EntityId }),
             "Settings" or "DeliverySlot" => Url.Action("Index", "Settings", new { area = "Admin" }),
             "User" => Url.Action("Index", "Admins", new { area = "Admin" }),
+            "Customer" => Url.Action("Index", "Customers", new { area = "Admin" }),
             _ => null
         };
     }

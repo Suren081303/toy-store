@@ -150,7 +150,13 @@ public class AccountController : Controller
             return View(model);
         }
 
-        // The password is right. Only now can we say the email is not confirmed.
+        // The password is right. Only now can we say the account is blocked or the email is not confirmed.
+        if (user.BlockedAt is not null)
+        {
+            ModelState.AddModelError(string.Empty, _l["Login_Blocked"].Value);
+            return View(model);
+        }
+
         if (!user.EmailConfirmed)
         {
             ModelState.AddModelError(string.Empty, _l["Login_NotConfirmed"].Value);

@@ -24,12 +24,12 @@ public class CartService : ICartService
 
     public async Task<CartView> GetAsync(CartOwner owner, string culture)
     {
-        var (customerDiscount, ordersLeft) = await GetCustomerDiscountAsync(owner);
+        var discount = await GetCustomerDiscountAsync(owner);
         var cart = await FindCartAsync(owner);
 
         if (cart is null || cart.Items.Count == 0)
         {
-            return CartView.Empty(customerDiscount, ordersLeft);
+            return CartView.Empty(discount.Active, discount.OrdersLeft, discount.Percent, discount.Personal);
         }
 
         var ids = cart.Items.Select(i => i.ProductId).ToList();
@@ -61,7 +61,7 @@ public class CartService : ICartService
                 changed = true;
             }
 
-            var unitPrice = ProductRules.GetUnitPrice(product.Price, product.DiscountPercent, customerDiscount, out var customerApplied);
+            var unitPrice = ProductRules.GetUnitPrice(product.Price, product.DiscountPercent, discount.Active ? discount.Percent : 0, out var customerApplied);
 
             lines.Add(new CartLine(
                 product.Id,
@@ -84,7 +84,7 @@ public class CartService : ICartService
             await _db.SaveChangesAsync();
         }
 
-        return new CartView(lines, notices, customerDiscount, ordersLeft);
+        return new CartView(lines, notices, discount.Active, discount.OrdersLeft, discount.Percent, discount.Personal);
     }
 
     public async Task<CartChange> AddAsync(CartOwner owner, int productId, int quantity)
@@ -293,18 +293,32 @@ public class CartService : ICartService
         return null;
     }
 
-    // A signed-in customer gets the 10% price on their first 5 orders; cancelled orders do not count.
-    private async Task<(bool Active, int OrdersLeft)> GetCustomerDiscountAsync(CartOwner owner)
+    // Percent: the registered-customer percent in use. Personal: an admin gave this customer their own percent.
+    private record CustomerDiscount(bool Active, int OrdersLeft, int Percent, bool Personal);
+
+    // A signed-in customer gets the 10% price on their first 5 orders (cancelled orders do not count), unless an admin gave them
+    // a personal discount that is still on: that one has no order limit and replaces the 10%.
+    private async Task<CustomerDiscount> GetCustomerDiscountAsync(CartOwner owner)
     {
         if (owner.UserId is null)
         {
-            return (false, 0);
+            return new CustomerDiscount(false, 0, ProductRules.CustomerDiscountPercent, false);
+        }
+
+        var personal = await _db.Users.AsNoTracking()
+            .Where(u => u.Id == owner.UserId)
+            .Select(u => new { u.PersonalDiscountPercent, u.PersonalDiscountUntil })
+            .FirstOrDefaultAsync();
+
+        if (personal is not null && CustomerDiscountRules.IsPersonalActive(personal.PersonalDiscountPercent, personal.PersonalDiscountUntil, ShopClock.Today(_time)))
+        {
+            return new CustomerDiscount(true, 0, personal.PersonalDiscountPercent!.Value, true);
         }
 
         var used = await _db.Orders.CountAsync(o => o.UserId == owner.UserId && o.Status != OrderStatus.Cancelled);
         var left = CustomerDiscountRules.OrdersLeft(used);
 
-        return (left > 0, left);
+        return new CustomerDiscount(left > 0, left, ProductRules.CustomerDiscountPercent, false);
     }
 
     private static CartLineStatus GetStatus(Product product)

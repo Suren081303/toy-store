@@ -197,7 +197,7 @@
                 }
                 @if (Model.Cart.CustomerDiscountItemCount > 0)
                 {
-                    <p class="summary__note">@Localizer.GetString("Cart_CustomerNote", ProductRules.CustomerDiscountPercent).Value</p>
+                    <p class="summary__note">@Localizer.GetString(Model.Cart.CustomerDiscountPersonal ? "Cart_PersonalNote" : "Cart_CustomerNote", Model.Cart.CustomerDiscountPercent).Value</p>
                 }
 
                 <button type="submit" class="btn btn--primary btn--lg btn--block summary__checkout">@Localizer["Checkout_PlaceOrder"]</button>

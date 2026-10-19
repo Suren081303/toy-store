@@ -14,15 +14,21 @@ public static class ProductRules
 
     public static decimal GetUnitPrice(decimal price, int discountPercent, bool customerDiscount, out bool customerDiscountApplied)
     {
+        return GetUnitPrice(price, discountPercent, customerDiscount ? CustomerDiscountPercent : 0, out customerDiscountApplied);
+    }
+
+    // customerPercent: the registered customer's percent (10, or a personal one); 0 = none. The same rule: the lower price wins.
+    public static decimal GetUnitPrice(decimal price, int discountPercent, int customerPercent, out bool customerDiscountApplied)
+    {
         var productPrice = GetFinalPrice(price, discountPercent);
         customerDiscountApplied = false;
 
-        if (!customerDiscount)
+        if (customerPercent <= 0)
         {
             return productPrice;
         }
 
-        var customerPrice = GetFinalPrice(price, CustomerDiscountPercent);
+        var customerPrice = GetFinalPrice(price, customerPercent);
         if (customerPrice < productPrice)
         {
             customerDiscountApplied = true;

@@ -515,6 +515,69 @@
   <data name="Admin_Msg_PhotoRemoved" xml:space="preserve"><value>Photo deleted.</value></data>
   <data name="Admin_Val_Sku" xml:space="preserve"><value>Use letters, digits and . _ - only.</value></data>
   <data name="Admin_Nav_Admins" xml:space="preserve"><value>Admins</value></data>
+  <data name="Admin_Nav_Customers" xml:space="preserve"><value>Customers</value></data>
+  <data name="Admin_Cust_Hint" xml:space="preserve"><value>Registered shop accounts (admins are on the Admins page). Orders and Total spent count confirmed orders (ordered, packed, delivered) minus returns that were refunded.</value></data>
+  <data name="Admin_Cust_SearchLabel" xml:space="preserve"><value>Name, email or phone</value></data>
+  <data name="Admin_Cust_Status_All" xml:space="preserve"><value>All customers</value></data>
+  <data name="Admin_Cust_Status_Active" xml:space="preserve"><value>Active</value></data>
+  <data name="Admin_Cust_Status_Blocked" xml:space="preserve"><value>Blocked</value></data>
+  <data name="Admin_Cust_Sort" xml:space="preserve"><value>Sort by</value></data>
+  <data name="Admin_Cust_Sort_Newest" xml:space="preserve"><value>Newest accounts</value></data>
+  <data name="Admin_Cust_Sort_Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Admin_Cust_Sort_Orders" xml:space="preserve"><value>Most orders</value></data>
+  <data name="Admin_Cust_Sort_Spent" xml:space="preserve"><value>Most spent</value></data>
+  <data name="Admin_Cust_Sort_LastOrder" xml:space="preserve"><value>Latest order</value></data>
+  <data name="Admin_Cust_Col_Customer" xml:space="preserve"><value>Customer</value></data>
+  <data name="Admin_Cust_Col_Registered" xml:space="preserve"><value>Registered</value></data>
+  <data name="Admin_Cust_Col_Orders" xml:space="preserve"><value>Orders</value></data>
+  <data name="Admin_Cust_Col_Spent" xml:space="preserve"><value>Total spent</value></data>
+  <data name="Admin_Cust_Col_Last" xml:space="preserve"><value>Last order</value></data>
+  <data name="Admin_Cust_FlagBlocked" xml:space="preserve"><value>Blocked</value></data>
+  <data name="Admin_Cust_FlagActive" xml:space="preserve"><value>Active</value></data>
+  <data name="Admin_Cust_FlagDiscount" xml:space="preserve"><value>Discount {0}%</value></data>
+  <data name="Admin_Cust_FlagDiscountUntil" xml:space="preserve"><value>Discount {0}% until {1}</value></data>
+  <data name="Admin_Cust_FlagDiscountEnded" xml:space="preserve"><value>Discount ended</value></data>
+  <data name="Admin_Cust_FlagUnconfirmed" xml:space="preserve"><value>Email not confirmed</value></data>
+  <data name="Admin_Cust_Manage" xml:space="preserve"><value>Manage</value></data>
+  <data name="Admin_Cust_Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Admin_Cust_AccessTitle" xml:space="preserve"><value>Access</value></data>
+  <data name="Admin_Cust_AccessActive" xml:space="preserve"><value>This customer can sign in.</value></data>
+  <data name="Admin_Cust_AccessBlocked" xml:space="preserve"><value>This customer cannot sign in.</value></data>
+  <data name="Admin_Cust_Block" xml:space="preserve"><value>Block</value></data>
+  <data name="Admin_Cust_Unblock" xml:space="preserve"><value>Unblock</value></data>
+  <data name="Admin_Cust_ConfirmBlock" xml:space="preserve"><value>Block {0}? They are signed out at once and cannot sign in until you unblock them. Orders as a guest with the same email are not stopped.</value></data>
+  <data name="Admin_Cust_Blocked" xml:space="preserve"><value>{0} is blocked.</value></data>
+  <data name="Admin_Cust_Unblocked" xml:space="preserve"><value>{0} is unblocked.</value></data>
+  <data name="Admin_Cust_DiscountTitle" xml:space="preserve"><value>Personal discount</value></data>
+  <data name="Admin_Cust_DiscountHint" xml:space="preserve"><value>A percent from 1 to 50 off the regular price, instead of the standard 10% on the first 5 orders. As always, the lower of this and the product's own discount applies.</value></data>
+  <data name="Admin_Cust_Percent" xml:space="preserve"><value>Percent (1-50)</value></data>
+  <data name="Admin_Cust_LastDay" xml:space="preserve"><value>Last day (optional)</value></data>
+  <data name="Admin_Cust_SaveDiscount" xml:space="preserve"><value>Save discount</value></data>
+  <data name="Admin_Cust_RemoveDiscount" xml:space="preserve"><value>Remove discount</value></data>
+  <data name="Admin_Cust_ConfirmRemoveDiscount" xml:space="preserve"><value>Remove the personal discount?</value></data>
+  <data name="Admin_Cust_DiscountSaved" xml:space="preserve"><value>Discount saved.</value></data>
+  <data name="Admin_Cust_DiscountRemoved" xml:space="preserve"><value>Discount removed.</value></data>
+  <data name="Admin_Cust_MessageTitle" xml:space="preserve"><value>Send a message</value></data>
+  <data name="Admin_Cust_MessageHint" xml:space="preserve"><value>Plain text, sent by email to {0}. At most 5 messages per customer in 24 hours.</value></data>
+  <data name="Admin_Cust_MessageUnconfirmed" xml:space="preserve"><value>This account's email is not confirmed, so messages cannot be sent to it.</value></data>
+  <data name="Admin_Cust_Subject" xml:space="preserve"><value>Subject</value></data>
+  <data name="Admin_Cust_Text" xml:space="preserve"><value>Message</value></data>
+  <data name="Admin_Cust_Send" xml:space="preserve"><value>Send message</value></data>
+  <data name="Admin_Cust_ConfirmSend" xml:space="preserve"><value>Send this message to {0}?</value></data>
+  <data name="Admin_Cust_Recent" xml:space="preserve"><value>Recent messages</value></data>
+  <data name="Admin_Cust_NoMessages" xml:space="preserve"><value>None in the last 30 days.</value></data>
+  <data name="Admin_Cust_MessageQueued" xml:space="preserve"><value>Message for {0} is queued. It is sent in a few seconds (see Emails).</value></data>
+  <data name="Admin_Cust_NothingToChange" xml:space="preserve"><value>Nothing to change.</value></data>
+  <data name="Admin_Cust_InvalidDiscount" xml:space="preserve"><value>Enter a percent from 1 to 50 and a last day that is not in the past.</value></data>
+  <data name="Admin_Cust_InvalidMessage" xml:space="preserve"><value>Enter a subject (up to 150 characters) and a message (up to 2000 characters).</value></data>
+  <data name="Admin_Cust_TooManyMessages" xml:space="preserve"><value>This customer already got 5 messages in the last 24 hours.</value></data>
+  <data name="Admin_Cust_EmailNotConfirmed" xml:space="preserve"><value>This account's email is not confirmed, so it cannot get messages.</value></data>
+  <data name="Login_Blocked" xml:space="preserve"><value>This account is blocked. Please contact the shop.</value></data>
+  <data name="Cart_PersonalNote" xml:space="preserve"><value>Your personal discount of {0}% is applied where it is lower.</value></data>
+  <data name="EmailKind_CustomerMessage" xml:space="preserve"><value>Message to a customer</value></data>
+  <data name="Msg_Greeting" xml:space="preserve"><value>Hello, {0}!</value></data>
+  <data name="Msg_Button" xml:space="preserve"><value>Open the shop</value></data>
+  <data name="Msg_Footnote" xml:space="preserve"><value>This message was sent by {0}. Questions? Write to {1}.</value></data>
   <data name="Admin_Nav_Audit" xml:space="preserve"><value>Audit log</value></data>
   <data name="Admin_Adm_Hint" xml:space="preserve"><value>Everyone listed here can do everything in the admin panel. Admin accounts are made here; they are not shop customers.</value></data>
   <data name="Admin_Adm_Phone" xml:space="preserve"><value>Phone</value></data>

@@ -110,4 +110,23 @@ public static class CustomerDiscountRules
     public static int OrdersLeft(int notCancelledOrders) => Math.Max(0, MaxDiscountedOrders - notCancelledOrders);
 
     public static bool IsEligible(int notCancelledOrders) => OrdersLeft(notCancelledOrders) > 0;
+
+    // A personal discount (set by an admin for one customer) is a whole percent from 1 to MaxPersonalPercent.
+    public const int MaxPersonalPercent = 50;
+
+    public static bool IsValidPersonalPercent(int percent) => percent is >= 1 and <= MaxPersonalPercent;
+
+    // It counts while it is set and its last day (an Armenian calendar day, or none) has not passed.
+    public static bool IsPersonalActive(int? percent, DateOnly? until, DateOnly today) =>
+        percent is { } p && IsValidPersonalPercent(p) && (until is null || until.Value >= today);
+}
+
+public static class CustomerMessageRules
+{
+    public const int MaxSubjectLength = 150;
+
+    public const int MaxBodyLength = 2000;
+
+    // So a customer is never flooded: at most this many messages to one customer in 24 hours.
+    public const int MaxPerCustomerPerDay = 5;
 }

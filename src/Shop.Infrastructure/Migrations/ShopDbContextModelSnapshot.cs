@@ -293,6 +293,9 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("BlockedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -328,6 +331,12 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PersonalDiscountPercent")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly?>("PersonalDiscountUntil")
+                        .HasColumnType("date");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -354,7 +363,10 @@ namespace Shop.Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("AspNetUsers", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_AspNetUsers_PersonalDiscountPercent", "[PersonalDiscountPercent] IS NULL OR ([PersonalDiscountPercent] >= 1 AND [PersonalDiscountPercent] <= 50)");
+                        });
                 });
 
             modelBuilder.Entity("Shop.Core.Entities.AuditLog", b =>
@@ -496,6 +508,53 @@ namespace Shop.Infrastructure.Migrations
                     b.ToTable("CategoryTranslations");
                 });
 
+            modelBuilder.Entity("Shop.Core.Entities.CustomerMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Culture")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("SentByEmail")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("SentByUserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "CreatedAt");
+
+                    b.ToTable("CustomerMessages");
+                });
+
             modelBuilder.Entity("Shop.Core.Entities.DeliverySlot", b =>
                 {
                     b.Property<int>("Id")
@@ -585,6 +644,9 @@ namespace Shop.Infrastructure.Migrations
 
                     b.Property<bool>("CustomerDiscountApplied")
                         .HasColumnType("bit");
+
+                    b.Property<int>("CustomerDiscountPercent")
+                        .HasColumnType("int");
 
                     b.Property<string>("CustomerName")
                         .IsRequired()
@@ -737,6 +799,9 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<bool>("CustomerDiscountApplied")
                         .HasColumnType("bit");
 
+                    b.Property<int>("CustomerDiscountPercent")
+                        .HasColumnType("int");
+
                     b.Property<int>("DiscountPercent")
                         .HasColumnType("int");
 
@@ -798,6 +863,9 @@ namespace Shop.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("CustomerMessageId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Detail")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
@@ -833,6 +901,8 @@ namespace Shop.Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerMessageId");
 
                     b.HasIndex("OrderNumber");
 
@@ -1210,6 +1280,15 @@ namespace Shop.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Shop.Core.Entities.CustomerMessage", b =>
+                {
+                    b.HasOne("Shop.Core.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Shop.Core.Entities.Favorite", b =>

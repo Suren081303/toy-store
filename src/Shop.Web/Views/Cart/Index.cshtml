@@ -61,7 +61,7 @@
                                     @if (line.UnitPrice < line.RegularPrice)
                                     {
                                         <s>@Money.Format(line.RegularPrice)</s>
-                                        <span class="badge badge--sale">@(line.CustomerDiscountApplied ? $"-{ProductRules.CustomerDiscountPercent}%" : $"-{line.DiscountPercent}%")</span>
+                                        <span class="badge badge--sale">@(line.CustomerDiscountApplied ? $"-{Model.CustomerDiscountPercent}%" : $"-{line.DiscountPercent}%")</span>
                                     }
                                 </p>
                                 @if (line.StockQuantity <= 3)
@@ -106,10 +106,17 @@
 
                 @if (Model.CustomerDiscountItemCount > 0)
                 {
-                    <p class="summary__note">
-                        @Localizer.GetString("Cart_CustomerNote", ProductRules.CustomerDiscountPercent).Value
-                        @Localizer.GetString("Cart_OrdersLeft", Model.CustomerDiscountOrdersLeft).Value
-                    </p>
+                    @if (Model.CustomerDiscountPersonal)
+                    {
+                        <p class="summary__note">@Localizer.GetString("Cart_PersonalNote", Model.CustomerDiscountPercent).Value</p>
+                    }
+                    else
+                    {
+                        <p class="summary__note">
+                            @Localizer.GetString("Cart_CustomerNote", Model.CustomerDiscountPercent).Value
+                            @Localizer.GetString("Cart_OrdersLeft", Model.CustomerDiscountOrdersLeft).Value
+                        </p>
+                    }
                 }
                 @if (!signedIn)
                 {

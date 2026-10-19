@@ -104,6 +104,9 @@ public class OrderFixture : IAsyncLifetime
         return (new AdminCategoryService(db, time), new AdminAgeGroupService(db, time), new AdminProductService(db, time));
     }
 
+    // The customer admin service (list, block, personal discount, messages), on its own database connection.
+    public AdminCustomerService CreateCustomerService(DateTime? now = null) => new(CreateDbContext(), new FixedTimeProvider(now ?? Now));
+
     public PaymentService CreatePaymentService(DateTime? now = null, bool withCardProvider = true) => CreateServices(now, withCardProvider).Payments;
 
     public OrderService CreateOrderService(DateTime? now = null) => CreateServices(now).Orders;
