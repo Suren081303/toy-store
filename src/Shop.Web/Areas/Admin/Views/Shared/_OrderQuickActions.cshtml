@@ -1,0 +1,39 @@
+@* The buttons a row of an order list offers: the next statuses the rules allow, and "bank transfer received". They bring you back to ReturnUrl. *@
+@using Shop.Core.Admin
+@using Shop.Core.Orders
+@model (AdminOrderRow Row, string ReturnUrl)
+@{
+    // Same choices as on the order page: "ordered" is not offered by hand while the order waits for payment.
+    var next = OrderStatusRules.AllowedNext(Model.Row.Status).Where(x => !(Model.Row.Status == OrderStatus.AwaitingPayment && x == OrderStatus.Ordered)).ToList();
+    var canReceive = Model.Row.Method == PaymentMethod.BankTransfer && Model.Row.Status == OrderStatus.AwaitingPayment;
+}
+<div class="atable__actions">
+    @if (canReceive)
+    {
+        <form method="post" asp-controller="Orders" asp-action="MarkReceived">
+            <input type="hidden" name="number" value="@Model.Row.Number" />
+            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+            <button type="submit" class="btn btn--primary btn--small" data-confirm="@Localizer["Admin_Confirm_Received"].Value">@Localizer["Admin_MarkReceived"]</button>
+        </form>
+    }
+    @foreach (var step in next)
+    {
+        <form method="post" asp-controller="Orders" asp-action="ChangeStatus">
+            <input type="hidden" name="number" value="@Model.Row.Number" />
+            <input type="hidden" name="status" value="@step" />
+            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+            @if (step == OrderStatus.Cancelled)
+            {
+                <button type="submit" class="btn btn--danger btn--small" data-confirm="@Localizer["Admin_Confirm_Cancel"].Value">@Localizer["Admin_Set_" + step]</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn--primary btn--small">@Localizer["Admin_Set_" + step]</button>
+            }
+        </form>
+    }
+    @if (!canReceive && next.Count == 0)
+    {
+        <span class="muted">—</span>
+    }
+</div>

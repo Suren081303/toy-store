@@ -351,6 +351,26 @@
   <data name="Admin_Nav_Settings" xml:space="preserve"><value>Կարգավորումներ</value></data>
   <data name="Admin_ViewShop" xml:space="preserve"><value>Դեպի խանութ</value></data>
   <data name="Admin_Dash_Hint" xml:space="preserve"><value>Սեղմեք թվի վրա՝ ցուցակը բացելու համար։</value></data>
+  <data name="Admin_Dash_PrintSlips" xml:space="preserve"><value>Տպել փաթեթավորվելիք պատվերների թերթիկները</value></data>
+  <data name="Admin_Dash_Updated" xml:space="preserve"><value>Թարմացվել է {0}-ին</value></data>
+  <data name="Admin_Dash_Refresh" xml:space="preserve"><value>Թարմացնել</value></data>
+  <data name="Admin_Dash_SalesToday" xml:space="preserve"><value>Վաճառք այսօր</value></data>
+  <data name="Admin_Dash_SalesYesterday" xml:space="preserve"><value>Երեկ</value></data>
+  <data name="Admin_Dash_OrdersCount" xml:space="preserve"><value>Պատվերներ՝ {0}</value></data>
+  <data name="Admin_Dash_NewCustomers" xml:space="preserve"><value>Նոր հաճախորդներ այսօր</value></data>
+  <data name="Admin_Dash_ToPackTitle" xml:space="preserve"><value>Փաթեթավորվելիք պատվերներ</value></data>
+  <data name="Admin_Dash_ToPackNone" xml:space="preserve"><value>Փաթեթավորելու բան չկա։ Հիանալի է։</value></data>
+  <data name="Admin_Dash_ShowingOf" xml:space="preserve"><value>Ցուցադրված է {0}՝ {1}-ից</value></data>
+  <data name="Admin_Dash_SeeAll" xml:space="preserve"><value>Տեսնել բոլորը</value></data>
+  <data name="Admin_Dash_Late" xml:space="preserve"><value>Ուշացած</value></data>
+  <data name="Admin_Dash_DueToday" xml:space="preserve"><value>Այսօր</value></data>
+  <data name="Admin_Dash_DueTomorrow" xml:space="preserve"><value>Վաղը</value></data>
+  <data name="Admin_Dash_LowTitle" xml:space="preserve"><value>Վերջացող ապրանքներ</value></data>
+  <data name="Admin_Dash_LowNone" xml:space="preserve"><value>Ոչինչ չի վերջանում։</value></data>
+  <data name="Admin_Dash_OutOfStock" xml:space="preserve"><value>Սպառվել է</value></data>
+  <data name="Admin_Dash_LatestTitle" xml:space="preserve"><value>Վերջին պատվերները</value></data>
+  <data name="Admin_Dash_LatestNone" xml:space="preserve"><value>Պատվերներ դեռ չկան։</value></data>
+  <data name="Admin_Dash_AllOrders" xml:space="preserve"><value>Բոլոր պատվերները</value></data>
   <data name="Admin_Dash_OrdersToday" xml:space="preserve"><value>Այսօրվա պատվերներ</value></data>
   <data name="Admin_Dash_ToPack" xml:space="preserve"><value>Փաթեթավորելու</value></data>
   <data name="Admin_Dash_AwaitingPayment" xml:space="preserve"><value>Սպասում են վճարման</value></data>

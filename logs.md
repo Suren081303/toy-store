@@ -248,6 +248,18 @@
 - Tests: 1016 pass (new: `CsvReaderTests`, `ImageStoreCopyTests`, `AdminProductToolsTests` (duplicate, every bulk action and its limits, all-or-nothing, rounding, filter ids, export, round trip, import checks and apply, two imports at once), `Web/CatalogToolsFlowTests` (access, tick boxes, preview and apply, all products of a filter, export download, template, import with problems, spreadsheet file, duplicate with real photo files, 3 languages)).
 - Checked by eye in a real browser on the dev site (23 steps with real clicks and a real file upload and download: import with problems, import, bulk change with preview, select all, duplicate, export, import of the exported file; desktop and phone screenshots). The 4 test products were removed from the dev database afterwards.
 
+## Phase 17: Dashboard (done)
+- The admin start page (`/Admin`) is now one page, top to bottom: the number cards (each opens the matching list), a sales strip, then four boxes (two columns on a wide screen, one column on a phone; the cards are 2 per row on a phone).
+- **Sales strip:** sales today and yesterday (confirmed orders: ordered, packed, delivered; Armenian day, same as the analytics) with the order counts, and new customers today (admins not counted; opens the customers list, newest first).
+- **Orders to pack** (status *ordered*): 10 rows, earliest delivery day and time first, with the number of all of them, "Late" (red) when the delivery day has passed, "Today" (yellow), "Tomorrow", a "Phone order" flag, a "Mark as packed" button, and "See all". Button "Print slips for orders to pack" at the top (the bulk slips of Phase 15).
+- **Chart:** sales per day for the last 14 days (the same chart as Analytics; it is now `Areas/Admin/Views/Shared/_Chart.cshtml`).
+- **Low stock:** 10 products with stock 3 or less, out of stock first, archived products left out; the stock box with Save (comes back to the dashboard) and "See all".
+- **Latest orders:** 8 newest, with the same quick buttons as the orders list (now one shared partial `_OrderQuickActions`); they come back to the dashboard.
+- No auto refresh: "Updated at HH:mm" and a Refresh link. No database change.
+- New texts: `Admin_Dash_*` (hy/ru/en). Files: `Shop.Core/Admin/DashboardModels.cs`, `Shop.Infrastructure/Admin/AdminDashboardService.cs`, `Areas/Admin/Controllers/HomeController.cs`, `Areas/Admin/Views/Home/Index.cshtml`, `Areas/Admin/Views/Shared/{_Chart,_OrderQuickActions}.cshtml`, `admin.css`.
+- Tests: 1031 pass (new: `AdminDashboardServiceTests` (urgency, sales by Armenian day and the 14-day chart, new customers, sorting of orders to pack, low stock, latest orders), `Web/AdminDashboardPageTests` (boxes, 3 languages, pack button, stock box)). Tests that use dates in the far future must use a year no other test uses (the analytics tests take 2030-2041; the dashboard tests use 2051-2053 and 2019).
+- Checked by eye in a real browser on the dev site (desktop and phone screenshots, 3 languages, stock Save button, pack button reachable). No test data was added to the dev database.
+
 ## How to run
 - `dotnet run --project src/Shop.Web --launch-profile http` then open http://localhost:5028 (see README.md; deployment: DEPLOY.md)
 - Tests: `dotnet test Shop.slnx`

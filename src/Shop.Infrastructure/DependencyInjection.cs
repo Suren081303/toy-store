@@ -37,6 +37,7 @@ public static class DependencyInjection
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IPaymentService, PaymentService>();
         services.AddScoped<IAdminOrderService, AdminOrderService>();
+        services.AddScoped<IAdminDashboardService, AdminDashboardService>();
         services.AddScoped<IAdminReturnService, AdminReturnService>();
         services.AddScoped<IAdminSettingsService, AdminSettingsService>();
         services.AddScoped<IAdminCategoryService, AdminCategoryService>();

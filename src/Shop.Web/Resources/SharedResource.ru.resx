@@ -351,6 +351,26 @@
   <data name="Admin_Nav_Settings" xml:space="preserve"><value>Настройки</value></data>
   <data name="Admin_ViewShop" xml:space="preserve"><value>В магазин</value></data>
   <data name="Admin_Dash_Hint" xml:space="preserve"><value>Нажмите на число, чтобы открыть список.</value></data>
+  <data name="Admin_Dash_PrintSlips" xml:space="preserve"><value>Печать накладных для сборки</value></data>
+  <data name="Admin_Dash_Updated" xml:space="preserve"><value>Обновлено в {0}</value></data>
+  <data name="Admin_Dash_Refresh" xml:space="preserve"><value>Обновить</value></data>
+  <data name="Admin_Dash_SalesToday" xml:space="preserve"><value>Продажи сегодня</value></data>
+  <data name="Admin_Dash_SalesYesterday" xml:space="preserve"><value>Вчера</value></data>
+  <data name="Admin_Dash_OrdersCount" xml:space="preserve"><value>Заказов: {0}</value></data>
+  <data name="Admin_Dash_NewCustomers" xml:space="preserve"><value>Новые клиенты сегодня</value></data>
+  <data name="Admin_Dash_ToPackTitle" xml:space="preserve"><value>Заказы к сборке</value></data>
+  <data name="Admin_Dash_ToPackNone" xml:space="preserve"><value>Собирать нечего. Отлично!</value></data>
+  <data name="Admin_Dash_ShowingOf" xml:space="preserve"><value>Показано {0} из {1}</value></data>
+  <data name="Admin_Dash_SeeAll" xml:space="preserve"><value>Показать все</value></data>
+  <data name="Admin_Dash_Late" xml:space="preserve"><value>Просрочен</value></data>
+  <data name="Admin_Dash_DueToday" xml:space="preserve"><value>Сегодня</value></data>
+  <data name="Admin_Dash_DueTomorrow" xml:space="preserve"><value>Завтра</value></data>
+  <data name="Admin_Dash_LowTitle" xml:space="preserve"><value>Заканчиваются</value></data>
+  <data name="Admin_Dash_LowNone" xml:space="preserve"><value>Ничего не заканчивается.</value></data>
+  <data name="Admin_Dash_OutOfStock" xml:space="preserve"><value>Нет в наличии</value></data>
+  <data name="Admin_Dash_LatestTitle" xml:space="preserve"><value>Последние заказы</value></data>
+  <data name="Admin_Dash_LatestNone" xml:space="preserve"><value>Заказов пока нет.</value></data>
+  <data name="Admin_Dash_AllOrders" xml:space="preserve"><value>Все заказы</value></data>
   <data name="Admin_Dash_OrdersToday" xml:space="preserve"><value>Заказов сегодня</value></data>
   <data name="Admin_Dash_ToPack" xml:space="preserve"><value>Нужно упаковать</value></data>
   <data name="Admin_Dash_AwaitingPayment" xml:space="preserve"><value>Ждут оплаты</value></data>

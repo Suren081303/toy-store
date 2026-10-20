@@ -5,16 +5,16 @@ namespace Shop.Web.Areas.Admin.Controllers;
 
 public class HomeController : AdminControllerBase
 {
-    private readonly IAdminOrderService _orders;
+    private readonly IAdminDashboardService _dashboard;
 
-    public HomeController(IAdminOrderService orders)
+    public HomeController(IAdminDashboardService dashboard)
     {
-        _orders = orders;
+        _dashboard = dashboard;
     }
 
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        return View(await _orders.GetDashboardAsync());
+        return View(await _dashboard.GetAsync(CurrentCulture.Code));
     }
 }

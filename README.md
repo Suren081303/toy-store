@@ -16,7 +16,7 @@ Built with .NET 10, ASP.NET Core MVC (Razor) and SQL Server.
 - Order page by link from the email, return requests within the return window, order history.
 
 **For the shop (admin panel at `/hy/Admin`)**
-- Dashboard, orders (change status, cancel, mark bank transfer received), returns and refunds.
+- Dashboard (numbers, sales today, orders to pack, 14-day chart, low stock, latest orders), orders (change status, cancel, mark bank transfer received), returns and refunds.
 - Products (3 languages, photos, stock, discounts, archive), categories, age groups.
 - Notifications bell and an email queue with retries; settings (delivery fee, free-delivery limit, delivery days, return window, time slots, bank details).
 - Analytics: sales, orders, customers, products, with comparison to the previous period and CSV export.

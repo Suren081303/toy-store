@@ -105,43 +105,7 @@ else
                     </td>
                     <td data-label="@Localizer["Admin_Col_Payment"].Value">@Localizer["Pay_" + row.Method]<br /><span class="muted">@Localizer["PayStatus_" + row.PaymentStatus]</span></td>
                     <td class="atable__num" data-label="@Localizer["Admin_Col_Total"].Value"><strong>@Money.Format(row.Total)</strong></td>
-                    <td data-label="@Localizer["Admin_Actions"].Value">
-                        @{
-                            // Same choices as on the order page: "ordered" is not offered by hand while the order waits for payment.
-                            var next = OrderStatusRules.AllowedNext(row.Status).Where(x => !(row.Status == OrderStatus.AwaitingPayment && x == OrderStatus.Ordered)).ToList();
-                            var canReceive = row.Method == PaymentMethod.BankTransfer && row.Status == OrderStatus.AwaitingPayment;
-                        }
-                        <div class="atable__actions">
-                            @if (canReceive)
-                            {
-                                <form method="post" asp-action="MarkReceived">
-                                    <input type="hidden" name="number" value="@row.Number" />
-                                    <input type="hidden" name="returnUrl" value="@returnUrl" />
-                                    <button type="submit" class="btn btn--primary btn--small" data-confirm="@Localizer["Admin_Confirm_Received"].Value">@Localizer["Admin_MarkReceived"]</button>
-                                </form>
-                            }
-                            @foreach (var step in next)
-                            {
-                                <form method="post" asp-action="ChangeStatus">
-                                    <input type="hidden" name="number" value="@row.Number" />
-                                    <input type="hidden" name="status" value="@step" />
-                                    <input type="hidden" name="returnUrl" value="@returnUrl" />
-                                    @if (step == OrderStatus.Cancelled)
-                                    {
-                                        <button type="submit" class="btn btn--danger btn--small" data-confirm="@Localizer["Admin_Confirm_Cancel"].Value">@Localizer["Admin_Set_" + step]</button>
-                                    }
-                                    else
-                                    {
-                                        <button type="submit" class="btn btn--primary btn--small">@Localizer["Admin_Set_" + step]</button>
-                                    }
-                                </form>
-                            }
-                            @if (!canReceive && next.Count == 0)
-                            {
-                                <span class="muted">—</span>
-                            }
-                        </div>
-                    </td>
+                    <td data-label="@Localizer["Admin_Actions"].Value"><partial name="_OrderQuickActions" model="(row, returnUrl)" /></td>
                 </tr>
             }
         </tbody>

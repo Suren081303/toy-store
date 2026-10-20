@@ -1,32 +1,208 @@
-@model DashboardCounts
+@using System.Globalization
+@model DashboardData
 @{
     ViewData["Title"] = Localizer["Admin_Nav_Dashboard"].Value;
+    var counts = Model.Counts;
     var today = ShopClock.Today(TimeProvider.System).ToString("yyyy-MM-dd");
+    var back = Context.Request.Path.Value; // buttons and stock boxes on this page bring you back here
+    string Day(DateOnly d) => d.ToString("d MMM", CultureInfo.CurrentCulture);
 }
 
-<h1 class="admin-title">@Localizer["Admin_Nav_Dashboard"]</h1>
-<p class="admin-hint">@Localizer["Admin_Dash_Hint"]</p>
+<div class="admin-toolbar">
+    <h1 class="admin-title">@Localizer["Admin_Nav_Dashboard"]</h1>
+    <div class="admin-buttons">
+        <a class="btn btn--ghost" asp-controller="Orders" asp-action="Slips" asp-route-status="@OrderStatus.Ordered" target="_blank" rel="noopener">@Localizer["Admin_Dash_PrintSlips"]</a>
+        <a class="btn btn--primary" asp-controller="PhoneOrders" asp-action="Index">@Localizer["Admin_NewPhoneOrder"]</a>
+    </div>
+</div>
+<p class="admin-hint">
+    @Localizer["Admin_Dash_Hint"]
+    <span class="dash-updated">@Localizer.GetString("Admin_Dash_Updated", ShopClock.ToShopTime(Model.GeneratedAt).ToString("HH:mm")).Value · <a class="link" asp-action="Index">@Localizer["Admin_Dash_Refresh"]</a></span>
+</p>
 
 <div class="admin-cards">
     <a class="admin-card" asp-controller="Orders" asp-action="Index" asp-route-from="@today" asp-route-to="@today">
-        <strong>@Model.OrdersToday</strong><span>@Localizer["Admin_Dash_OrdersToday"]</span>
+        <strong>@counts.OrdersToday</strong><span>@Localizer["Admin_Dash_OrdersToday"]</span>
     </a>
-    <a class="admin-card @(Model.ToPack > 0 ? "admin-card--attention" : "")" asp-controller="Orders" asp-action="Index" asp-route-status="@OrderStatus.Ordered">
-        <strong>@Model.ToPack</strong><span>@Localizer["Admin_Dash_ToPack"]</span>
+    <a class="admin-card @(counts.ToPack > 0 ? "admin-card--attention" : "")" asp-controller="Orders" asp-action="Index" asp-route-status="@OrderStatus.Ordered">
+        <strong>@counts.ToPack</strong><span>@Localizer["Admin_Dash_ToPack"]</span>
     </a>
     <a class="admin-card" asp-controller="Orders" asp-action="Index" asp-route-status="@OrderStatus.AwaitingPayment">
-        <strong>@Model.AwaitingPayment</strong><span>@Localizer["Admin_Dash_AwaitingPayment"]</span>
+        <strong>@counts.AwaitingPayment</strong><span>@Localizer["Admin_Dash_AwaitingPayment"]</span>
     </a>
-    <a class="admin-card @(Model.OpenReturns > 0 ? "admin-card--attention" : "")" asp-controller="Returns" asp-action="Index">
-        <strong>@Model.OpenReturns</strong><span>@Localizer["Admin_Dash_OpenReturns"]</span>
+    <a class="admin-card @(counts.OpenReturns > 0 ? "admin-card--attention" : "")" asp-controller="Returns" asp-action="Index">
+        <strong>@counts.OpenReturns</strong><span>@Localizer["Admin_Dash_OpenReturns"]</span>
     </a>
-    <a class="admin-card @(Model.RefundsNeeded > 0 ? "admin-card--alert" : "")" asp-controller="Orders" asp-action="Index" asp-route-refundNeeded="true">
-        <strong>@Model.RefundsNeeded</strong><span>@Localizer["Admin_Dash_RefundsNeeded"]</span>
+    <a class="admin-card @(counts.RefundsNeeded > 0 ? "admin-card--alert" : "")" asp-controller="Orders" asp-action="Index" asp-route-refundNeeded="true">
+        <strong>@counts.RefundsNeeded</strong><span>@Localizer["Admin_Dash_RefundsNeeded"]</span>
     </a>
-    <a class="admin-card @(Model.FailedEmails > 0 ? "admin-card--alert" : "")" asp-controller="Emails" asp-action="Index" asp-route-status="@Shop.Core.Notifications.OutboxStatus.Failed">
-        <strong>@Model.FailedEmails</strong><span>@Localizer["Admin_Dash_FailedEmails"]</span>
+    <a class="admin-card @(counts.FailedEmails > 0 ? "admin-card--alert" : "")" asp-controller="Emails" asp-action="Index" asp-route-status="@Shop.Core.Notifications.OutboxStatus.Failed">
+        <strong>@counts.FailedEmails</strong><span>@Localizer["Admin_Dash_FailedEmails"]</span>
     </a>
-    <a class="admin-card @(Model.LowStock > 0 ? "admin-card--attention" : "")" asp-controller="Products" asp-action="Index" asp-route-lowStock="true">
-        <strong>@Model.LowStock</strong><span>@Localizer["Admin_Dash_LowStock"]</span>
+    <a class="admin-card @(counts.LowStock > 0 ? "admin-card--attention" : "")" asp-controller="Products" asp-action="Index" asp-route-lowStock="true">
+        <strong>@counts.LowStock</strong><span>@Localizer["Admin_Dash_LowStock"]</span>
     </a>
+</div>
+
+@* Sales of confirmed orders (ordered, packed, delivered) by Armenian day, like the analytics. *@
+<div class="dash-sales">
+    <div class="dash-sale">
+        <span>@Localizer["Admin_Dash_SalesToday"]</span>
+        <strong>@Money.Format(Model.Sales.SalesToday)</strong>
+        <span>@Localizer.GetString("Admin_Dash_OrdersCount", Model.Sales.OrdersToday).Value</span>
+    </div>
+    <div class="dash-sale">
+        <span>@Localizer["Admin_Dash_SalesYesterday"]</span>
+        <strong>@Money.Format(Model.Sales.SalesYesterday)</strong>
+        <span>@Localizer.GetString("Admin_Dash_OrdersCount", Model.Sales.OrdersYesterday).Value</span>
+    </div>
+    <a class="dash-sale" asp-controller="Customers" asp-action="Index" asp-route-sort="Newest">
+        <span>@Localizer["Admin_Dash_NewCustomers"]</span>
+        <strong>@Model.Sales.NewCustomersToday</strong>
+        <span>&nbsp;</span>
+    </a>
+</div>
+
+<div class="dash-grid">
+    <section class="panel dash-pack">
+        <h2 class="admin-h2">@Localizer["Admin_Dash_ToPackTitle"] <span class="muted">(@Model.ToPackTotal)</span></h2>
+        @if (Model.ToPack.Count == 0)
+        {
+            <p class="muted">@Localizer["Admin_Dash_ToPackNone"]</p>
+        }
+        else
+        {
+            <table class="atable atable--plain">
+                <tbody>
+                    @foreach (var row in Model.ToPack)
+                    {
+                        <tr>
+                            <td>
+                                <a class="link" asp-controller="Orders" asp-action="Details" asp-route-number="@row.Number"><strong>#@row.Number</strong></a>
+                                @if (row.IsPhoneOrder)
+                                {
+                                    <span class="flag">@Localizer["Admin_Flag_Phone"]</span>
+                                }
+                                <br /><span class="muted">@row.CustomerName · @row.Phone</span>
+                            </td>
+                            <td>
+                                @Day(row.DeliveryDate), @row.DeliverySlot<br />
+                                @switch (row.Urgency)
+                                {
+                                    case DeliveryUrgency.Late:
+                                        <span class="flag flag--alert">@Localizer["Admin_Dash_Late"]</span>
+                                        break;
+                                    case DeliveryUrgency.Today:
+                                        <span class="flag flag--attention">@Localizer["Admin_Dash_DueToday"]</span>
+                                        break;
+                                    case DeliveryUrgency.Tomorrow:
+                                        <span class="flag">@Localizer["Admin_Dash_DueTomorrow"]</span>
+                                        break;
+                                }
+                            </td>
+                            <td class="atable__num"><strong>@Money.Format(row.Total)</strong></td>
+                            <td class="atable__actions">
+                                <form method="post" asp-controller="Orders" asp-action="ChangeStatus">
+                                    <input type="hidden" name="number" value="@row.Number" />
+                                    <input type="hidden" name="status" value="@OrderStatus.Packed" />
+                                    <input type="hidden" name="returnUrl" value="@back" />
+                                    <button type="submit" class="btn btn--primary btn--small">@Localizer["Admin_Set_Packed"]</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (Model.ToPackTotal > Model.ToPack.Count)
+            {
+                <p class="muted">@Localizer.GetString("Admin_Dash_ShowingOf", Model.ToPack.Count, Model.ToPackTotal).Value · <a class="link" asp-controller="Orders" asp-action="Index" asp-route-status="@OrderStatus.Ordered">@Localizer["Admin_Dash_SeeAll"]</a></p>
+            }
+        }
+    </section>
+
+    <div class="dash-chart">
+        <partial name="_Chart" model="AnalyticsChart.Bars(Model.Days)" />
+    </div>
+
+    <section class="panel dash-low">
+        <h2 class="admin-h2">@Localizer["Admin_Dash_LowTitle"] <span class="muted">(@Model.LowStockTotal)</span></h2>
+        @if (Model.LowStock.Count == 0)
+        {
+            <p class="muted">@Localizer["Admin_Dash_LowNone"]</p>
+        }
+        else
+        {
+            <table class="atable atable--plain">
+                <tbody>
+                    @foreach (var row in Model.LowStock)
+                    {
+                        <tr>
+                            <td>
+                                <a class="link" asp-controller="Products" asp-action="Edit" asp-route-id="@row.Id"><strong>@row.Name</strong></a><br />
+                                <span class="muted">@row.Sku</span>
+                                @if (row.Stock == 0)
+                                {
+                                    <span class="flag flag--alert">@Localizer["Admin_Dash_OutOfStock"]</span>
+                                }
+                            </td>
+                            <td class="atable__actions">
+                                <form method="post" asp-controller="Products" asp-action="SetStock" class="admin-stock">
+                                    <input type="hidden" name="id" value="@row.Id" />
+                                    <input type="hidden" name="back" value="@back" />
+                                    <input class="input input--small input--warn" type="number" name="stock" min="0" max="100000" step="1" value="@row.Stock" aria-label="@Localizer["Admin_Prod_Stock"].Value" />
+                                    <button type="submit" class="btn btn--ghost btn--small">@Localizer["Admin_Save"]</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (Model.LowStockTotal > Model.LowStock.Count)
+            {
+                <p class="muted">@Localizer.GetString("Admin_Dash_ShowingOf", Model.LowStock.Count, Model.LowStockTotal).Value · <a class="link" asp-controller="Products" asp-action="Index" asp-route-lowStock="true">@Localizer["Admin_Dash_SeeAll"]</a></p>
+            }
+        }
+    </section>
+
+    <section class="panel dash-latest">
+        <h2 class="admin-h2">@Localizer["Admin_Dash_LatestTitle"]</h2>
+        @if (Model.LatestOrders.Count == 0)
+        {
+            <p class="muted">@Localizer["Admin_Dash_LatestNone"]</p>
+        }
+        else
+        {
+            <table class="atable atable--plain">
+                <tbody>
+                    @foreach (var row in Model.LatestOrders)
+                    {
+                        <tr>
+                            <td>
+                                <a class="link" asp-controller="Orders" asp-action="Details" asp-route-number="@row.Number"><strong>#@row.Number</strong></a>
+                                @if (row.IsPhoneOrder)
+                                {
+                                    <span class="flag">@Localizer["Admin_Flag_Phone"]</span>
+                                }
+                                <br /><span class="muted">@row.CustomerName</span>
+                            </td>
+                            <td>
+                                <span class="status status--@row.Status.ToString().ToLowerInvariant()">@Localizer["Status_" + row.Status]</span>
+                                @if (row.NeedsRefund)
+                                {
+                                    <span class="flag flag--alert">@Localizer["Admin_Flag_Refund"]</span>
+                                }
+                                @if (row.OpenReturn)
+                                {
+                                    <span class="flag">@Localizer["Admin_Flag_Return"]</span>
+                                }
+                            </td>
+                            <td class="atable__num"><strong>@Money.Format(row.Total)</strong></td>
+                            <td><partial name="_OrderQuickActions" model="(row, back)" /></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <p class="muted"><a class="link" asp-controller="Orders" asp-action="Index">@Localizer["Admin_Dash_AllOrders"]</a></p>
+        }
+    </section>
 </div>

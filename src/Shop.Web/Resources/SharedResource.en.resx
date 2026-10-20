@@ -351,6 +351,26 @@
   <data name="Admin_Nav_Settings" xml:space="preserve"><value>Settings</value></data>
   <data name="Admin_ViewShop" xml:space="preserve"><value>View shop</value></data>
   <data name="Admin_Dash_Hint" xml:space="preserve"><value>Click a number to see the matching list.</value></data>
+  <data name="Admin_Dash_PrintSlips" xml:space="preserve"><value>Print slips for orders to pack</value></data>
+  <data name="Admin_Dash_Updated" xml:space="preserve"><value>Updated at {0}</value></data>
+  <data name="Admin_Dash_Refresh" xml:space="preserve"><value>Refresh</value></data>
+  <data name="Admin_Dash_SalesToday" xml:space="preserve"><value>Sales today</value></data>
+  <data name="Admin_Dash_SalesYesterday" xml:space="preserve"><value>Yesterday</value></data>
+  <data name="Admin_Dash_OrdersCount" xml:space="preserve"><value>{0} orders</value></data>
+  <data name="Admin_Dash_NewCustomers" xml:space="preserve"><value>New customers today</value></data>
+  <data name="Admin_Dash_ToPackTitle" xml:space="preserve"><value>Orders to pack</value></data>
+  <data name="Admin_Dash_ToPackNone" xml:space="preserve"><value>Nothing to pack. Well done!</value></data>
+  <data name="Admin_Dash_ShowingOf" xml:space="preserve"><value>Showing {0} of {1}</value></data>
+  <data name="Admin_Dash_SeeAll" xml:space="preserve"><value>See all</value></data>
+  <data name="Admin_Dash_Late" xml:space="preserve"><value>Late</value></data>
+  <data name="Admin_Dash_DueToday" xml:space="preserve"><value>Today</value></data>
+  <data name="Admin_Dash_DueTomorrow" xml:space="preserve"><value>Tomorrow</value></data>
+  <data name="Admin_Dash_LowTitle" xml:space="preserve"><value>Low stock</value></data>
+  <data name="Admin_Dash_LowNone" xml:space="preserve"><value>Nothing is running low.</value></data>
+  <data name="Admin_Dash_OutOfStock" xml:space="preserve"><value>Out of stock</value></data>
+  <data name="Admin_Dash_LatestTitle" xml:space="preserve"><value>Latest orders</value></data>
+  <data name="Admin_Dash_LatestNone" xml:space="preserve"><value>No orders yet.</value></data>
+  <data name="Admin_Dash_AllOrders" xml:space="preserve"><value>All orders</value></data>
   <data name="Admin_Dash_OrdersToday" xml:space="preserve"><value>Orders today</value></data>
   <data name="Admin_Dash_ToPack" xml:space="preserve"><value>To pack</value></data>
   <data name="Admin_Dash_AwaitingPayment" xml:space="preserve"><value>Awaiting payment</value></data>
