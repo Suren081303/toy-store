@@ -377,14 +377,13 @@ public class LaunchFlowTests : CheckoutTestBase
     }
 
     [Fact]
-    public async Task AProductWithOnlyAPlaceholderPicture_HasNoPreviewImage()
+    public async Task AProductWithOnlyAPlaceholderPicture_IsSharedWithTheShopLogo()
     {
         var productId = await FindProductIdAsync(p => p.Images.Any() && p.Images.All(i => i.Path.EndsWith(".svg")));
 
         var html = await GetAsync($"/en/Products/Details/{productId}");
 
-        Assert.Equal(string.Empty, Meta(html, "property", "og:image"));
-        Assert.DoesNotContain("twitter:card", html);
+        Assert.Equal("http://localhost/images/logo/og-image.jpg", Meta(html, "property", "og:image"));
         Assert.DoesNotContain("\"image\"", StructuredData.Match(html).Groups[1].Value);
     }
 

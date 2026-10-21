@@ -29,7 +29,7 @@ In an environment variable `:` is written `__`.
 | `Shop__BaseUrl` | `https://shop.example.am` | **Required.** https, no path |
 | `Shop__Email` | `info@shop.example.am` | **Required.** Contact address; new-order notices go here |
 | `Email__Provider` | `Smtp` | **Required** (otherwise emails are only written to files) |
-| `Email__FromAddress` / `Email__FromName` | `no-reply@shop.example.am` / `Shop` | **Required** address. Use an address your mail provider allows you to send from |
+| `Email__FromAddress` / `Email__FromName` | `no-reply@shop.example.am` / `WONDER` | **Required** address. Use an address your mail provider allows you to send from |
 | `Email__Smtp__Host` / `Port` / `Security` | `smtp.example.com` / `587` / `StartTls` | Security: `StartTls` (587) or `SslOnConnect` (465). `None` is refused |
 | `Email__Smtp__UserName` / `Password` | | The mail account |
 | `Admin__Email` / `Admin__Password` | | Creates the first admin at start. **Remove the password after the first start** |

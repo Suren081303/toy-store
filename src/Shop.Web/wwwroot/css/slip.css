@@ -9,6 +9,8 @@ body { margin: 0; padding: 16px; background: #eee; color: #111; font: 14px/1.4 A
 
 .slip { max-width: 800px; margin: 0 auto 16px; padding: 24px; background: #fff; border: 1px solid #ccc; }
 .slip__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding-bottom: 12px; border-bottom: 2px solid #111; }
+.slip__brand { display: flex; align-items: center; gap: 12px; }
+.slip__logo { width: 56px; height: 56px; flex: none; }
 .slip__shop { margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: #555; }
 .slip__number { margin: 2px 0; font-size: 26px; }
 .slip__muted { color: #555; font-size: 12px; margin: 0; }

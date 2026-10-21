@@ -260,6 +260,15 @@
 - Tests: 1031 pass (new: `AdminDashboardServiceTests` (urgency, sales by Armenian day and the 14-day chart, new customers, sorting of orders to pack, low stock, latest orders), `Web/AdminDashboardPageTests` (boxes, 3 languages, pack button, stock box)). Tests that use dates in the far future must use a year no other test uses (the analytics tests take 2030-2041; the dashboard tests use 2051-2053 and 2019).
 - Checked by eye in a real browser on the dev site (desktop and phone screenshots, 3 languages, stock Save button, pack button reachable). No test data was added to the dev database.
 
+## Phase 18: Name and logo WONDER (done)
+- Name: `Shop:Name` and `Email:FromName` = `WONDER` (appsettings.json). On the server, `Shop__Name` / `Email__FromName` must be changed too if they are set there. The slogan text (`Tagline`) is not changed (it matches "A world of play" in the logo).
+- Logo files in `wwwroot/images/logo` (the originals `logo.png` and `logo_without_background.png` are not changed; the copies are made by a Pillow script): `logo-mark.png` (144px, the rainbow and the bear from the transparent logo, the other toys made transparent) in the header, footer, menu and packing slip (`_Logo.cshtml`, `Slip.cshtml`); `logo-hero.webp` (800px, whole transparent logo) on the home page instead of the emojis; `og-image.jpg` (1200x630, from `logo.png`) for shared links of pages without their own picture (a product with only a placeholder picture now gets it too).
+- Icons: `favicon.ico` (16/32/48) and `apple-touch-icon.png` (180, on cream) from the mark, in the shop, admin and error layouts; `favicon.svg` removed.
+- Colors not changed (purple). CSS: `.logo` without rounded corners, home hero without the gradient box and emoji styles, `.slip__brand` / `.slip__logo`.
+- Tests: 1031 pass (changed: the email subject `Order #N - WONDER`; a product with only a placeholder picture is shared with the shop logo).
+- Checked by eye in Edge headless (desktop and phone width, hy/en/ru, the files are served, `favicon.svg` gives 404). The packing slip was checked with a sample page using the real CSS (the dev admin password in appsettings.Development.json does not match the database, so no admin login).
+- Device test (Edge DevTools, 8 sizes 320-1920, hy/ru/en, guest/customer/admin, 432 views): logos, name, icons, statuses fine, no console errors. Problem found: "WONDER" wraps in the phone header at 320 and 360 px (fix not applied yet, waiting for a choice). Sideways scroll in parts not changed in this phase: shop home in hy at 320 (the "All categories" link and the bottom bar), admin dashboard on phones, packing slip table on phones, admin order/product tables at 768.
+
 ## How to run
 - `dotnet run --project src/Shop.Web --launch-profile http` then open http://localhost:5028 (see README.md; deployment: DEPLOY.md)
 - Tests: `dotnet test Shop.slnx`

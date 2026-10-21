@@ -106,7 +106,7 @@ public class NotificationFlowTests : CheckoutTestBase
         await Fixture.Factory.FlushEmailsAsync();
 
         var customer = Assert.Single(Fixture.Factory.Emails.To(email));
-        Assert.Equal($"Order #{number} - Shop", customer.Subject);
+        Assert.Equal($"Order #{number} - WONDER", customer.Subject);
         Assert.Contains($"http://localhost/en/Checkout/Done?number={number}&amp;key={key}", customer.Html); // a complete address
 
         // The shop's notice is in Armenian and links to the admin page.

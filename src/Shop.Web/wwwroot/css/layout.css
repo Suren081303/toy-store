@@ -37,7 +37,7 @@
 .header__row { display: flex; align-items: center; gap: 8px; min-height: 60px; }
 .header__menu { order: -1; margin-left: -10px; }
 .brand { display: flex; align-items: center; gap: 8px; min-width: 0; min-height: 44px; margin-right: auto; }
-.logo { width: 36px; height: 36px; flex: none; border-radius: 11px; }
+.logo { width: 36px; height: 36px; flex: none; }
 .brand__text { display: flex; flex-direction: column; min-width: 0; line-height: 1; }
 .brand__name { font-size: 24px; font-weight: 900; letter-spacing: .5px; color: var(--purple); }
 .brand__tag { display: none; margin-top: 4px; font-size: 10px; color: var(--muted); }

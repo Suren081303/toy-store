@@ -1,9 +1,10 @@
-# Shop - online toy store
+# WONDER - online toy store
 
 A mobile-first online store for toys, in Armenian (default), Russian and English. Prices are in Armenian drams (AMD).
 Built with .NET 10, ASP.NET Core MVC (Razor) and SQL Server.
 
-> "Shop" is a placeholder name. The shop's name, address, phone and so on are settings (see [Settings](#settings)).
+> The shop's name (WONDER), address, phone and so on are settings (see [Settings](#settings)); the code projects keep the name `Shop.*`.
+> The logo files are in `src/Shop.Web/wwwroot/images/logo`: the two originals and the web copies made from them (`logo-mark.png` for the header, footer, menu and packing slip; `logo-hero.webp` for the home page; `og-image.jpg` for shared links), plus `favicon.ico` and `apple-touch-icon.png` in `wwwroot`.
 
 ## What it does
 

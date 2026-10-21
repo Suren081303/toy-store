@@ -34,10 +34,13 @@
     {
         <article class="slip">
             <header class="slip__head">
-                <div>
-                    <p class="slip__shop">@Configuration["Shop:Name"] · @Localizer["Slip_Title"]</p>
-                    <h1 class="slip__number">@Localizer["Order_Number"] #@slip.Number</h1>
-                    <p class="slip__muted">@Localizer["Order_Placed"] @When(slip.CreatedAt)@(slip.IsPhoneOrder ? " · " + Localizer["Admin_Flag_Phone"].Value : "")</p>
+                <div class="slip__brand">
+                    <img class="slip__logo" src="~/images/logo/logo-mark.png" asp-append-version="true" alt="" width="144" height="144" />
+                    <div>
+                        <p class="slip__shop">@Configuration["Shop:Name"] · @Localizer["Slip_Title"]</p>
+                        <h1 class="slip__number">@Localizer["Order_Number"] #@slip.Number</h1>
+                        <p class="slip__muted">@Localizer["Order_Placed"] @When(slip.CreatedAt)@(slip.IsPhoneOrder ? " · " + Localizer["Admin_Flag_Phone"].Value : "")</p>
+                    </div>
                 </div>
                 <div class="slip__when">
                     <strong>@slip.DeliveryDate.ToString("dddd, d MMMM yyyy", CultureInfo.CurrentCulture)</strong><br />

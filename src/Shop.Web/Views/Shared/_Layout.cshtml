@@ -11,7 +11,8 @@
     var origin = Shop.Web.Seo.SeoLinks.Origin(Context, Configuration);
     var noIndex = Shop.Web.Seo.SeoLinks.IsPrivate(controller, action, Context.Request.QueryString.HasValue);
     var canonical = noIndex ? null : Shop.Web.Seo.SeoLinks.Canonical(origin, Context.Request, controller, action);
-    var ogImage = ViewData["OgImage"] as string;
+    // Pages without a picture of their own are shared with the shop logo.
+    var ogImage = ViewData["OgImage"] as string ?? "/images/logo/og-image.jpg";
     if (ogImage is not null && !ogImage.StartsWith("http", StringComparison.OrdinalIgnoreCase))
     {
         ogImage = origin + ogImage;
@@ -61,7 +62,8 @@
         <meta name="twitter:card" content="summary_large_image" />
     }
     @await RenderSectionAsync("Head", required: false)
-    <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="~/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href="~/apple-touch-icon.png" />
     @* Read by site.js when it sends the heart (favorite) and add-to-cart requests. *@
     <meta name="request-verification-token" content="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
     @foreach (var code in new[] { "hy", "ru", "en" })
